@@ -110,18 +110,6 @@ export default function ListSheet({ open, onClose, list, mode, setMode, stores, 
           </button>
         </div>
       ) : null}
-      {mode === 'match' && list.matchStores.length > 0 && (
-        <div className="-mt-2 mb-4">
-          <p className="mb-1.5 text-[11px] text-stone-500">Check against each store's full flyer:</p>
-          <div className="flex flex-wrap gap-1.5">
-            {list.matchStores.map((s) => (
-              <a key={s} href={flyerUrl(s)} target="_blank" rel="noreferrer" className={`rounded-full px-2.5 py-1 text-xs font-medium ${storeTint(s)}`}>
-                {s} ↗
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
       {mode === 'single' && (
         <div className="mb-4 rounded-2xl bg-stone-100 p-3">
           <label className="flex items-center gap-2 text-sm">
@@ -212,7 +200,7 @@ export default function ListSheet({ open, onClose, list, mode, setMode, stores, 
           </p>
         )}
       </div>
-      <FlyerGallery open={gallery} flyers={list.flyers} store={list.store} onClose={() => setGallery(false)} />
+      <FlyerGallery open={gallery} flyers={list.flyers} stores={list.matchStores} store={list.store} onClose={() => setGallery(false)} />
     </Sheet>
   )
 }

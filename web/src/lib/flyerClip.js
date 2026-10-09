@@ -3,10 +3,10 @@ const TILE = 256
 const SHARP = 800 // px of source width to aim for, so it stays crisp on phones
 
 /** Tiles covering `clip.box` at a resolution that's sharp enough, positioned in % of the box. */
-export function clipTiles(clip) {
+export function clipTiles(clip, sharp = SHARP) {
   const [l, t, r, b] = clip.box
   // clip.res lists zoom levels from smallest; level k shows the flyer at 1/res[k] scale.
-  let k = clip.res.findIndex((z) => (r - l) / z >= SHARP)
+  let k = clip.res.findIndex((z) => (r - l) / z >= sharp)
   if (k < 0) k = clip.res.length - 1
   const s = 1 / clip.res[k]
   const [L, T, R, B, H] = [l * s, t * s, r * s, b * s, clip.h * s]
