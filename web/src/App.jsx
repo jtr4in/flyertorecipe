@@ -48,7 +48,8 @@ export default function App() {
 
   const { plan, list, dealCount } = useMemo(() => {
     if (!prefs) return { plan: [], list: null, dealCount: 0 }
-    const deals = activeDeals(data.deals, { stores: prefs.stores })
+    // Price matchers can use any store's flyer price at their own store.
+    const deals = activeDeals(data.deals, { stores: prefs.priceMatch ? [] : prefs.stores })
     const plan = planWeek(RECIPES, deals, prefs)
     return { plan, list: buildShoppingList(plan, deals, prefs), dealCount: deals.length }
   }, [prefs, data.deals])

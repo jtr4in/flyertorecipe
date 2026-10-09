@@ -77,6 +77,21 @@ export default function Preferences({ prefs, merchants, onChange }) {
           ))}
         </div>
       </fieldset>
+
+      <label className="flex items-start gap-3">
+        <input
+          type="checkbox"
+          className="mt-1 size-4 accent-green-700"
+          checked={!!prefs.priceMatch}
+          onChange={(e) => set({ priceMatch: e.target.checked })}
+        />
+        <span>
+          <span className="text-sm font-medium">I price match</span>
+          <span className="block text-xs text-stone-500">
+            Use every store's flyer prices, and show the flyer image to bring to the till.
+          </span>
+        </span>
+      </label>
     </form>
   )
 }

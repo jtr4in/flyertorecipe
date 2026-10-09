@@ -9,6 +9,7 @@ export const DEFAULT_PREFS = {
   mealsPerWeek: 5,
   diet: [],
   stores: [],
+  priceMatch: false,
 }
 
 const PREFS_KEY = 'f2r.prefs'

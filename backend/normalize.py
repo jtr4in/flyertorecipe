@@ -99,7 +99,9 @@ def normalize(row: dict, fetched_at: datetime | None = None) -> dict | None:
         "queries": [row["query"]] if row.get("query") else [],
         "validFrom": row.get("validFrom"),
         "validTo": row.get("validTo"),
-        "imageUrl": row.get("imageUrl"),
+        "imageUrl": row.get("imageUrl"),  # flyer clipping, shown for price matching
+        "saleStory": row.get("saleStory"),
+        "flyerId": row.get("flyerId"),
         "fetchedAt": (fetched_at or datetime.now(timezone.utc)).isoformat(),
     }
 

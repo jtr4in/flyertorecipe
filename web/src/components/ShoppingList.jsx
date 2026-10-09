@@ -1,14 +1,17 @@
 import { useState } from 'react'
+import FlyerProof from './FlyerProof'
 
 const fmtQty = (q, unit) => `${Number.isInteger(q) ? q : q.toFixed(2).replace(/0$/, '')} ${unit}`
 
 export default function ShoppingList({ list }) {
   const [checked, setChecked] = useState({})
+  const [proof, setProof] = useState(null)
   if (!list || !list.itemCount) return <p className="text-stone-500">Your list is empty.</p>
   const toggle = (k) => setChecked((c) => ({ ...c, [k]: !c[k] }))
 
   return (
     <div className="space-y-5">
+      <FlyerProof deal={proof} onClose={() => setProof(null)} />
       <p className="text-sm text-stone-600">
         {list.onSale} of {list.itemCount} items are on sale this week. Savings are estimated per pack from flyer
         prices.
@@ -37,6 +40,18 @@ export default function ShoppingList({ list }) {
                         </span>
                       )}
                     </span>
+                    {it.deal && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          setProof(it.deal)
+                        }}
+                        className="shrink-0 rounded-md border border-stone-300 px-2 py-1 text-xs font-medium text-stone-700"
+                      >
+                        Flyer
+                      </button>
+                    )}
                     {it.savings > 0 && (
                       <span className="shrink-0 text-sm font-medium text-green-700">−${it.savings.toFixed(2)}</span>
                     )}
