@@ -19,6 +19,9 @@ import { extraDeals, watchMatches, withExtras } from './lib/extras'
 import { followMatch, matchableDeals, tidyMatch } from './lib/priceMatch'
 import { placeNeeds, wantedItems, withNeeds } from './lib/needs'
 import NeedsSheet from './components/NeedsSheet'
+import PlanBuilder from './components/PlanBuilder'
+import RecipesSheet from './components/RecipesSheet'
+import { withSchedule } from './components/PlanSteps'
 import {
   createHousehold, currentHousehold, householdLink, leaveHousehold, saveHousehold, saveHouseholdWeek, setHouseholdCheck, sharedPrefs, watchHousehold,
 } from './lib/household'
@@ -39,6 +42,7 @@ export default function App() {
   const [welcome, setWelcome] = useState(false)
   const [touring, setTouring] = useState(false)
   const [toast, setToast] = useState(null)
+  const [building, setBuilding] = useState(false)
   const flash = useCallback((msg) => {
     setToast(msg)
     setTimeout(() => setToast((t) => (t === msg ? null : t)), 2500)
@@ -242,6 +246,18 @@ export default function App() {
       return { ...w, overrides }
     })
   const resetWeek = () => editWeek((w) => ({ ...w, overrides: {}, avoid: [] }))
+  // The Build my week quiz: new schedule and likes, and a fresh plan from them.
+  const buildWeek = ({ schedule, likes }) => {
+    updatePrefs(withSchedule({ ...prefs, likes }, schedule))
+    resetWeek()
+    setBuilding(false)
+    flash('Your new week is ready')
+  }
+  const addRecipe = (idea, day) => {
+    const meal = idea.template.meal
+    override(`${day.key}|${meal}`, (o) => ({ ...o, skip: false, on: true, template: idea.template.id, fills: idea.fills }))
+    flash(`Added to ${day.short === 'Today' ? 'today' : day.short}'s ${meal}`)
+  }
   const toggleChip = (id) => setChips((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]))
 
   // A card's swap covers one meal; with "swap it everywhere" on, every meal using that item.
@@ -353,6 +369,24 @@ export default function App() {
         <p className="text-stone-500">Loading deals…</p>
       ) : (
         <>
+          <div className="mb-3 grid grid-cols-2 gap-2">
+            <button
+              data-tour="build"
+              onClick={() => setBuilding(true)}
+              className="rounded-2xl border border-stone-200 bg-white px-3 py-2.5 text-left text-sm font-semibold shadow-sm"
+            >
+              🧩 Build my week
+              <span className="block text-xs font-normal text-stone-500">Pick days, meats, carbs, veg</span>
+            </button>
+            <button
+              data-tour="recipes"
+              onClick={() => setSheet('recipes')}
+              className="rounded-2xl border border-stone-200 bg-white px-3 py-2.5 text-left text-sm font-semibold shadow-sm"
+            >
+              📖 Browse recipes
+              <span className="block text-xs font-normal text-stone-500">Add dishes to any day</span>
+            </button>
+          </div>
           <WeekStrip plan={plan} selected={day?.key} onPick={setSelected} />
           {day && (
             <section className="mt-4" aria-label={day.date.toLocaleDateString('en-CA', { weekday: 'long' })}>
@@ -373,7 +407,16 @@ export default function App() {
                 )}
               </div>
               <div className="space-y-3">
-                {MEALS.filter((m) => enabled.includes(m.id)).map((m) => {
+                {!Object.values(day.meals).some((m) => !m.off) && (
+                  <p className="rounded-2xl border border-dashed border-stone-300 px-4 py-3 text-sm text-stone-500">
+                    No meals on your schedule this day.{' '}
+                    <button onClick={() => setSheet('recipes')} className="font-medium text-green-700">
+                      Browse recipes
+                    </button>{' '}
+                    to add one.
+                  </p>
+                )}
+                {MEALS.filter((m) => day.meals[m.id] && !day.meals[m.id].off).map((m) => {
                   const entry = day.meals[m.id]
                   const key = `${day.key}|${m.id}`
                   return (
@@ -388,7 +431,7 @@ export default function App() {
                       }}
                       onAnother={() => setIdeaFor({ entry, label: m.label })}
                       onSkip={() => override(key, (o) => ({ ...o, skip: true }))}
-                      onRestore={() => override(key, (o) => ({ ...o, skip: false }))}
+                      onRestore={() => override(key, (o) => ({ ...o, skip: false, on: true }))}
                       onCook={() => override(key, (o) => ({ ...o, cook: true }))}
                       onProof={setProof}
                     />
@@ -576,6 +619,8 @@ export default function App() {
         }}
         onClose={() => setIdeaFor(null)}
       />
+      <RecipesSheet open={sheet === 'recipes'} onClose={() => setSheet(null)} deals={deals} prefs={prefs} plan={plan} onAdd={addRecipe} />
+      {building && <PlanBuilder prefs={prefs} onDone={buildWeek} onClose={() => setBuilding(false)} />}
       {printing && <PrintWeek plan={plan} list={list} meals={MEALS.filter((m) => enabled.includes(m.id))} prefs={prefs} onClose={() => setPrinting(false)} />}
       <FlyerProof deal={proof} onClose={() => setProof(null)} />
       {welcome && <Welcome prefs={prefs} merchants={merchants} needsPostal={firebaseEnabled} onChange={updatePrefs} onDone={finishWelcome} />}

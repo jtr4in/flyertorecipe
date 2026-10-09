@@ -1,6 +1,6 @@
 import { DIET_TAGS } from '../lib/aisles'
-import { DEFAULT_PREFS, fsa } from '../lib/data'
-import { MEALS } from '../data/templates'
+import { fsa } from '../lib/data'
+import { fullSchedule, ScheduleGrid, withSchedule } from './PlanSteps'
 import { MATCH_STORES, PRICE_MATCH } from '../lib/priceMatch'
 
 const Chip = ({ on, children, ...props }) => (
@@ -19,7 +19,6 @@ const toggle = (list, v) => (list.includes(v) ? list.filter((x) => x !== v) : [.
 
 export default function Preferences({ prefs, merchants, onChange }) {
   const set = (patch) => onChange({ ...prefs, ...patch })
-  const meals = prefs.meals || DEFAULT_PREFS.meals
   const validPostal = !prefs.postalCode || fsa(prefs.postalCode)
   const match = PRICE_MATCH[prefs.matchAt] || null
 
@@ -105,17 +104,8 @@ export default function Preferences({ prefs, merchants, onChange }) {
 
       <fieldset>
         <legend className="text-sm font-medium">Meals to plan</legend>
-        <div className="mt-2 flex flex-wrap gap-2">
-          {MEALS.map((m) => (
-            <Chip
-              key={m.id}
-              on={meals.includes(m.id)}
-              onClick={() => set({ meals: MEALS.map((x) => x.id).filter((id) => (id === m.id ? !meals.includes(id) : meals.includes(id))) })}
-            >
-              {m.emoji} {m.label}
-            </Chip>
-          ))}
-        </div>
+        <p className="text-xs text-stone-500">Tick the meals for each day. Tap a meal at the top for the whole week.</p>
+        <ScheduleGrid schedule={fullSchedule(prefs)} onChange={(schedule) => onChange(withSchedule(prefs, schedule))} />
       </fieldset>
 
       <label className="flex items-start gap-3">

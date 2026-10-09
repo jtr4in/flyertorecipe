@@ -1,6 +1,7 @@
 // Flyer-first meal planner. Meal templates ("Sheet-pan {protein} with {veg} & {starch}") are
 // filled with whatever is on sale this week, so nearly every ingredient comes from a flyer.
 // Pure functions, no Firebase, so it is unit-testable.
+import { dislikedItems, scheduled } from './likes'
 import { AISLES } from './aisles'
 import { PANTRY_AISLES, pantryInfo } from '../data/pantry'
 import { CATALOG } from '../data/ingredients'
@@ -293,6 +294,8 @@ export function planWeek(deals, prefs, { days, filters = [], budget = null, over
   const servings = prefs.householdSize || 2
   const priced = new Map()
   const ctx = { templateUse: {}, usage: {}, yesterday: null, want: want?.size ? want : null }
+  const dislike = dislikedItems(prefs.likes)
+  const keepOff = dislike.size ? [...avoid, ...dislike] : avoid
   const perDayBudget = budget ? budget / days.length : null
 
   const plan = []
@@ -301,7 +304,9 @@ export function planWeek(deals, prefs, { days, filters = [], budget = null, over
     const today = {}
     const entry = { ...day, meals: {} }
     // Dinner first, so tomorrow's leftover lunch knows what it is.
-    const order = [...enabled].sort((a, b) => (a === 'dinner' ? -1 : b === 'dinner' ? 1 : 0))
+    // Plus any meal added to just this day (a recipe picked for it).
+    const dayMeals = MEALS.map((m) => m.id).filter((m) => enabled.includes(m) || overrides[`${day.key}|${m}`]?.on)
+    const order = dayMeals.sort((a, b) => (a === 'dinner' ? -1 : b === 'dinner' ? 1 : 0))
     for (const meal of order) {
       const key = `${day.key}|${meal}`
       const o = overrides[key] || {}
@@ -309,7 +314,11 @@ export function planWeek(deals, prefs, { days, filters = [], budget = null, over
         entry.meals[meal] = { key, meal, skipped: true }
         continue
       }
-      if (meal === 'lunch' && prefs.lunchLeftovers && prevDinner && !o.cook) {
+      if (!o.on && !scheduled(prefs, day, meal)) {
+        entry.meals[meal] = { key, meal, skipped: true, off: true }
+        continue
+      }
+      if (meal === 'lunch' && prefs.lunchLeftovers && prevDinner && !o.cook && !o.template) {
         prevDinner.leftoversFor = day.short
         entry.meals[meal] = { key, meal, leftovers: prevDinner }
         continue
@@ -321,10 +330,12 @@ export function planWeek(deals, prefs, { days, filters = [], budget = null, over
         if (template.meal !== meal) continue
         if (o.exclude?.includes(template.id)) continue
         if (o.template && o.template !== template.id) continue
-        const filled = fillTemplate(template, { deals, diet, servings, fills: o.template === template.id ? o.fills : undefined, usage: ctx.usage, priced, avoid, want: ctx.want })
+        const filled = fillTemplate(template, { deals, diet, servings, fills: o.template === template.id ? o.fills : undefined, usage: ctx.usage, priced, avoid: keepOff, want: ctx.want })
         if (!filled) continue
         if (meal !== 'snack' && !tests.every((t) => t(filled))) continue
-        const s = scoreMeal(filled, ctx) + boosts.reduce((sum, b) => sum + b(filled), 0)
+        let s = scoreMeal(filled, ctx) + boosts.reduce((sum, b) => sum + b(filled), 0)
+        // A recipe that could only be made with something they don't eat, only if nothing else fits.
+        if (dislike.size) s -= filled.lines.filter((l) => dislike.has(l.ing.item)).length * 200
         if (s > bestScore) {
           best = filled
           bestScore = s
@@ -422,6 +433,8 @@ export function suggestMeals(current, deals, prefs, { nudge = null, plan = [] } 
   const diet = prefs.diet || []
   const priced = new Map()
   const weekUse = {}
+  const dislike = dislikedItems(prefs.likes)
+  const keepOff = [...dislike]
   for (const m of cookedMeals(plan)) weekUse[m.template.id] = (weekUse[m.template.id] || 0) + 1
   const ideas = new Map()
   const add = (m) => {
@@ -431,13 +444,13 @@ export function suggestMeals(current, deals, prefs, { nudge = null, plan = [] } 
   }
   for (const template of TEMPLATES) {
     if (template.meal !== current.meal) continue
-    const ctx = { deals, diet, servings: current.servings, priced }
+    const ctx = { deals, diet, servings: current.servings, priced, avoid: keepOff }
     const base = fillTemplate(template, ctx)
     add(base)
     if (!base) continue
     // Variants: the same dish around a different on-sale lead ingredient.
     const lead = template.slots.find((sl) => sl.main) || template.slots[0]
-    const others = slotCandidates(lead, deals, diet, priced).filter((c) => c.deal && c.ing.item !== base.fills?.[lead.key])
+    const others = slotCandidates(lead, deals, diet, priced).filter((c) => c.deal && c.ing.item !== base.fills?.[lead.key] && !dislike.has(c.ing.item))
     for (const c of others.slice(0, 3)) add(fillTemplate(template, { ...ctx, fills: { [lead.key]: c.ing.item } }))
   }
   const test = nudge && NUDGES[nudge]?.test
@@ -446,6 +459,7 @@ export function suggestMeals(current, deals, prefs, { nudge = null, plan = [] } 
     .map((m) => {
       const share = m.lines.length ? m.onSale / m.lines.length : 0
       let score = share * 100 + Math.min(m.savings, 8) - (weekUse[m.template.id] || 0) * 6
+      score -= m.lines.filter((l) => dislike.has(l.ing.item)).length * 200
       if (m.template.id === current.template.id) score -= 4
       if (nudge === 'cheap') score -= m.cost * 3
       return { m, score }

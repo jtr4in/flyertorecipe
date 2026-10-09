@@ -25,7 +25,7 @@ export default function MealCard({ label, emoji, entry, onSwapLine, onAnother, o
       <div className="flex items-center gap-3 rounded-2xl border border-dashed border-stone-300 px-4 py-3">
         <div className="flex-1">
           {head}
-          <p className="text-sm text-stone-500">{entry.skipped ? 'Not planning this one' : 'Nothing on sale fits your filters'}</p>
+          <p className="text-sm text-stone-500">{entry.off ? 'Not on your schedule' : entry.skipped ? 'Not planning this one' : 'Nothing on sale fits your filters'}</p>
         </div>
         {entry.skipped && (
           <button onClick={onRestore} className="text-sm font-medium text-green-700">

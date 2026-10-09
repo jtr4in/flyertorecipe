@@ -7,6 +7,7 @@ const fmt = (d, opts) => d.toLocaleDateString('en-CA', opts)
 
 function Cell({ entry }) {
   if (!entry || entry.empty) return <span className="text-stone-300">—</span>
+  if (entry.off) return <span className="text-stone-300">—</span>
   if (entry.skipped) return <span className="text-stone-400">Skipped</span>
   if (entry.leftovers) return <span className="text-stone-600">🥡 Leftover {entry.leftovers.name.charAt(0).toLowerCase() + entry.leftovers.name.slice(1)}</span>
   return (

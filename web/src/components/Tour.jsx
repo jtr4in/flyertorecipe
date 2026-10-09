@@ -20,6 +20,16 @@ export const TOUR_STEPS = [
     body: 'Make the week quicker, higher in protein or vegetarian, or add some treats.',
   },
   {
+    target: 'build',
+    title: 'Build your week',
+    body: 'Pick which meals you need on which days, and the meats, carbs and veg you like. We plan the week from your answers.',
+  },
+  {
+    target: 'recipes',
+    title: 'Browse recipes',
+    body: 'Look through every dish made with this week\'s deals, and add the ones you want to any day.',
+  },
+  {
     target: 'week',
     title: 'Your next 7 days',
     body: 'Tap a day to see its meals. A green dot means everything that day is on sale.',

@@ -5,6 +5,8 @@ import { sampleDeals } from '../data/sampleDeals'
 
 export const DEFAULT_PREFS = {
   postalCode: '',
+  schedule: null, // { [weekday 0-6]: ['breakfast', 'dinner'] } from Build my week; null = every meal daily
+  likes: {}, // { protein: ['chicken'], carb: ['rice'], veg: ['broccoli'] }
   householdSize: 2,
   diet: [],
   stores: [],

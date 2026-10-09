@@ -2,8 +2,8 @@
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { DIET_TAGS } from '../lib/aisles'
-import { DEFAULT_PREFS, fsa } from '../lib/data'
-import { MEALS } from '../data/templates'
+import { fsa } from '../lib/data'
+import { fullSchedule, planScreens, withSchedule } from './PlanSteps'
 import { MATCH_STORES, PRICE_MATCH } from '../lib/priceMatch'
 
 const toggle = (list, v) => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v])
@@ -23,7 +23,6 @@ const Choice = ({ on, children, ...props }) => (
 export default function Welcome({ prefs, merchants, needsPostal, onChange, onDone }) {
   const [step, setStep] = useState(0)
   const set = (patch) => onChange({ ...prefs, ...patch })
-  const meals = prefs.meals || DEFAULT_PREFS.meals
   const [postal, setPostal] = useState(prefs.postalCode || '')
   const postalOk = !!fsa(postal)
 
@@ -68,21 +67,7 @@ export default function Welcome({ prefs, merchants, needsPostal, onChange, onDon
         </div>
       ),
     },
-    {
-      title: 'Which meals should we plan?',
-      hint: 'Pick as many as you like.',
-      body: (
-        <div className="grid grid-cols-2 gap-2">
-          {MEALS.map((m) => (
-            <Choice key={m.id} on={meals.includes(m.id)} onClick={() => set({ meals: MEALS.map((x) => x.id).filter((id) => (id === m.id ? !meals.includes(id) : meals.includes(id))) })}>
-              <span className="mr-1.5">{m.emoji}</span>
-              {m.label}
-            </Choice>
-          ))}
-        </div>
-      ),
-      ok: meals.length > 0,
-    },
+    ...planScreens({ schedule: fullSchedule(prefs), likes: prefs.likes || {} }, (d) => onChange(withSchedule({ ...prefs, likes: d.likes }, d.schedule))),
     {
       title: 'Anything you avoid?',
       hint: 'Skip this if you eat everything.',
@@ -148,7 +133,7 @@ export default function Welcome({ prefs, merchants, needsPostal, onChange, onDon
 
   return createPortal(
     <div className="fixed inset-0 z-[60] flex flex-col bg-stone-50" role="dialog" aria-modal="true" aria-label="Welcome">
-      <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 pt-[max(1.25rem,env(safe-area-inset-top))] pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+      <div className="mx-auto flex w-full max-w-md flex-1 flex-col overflow-hidden px-5 pt-[max(1.25rem,env(safe-area-inset-top))] pb-[max(1.25rem,env(safe-area-inset-bottom))]">
         <div className="flex items-center gap-1.5">
           {screens.map((_, n) => (
             <span key={n} className={`h-1.5 flex-1 rounded-full ${n <= step ? 'bg-green-600' : 'bg-stone-200'}`} />
@@ -157,7 +142,7 @@ export default function Welcome({ prefs, merchants, needsPostal, onChange, onDon
         {step === 0 && <p className="mt-8 text-sm font-semibold text-green-800">Flyer2Recipes</p>}
         <h1 className={`${step === 0 ? 'mt-1' : 'mt-8'} text-2xl font-bold tracking-tight`}>{s.title}</h1>
         {s.hint && <p className="mt-1 text-sm text-stone-500">{s.hint}</p>}
-        <div className="mt-6 flex-1 overflow-y-auto">{s.body}</div>
+        <div className="mt-6 min-h-0 flex-1 overflow-y-auto">{s.body}</div>
         <div className="mt-4 flex items-center gap-3">
           {step > 0 && (
             <button onClick={() => setStep(step - 1)} className="rounded-2xl px-4 py-3 text-sm font-medium text-stone-600">
