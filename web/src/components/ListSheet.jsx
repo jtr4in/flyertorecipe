@@ -36,13 +36,13 @@ const TABS = [
   ['single', 'One Store'],
 ]
 
-export default function ListSheet({ open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof, onSwap, onRemoveExtra }) {
+export default function ListSheet({ open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof, onSwap, onRemoveExtra, onShareLink, shared }) {
   const [gallery, setGallery] = useState(false)
   if (!list) return null
   const items = list.groups.flatMap((g) => g.items)
   const done = items.filter((i) => checked[i.key]).length
 
-  const share = async () => {
+  const shareText = async () => {
     const text = [
       list.store ? `${mode === 'match' ? 'Price matching at' : 'Shopping at'} ${list.store}` : 'Grocery list',
       ...list.groups.map(
@@ -56,10 +56,15 @@ export default function ListSheet({ open, onClose, list, mode, setMode, stores, 
         : []),
     ].join('\n')
     try {
-      if (navigator.share) await navigator.share({ title: 'Grocery list', text })
-      else await navigator.clipboard.writeText(text)
+      if (navigator.share) return await navigator.share({ title: 'Grocery list', text })
+    } catch (e) {
+      if (e.name === 'AbortError') return
+    }
+    try {
+      await navigator.clipboard.writeText(text)
+      window.alert('Grocery list copied. Paste it into a message.')
     } catch {
-      /* dismissed */
+      window.prompt('Copy your grocery list:', text)
     }
   }
 
@@ -71,17 +76,28 @@ export default function ListSheet({ open, onClose, list, mode, setMode, stores, 
       tall
       footer={
         <div className="flex items-center gap-3">
-          <div className="flex-1">
+          <div className="min-w-0 flex-1">
             <p className="text-sm font-semibold">
               {list.itemCount} items · est. {money(list.totalCost)}
             </p>
             <p className="text-xs text-green-700">
               Saves about {money(list.totalSavings)} · {done} checked off
             </p>
+            {shared && <p className="text-[11px] text-stone-500">🔗 Shared · checkmarks update live</p>}
           </div>
-          <button onClick={share} className="rounded-xl border border-stone-300 px-3 py-2 text-sm font-medium">
-            Share
-          </button>
+          <div className="flex shrink-0 flex-col items-end gap-1">
+            <button
+              onClick={onShareLink || shareText}
+              className="rounded-xl bg-green-700 px-3 py-2 text-sm font-semibold text-white"
+            >
+              {onShareLink ? '🔗 Share' : 'Share'}
+            </button>
+            {onShareLink && (
+              <button onClick={shareText} className="text-[11px] text-stone-500 underline">
+                Send as text
+              </button>
+            )}
+          </div>
         </div>
       }
     >

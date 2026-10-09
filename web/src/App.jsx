@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { firebaseEnabled } from './lib/firebase'
-import { DEFAULT_PREFS, fsa, loadDeals, loadPrefs, loadRecipes, loadWeek, savePrefs, saveWeek } from './lib/data'
+import { DEFAULT_PREFS, EMPTY_WEEK, fsa, loadDeals, loadPrefs, loadRecipes, loadWeek, savePrefs, saveWeek } from './lib/data'
 import { activeDeals, buildShoppingList, FILTERS, listSwapOptions, parsePlanQuery, planWeek, swapOptions, weekDays } from './lib/planner'
 import { dealName, money, storeTint } from './lib/stores'
 import { cap, MEALS, setRecipes } from './data/templates'
@@ -16,6 +16,9 @@ import Welcome from './components/Welcome'
 import Tour from './components/Tour'
 import DealsSheet from './components/DealsSheet'
 import { extraDeals, watchMatches, withExtras } from './lib/extras'
+import {
+  createHousehold, currentHousehold, householdLink, leaveHousehold, saveHousehold, saveHouseholdWeek, setHouseholdCheck, sharedPrefs, watchHousehold,
+} from './lib/household'
 
 export default function App() {
   const [prefs, setPrefs] = useState(null)
@@ -33,6 +36,18 @@ export default function App() {
   const [proof, setProof] = useState(null)
   const [welcome, setWelcome] = useState(false)
   const [touring, setTouring] = useState(false)
+  const [toast, setToast] = useState(null)
+  const flash = useCallback((msg) => {
+    setToast(msg)
+    setTimeout(() => setToast((t) => (t === msg ? null : t)), 2500)
+  }, [])
+
+  // Shared household (?h= link): plan inputs and checkmarks live in one Firestore doc.
+  const [hid, setHid] = useState(() => (firebaseEnabled ? currentHousehold() : null))
+  const hidRef = useRef(hid)
+  hidRef.current = hid
+  const remote = useRef(null) // last { chips, query } seen from the household, to skip echo writes
+  const fail = useCallback((e) => setError(e.message), [])
 
   const days = useMemo(() => weekDays(), [])
   const [selected, setSelected] = useState(days[0].key)
@@ -40,8 +55,85 @@ export default function App() {
   const editWeek = useCallback((fn) => setWeek((w) => {
     const next = fn(w)
     saveWeek(next)
+    if (hidRef.current) saveHouseholdWeek(hidRef.current, next).catch(fail)
     return next
-  }), [])
+  }), [fail])
+  const toggleCheck = (k) => {
+    const value = !week.checked[k]
+    setWeek((w) => {
+      const next = { ...w, checked: { ...w.checked, [k]: value } }
+      saveWeek(next)
+      return next
+    })
+    if (hid) setHouseholdCheck(hid, k, value).catch(fail)
+  }
+
+  useEffect(() => {
+    if (!hid) return
+    return watchHousehold(
+      hid,
+      (d) => {
+        if (!d) {
+          setError('That shared plan no longer exists, so this phone has its own plan again.')
+          leaveHousehold()
+          setHid(null)
+          return
+        }
+        if (d.prefs) setPrefs((p) => ({ ...DEFAULT_PREFS, ...d.prefs, onboarded: p?.onboarded ?? false }))
+        const stale = !d.week?.started || (Date.parse(days[0].key) - Date.parse(d.week.started)) / 864e5 >= 7
+        if (stale) {
+          const fresh = { ...EMPTY_WEEK, started: days[0].key }
+          setWeek(fresh)
+          saveHousehold(hid, { week: fresh }).catch(fail)
+        } else {
+          setWeek({ ...EMPTY_WEEK, ...d.week })
+        }
+        remote.current = { chips: d.chips || [], query: d.query || '' }
+        setChips(remote.current.chips)
+        // Don't yank the plan box out from under someone typing in it.
+        if (document.activeElement?.dataset?.planInput == null) setQuery(remote.current.query)
+      },
+      fail,
+    )
+  }, [hid, days, fail])
+
+  // Filters and the plan box are part of the shared plan too.
+  useEffect(() => {
+    if (!hid || !remote.current) return
+    if (remote.current.query === query && remote.current.chips.join() === chips.join()) return
+    const t = setTimeout(() => saveHousehold(hid, { chips, query }).catch(fail), 600)
+    return () => clearTimeout(t)
+  }, [hid, chips, query, fail])
+
+  const shareLink = async () => {
+    let id = hid
+    try {
+      if (!id) {
+        id = await createHousehold({ prefs: sharedPrefs(prefs), week, chips, query })
+        setHid(id)
+      }
+    } catch (e) {
+      flash("Couldn't create the shared link. Try again in a moment.")
+      setError(e.message)
+      return
+    }
+    const url = householdLink(id)
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'Our meal plan', text: 'Our meals and grocery list for the week. Tick things off as you go.', url })
+        return
+      }
+    } catch (e) {
+      if (e.name === 'AbortError') return
+    }
+    try {
+      await navigator.clipboard.writeText(url)
+      flash('Link copied. Send it to your household.')
+    } catch {
+      window.prompt('Copy this link:', url)
+    }
+  }
+
 
   // Recipes added since this build ship through Firestore; the bundled set works offline.
   const [recipesVersion, setRecipesVersion] = useState(0)
@@ -54,9 +146,10 @@ export default function App() {
   useEffect(() => {
     loadPrefs()
       .then((p) => {
-        setPrefs(p)
-        // New here: the setup quiz. Already set up before the tour existed: just the tour.
-        if (!p.onboarded) (p.postalCode ? setTouring : setWelcome)(true)
+        // In a shared household its settings win; only "seen the tour" is this phone's own.
+        setPrefs((prev) => (hidRef.current && prev ? { ...prev, onboarded: p.onboarded } : p))
+        // New here: the setup quiz. Already set up, or joining someone's plan: just the tour.
+        if (!p.onboarded) (p.postalCode || hidRef.current ? setTouring : setWelcome)(true)
       })
       .catch((e) => {
         setError(e.message)
@@ -92,7 +185,8 @@ export default function App() {
 
   const updatePrefs = (next) => {
     setPrefs(next)
-    savePrefs(next).catch((e) => setError(e.message))
+    savePrefs(next).catch(fail)
+    if (hid) saveHousehold(hid, { prefs: sharedPrefs(next) }).catch(fail)
   }
 
   if (!prefs) return <p className="p-6 text-stone-500">Loading…</p>
@@ -192,6 +286,7 @@ export default function App() {
         <span className="sr-only">What's the plan?</span>
         <input
           value={query}
+          data-plan-input
           onChange={(e) => setQuery(e.target.value)}
           placeholder="What's the plan? e.g. quick dinners under $80"
           className="w-full rounded-2xl border border-stone-200 bg-white px-4 py-3 text-sm shadow-sm placeholder:text-stone-400 focus:border-green-600 focus:outline-none"
@@ -330,7 +425,9 @@ export default function App() {
         stores={listStores}
         onStore={(homeStore) => updatePrefs({ ...prefs, homeStore })}
         checked={week.checked}
-        onCheck={(k) => editWeek((w) => ({ ...w, checked: { ...w.checked, [k]: !w.checked[k] } }))}
+        onCheck={toggleCheck}
+        onShareLink={firebaseEnabled ? shareLink : null}
+        shared={!!hid}
         postalCode={prefs.postalCode}
         onProof={setProof}
         onSwap={(item) => setSwapping(item.uses)}
@@ -353,6 +450,34 @@ export default function App() {
       />
       <Sheet open={sheet === 'settings'} onClose={() => setSheet(null)} title="Household">
         <Preferences prefs={prefs} merchants={merchants} onChange={updatePrefs} />
+        {firebaseEnabled && (
+          <section className="mt-6 rounded-2xl bg-stone-100 p-4">
+            <h3 className="text-sm font-medium">Share with your household</h3>
+            <p className="mt-1 text-xs text-stone-600">
+              {hid
+                ? 'This plan is shared. Everyone with the link sees the same meals and list, and checkmarks show up live.'
+                : 'Send a link so your partner sees the same meals and grocery list, and can tick things off while you shop.'}
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button onClick={shareLink} className="rounded-xl bg-green-700 px-3 py-2 text-sm font-semibold text-white">
+                {hid ? 'Send the link again' : 'Share this plan'}
+              </button>
+              {hid && (
+                <button
+                  onClick={() => {
+                    leaveHousehold()
+                    setHid(null)
+                    remote.current = null
+                    flash('This phone has its own plan again.')
+                  }}
+                  className="rounded-xl border border-stone-300 px-3 py-2 text-sm font-medium text-stone-600"
+                >
+                  Stop sharing on this phone
+                </button>
+              )}
+            </div>
+          </section>
+        )}
       </Sheet>
       <Sheet open={!!swapping} onClose={() => setSwapping(null)} title={swapping ? `Swap ${swapping[0].line.ing.item}` : ''}>
         {otherUses.length > 0 && (
@@ -429,6 +554,11 @@ export default function App() {
       <FlyerProof deal={proof} onClose={() => setProof(null)} />
       {welcome && <Welcome prefs={prefs} merchants={merchants} needsPostal={firebaseEnabled} onChange={updatePrefs} onDone={finishWelcome} />}
       <Tour open={touring && !welcome && !loading} onClose={endTour} />
+      {toast && (
+        <div className="fixed inset-x-0 bottom-24 z-[80] flex justify-center px-4" role="status">
+          <p className="rounded-full bg-stone-900 px-4 py-2 text-sm text-white shadow-lg">{toast}</p>
+        </div>
+      )}
     </div>
   )
 }

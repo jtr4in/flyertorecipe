@@ -64,6 +64,15 @@ broccoli stir-fry over rice" in a week where those are in the flyers.
 - **Locally:** `node -e "import('./web/src/data/ingredients.js').then(m => console.log(JSON.stringify(m.CATALOG)))" > backend/catalog.json`,
   then `python backend/recipes_tool.py check` (or `draft --count 6 --meal dinner --theme ...`).
 
+## Sharing with your household
+
+Share on the grocery list (or Household settings) makes a link to this exact plan. Everyone who
+opens it sees the same meals, filters and list, and checkmarks show up live, so one person can
+tick off "have it" at home while the other shops. The plan lives in Firestore
+`households/{id}`; the long random id in the link is the key (rules allow get/update, never list).
+Checkmarks are written one field at a time so two people ticking at once don't overwrite each other.
+Test locally with the Firebase emulators and `VITE_FIREBASE_EMULATOR=1`.
+
 ## Run it
 
 **Web app (works with no credentials; uses bundled demo deals):**

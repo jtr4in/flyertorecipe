@@ -15,6 +15,12 @@ service cloud.firestore {
       allow read: if request.auth != null;
       allow write: if false;
     }
+    // Shared household plans. The id is a long random string in the share link, so knowing
+    // the link is the permission: anyone signed in may read or edit it, but nobody can list them.
+    match /households/{id} {
+      allow get, create, update: if request.auth != null;
+      allow list, delete: if false;
+    }
     // Each household (anonymous or signed-in user) owns its own preferences.
     match /users/{uid} {
       allow read, write: if request.auth != null && request.auth.uid == uid;
