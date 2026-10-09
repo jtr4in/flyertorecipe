@@ -1,13 +1,17 @@
 # Temporary: look at what Flipp returns for flyer items (to find the full flyer clipping).
 name: Probe flyer item
 on: workflow_dispatch
+permissions:
+  contents: write
 jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          curl -sL "http://f.wishabi.net/page_pdf_images/24249013/3a37564c-bea3-11f1-acda-222bbf2ed336/x_large" -o a.img
-          file a.img; identify a.img || true
-          convert a.img -resize 360x360 -quality 45 a.jpg && echo "B64START" && base64 -w0 a.jpg && echo && echo "B64END"
-          curl -s -o /dev/null -w "flipp item page %{http_code} %{url_effective}\n" -L "https://flipp.com/en-ca/item/1045972022"
-          curl -s -o /dev/null -w "flipp flyer page %{http_code} %{url_effective}\n" -L "https://flipp.com/en-ca/flyer/8178726"
+          mkdir out && cd out
+          curl -sL "http://f.wishabi.net/page_pdf_images/24249013/3a37564c-bea3-11f1-acda-222bbf2ed336/x_large" -o page.img
+          curl -sL "http://f.wishabi.net/page_items/436395910/1791015510/extra_large.jpg" -o cutout.jpg
+          file page.img cutout.jpg > info.txt; identify page.img >> info.txt || true
+          curl -s -o /dev/null -w "flipp item page %{http_code} %{url_effective}\n" -L "https://flipp.com/en-ca/item/1045972022" >> info.txt
+          git init -q && git checkout -q -b probe-out && git add . && git -c user.name=probe -c user.email=probe@example.com commit -qm probe
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" probe-out
