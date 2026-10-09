@@ -50,28 +50,55 @@ export async function savePrefs(prefs) {
   }
 }
 
-/** The shared recipe list from Firestore, or null to keep the bundled copy. */
-export async function loadRecipes() {
-  if (!firebaseEnabled) return null
-  await authReady
-  const snap = await getDocs(collection(db, 'recipes'))
-  return snap.empty ? null : snap.docs.map((d) => d.data())
+// Firestore's free tier allows 50,000 reads a day, and a region has ~1,000 deals, so each phone
+// keeps the last copy and re-reads only when it's stale.
+const cacheGet = (key) => {
+  try {
+    return JSON.parse(localStorage.getItem(key))
+  } catch {
+    return null
+  }
+}
+const cacheSet = (key, value) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value))
+  } catch {
+    /* full or private mode: just read again next time */
+  }
 }
 
-/** Returns { deals, region } for the household's postal code. */
+/** The shared recipe list from Firestore (re-read at most every 12 hours), or null for the bundled copy. */
+export async function loadRecipes() {
+  if (!firebaseEnabled) return null
+  const cached = cacheGet('f2r.recipes')
+  if (cached && Date.now() - cached.at < 12 * 3600e3) return cached.list
+  await authReady
+  const snap = await getDocs(collection(db, 'recipes'))
+  const list = snap.empty ? null : snap.docs.map((d) => d.data())
+  if (list) cacheSet('f2r.recipes', { at: Date.now(), list })
+  return list
+}
+
+/** Returns { deals, region } for the household's postal code. Deals are re-read only after a new fetch. */
 export async function loadDeals(postalCode) {
   if (!firebaseEnabled) return { deals: sampleDeals(), region: { demo: true } }
   const key = fsa(postalCode)
   if (!key) return { deals: [], region: null }
   await authReady
-  const [regionSnap, dealSnap] = await Promise.all([
-    getDoc(doc(db, 'regions', key)),
-    getDocs(collection(db, 'regions', key, 'deals')),
-  ])
-  return {
-    deals: dealSnap.docs.map((d) => d.data()),
-    region: regionSnap.exists() ? regionSnap.data() : null,
+  const cached = cacheGet('f2r.deals')
+  let regionSnap
+  try {
+    regionSnap = await getDoc(doc(db, 'regions', key))
+  } catch (e) {
+    if (cached?.key === key) return { deals: cached.deals, region: cached.region }
+    throw e
   }
+  const region = regionSnap.exists() ? regionSnap.data() : null
+  if (cached?.key === key && region && cached.region?.ingestedAt === region.ingestedAt) return { deals: cached.deals, region }
+  const dealSnap = await getDocs(collection(db, 'regions', key, 'deals'))
+  const deals = dealSnap.docs.map((d) => d.data())
+  if (region) cacheSet('f2r.deals', { key, region, deals })
+  return { deals, region }
 }
 
 // Per-household week edits (swapped ingredients, other ideas, skipped meals, ticked list items).

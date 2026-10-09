@@ -22,28 +22,114 @@ export function needItems(need) {
   return [...new Set(ALL_INGREDIENTS.filter((i) => re.test(i.item) || matchDeal(i, [{ name: n }])).map((i) => i.item))]
 }
 
-/** Cheapest flyer deal whose name mentions the need ("salami" → "Maple Leaf Salami 175 g"). */
+/** The flyer deal for a need: the exact item if one was picked, else the best search match. */
 export function needDeal(need, deals) {
-  const re = wordRe(need.toLowerCase())
-  return deals.filter((d) => re.test(d.name || '')).sort((a, b) => (a.price ?? 1e9) - (b.price ?? 1e9))[0] || null
+  const n = need.toLowerCase()
+  return deals.find((d) => dealName(d.name).toLowerCase() === n) || searchDeals(n, deals)[0] || null
+}
+
+// What people type vs. what flyers print. Each typed word also matches these (English and
+// Quebec French flyers), so "homo milk" finds "Natrel 3.25% 4 L" and "tp" finds bathroom tissue.
+const SAY = {
+  homo: ['homogenized', 'homogénéisé', '3.25%', '3.25 %'],
+  homogenized: ['homo', '3.25%'],
+  skim: ['skim', 'écrémé', '0%'],
+  '2%': ['partly skimmed', 'partiellement écrémé', '2 %'],
+  '1%': ['1 %'],
+  milk: ['lait'],
+  cheese: ['fromage', 'cheddar', 'mozzarella'],
+  egg: ['oeufs', 'œufs'],
+  eggs: ['oeufs', 'œufs'],
+  bread: ['pain', 'loaf', 'bagels', 'buns'],
+  butter: ['beurre'],
+  yogurt: ['yogourt', 'yoghurt', 'yogurts'],
+  chicken: ['poulet'],
+  beef: ['boeuf', 'bœuf', 'steak'],
+  pork: ['porc'],
+  ham: ['jambon'],
+  salami: ['pepperoni', 'deli'],
+  deli: ['salami', 'ham', 'turkey breast', 'sliced meat'],
+  fish: ['poisson', 'salmon', 'tilapia', 'cod', 'haddock'],
+  apple: ['pommes'],
+  apples: ['pommes'],
+  potato: ['pommes de terre', 'potatoes'],
+  potatoes: ['pommes de terre'],
+  coffee: ['café', 'k-cup', 'k-cups', 'keurig'],
+  pop: ['soft drink', 'soda', 'coca-cola', 'pepsi', 'cola'],
+  soda: ['soft drink', 'pop'],
+  tp: ['bathroom tissue', 'toilet paper'],
+  'toilet paper': ['bathroom tissue', 'papier hygiénique'],
+  'paper towels': ['paper towel', 'essuie-tout'],
+  'dish soap': ['dish', 'dishwashing'],
+  diapers: ['couches', 'pampers', 'huggies'],
+  detergent: ['laundry', 'tide', 'gain'],
+  cereal: ['céréales', 'cheerios', 'flakes', "kellogg's", 'general mills'],
+  juice: ['jus'],
+  chips: ['croustilles'],
+  ice: ['crème glacée'],
+  'ice cream': ['crème glacée', 'frozen dessert'],
+  oj: ['orange juice', "jus d'orange"],
+}
+
+const fold = (t) => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+// A typed word matches the start of a word ("mil" → milk); "3.25%"-style words match anywhere.
+const wordStart = (w) => new RegExp(/^[\p{L}]/u.test(w) ? `(^|[^\\p{L}])${esc(w)}` : esc(w), 'iu')
+
+/** Typed words (and the phrases people say) with what each also matches. */
+function termGroups(term) {
+  const t = fold(term).replace(/\s+/g, ' ').trim()
+  const phrases = Object.keys(SAY).filter((k) => k.includes(' ') && t.includes(k))
+  let rest = t
+  for (const ph of phrases) rest = rest.replace(ph, ' ')
+  const words = [...phrases, ...rest.split(' ').filter(Boolean)]
+  return words.map((w) => {
+    const plain = w.replace(/(es|s)$/, '')
+    const alts = [w, ...(SAY[w] || []), ...(plain.length > 2 && plain !== w ? [plain, ...(SAY[plain] || [])] : [])]
+    return [...new Set(alts.map(fold))].map(wordStart)
+  })
+}
+
+/**
+ * Flyer items for what's being typed. Every typed word has to match the item's name (either
+ * language), or the flyer search that found it ("milk" finds "Natrel 3.25% 4 L"). Items that say
+ * it in their name rank first, then cheapest.
+ */
+export function searchDeals(term, deals) {
+  const groups = termGroups(term)
+  if (!groups.length) return []
+  const hits = []
+  for (const deal of deals) {
+    const name = fold(deal.name || '')
+    const found = fold((deal.queries || []).join(' | '))
+    let inName = 0
+    let ok = true
+    for (const alts of groups) {
+      if (alts.some((re) => re.test(name))) inName++
+      else if (!alts.some((re) => re.test(found))) {
+        ok = false
+        break
+      }
+    }
+    if (ok) hits.push({ deal, inName })
+  }
+  return hits.sort((a, b) => b.inName - a.inName || (a.deal.price ?? 1e9) - (b.deal.price ?? 1e9)).map((h) => h.deal)
 }
 
 /**
  * As-you-type picks for the last thing typed ("cheese, mil" → milk): the plain word first, then
- * this week's flyer items that mention it, cheapest first. Each pick is { need, deal }.
+ * this week's flyer items for it. Each pick is { need, deal }.
  */
-export function suggestNeeds(text, deals, taken = [], limit = 8) {
+export function suggestNeeds(text, deals, taken = [], limit = 40) {
   const term = (text.split(/[,\n;]+/).pop() || '').trim().toLowerCase()
   if (term.length < 2) return []
-  const start = new RegExp(`(^|[^\\p{L}])${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'iu')
-  const words = [...new Set(ALL_INGREDIENTS.map((i) => i.item).filter((w) => start.test(w)))]
+  const start = wordStart(fold(term))
+  const words = [...new Set(ALL_INGREDIENTS.map((i) => i.item).filter((w) => start.test(fold(w))))]
     .sort((a, b) => a.length - b.length)
     .slice(0, 3)
     .map((need) => ({ need, deal: null }))
   const seen = new Set()
-  const fromFlyers = deals
-    .filter((d) => start.test(dealName(d.name)))
-    .sort((a, b) => (a.price ?? 1e9) - (b.price ?? 1e9))
+  const fromFlyers = searchDeals(term, deals)
     .map((deal) => ({ need: dealName(deal.name).toLowerCase(), deal }))
     .filter((x) => !seen.has(x.need) && seen.add(x.need))
   return [...words, ...fromFlyers].filter((x) => !taken.includes(x.need)).slice(0, limit)

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { activeDeals, buildShoppingList, cookedMeals, planWeek, weekDays } from './planner'
 import { sampleDeals } from '../data/sampleDeals'
-import { needDeal, needItems, parseNeeds, placeNeeds, suggestNeeds, wantedItems, withNeeds } from './needs'
+import { needDeal, needItems, parseNeeds, placeNeeds, searchDeals, suggestNeeds, wantedItems, withNeeds } from './needs'
 
 const today = new Date('2026-10-09T12:00:00Z')
 const deals = activeDeals(sampleDeals(today), { today })
@@ -45,8 +45,10 @@ describe('suggestions while typing', () => {
     expect(picks[0]).toEqual({ need: 'milk', deal: null })
     const flyer = picks.filter((p) => p.deal)
     expect(flyer.length).toBeGreaterThan(2)
-    expect(flyer.every((p) => /milk/i.test(p.deal.name))).toBe(true)
-    expect(flyer.map((p) => p.deal.price)).toEqual([...flyer.map((p) => p.deal.price)].sort((a, b) => a - b))
+    expect(flyer.every((p) => /milk/i.test(p.deal.name) || p.deal.queries.includes('milk'))).toBe(true)
+    const named = flyer.filter((p) => /milk/i.test(p.deal.name)).map((p) => p.deal.price)
+    expect(named).toEqual([...named].sort((a, b) => a - b))
+    expect(flyer.at(-1).deal.name).toBe('Natrel 3.25%, 4 L') // says milk only in the flyer search
   })
   it('skips what is already on the list and short input', () => {
     expect(suggestNeeds('milk', deals, ['milk']).some((p) => p.need === 'milk')).toBe(false)
@@ -56,5 +58,27 @@ describe('suggestions while typing', () => {
     const need = suggestNeeds('2% mil', deals).find((p) => p.deal).need
     expect(needItems(need)).toContain('milk')
     expect(needDeal(need, deals).name).toMatch(/2% Milk/)
+  })
+})
+
+describe('grocery search', () => {
+  const names = (term) => searchDeals(term, deals).map((d) => d.name)
+  it('finds flyer items that only the flyer search called milk', () => {
+    expect(names('milk')).toContain('Natrel 3.25%, 4 L')
+  })
+  it('understands homo, 3.25% and French names', () => {
+    for (const t of ['homo milk', 'homo', '3.25%', 'homogenized', 'lait']) expect(names(t).join(' ')).toMatch(/Homogenized|3\.25%/)
+    expect(names('homo milk')).not.toContain('Skim Milk, 2 L')
+  })
+  it('needs every word, in any order', () => {
+    expect(names('milk chocolate')).toEqual(['Neilson Chocolate Milk, 1 L'])
+    expect(names('2% milk')).toContain('2% Milk, 4 L')
+  })
+  it('handles plurals and partial words', () => {
+    expect(names('egg').join()).toMatch(/Eggs/)
+    expect(names('chees').join()).toMatch(/Cheddar/)
+  })
+  it('a typed need finds its flyer deal', () => {
+    expect(needDeal('homo milk', deals).name).toMatch(/Homogenized|3\.25%/)
   })
 })

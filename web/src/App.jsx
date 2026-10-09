@@ -164,7 +164,9 @@ export default function App() {
       .then(setData)
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false))
-  }, [prefs?.postalCode])
+    // Only a new postal area needs new deals, not each keystroke in the postal code.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prefs ? fsa(prefs.postalCode) || 'none' : null])
 
   const merchants = useMemo(() => [...new Set(data.deals.map((d) => d.merchant).filter(Boolean))].sort(), [data.deals])
   const filters = chips

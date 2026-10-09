@@ -2,6 +2,7 @@
 // planned around the items the recipes can use; the rest go straight on the grocery list.
 import { useMemo, useRef, useState } from 'react'
 import Sheet from './Sheet'
+import FlyerClip from './FlyerClip'
 import { parseNeeds, suggestNeeds } from '../lib/needs'
 import { dealName } from '../lib/stores'
 
@@ -65,7 +66,7 @@ export default function NeedsSheet({ open, onClose, needs, status, onChange, dea
         <button className="rounded-xl bg-green-700 px-4 py-2 text-sm font-semibold text-white">Add</button>
       </form>
       {picks.length > 0 && (
-        <ul role="listbox" aria-label="Suggestions" className="-mt-2 mb-4 divide-y divide-stone-100 overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm">
+        <ul role="listbox" aria-label="Suggestions" className="-mt-2 mb-4 max-h-[55dvh] divide-y divide-stone-100 overflow-y-auto rounded-xl border border-stone-200 bg-white shadow-sm">
           {picks.map(({ need, deal }) => (
             <li key={need}>
               <button
@@ -75,7 +76,18 @@ export default function NeedsSheet({ open, onClose, needs, status, onChange, dea
                 onClick={() => pick(need)}
                 className="flex w-full items-center gap-2 px-3 py-2 text-left hover:bg-stone-50"
               >
-                <span className="min-w-0 flex-1 truncate text-sm">
+                {deal && (
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-stone-50">
+                    {deal.imageUrl ? (
+                      <img src={deal.imageUrl} alt="" loading="lazy" className="max-h-12 max-w-12 object-contain" />
+                    ) : deal.clip?.box ? (
+                      <FlyerClip deal={deal} sharp={160} maxHeight="3rem" />
+                    ) : (
+                      <span aria-hidden>🏷️</span>
+                    )}
+                  </span>
+                )}
+                <span className="line-clamp-2 min-w-0 flex-1 text-sm">
                   {deal ? dealName(deal.name) : <span className="font-medium"><span className="capitalize">{need}</span> <span className="font-normal text-stone-400">(any kind)</span></span>}
                 </span>
                 {deal && (

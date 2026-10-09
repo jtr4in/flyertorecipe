@@ -15,6 +15,8 @@ const rows = [
   ['Neilson Chocolate Milk, 1 L', 'No Frills', 2.99, 3.79, 'Dairy & Eggs', '$2.99'],
   ['Oatly Oat Milk, 1.75 L', 'Food Basics', 4.99, 6.49, 'Dairy & Eggs', '$4.99'],
   ['Skim Milk, 2 L', 'Metro', 4.29, 5.19, 'Dairy & Eggs', '$4.29'],
+  ['Natrel 3.25%, 4 L', 'Sobeys', 6.49, 7.99, 'Dairy & Eggs', '$6.49', ['milk']],
+  ['Lait homogénéisé 3,25 % | Beatrice Homogenized Milk, 2 L', 'Walmart', 4.47, 5.27, 'Dairy & Eggs', '$4.47', ['milk']],
   ['Medium Cheddar Cheese, 400 g', 'Metro', 5.0, 7.99, 'Dairy & Eggs', '2/$10'],
   ['Greek Yogurt 650 g', 'Loblaws', 4.99, 6.49, 'Dairy & Eggs', '$4.99'],
   ['Salted Butter 454 g', 'No Frills', 4.99, null, 'Dairy & Eggs', '$4.99'],
@@ -58,7 +60,7 @@ const rows = [
 
 export function sampleDeals(today = new Date()) {
   const day = (n) => new Date(today.getTime() + n * 864e5).toISOString().slice(0, 10)
-  return rows.map(([name, merchant, price, regularPrice, aisle, priceText], idx) => ({
+  return rows.map(([name, merchant, price, regularPrice, aisle, priceText, queries = []], idx) => ({
     dealId: `demo-${idx}`,
     name,
     merchant,
@@ -67,6 +69,7 @@ export function sampleDeals(today = new Date()) {
     savings: regularPrice ? Math.round((regularPrice - price) * 100) / 100 : null,
     aisle,
     priceText,
+    queries,
     validFrom: day(-2),
     validTo: day(5),
   }))
