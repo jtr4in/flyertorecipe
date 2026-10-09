@@ -1,0 +1,24 @@
+# Debug helper: prints raw rows from the last Apify run into the job log. Costs nothing.
+name: Inspect last flyer fetch
+on:
+  workflow_dispatch:
+    inputs:
+      rows:
+        description: Number of rows to print
+        default: "120"
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - env:
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+        run: python inspect_last_run.py "${{ inputs.rows }}"
