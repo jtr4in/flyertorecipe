@@ -115,6 +115,14 @@ describe('buildShoppingList', () => {
   })
 })
 
+it('ignores a home store that is no longer in the planned stores', () => {
+  const plan = planWeek(deals, prefs, { days })
+  const fewer = deals.filter((d) => d.merchant !== 'Metro')
+  const list = buildShoppingList(plan, fewer, { ...prefs, homeStore: 'Metro' }, { mode: 'single' })
+  expect(list.store).not.toBe('Metro')
+  expect(list.onSale).toBeGreaterThan(0)
+})
+
 describe('parsePlanQuery', () => {
   it('reads filters and a budget', () => {
     expect(parsePlanQuery('quick high protein meals under $150')).toEqual({ filters: ['quick', 'high-protein'], budget: 150 })

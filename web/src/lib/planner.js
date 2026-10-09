@@ -398,7 +398,9 @@ export function buildShoppingList(plan, deals, prefs, { mode = 'match' } = {}) {
   }
   const rows = [...totals.values()]
   const suggested = bestSingleStore(rows, deals)
-  const store = prefs.homeStore || suggested?.store || null
+  // A home store picked earlier may be outside the stores now being planned from; ignore it then.
+  const home = prefs.homeStore && deals.some((d) => d.merchant === prefs.homeStore) ? prefs.homeStore : null
+  const store = home || suggested?.store || null
   const pool = mode === 'single' && store ? deals.filter((d) => d.merchant === store) : deals
 
   let totalCost = 0
