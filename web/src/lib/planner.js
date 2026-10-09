@@ -382,7 +382,7 @@ export function listSwapOptions(uses, deals, prefs) {
   return [...byItem.values()].sort((a, b) => b.fits.length - a.fits.length || (b.deal ? 1 : 0) - (a.deal ? 1 : 0) || a.cost - b.cost)
 }
 
-// ---------- Another idea ----------
+// ---------- Change meal ----------
 
 const PROTEIN_SNACKS = ['eggs', 'yogurt', 'nuts', 'cheddar', 'peanut butter', 'hummus', 'chickpeas']
 

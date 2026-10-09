@@ -23,9 +23,10 @@ export default function App() {
   const [query, setQuery] = useState('')
   const [chips, setChips] = useState([])
   const [sheet, setSheet] = useState(null) // 'settings' | 'list'
-  const [ideaFor, setIdeaFor] = useState(null) // the meal entry "Another idea" was tapped on
+  const [ideaFor, setIdeaFor] = useState(null) // the meal entry "Change meal" was tapped on
   const [printing, setPrinting] = useState(false)
   const [swapping, setSwapping] = useState(null) // [{ meal, line }]: every meal the swap applies to
+  const [swapAll, setSwapAll] = useState(true) // from a meal card: swap it in the other meals too
   const [listMode, setListMode] = useState('match')
   const [proof, setProof] = useState(null)
   const [welcome, setWelcome] = useState(false)
@@ -117,10 +118,22 @@ export default function App() {
       }
       return { ...w, overrides, avoid }
     })
-  const pickIdea = (meal, idea) =>
-    override(meal.key, (o) => ({ ...o, skip: false, template: idea.template.id, fills: idea.fills }))
+  const pickIdea = (meal, idea, alsoKeys = []) =>
+    editWeek((w) => {
+      const overrides = { ...w.overrides }
+      for (const key of [meal.key, ...alsoKeys]) {
+        overrides[key] = { ...overrides[key], skip: false, template: idea.template.id, fills: idea.fills }
+      }
+      return { ...w, overrides }
+    })
   const resetWeek = () => editWeek((w) => ({ ...w, overrides: {}, avoid: [] }))
   const toggleChip = (id) => setChips((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]))
+
+  // A card's swap covers one meal; with "swap it everywhere" on, every meal using that item.
+  const otherUses = swapping?.length === 1
+    ? (list.groups.flatMap((g) => g.items).find((i) => i.key === swapping[0].line.ing.item)?.uses || []).filter((u) => u.meal.key !== swapping[0].meal.key)
+    : []
+  const swapUses = swapping && otherUses.length && swapAll ? [swapping[0], ...otherUses] : swapping
 
   const weekCost = list.totalCost
   const overBudget = parsed.budget != null && weekCost > parsed.budget
@@ -258,7 +271,10 @@ export default function App() {
                       label={m.label}
                       emoji={m.emoji}
                       entry={entry}
-                      onSwapLine={(line) => setSwapping([{ meal: entry, line }])}
+                      onSwapLine={(line) => {
+                        setSwapAll(true)
+                        setSwapping([{ meal: entry, line }])
+                      }}
                       onAnother={() => setIdeaFor({ entry, label: m.label })}
                       onSkip={() => override(key, (o) => ({ ...o, skip: true }))}
                       onRestore={() => override(key, (o) => ({ ...o, skip: false }))}
@@ -292,20 +308,31 @@ export default function App() {
         <Preferences prefs={prefs} merchants={merchants} onChange={updatePrefs} />
       </Sheet>
       <Sheet open={!!swapping} onClose={() => setSwapping(null)} title={swapping ? `Swap ${swapping[0].line.ing.item}` : ''}>
+        {otherUses.length > 0 && (
+          <label className="mb-3 flex items-start gap-3 rounded-2xl bg-amber-50 p-3">
+            <input type="checkbox" className="mt-0.5 size-4 accent-green-700" checked={swapAll} onChange={(e) => setSwapAll(e.target.checked)} />
+            <span className="text-sm">
+              <span className="font-medium">
+                Swap it in all {otherUses.length + 1} meals that use {swapping[0].line.ing.item}
+              </span>
+              <span className="block text-xs text-stone-600">So you don't buy both. Unchecked, only this meal changes.</span>
+            </span>
+          </label>
+        )}
         {swapping && swapping.length > 1 && (
           <p className="mb-3 text-xs text-stone-500">Swaps it in the {swapping.length} meals that use it and keeps it off this week's list.</p>
         )}
-        {swapping && (
+        {swapUses && (
           <ul className="space-y-2">
-            {(swapping.length === 1 ? swapOptions(swapping[0].meal, swapping[0].line, deals, prefs) : listSwapOptions(swapping, deals, prefs)).map((c) => {
+            {(swapUses.length === 1 ? swapOptions(swapUses[0].meal, swapUses[0].line, deals, prefs) : listSwapOptions(swapUses, deals, prefs)).map((c) => {
               const current = c.ing.item === swapping[0].line.ing.item
               return (
                 <li key={c.ing.item}>
                   <button
                     disabled={current}
                     onClick={() => {
-                      if (swapping.length > 1) swapIn(c.fits, c.ing.item, true)
-                      else swapIn(swapping, c.ing.item, false)
+                      if (swapUses.length > 1) swapIn(c.fits, c.ing.item, true)
+                      else swapIn(swapUses, c.ing.item, false)
                       setSwapping(null)
                     }}
                     className={`flex w-full items-center gap-3 rounded-2xl border p-3 text-left ${
@@ -331,7 +358,7 @@ export default function App() {
                       ) : (
                         <span className="text-xs text-stone-400">reg. price</span>
                       )}
-                      <span className="block text-[11px] text-stone-400">~{money(c.cost)} {swapping.length > 1 ? (c.fits.length < swapping.length ? `· ${c.fits.length} of ${swapping.length} meals` : 'for the week') : 'for this meal'}</span>
+                      <span className="block text-[11px] text-stone-400">~{money(c.cost)} {swapUses.length > 1 ? (c.fits.length < swapUses.length ? `· ${c.fits.length} of ${swapUses.length} meals` : 'for the week') : 'for this meal'}</span>
                     </span>
                   </button>
                 </li>
@@ -345,8 +372,8 @@ export default function App() {
         deals={deals}
         prefs={prefs}
         plan={plan}
-        onPick={(idea) => {
-          pickIdea(ideaFor.entry, idea)
+        onPick={(idea, alsoKeys) => {
+          pickIdea(ideaFor.entry, idea, alsoKeys)
           setIdeaFor(null)
         }}
         onClose={() => setIdeaFor(null)}

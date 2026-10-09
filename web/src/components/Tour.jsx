@@ -37,7 +37,7 @@ export const TOUR_STEPS = [
   {
     target: 'another',
     title: 'Not feeling it?',
-    body: '"Another idea" shows other dishes: healthier, quicker, or a treat. "Skip" takes the meal off the plan.',
+    body: '"Change meal" shows other dishes: healthier, quicker, or a treat. "Skip" takes the meal off the plan.',
   },
   {
     target: 'print',

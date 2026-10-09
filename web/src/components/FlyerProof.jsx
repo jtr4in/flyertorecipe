@@ -39,12 +39,7 @@ export default function FlyerProof({ deal, onClose }) {
             {to && <>to {to}</>}
           </p>
         )}
-        {deal.flippItemId && (
-          <a href={`https://flipp.com/en-ca/item/${deal.flippItemId}`} target="_blank" rel="noreferrer" className="mt-5 rounded-xl bg-green-700 px-4 py-2 text-sm font-semibold text-white">
-            Show it in the full flyer ↗
-          </a>
-        )}
-        <a href={flyerUrl(deal.merchant)} target="_blank" rel="noreferrer" className="mt-3 rounded-xl border border-stone-300 px-4 py-2 text-sm font-medium text-green-700">
+        <a href={flyerUrl(deal.merchant)} target="_blank" rel="noreferrer" className="mt-5 rounded-xl bg-green-700 px-4 py-2 text-sm font-semibold text-white">
           See {deal.merchant}'s full flyer ↗
         </a>
       </div>

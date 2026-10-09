@@ -9,7 +9,7 @@ const fmtQty = (q, unit) => {
 
 /**
  * One meal slot of the selected day (breakfast, lunch, dinner or snack).
- * Tap an ingredient to swap it for something else on sale; "Another idea" re-rolls the dish.
+ * Tap an ingredient to swap it for something else on sale; "Change meal" picks a different dish.
  */
 export default function MealCard({ label, emoji, entry, onSwapLine, onAnother, onSkip, onRestore, onCook, onProof }) {
   const head = (
@@ -129,7 +129,7 @@ export default function MealCard({ label, emoji, entry, onSwapLine, onAnother, o
 
       <div className="mt-2 flex border-t border-stone-100 text-xs font-medium" data-tour="another">
         <button onClick={onAnother} className="flex-1 py-2.5 text-green-700 hover:bg-stone-50">
-          ⟳ Another idea
+          🔄 Change meal
         </button>
         <button onClick={onSkip} className="flex-1 border-l border-stone-100 py-2.5 text-stone-500 hover:bg-stone-50">
           Skip
