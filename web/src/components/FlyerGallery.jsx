@@ -1,5 +1,6 @@
 // Every flyer ad on the list in one scroll, to hand the cashier when price matching.
 import { createPortal } from 'react-dom'
+import FlyerClip from './FlyerClip'
 import { dealName, flyerUrl, shortDay } from '../lib/stores'
 
 export default function FlyerGallery({ open, flyers, store, onClose }) {
@@ -19,11 +20,7 @@ export default function FlyerGallery({ open, flyers, store, onClose }) {
         <div className="mx-auto max-w-md space-y-3">
           {flyers.map(({ item, deal }) => (
             <figure key={item} className="overflow-hidden rounded-2xl bg-white shadow-sm">
-              {deal.imageUrl ? (
-                <img src={deal.imageUrl} alt={deal.name} loading="lazy" className="max-h-80 w-full object-contain p-3" />
-              ) : (
-                <p className="p-8 text-center text-sm text-stone-400">No flyer image</p>
-              )}
+              <FlyerClip deal={deal} />
               <figcaption className="flex items-end justify-between gap-3 border-t border-stone-100 px-4 py-3">
                 <span className="min-w-0">
                   <span className="block text-base font-bold">{deal.merchant}</span>

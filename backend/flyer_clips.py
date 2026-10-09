@@ -68,13 +68,15 @@ def clip_boxes(items: list[dict], pages: list[dict]) -> dict[str, tuple[float, f
     return out
 
 
-def flyer_index(postal_code: str, locale: str = "en-ca") -> dict[str, dict]:
-    """page_item id -> {clip, flyerId, flippItemId} for every flyer in the area."""
+def flyer_index(postal_code: str, merchants: set[str] | None = None, locale: str = "en-ca") -> dict[str, dict]:
+    """page_item id -> {clip, flyerId, flippItemId} for the area's grocery flyers, plus any
+    other flyer from `merchants` (pharmacies carry groceries too)."""
     pc = postal_code.replace(" ", "").upper()
     flyers = _get(f"{API}/data?locale={locale}&postal_code={pc}").get("flyers", [])
     index: dict[str, dict] = {}
     for f in flyers:
-        if "Groceries" not in (f.get("categories") or []) or not f.get("path"):
+        wanted = "Groceries" in (f.get("categories") or []) or f.get("merchant") in (merchants or set())
+        if not wanted or not f.get("path"):
             continue
         try:
             detail = _get(f"{API}/flyers/{f['id']}")

@@ -1,9 +1,10 @@
 // Hover (or tap) a grocery item to see its flyer ad, without leaving the list.
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import FlyerClip from './FlyerClip'
 import { dealName, shortDay } from '../lib/stores'
 
-const W = 260
+const W = 300
 
 /**
  * Wraps a row. Mouse users get the flyer on hover; touch users tap the row to toggle it.
@@ -62,11 +63,9 @@ export default function FlyerPeek({ deal, onOpen, children, className = '' }) {
             }}
             role="tooltip"
           >
-            {deal.imageUrl ? (
-              <img src={deal.imageUrl} alt="" className="h-40 w-full bg-stone-50 object-contain p-2" />
-            ) : (
-              <p className="bg-stone-50 p-6 text-center text-xs text-stone-400">No flyer image</p>
-            )}
+            <div className="bg-stone-50">
+              <FlyerClip deal={deal} maxHeight="14rem" />
+            </div>
             <div className="border-t border-stone-100 px-3 py-2 text-xs">
               <p className="font-semibold">{deal.merchant}</p>
               <p className="line-clamp-2 text-stone-600">{dealName(deal.name)}</p>

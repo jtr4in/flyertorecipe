@@ -134,7 +134,7 @@ def main() -> None:
         deals = build_deals(rows)
         print(f"{code}: {len(rows)} rows -> {len(deals)} deals for {', '.join(fsas)}")
         try:
-            matched = attach_clips(deals, flyer_index(code))
+            matched = attach_clips(deals, flyer_index(code, {d['merchant'] for d in deals}))
             print(f"{code}: flyer clippings for {matched} of {len(deals)} deals")
         except Exception as e:  # clippings are a nice-to-have; keep the deals either way
             print(f"{code}: no flyer clippings ({e})")

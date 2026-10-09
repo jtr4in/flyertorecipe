@@ -1,5 +1,6 @@
 // Full-screen flyer view to show a cashier when price matching.
 import { createPortal } from 'react-dom'
+import FlyerClip from './FlyerClip'
 import { flyerUrl } from '../lib/stores'
 
 // Date-only strings parse as UTC midnight, which shows as the previous day in Canada.
@@ -24,11 +25,7 @@ export default function FlyerProof({ deal, onClose }) {
         </button>
       </div>
       <div className="flex flex-1 flex-col items-center overflow-y-auto px-4 py-6 text-center">
-        {deal.imageUrl ? (
-          <img src={deal.imageUrl} alt={deal.name} className="max-h-[50vh] w-auto rounded-lg object-contain" />
-        ) : (
-          <p className="rounded-lg bg-stone-100 p-6 text-sm text-stone-500">No flyer image for this item.</p>
-        )}
+        <FlyerClip deal={deal} maxHeight="60vh" className="rounded-lg shadow-sm" />
         <p className="mt-6 text-2xl font-bold">{deal.merchant}</p>
         <p className="mt-1 text-lg">{deal.name}</p>
         <p className="mt-3 text-4xl font-bold text-green-700">{deal.priceLabel || deal.priceText}</p>
@@ -42,7 +39,12 @@ export default function FlyerProof({ deal, onClose }) {
             {to && <>to {to}</>}
           </p>
         )}
-        <a href={flyerUrl(deal.merchant)} target="_blank" rel="noreferrer" className="mt-5 rounded-xl border border-stone-300 px-4 py-2 text-sm font-medium text-green-700">
+        {deal.flippItemId && (
+          <a href={`https://flipp.com/en-ca/item/${deal.flippItemId}`} target="_blank" rel="noreferrer" className="mt-5 rounded-xl bg-green-700 px-4 py-2 text-sm font-semibold text-white">
+            Show it in the full flyer ↗
+          </a>
+        )}
+        <a href={flyerUrl(deal.merchant)} target="_blank" rel="noreferrer" className="mt-3 rounded-xl border border-stone-300 px-4 py-2 text-sm font-medium text-green-700">
           See {deal.merchant}'s full flyer ↗
         </a>
       </div>
