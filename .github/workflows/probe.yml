@@ -6,8 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          curl -s "https://backflipp.wishabi.com/flipp/items/search?locale=en-ca&postal_code=K1E0A1&q=villaggio" > s.json
-          jq -c '.items[] | select(.merchant_name|test("Food Basics";"i"))' s.json | head -c 3000; echo
-          echo "== keys"; jq -c '.items[0] | keys' s.json
-          id=$(jq -r '[.items[] | select(.merchant_name|test("Food Basics";"i"))][0].id' s.json)
-          echo "== item $id"; curl -s "https://backflipp.wishabi.com/flipp/items/$id" | head -c 2500; echo
+          curl -sL "http://f.wishabi.net/page_pdf_images/24249013/3a37564c-bea3-11f1-acda-222bbf2ed336/x_large" -o a.img
+          file a.img; identify a.img || true
+          convert a.img -resize 360x360 -quality 45 a.jpg && echo "B64START" && base64 -w0 a.jpg && echo && echo "B64END"
+          curl -s -o /dev/null -w "flipp item page %{http_code} %{url_effective}\n" -L "https://flipp.com/en-ca/item/1045972022"
+          curl -s -o /dev/null -w "flipp flyer page %{http_code} %{url_effective}\n" -L "https://flipp.com/en-ca/flyer/8178726"
