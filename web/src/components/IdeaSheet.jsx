@@ -7,18 +7,13 @@ const PAGE = 3
 
 /**
  * "Change meal": a few on-sale alternatives at a time, with nudges like Healthier or Sweet.
- * When the same dish is planned on other days too, it offers to change those as well, so the
- * list doesn't buy for two different dishes.
+ * The new dish can go on just this day, on the other days with the same dish, or on every day
+ * for this meal, so the list buys one set of ingredients instead of a bit of everything.
  */
 export default function IdeaSheet({ current, deals, prefs, plan, onPick, onClose }) {
   const [nudge, setNudge] = useState(null)
   const [page, setPage] = useState(0)
-  const [everywhere, setEverywhere] = useState(true)
-  useEffect(() => {
-    setNudge(null)
-    setPage(0)
-    setEverywhere(true)
-  }, [current?.key])
+  const [scope, setScope] = useState('one') // 'one' | 'repeats' | 'all'
 
   // Other days with this same dish.
   const repeats = useMemo(
@@ -30,6 +25,24 @@ export default function IdeaSheet({ current, deals, prefs, plan, onPick, onClose
         : [],
     [current, plan],
   )
+  // Every other day this meal is cooked (not skipped, not leftovers).
+  const others = useMemo(
+    () => (current ? plan.map((d) => d.meals[current.meal]).filter((m) => m?.lines && m.key !== current.key) : []),
+    [current, plan],
+  )
+  useEffect(() => {
+    setNudge(null)
+    setPage(0)
+    setScope(repeats.length ? 'repeats' : 'one')
+  }, [current?.key])
+  const alsoKeys = scope === 'all' ? others.map((m) => m.key) : scope === 'repeats' ? repeats.map(({ m }) => m.key) : []
+  const day = current && plan.find((d) => d.meals[current.meal]?.key === current.key)
+  const meal = current?.meal
+  const scopes = [
+    ['one', `Just ${day?.short === 'Today' ? 'today' : day?.short || 'this day'}`],
+    repeats.length > 0 && ['repeats', `Also ${repeats.map(({ day: d }) => d.short).join(', ')} (same dish)`],
+    others.length > 0 && ['all', `Every ${meal} this week`],
+  ].filter(Boolean)
 
   const ideas = useMemo(
     () => (current ? suggestMeals(current, deals, prefs, { nudge, plan }) : []),
@@ -42,21 +55,33 @@ export default function IdeaSheet({ current, deals, prefs, plan, onPick, onClose
     <Sheet open={!!current} onClose={onClose} title={current ? `Change ${current.meal}` : ''}>
       {current && (
         <>
-          {repeats.length > 0 && (
-            <label className="mb-4 flex items-start gap-3 rounded-2xl bg-amber-50 p-3">
-              <input
-                type="checkbox"
-                className="mt-0.5 size-4 accent-green-700"
-                checked={everywhere}
-                onChange={(e) => setEverywhere(e.target.checked)}
-              />
-              <span className="text-sm">
-                <span className="font-medium">Change it on {repeats.map(({ day }) => day.short).join(', ')} too</span>
-                <span className="block text-xs text-stone-600">
-                  {current.name} is planned {repeats.length + 1} times this week. Changing them all keeps you from buying for both dishes.
-                </span>
-              </span>
-            </label>
+          {scopes.length > 1 && (
+            <fieldset className="mb-4 rounded-2xl bg-amber-50 p-3">
+              <legend className="sr-only">Where to use it</legend>
+              <p className="text-sm font-medium">Use the new dish for…</p>
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {scopes.map(([id, label]) => (
+                  <button
+                    key={id}
+                    type="button"
+                    aria-pressed={scope === id}
+                    onClick={() => setScope(id)}
+                    className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
+                      scope === id ? 'border-green-700 bg-green-700 text-white' : 'border-stone-300 bg-white text-stone-700'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              <p className="mt-2 text-xs text-stone-600">
+                {scope === 'all'
+                  ? `Same ${meal} all week, so you buy one set of ingredients in bulk instead of a bit of everything.`
+                  : scope === 'repeats'
+                    ? `${current.name} is planned ${repeats.length + 1} times. Changing them all keeps you from buying for both dishes.`
+                    : 'Only this one changes.'}
+              </p>
+            </fieldset>
           )}
           <p className="mb-2 text-xs text-stone-500">In the mood for something…</p>
           <div className="-mx-5 mb-4 flex gap-2 overflow-x-auto px-5 [scrollbar-width:none]">
@@ -92,7 +117,7 @@ export default function IdeaSheet({ current, deals, prefs, plan, onPick, onClose
                 return (
                   <li key={m.name}>
                     <button
-                      onClick={() => onPick(m, everywhere ? repeats.map(({ m: r }) => r.key) : [])}
+                      onClick={() => onPick(m, alsoKeys)}
                       className="flex w-full items-start gap-3 rounded-2xl border border-stone-200 bg-white p-3 text-left hover:border-green-600"
                     >
                       <span className="text-2xl" aria-hidden>
