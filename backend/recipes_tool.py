@@ -37,7 +37,7 @@ def load_recipes() -> list[dict]:
 
 
 def save_recipes(recipes: list[dict]) -> None:
-    RECIPES.write_text(json.dumps(recipes, indent=1, ensure_ascii=False) + "\n")
+    RECIPES.write_text(json.dumps(recipes, indent=2, ensure_ascii=False) + "\n")
 
 
 def load_catalog() -> dict[str, list[dict]]:
