@@ -7213,5 +7213,1419 @@
       "Roll into balls and coat in sugar.",
       "Bake at 350°F for 9-10 minutes until crackled but still soft in the middle."
     ]
+  },
+  {
+    "id": "egg-in-a-hole",
+    "meal": "breakfast",
+    "name": "Egg-in-a-hole toast with {fruit}",
+    "emoji": "🍳",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "main": true
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread"
+        ]
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "strawberries"
+      }
+    ],
+    "pantry": [
+      "butter",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Use a cookie cutter or small cup to cut a fun shape from the middle of each slice of {bread}.",
+      "Melt butter in a skillet over medium heat and lay in the slices and cut-outs.",
+      "Crack an egg into each hole, season with salt and pepper and cook 2-3 minutes.",
+      "Flip carefully and cook 1 minute more, toasting the cut-outs on both sides.",
+      "Serve with {fruit} on the side and the cut-outs for dipping."
+    ]
+  },
+  {
+    "id": "fruit-muffins",
+    "meal": "breakfast",
+    "name": "Fluffy muffins with {fruit}",
+    "emoji": "🧁",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "fruit",
+        "from": [
+          "fruit",
+          "frozenFruit"
+        ],
+        "prefer": "blueberries",
+        "only": [
+          "blueberries",
+          "strawberries",
+          "bananas",
+          "apples",
+          "frozen fruit"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 0.5
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "flour",
+      "sugar",
+      "baking powder",
+      "butter",
+      "vanilla",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "sweet",
+      "comfort"
+    ],
+    "steps": [
+      "Heat the oven to 375°F and line a muffin tin.",
+      "Whisk flour, sugar, baking powder and salt; in another bowl whisk eggs, milk, melted butter and vanilla.",
+      "Stir wet into dry until just combined, then fold in chopped {fruit}.",
+      "Let the kids scoop batter into the cups and sprinkle a little sugar on top.",
+      "Bake 20-22 minutes until golden; cool before serving."
+    ]
+  },
+  {
+    "id": "smoothie-bowl",
+    "meal": "breakfast",
+    "name": "Smoothie bowls with {fruit} & {crunch}",
+    "emoji": "🥣",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "base",
+        "from": [
+          "frozenFruit",
+          "fruit"
+        ],
+        "prefer": "frozen fruit",
+        "only": [
+          "frozen fruit",
+          "bananas",
+          "strawberries",
+          "blueberries"
+        ]
+      },
+      {
+        "key": "yogurt",
+        "from": [
+          "yogurt"
+        ],
+        "prefer": "yogurt",
+        "qty": 0.5
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "bananas",
+        "only": [
+          "bananas",
+          "strawberries",
+          "blueberries",
+          "grapes"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "crunch",
+        "from": [
+          "oats",
+          "nuts"
+        ],
+        "prefer": "granola",
+        "only": [
+          "granola",
+          "nuts"
+        ],
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "honey"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "healthy",
+      "sweet"
+    ],
+    "steps": [
+      "Blend {base} with {yogurt} and a drizzle of honey until thick and spoonable.",
+      "Pour into bowls.",
+      "Slice {fruit} and let kids decorate the tops in stripes or faces.",
+      "Sprinkle with {crunch} and serve right away."
+    ]
+  },
+  {
+    "id": "breakfast-banana-split",
+    "meal": "breakfast",
+    "name": "Breakfast banana splits with {fruit} & {crunch}",
+    "emoji": "🍌",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "banana",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "bananas",
+        "only": [
+          "bananas"
+        ]
+      },
+      {
+        "key": "yogurt",
+        "from": [
+          "yogurt"
+        ],
+        "prefer": "yogurt"
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit",
+          "frozenFruit"
+        ],
+        "prefer": "strawberries",
+        "only": [
+          "strawberries",
+          "blueberries",
+          "grapes",
+          "frozen fruit"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "crunch",
+        "from": [
+          "oats",
+          "nuts"
+        ],
+        "prefer": "granola",
+        "only": [
+          "granola",
+          "nuts"
+        ],
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "honey",
+      "cinnamon"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "healthy",
+      "sweet"
+    ],
+    "steps": [
+      "Peel the bananas and split them lengthwise into a bowl or dish.",
+      "Add two or three scoops of {yogurt} between the banana halves like ice cream.",
+      "Top with chopped {fruit} and a sprinkle of {crunch}.",
+      "Drizzle with honey and dust with cinnamon."
+    ]
+  },
+  {
+    "id": "bagel-faces",
+    "meal": "breakfast",
+    "name": "Silly face {bread} with {fruit}[ & {veg}]",
+    "emoji": "😜",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "bagels",
+        "only": [
+          "bagels",
+          "English muffins"
+        ]
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "strawberries",
+        "only": [
+          "strawberries",
+          "blueberries",
+          "bananas",
+          "grapes",
+          "apples"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "cucumber",
+        "only": [
+          "cucumber",
+          "bell peppers",
+          "carrots",
+          "tomatoes"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "cream cheese"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "light",
+      "sweet"
+    ],
+    "steps": [
+      "Split and toast the {bread}.",
+      "Spread each half with cream cheese.",
+      "Slice {fruit}[ and {veg}] into eyes, noses, smiles and hair.",
+      "Let the kids build their own silly faces and eat."
+    ]
+  },
+  {
+    "id": "pinwheels",
+    "meal": "lunch",
+    "name": "{protein} & {cheese} pinwheels[ with {veg}]",
+    "emoji": "🌀",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "wraps",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "tortillas",
+        "only": [
+          "tortillas"
+        ]
+      },
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein"
+        ],
+        "prefer": "deli turkey or ham",
+        "only": [
+          "deli turkey or ham",
+          "rotisserie chicken"
+        ],
+        "main": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "greens",
+          "saladVeg"
+        ],
+        "prefer": "spinach",
+        "only": [
+          "spinach",
+          "lettuce",
+          "cucumber",
+          "bell peppers",
+          "carrots"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "cream cheese"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "light",
+      "savoury"
+    ],
+    "steps": [
+      "Spread each tortilla edge to edge with a thin layer of cream cheese.",
+      "Layer on {protein}, grated {cheese}[ and finely sliced {veg}].",
+      "Roll up tightly and wrap in plastic for a few minutes to firm up.",
+      "Slice into 1-inch pinwheels and secure with toothpicks for little hands."
+    ]
+  },
+  {
+    "id": "pasta-salad",
+    "meal": "lunch",
+    "name": "{protein} pasta salad with {veg}[ & {cheese}]",
+    "emoji": "🍝",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "pasta",
+        "from": [
+          "starch"
+        ],
+        "prefer": "pasta",
+        "only": [
+          "pasta"
+        ]
+      },
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein",
+          "plantProtein"
+        ],
+        "prefer": "rotisserie chicken",
+        "only": [
+          "rotisserie chicken",
+          "canned tuna",
+          "deli turkey or ham",
+          "chickpeas"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "cucumber"
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "Italian dressing",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "healthy",
+      "savoury"
+    ],
+    "steps": [
+      "Cook fun-shaped {pasta} in salted water, then rinse under cold water and drain well.",
+      "Chop {protein} and {veg} into small bite-size pieces[ and cube the {cheese}].",
+      "Toss everything with Italian dressing, salt and pepper.",
+      "Chill 10 minutes or pack straight into lunch boxes."
+    ]
+  },
+  {
+    "id": "egg-salad-sandwiches",
+    "meal": "lunch",
+    "name": "Egg salad sandwiches on {bread}[ with {veg}]",
+    "emoji": "🥚",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 1.5,
+        "main": true
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread",
+          "buns"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread",
+          "bagels",
+          "buns"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "greens",
+          "saladVeg"
+        ],
+        "prefer": "lettuce",
+        "only": [
+          "lettuce",
+          "cucumber",
+          "celery",
+          "tomatoes"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "mayonnaise",
+      "mustard",
+      "salt",
+      "pepper",
+      "paprika"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Hard-boil the eggs for 10 minutes, then cool in ice water and peel.",
+      "Mash the eggs with mayo, a little mustard, salt and pepper.",
+      "Spread onto {bread}[ and add {veg}].",
+      "Cut into triangles or use cookie cutters for fun shapes."
+    ]
+  },
+  {
+    "id": "pigs-in-a-blanket",
+    "meal": "lunch",
+    "name": "Pigs in a blanket with {veg} sticks",
+    "emoji": "🌭",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "sausages",
+        "from": [
+          "pork"
+        ],
+        "prefer": "sausages",
+        "only": [
+          "sausages"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "carrots",
+        "only": [
+          "carrots",
+          "cucumber",
+          "celery",
+          "bell peppers"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "refrigerated crescent dough",
+      "ketchup",
+      "mustard"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "treat",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 375°F and brown the sausages in a skillet until cooked through; cut in half.",
+      "Unroll the crescent dough and cut into thin triangles.",
+      "Lay a strip of cheese on each triangle if using, add a sausage piece and roll up.",
+      "Bake 12-15 minutes until puffed and golden.",
+      "Serve with ketchup, mustard and {veg} sticks."
+    ]
+  },
+  {
+    "id": "bean-cheese-burritos",
+    "meal": "lunch",
+    "name": "Bean & {cheese} burritos[ with {veg}]",
+    "emoji": "🌯",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "beans",
+        "from": [
+          "plantProtein"
+        ],
+        "prefer": "black beans",
+        "only": [
+          "black beans",
+          "lentils"
+        ],
+        "main": true
+      },
+      {
+        "key": "wraps",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "tortillas",
+        "only": [
+          "tortillas"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg",
+          "greens"
+        ],
+        "prefer": "tomatoes",
+        "only": [
+          "tomatoes",
+          "lettuce",
+          "bell peppers"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "salsa",
+      "cumin",
+      "chili powder",
+      "sour cream",
+      "cooking oil"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Warm the {beans} in a pan with cumin, chili powder and a splash of water, mashing half of them.",
+      "Spoon onto warm tortillas and top with grated {cheese}[ and chopped {veg}].",
+      "Fold in the sides and roll up tightly.",
+      "Toast seam-side down in a hot pan until golden on both sides.",
+      "Serve with salsa and sour cream; extras freeze well."
+    ]
+  },
+  {
+    "id": "spaghetti-meatballs",
+    "meal": "dinner",
+    "name": "Spaghetti & {protein} meatballs[ with {veg}]",
+    "emoji": "🍝",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "pasta",
+        "from": [
+          "starch"
+        ],
+        "prefer": "pasta",
+        "only": [
+          "pasta"
+        ]
+      },
+      {
+        "key": "tomatoes",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes"
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 0.25
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "broccoli",
+        "only": [
+          "broccoli",
+          "green beans",
+          "zucchini"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "breadcrumbs",
+      "parmesan",
+      "garlic",
+      "onion",
+      "Italian seasoning",
+      "olive oil",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Mix {protein} with egg, breadcrumbs, parmesan, Italian seasoning and salt; let the kids roll into small balls.",
+      "Brown the meatballs in olive oil, then remove.",
+      "Soften onion and garlic, add {tomatoes} and simmer, then return the meatballs for 15 minutes.",
+      "Meanwhile cook the {pasta}[ and steam the {veg}].",
+      "Serve meatballs and sauce over the pasta with extra parmesan."
+    ]
+  },
+  {
+    "id": "shake-and-bake",
+    "meal": "dinner",
+    "name": "Crispy shake & bake {protein} with {starch} & {veg}",
+    "emoji": "🍗",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "pork"
+        ],
+        "prefer": "chicken breasts",
+        "exclude": [
+          "whole chicken",
+          "sausages"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes",
+          "sweet potatoes",
+          "rice"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "green beans"
+      }
+    ],
+    "pantry": [
+      "breadcrumbs",
+      "paprika",
+      "garlic powder",
+      "onion powder",
+      "cooking oil",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 425°F; cut {starch} into wedges, toss with oil and salt and start roasting (or cook rice on the stove).",
+      "Put breadcrumbs, paprika, garlic powder, onion powder and salt in a zip bag.",
+      "Brush {protein} lightly with oil, drop into the bag and let the kids shake to coat.",
+      "Bake on a rack 20-25 minutes until cooked through and crispy.",
+      "Steam or roast {veg} and serve alongside."
+    ]
+  },
+  {
+    "id": "baked-ziti",
+    "meal": "dinner",
+    "name": "Cheesy baked ziti with {protein}[ & {veg}]",
+    "emoji": "🧀",
+    "minutes": 45,
+    "slots": [
+      {
+        "key": "pasta",
+        "from": [
+          "starch"
+        ],
+        "prefer": "pasta",
+        "only": [
+          "pasta"
+        ]
+      },
+      {
+        "key": "protein",
+        "from": [
+          "ground",
+          "pork"
+        ],
+        "prefer": "ground beef",
+        "only": [
+          "ground beef",
+          "ground turkey",
+          "ground pork",
+          "ground chicken",
+          "sausages"
+        ],
+        "main": true
+      },
+      {
+        "key": "tomatoes",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes"
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "mozzarella",
+        "only": [
+          "mozzarella",
+          "cheddar"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "greens",
+          "cookingVeg"
+        ],
+        "prefer": "spinach",
+        "only": [
+          "spinach",
+          "kale",
+          "zucchini",
+          "mushrooms"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "garlic",
+      "onion",
+      "Italian seasoning",
+      "parmesan",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 400°F and cook the {pasta} 2 minutes short of package time.",
+      "Brown {protein} with onion and garlic[, stir in {veg} until wilted], then add {tomatoes} and Italian seasoning and simmer 10 minutes.",
+      "Toss the pasta with the sauce and half the {cheese}, then spread in a baking dish.",
+      "Top with the remaining cheese and parmesan and bake 20 minutes until bubbly."
+    ]
+  },
+  {
+    "id": "cheeseburger-pasta",
+    "meal": "dinner",
+    "name": "One-pot cheeseburger pasta with {protein}[ & {veg}]",
+    "emoji": "🍔",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "pasta",
+        "from": [
+          "starch"
+        ],
+        "prefer": "pasta",
+        "only": [
+          "pasta",
+          "egg noodles"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar"
+        ]
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "frozen mixed vegetables",
+        "only": [
+          "frozen mixed vegetables",
+          "broccoli",
+          "bell peppers"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "onion",
+      "garlic",
+      "ketchup",
+      "mustard",
+      "beef broth",
+      "paprika",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Brown {protein} with onion and garlic in a large pot; drain any fat.",
+      "Stir in paprika, a squeeze of ketchup and mustard, the broth and the dry {pasta}.",
+      "Cover and simmer 10-12 minutes, stirring often, until the pasta is tender[; add {veg} for the last 5 minutes].",
+      "Stir in {milk} and grated {cheese} until creamy and melted."
+    ]
+  },
+  {
+    "id": "cheesy-rice-casserole",
+    "meal": "dinner",
+    "name": "Cheesy {protein}, {veg} & {starch} casserole",
+    "emoji": "🥘",
+    "minutes": 50,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "lunchProtein"
+        ],
+        "prefer": "chicken breasts",
+        "only": [
+          "chicken breasts",
+          "chicken thighs",
+          "rotisserie chicken"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "broccoli",
+        "only": [
+          "broccoli",
+          "cauliflower",
+          "frozen mixed vegetables",
+          "green beans",
+          "mushrooms"
+        ]
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice",
+          "quinoa"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ]
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "chicken broth",
+      "butter",
+      "flour",
+      "garlic powder",
+      "onion",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 375°F and cook the {starch} in chicken broth.",
+      "Cook and chop the {protein} into bite-size pieces, and chop {veg} into small florets or pieces.",
+      "Make a quick sauce: melt butter, stir in flour, whisk in {milk} and cook until thick, then stir in most of the {cheese}.",
+      "Mix the starch, protein, veg and sauce in a baking dish, top with remaining cheese and bake 20-25 minutes until golden."
+    ]
+  },
+  {
+    "id": "walking-tacos",
+    "meal": "dinner",
+    "name": "Walking tacos with {protein} & {cheese}",
+    "emoji": "🌮",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "chips",
+        "from": [
+          "treats"
+        ],
+        "prefer": "chips",
+        "only": [
+          "chips"
+        ]
+      },
+      {
+        "key": "protein",
+        "from": [
+          "ground",
+          "plantProtein"
+        ],
+        "prefer": "ground beef",
+        "exclude": [
+          "firm tofu",
+          "chickpeas"
+        ],
+        "main": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "greens",
+          "saladVeg"
+        ],
+        "prefer": "lettuce",
+        "only": [
+          "lettuce",
+          "tomatoes",
+          "bell peppers",
+          "cucumber"
+        ],
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "taco seasoning",
+      "salsa",
+      "sour cream",
+      "cooking oil"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "treat",
+      "savoury"
+    ],
+    "steps": [
+      "Brown {protein} in a little oil, then stir in taco seasoning and a splash of water and simmer 5 minutes.",
+      "Chop {veg} and grate {cheese} into little bowls for a topping bar.",
+      "Gently crush single-serve chip bags (or portion chips into paper cups) and cut open the tops.",
+      "Spoon in the taco filling and let everyone add cheese, veg, salsa and sour cream, then eat with a fork."
+    ]
+  },
+  {
+    "id": "fruit-kabobs",
+    "meal": "snack",
+    "name": "Rainbow fruit kabobs with {fruit} & {fruit2}",
+    "emoji": "🍓",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "fruit",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "strawberries",
+        "only": [
+          "strawberries",
+          "grapes",
+          "bananas",
+          "oranges",
+          "apples",
+          "pears",
+          "blueberries"
+        ]
+      },
+      {
+        "key": "fruit2",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "grapes",
+        "only": [
+          "strawberries",
+          "grapes",
+          "bananas",
+          "oranges",
+          "apples",
+          "pears",
+          "blueberries"
+        ]
+      },
+      {
+        "key": "yogurt",
+        "from": [
+          "yogurt"
+        ],
+        "prefer": "yogurt",
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "honey",
+      "vanilla"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "healthy",
+      "light",
+      "sweet"
+    ],
+    "steps": [
+      "Cut {fruit} and {fruit2} into chunky bite-size pieces.",
+      "Let the kids thread the fruit onto skewers in colourful patterns (use blunt or snipped skewers for little ones).",
+      "Stir {yogurt} with a little honey and vanilla for dipping.",
+      "Serve the kabobs with the yogurt dip."
+    ]
+  },
+  {
+    "id": "trail-mix",
+    "meal": "snack",
+    "name": "Homemade trail mix with {nuts}[ & {chocolate}]",
+    "emoji": "🥜",
+    "minutes": 5,
+    "slots": [
+      {
+        "key": "nuts",
+        "from": [
+          "nuts"
+        ],
+        "prefer": "nuts"
+      },
+      {
+        "key": "crunch",
+        "from": [
+          "oats"
+        ],
+        "prefer": "granola",
+        "only": [
+          "granola"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "chocolate",
+        "from": [
+          "treats"
+        ],
+        "prefer": "chocolate",
+        "only": [
+          "chocolate"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "raisins",
+      "pretzels",
+      "cereal"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "savoury"
+    ],
+    "steps": [
+      "Set out {nuts}, {crunch}, raisins, pretzels and cereal[ plus {chocolate}] in bowls.",
+      "Let each kid scoop their own mix into a bag or jar.",
+      "Shake it up and store extras in an airtight container for the week."
+    ]
+  },
+  {
+    "id": "yogurt-pops",
+    "meal": "snack",
+    "name": "Frozen {fruit} yogurt pops",
+    "emoji": "🍭",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "yogurt",
+        "from": [
+          "yogurt"
+        ],
+        "prefer": "yogurt"
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit",
+          "frozenFruit"
+        ],
+        "prefer": "strawberries",
+        "only": [
+          "strawberries",
+          "blueberries",
+          "bananas",
+          "frozen fruit"
+        ]
+      }
+    ],
+    "pantry": [
+      "honey"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "healthy",
+      "sweet"
+    ],
+    "steps": [
+      "Blend half the {fruit} with {yogurt} and a little honey.",
+      "Chop the remaining fruit and drop a few pieces into popsicle moulds or small paper cups.",
+      "Pour in the yogurt mixture, add sticks and freeze at least 4 hours.",
+      "Run the moulds under warm water for a few seconds to pop them out."
+    ]
+  },
+  {
+    "id": "banana-sushi",
+    "meal": "snack",
+    "name": "Peanut butter banana sushi[ with {crunch}]",
+    "emoji": "🍣",
+    "minutes": 5,
+    "slots": [
+      {
+        "key": "wraps",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "tortillas",
+        "only": [
+          "tortillas"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "spread",
+        "from": [
+          "spread"
+        ],
+        "prefer": "peanut butter"
+      },
+      {
+        "key": "banana",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "bananas",
+        "only": [
+          "bananas"
+        ]
+      },
+      {
+        "key": "crunch",
+        "from": [
+          "oats"
+        ],
+        "prefer": "granola",
+        "only": [
+          "granola"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "honey",
+      "cinnamon"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Spread a tortilla with {spread} and drizzle with a little honey.",
+      "[Sprinkle with {crunch}, then ]lay a peeled banana at one edge and roll up tightly.",
+      "Slice into 1-inch 'sushi' rounds and dust with cinnamon.",
+      "Serve with chopsticks for fun."
+    ]
   }
 ]
