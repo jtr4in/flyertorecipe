@@ -1,8 +1,8 @@
 // "What we need": the household's own shopping list ("salami, cheese, cereal"). Meals are
 // planned around the items the recipes can use; the rest go straight on the grocery list.
-import { useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import Sheet from './Sheet'
-import { parseNeeds } from '../lib/needs'
+import { parseNeeds, suggestNeeds } from '../lib/needs'
 import { dealName } from '../lib/stores'
 
 function StatusLine({ s }) {
@@ -10,7 +10,8 @@ function StatusLine({ s }) {
   if (s.meals.length) {
     return (
       <p className="text-xs text-green-700">
-        🍽️ In {s.meals.length} meal{s.meals.length > 1 ? 's' : ''}: {s.meals.join(', ')}
+        🍽️ In {s.meals.length} meal{s.meals.length > 1 ? 's' : ''}: {s.meals.slice(0, 3).join(', ')}
+        {s.meals.length > 3 && ` and ${s.meals.length - 3} more`}
       </p>
     )
   }
@@ -24,8 +25,10 @@ function StatusLine({ s }) {
   return <p className="text-xs text-stone-500">🛒 On your list (not in this week's flyers)</p>
 }
 
-export default function NeedsSheet({ open, onClose, needs, status, onChange }) {
+export default function NeedsSheet({ open, onClose, needs, status, onChange, deals = [] }) {
   const [text, setText] = useState('')
+  const input = useRef(null)
+  const picks = useMemo(() => suggestNeeds(text, deals, needs), [text, deals, needs])
   const byNeed = new Map(status.map((s) => [s.need, s]))
 
   const add = (e) => {
@@ -35,14 +38,24 @@ export default function NeedsSheet({ open, onClose, needs, status, onChange }) {
     setText('')
   }
 
+  // Tapping a suggestion adds it, plus anything typed before the last comma.
+  const pick = (need) => {
+    const before = parseNeeds(text.split(/[,\n;]+/).slice(0, -1).join(','))
+    onChange([...needs, ...[...before, need].filter((n, i, all) => !needs.includes(n) && all.indexOf(n) === i)])
+    setText('')
+    input.current?.focus()
+  }
+
   return (
-    <Sheet open={open} onClose={onClose} title="What do you need?">
+    <Sheet open={open} onClose={onClose} title="What do you need?" tall>
       <p className="mb-3 text-sm text-stone-600">
         Add what's running low. We'll pick meals that use those items when they're on sale, and put the rest on your grocery
         list.
       </p>
       <form onSubmit={add} className="mb-4 flex gap-2">
         <input
+          ref={input}
+          autoComplete="off"
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="salami, cheese, cereal"
@@ -51,6 +64,31 @@ export default function NeedsSheet({ open, onClose, needs, status, onChange }) {
         />
         <button className="rounded-xl bg-green-700 px-4 py-2 text-sm font-semibold text-white">Add</button>
       </form>
+      {picks.length > 0 && (
+        <ul role="listbox" aria-label="Suggestions" className="-mt-2 mb-4 divide-y divide-stone-100 overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm">
+          {picks.map(({ need, deal }) => (
+            <li key={need}>
+              <button
+                type="button"
+                role="option"
+                aria-selected="false"
+                onClick={() => pick(need)}
+                className="flex w-full items-center gap-2 px-3 py-2 text-left hover:bg-stone-50"
+              >
+                <span className="min-w-0 flex-1 truncate text-sm">
+                  {deal ? dealName(deal.name) : <span className="font-medium"><span className="capitalize">{need}</span> <span className="font-normal text-stone-400">(any kind)</span></span>}
+                </span>
+                {deal && (
+                  <span className="shrink-0 text-right text-xs">
+                    <span className="block font-semibold text-green-700">{deal.priceLabel || deal.priceText}</span>
+                    <span className="block text-stone-500">{deal.merchant}</span>
+                  </span>
+                )}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
       {needs.length === 0 ? (
         <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">Nothing yet. Separate items with commas.</p>
       ) : (

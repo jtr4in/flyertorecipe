@@ -28,6 +28,27 @@ export function needDeal(need, deals) {
   return deals.filter((d) => re.test(d.name || '')).sort((a, b) => (a.price ?? 1e9) - (b.price ?? 1e9))[0] || null
 }
 
+/**
+ * As-you-type picks for the last thing typed ("cheese, mil" → milk): the plain word first, then
+ * this week's flyer items that mention it, cheapest first. Each pick is { need, deal }.
+ */
+export function suggestNeeds(text, deals, taken = [], limit = 8) {
+  const term = (text.split(/[,\n;]+/).pop() || '').trim().toLowerCase()
+  if (term.length < 2) return []
+  const start = new RegExp(`(^|[^\\p{L}])${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'iu')
+  const words = [...new Set(ALL_INGREDIENTS.map((i) => i.item).filter((w) => start.test(w)))]
+    .sort((a, b) => a.length - b.length)
+    .slice(0, 3)
+    .map((need) => ({ need, deal: null }))
+  const seen = new Set()
+  const fromFlyers = deals
+    .filter((d) => start.test(dealName(d.name)))
+    .sort((a, b) => (a.price ?? 1e9) - (b.price ?? 1e9))
+    .map((deal) => ({ need: dealName(deal.name).toLowerCase(), deal }))
+    .filter((x) => !seen.has(x.need) && seen.add(x.need))
+  return [...words, ...fromFlyers].filter((x) => !taken.includes(x.need)).slice(0, limit)
+}
+
 /** The catalog items to cook with, for planWeek's `want`. */
 export function wantedItems(needs = []) {
   return new Set(needs.flatMap(needItems))

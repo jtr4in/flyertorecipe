@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { activeDeals, buildShoppingList, cookedMeals, planWeek, weekDays } from './planner'
 import { sampleDeals } from '../data/sampleDeals'
-import { needItems, parseNeeds, placeNeeds, wantedItems, withNeeds } from './needs'
+import { needDeal, needItems, parseNeeds, placeNeeds, suggestNeeds, wantedItems, withNeeds } from './needs'
 
 const today = new Date('2026-10-09T12:00:00Z')
 const deals = activeDeals(sampleDeals(today), { today })
@@ -36,5 +36,25 @@ describe('what we need', () => {
     const full = withNeeds(list, group)
     expect(full.groups[0]).toBe(group)
     expect(full.itemCount).toBe(list.itemCount + 2)
+  })
+})
+
+describe('suggestions while typing', () => {
+  it('offers the plain word, then flyer items, cheapest first', () => {
+    const picks = suggestNeeds('cheese, milk', deals)
+    expect(picks[0]).toEqual({ need: 'milk', deal: null })
+    const flyer = picks.filter((p) => p.deal)
+    expect(flyer.length).toBeGreaterThan(2)
+    expect(flyer.every((p) => /milk/i.test(p.deal.name))).toBe(true)
+    expect(flyer.map((p) => p.deal.price)).toEqual([...flyer.map((p) => p.deal.price)].sort((a, b) => a - b))
+  })
+  it('skips what is already on the list and short input', () => {
+    expect(suggestNeeds('milk', deals, ['milk']).some((p) => p.need === 'milk')).toBe(false)
+    expect(suggestNeeds('m', deals)).toEqual([])
+  })
+  it('a picked flyer item still steers meals and finds its deal', () => {
+    const need = suggestNeeds('2% mil', deals).find((p) => p.deal).need
+    expect(needItems(need)).toContain('milk')
+    expect(needDeal(need, deals).name).toMatch(/2% Milk/)
   })
 })

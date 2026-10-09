@@ -454,6 +454,7 @@ export default function App() {
         onClose={() => setSheet(null)}
         needs={week.needs || []}
         status={needs.status}
+        deals={listMode === 'single' && baseList?.store ? allDeals.filter((d) => d.merchant === baseList.store) : deals}
         onChange={(next) => editWeek((w) => ({ ...w, needs: next }))}
       />
       <DealsSheet
