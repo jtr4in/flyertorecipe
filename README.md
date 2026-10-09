@@ -17,6 +17,8 @@ firestore.rules, firebase.json   Firestore security rules + Hosting config
    code and ~32 staple search terms (`backend/staples.py`), normalizes each row
    (`backend/normalize.py`: per-item price for multi-buys like `2/$5`, savings, aisle), dedupes,
    and writes `regions/{FSA}/deals/{dealId}`. Deals that dropped off the flyer are deleted.
+   `backend/flyer_clips.py` also finds each deal's ad on the real flyer page (Flipp's public
+   flyer layout), so the app can show the cashier the actual clipping with the price.
 2. The web app signs each household in anonymously, stores preferences at `users/{uid}`, and
    reads the deals for the household's FSA (first three characters of the postal code).
 3. `web/src/lib/planner.js` builds meals flyer-first. Meal templates (`web/src/data/templates.js`,
