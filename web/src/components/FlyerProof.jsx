@@ -30,8 +30,11 @@ export default function FlyerProof({ deal, onClose }) {
         )}
         <p className="mt-6 text-2xl font-bold">{deal.merchant}</p>
         <p className="mt-1 text-lg">{deal.name}</p>
-        <p className="mt-3 text-4xl font-bold text-green-700">{deal.priceText}</p>
+        <p className="mt-3 text-4xl font-bold text-green-700">{deal.priceLabel || deal.priceText}</p>
         {deal.saleStory && <p className="mt-1 text-stone-600">{deal.saleStory}</p>}
+        {deal.priceText && deal.priceLabel && deal.priceText !== deal.priceLabel && (
+          <p className="mt-1 text-sm text-stone-500">Flyer says: {deal.priceText}</p>
+        )}
         {(from || to) && (
           <p className="mt-4 text-sm text-stone-500">
             Valid {from && <>{from} </>}

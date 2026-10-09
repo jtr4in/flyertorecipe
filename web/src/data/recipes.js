@@ -48,7 +48,7 @@ export const RECIPES = [
     protein: 'beef', tags: ['high-protein', 'gluten-free', 'dairy-free'],
     ingredients: [
       i('ground beef', 1.5, 'lb', 'Meat & Seafood', ['ground beef', 'lean ground'], { main: true }),
-      i('canned beans', 2, 'can', 'Pantry', ['kidney bean', 'black bean', 'canned bean', 'beans'], { exclude: ['green bean', 'coffee', 'jelly'] }),
+      i('canned beans', 2, 'can', 'Pantry', ['kidney bean', 'black bean', 'canned bean'], { exclude: ['green bean', 'coffee', 'jelly', 'baked'] }),
       i('canned tomatoes', 2, 'can', 'Pantry', ['canned tomato', 'diced tomato', 'crushed tomato', 'tomatoes'], { exclude: ['fresh', 'grape', 'cherry', 'roma', 'vine'] }),
       onion, i('bell peppers', 1, 'each', 'Produce', ['pepper'], { exclude: ['pepperoni', 'black pepper', 'peppercorn'] }),
       P('chili powder'), garlic, oil,
@@ -111,10 +111,10 @@ export const RECIPES = [
     id: 'shrimp-pasta', name: 'Garlic shrimp pasta', servings: 4, minutes: 25,
     protein: 'fish', tags: ['high-protein'],
     ingredients: [
-      i('shrimp', 1, 'lb', 'Meat & Seafood', ['shrimp', 'prawn'], { main: true, exclude: ['ring', 'chips'] }),
+      i('shrimp', 1, 'lb', 'Meat & Seafood', ['shrimp', 'prawn'], { main: true, exclude: ['ring', 'chips', 'surimi', 'pasta', 'alfredo', 'tempura', 'dumpling', 'ravioli', 'raviolis'] }),
       i('pasta', 1, 'lb', 'Pantry', ['pasta', 'spaghetti', 'linguine', 'penne'], { exclude: ['sauce', 'salad'] }),
       i('spinach', 1, 'bag', 'Produce', ['spinach']),
-      i('butter', 0.25, 'cup', 'Dairy & Eggs', ['butter'], { exclude: ['peanut', 'chicken', 'cookie'] }),
+      i('butter', 0.25, 'cup', 'Dairy & Eggs', ['butter'], { exclude: ['peanut', 'chicken', 'cookie', 'lettuce', 'croissant'] }),
       garlic, salt,
     ],
   },
@@ -155,7 +155,7 @@ export const RECIPES = [
     id: 'black-bean-burritos', name: 'Black bean & rice burritos', servings: 4, minutes: 25,
     protein: 'legume', tags: ['vegetarian'],
     ingredients: [
-      i('canned black beans', 2, 'can', 'Pantry', ['black bean', 'canned bean', 'beans'], { main: true, exclude: ['green bean', 'coffee', 'jelly'] }),
+      i('canned black beans', 2, 'can', 'Pantry', ['black bean', 'canned bean'], { main: true, exclude: ['green bean', 'coffee', 'jelly', 'baked'] }),
       i('rice', 1.5, 'cup', 'Pantry', ['rice'], { exclude: ['cake', 'krispies', 'crispy'] }),
       i('tortillas', 1, 'pack', 'Bakery', ['tortilla'], { exclude: ['chips'] }),
       i('cheddar', 1, 'cup', 'Dairy & Eggs', ['cheddar', 'cheese'], { exclude: ['cream cheese', 'cheesecake'] }),
@@ -168,7 +168,7 @@ export const RECIPES = [
     protein: 'legume', tags: ['vegetarian', 'vegan', 'dairy-free'],
     ingredients: [
       i('pasta', 1, 'lb', 'Pantry', ['pasta', 'penne', 'rotini', 'spaghetti'], { exclude: ['sauce', 'salad'] }),
-      i('canned chickpeas', 1, 'can', 'Pantry', ['chickpea', 'canned bean', 'beans'], { main: true, exclude: ['green bean', 'coffee', 'jelly'] }),
+      i('canned chickpeas', 1, 'can', 'Pantry', ['chickpea', 'canned bean'], { main: true, exclude: ['green bean', 'coffee', 'jelly', 'baked'] }),
       i('canned tomatoes', 1, 'can', 'Pantry', ['canned tomato', 'diced tomato', 'crushed tomato'], {}),
       i('spinach', 1, 'bag', 'Produce', ['spinach']),
       onion, garlic, oil,
@@ -205,7 +205,7 @@ export const RECIPES = [
       i('cheddar', 2, 'cup', 'Dairy & Eggs', ['cheddar', 'cheese'], { main: true, exclude: ['cream cheese', 'cheesecake'] }),
       i('milk', 2, 'cup', 'Dairy & Eggs', ['milk'], { exclude: ['chocolate', 'almond', 'oat milk', 'coconut'] }),
       i('broccoli', 1, 'head', 'Produce', ['broccoli'], { exclude: ['frozen'] }),
-      i('butter', 0.25, 'cup', 'Dairy & Eggs', ['butter'], { exclude: ['peanut', 'chicken', 'cookie'] }),
+      i('butter', 0.25, 'cup', 'Dairy & Eggs', ['butter'], { exclude: ['peanut', 'chicken', 'cookie', 'lettuce', 'croissant'] }),
       salt,
     ],
   },
@@ -213,7 +213,7 @@ export const RECIPES = [
     id: 'turkey-burgers', name: 'Turkey burgers & salad', servings: 4, minutes: 30,
     protein: 'poultry', tags: ['high-protein', 'dairy-free'],
     ingredients: [
-      i('ground turkey', 1.5, 'lb', 'Meat & Seafood', ['ground turkey', 'turkey'], { main: true, exclude: ['deli', 'sliced', 'bacon'] }),
+      i('ground turkey', 1.5, 'lb', 'Meat & Seafood', ['ground turkey'], { main: true, exclude: ['deli', 'sliced', 'bacon'] }),
       i('buns', 1, 'pack', 'Bakery', ['bun', 'kaiser'], {}),
       i('lettuce', 1, 'head', 'Produce', ['lettuce', 'romaine']),
       i('tomatoes', 2, 'each', 'Produce', ['tomato'], { exclude: ['canned', 'sauce', 'paste', 'diced'] }),
@@ -235,7 +235,7 @@ export const RECIPES = [
     protein: 'dairy', tags: ['vegetarian', 'gluten-free'],
     ingredients: [
       i('rolled oats', 3, 'cup', 'Pantry', ['oat'], { main: true, exclude: ['milk', 'bar', 'cookie'] }),
-      i('berries', 2, 'cup', 'Produce', ['berr', 'blueberr', 'strawberr'], { exclude: ['juice', 'jam', 'cereal'] }),
+      i('berries', 2, 'cup', 'Produce', ['berry', 'berries', 'blueberries', 'strawberries', 'raspberries'], { exclude: ['juice', 'jam', 'cereal'] }),
       i('milk', 2, 'cup', 'Dairy & Eggs', ['milk'], { exclude: ['chocolate', 'almond', 'oat milk', 'coconut'] }),
       i('eggs', 2, 'each', 'Dairy & Eggs', ['egg'], { exclude: ['eggplant', 'nog', 'noodle'] }),
       i('yogurt', 1, 'tub', 'Dairy & Eggs', ['yogurt', 'yoghurt'], {}),

@@ -13,7 +13,10 @@ def test_fsa():
         fsa("90210")
 
 
-@pytest.mark.parametrize("text,qty", [("2/$5", 2), ("3 for $10", 3), ("$3.99", 1), (None, 1), ("1/$4", 1)])
+@pytest.mark.parametrize("text,qty", [
+    ("2/$5", 2), ("3 for $10", 3), ("$3.99", 1), (None, 1), ("1/$4", 1), ("2 FOR", 2),
+    ("2/ OR $2.89 each", 2), ("/lb 4.37/kg", 1), ("$3.47 / 100 g", 1), ("/lb $17.61 kg", 1), ("EACH", 1),
+])
 def test_multibuy(text, qty):
     assert multibuy_qty(text) == qty
 
@@ -57,3 +60,39 @@ def test_parse_targets():
     assert parse_targets("M5V 2T6") == ("M5V 2T6", ["M5V"])
     with pytest.raises(ValueError):
         parse_targets("K1E 0A1:12345")
+
+
+@pytest.mark.parametrize("text,unit", [
+    ("/LB", "/lb"), ("prix membre /lb", "/lb"), ("per 100 g", "/100 g"),
+    ("le 100 g 11,75$/lb", "/100 g"), ("$3.47 / 100 g", ""), ("EACH", ""), ("ea.", ""), ("/pkg", ""), (None, ""),
+])
+def test_price_unit(text, unit):
+    from normalize import price_unit
+    assert price_unit(text) == unit
+
+
+def test_price_labels():
+    lb = normalize({"dealId": 1, "name": "Ground beef", "currentPrice": 4.99, "priceText": "prix membre /lb"})
+    assert lb["priceLabel"] == "$4.99/lb (member price)"
+    two = normalize({"dealId": 2, "name": "Tostitos", "currentPrice": 7, "priceText": "2 FOR"})
+    assert two["priceLabel"] == "2 for $7.00" and two["price"] == 3.5
+
+
+@pytest.mark.parametrize("story,price,expected", [
+    ("ÉCONOMISEZ 2,50$", 8.99, 2.5), ("save $10", 29.99, 10.0), ("Save $1.22-$1.72/pkg", 6.77, 1.22),
+    ("1,16$ d'économie", 1.33, 1.16), ("SAVE 43%", 7.99, 6.03), ("SAVE $9", 8.99, None), ("33% OFF", 1.99, 0.98),
+    ("100 Scene+ PTS when you buy 2", 2.99, None), ("15 points", 2.99, None), ("Rollback", 3.58, None),
+])
+def test_savings_from_story(story, price, expected):
+    d = normalize({"dealId": 1, "name": "x", "currentPrice": price, "saleStory": story})
+    assert d["savings"] == expected
+
+
+def test_implausible_regular_price_ignored():
+    # IGA smoked pork: $3.59 per 100 g vs a $17.19 regular price in another unit
+    d = normalize({"dealId": 1, "name": "Smoked pork", "currentPrice": 3.59, "originalPrice": 17.19})
+    assert d["regularPrice"] is None and d["savings"] is None
+
+
+def test_restaurants_dropped():
+    assert normalize({"dealId": 1, "name": "Crispy Chicken", "currentPrice": 5, "merchant": "Harvey's"}) is None

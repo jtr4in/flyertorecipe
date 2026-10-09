@@ -62,3 +62,13 @@ describe('buildShoppingList', () => {
     expect(each.every((x) => Number.isInteger(x.qty))).toBe(true)
   })
 })
+
+describe('per-weight prices', () => {
+  it('compares /100 g against /lb on the same scale', () => {
+    const d = matchDeal({ item: 'chicken', match: ['chicken'] }, [
+      { name: 'Chicken roast', price: 2.59, unit: '/100 g' },
+      { name: 'Chicken breast', price: 4.99, unit: '/lb' },
+    ])
+    expect(d.name).toBe('Chicken breast')
+  })
+})

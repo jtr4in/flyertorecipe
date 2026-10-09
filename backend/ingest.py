@@ -4,6 +4,7 @@
     python ingest.py --postal "M5V 2T6"      # one-off
     python ingest.py --dry-run out.json      # fetch, normalize, write JSON, skip Firestore
     python ingest.py --from-file raw.json    # skip Apify, load raw actor rows from a file
+    python ingest.py --reuse-last-run        # re-process the last Apify run (free)
 
 Flyers are the same across neighbouring postal areas, so one fetch can serve several.
 List extra FSAs after a colon:  POSTAL_CODES="K1E 0A1:K1C,K1W,K4A"  (all of Orleans, one fetch)
@@ -30,13 +31,17 @@ from staples import STAPLE_QUERIES
 ACTOR_ID = "gratifying_graph/canada-grocery-deals"
 
 
-def fetch_raw(postal_code: str) -> list[dict]:
+def fetch_raw(postal_code: str, reuse_last_run: bool = False) -> list[dict]:
     from apify_client import ApifyClient
 
     token = os.environ.get("APIFY_TOKEN")
     if not token:
         sys.exit("APIFY_TOKEN is not set (see backend/.env.example)")
     client = ApifyClient(token)
+    if reuse_last_run:
+        # Re-read the last successful run's results: no new run, no per-deal charge.
+        # Only meaningful with a single postal code, since it ignores postal_code.
+        return list(client.actor(ACTOR_ID).last_run(status="SUCCEEDED").dataset().iterate_items())
     run = client.actor(ACTOR_ID).call(
         run_input={
             "postalCode": postal_code,
@@ -109,6 +114,8 @@ def main() -> None:
     p.add_argument("--postal", action="append", help="postal code (repeatable)")
     p.add_argument("--dry-run", metavar="OUT_JSON")
     p.add_argument("--from-file", metavar="RAW_JSON")
+    p.add_argument("--reuse-last-run", action="store_true",
+                   help="re-process the last Apify run instead of paying for a new one")
     a = p.parse_args()
 
     raw = os.environ.get("POSTAL_CODES", "")
@@ -117,10 +124,12 @@ def main() -> None:
     if not specs:
         sys.exit("No postal codes: pass --postal or set POSTAL_CODES")
     targets = [parse_targets(s) for s in specs]  # validate everything before spending money
+    if a.reuse_last_run and len(targets) > 1:
+        sys.exit("--reuse-last-run only works with one postal code entry")
 
     out = {}
     for code, fsas in targets:
-        rows = json.load(open(a.from_file)) if a.from_file else fetch_raw(code)
+        rows = json.load(open(a.from_file)) if a.from_file else fetch_raw(code, a.reuse_last_run)
         deals = build_deals(rows)
         print(f"{code}: {len(rows)} rows -> {len(deals)} deals for {', '.join(fsas)}")
         for f in fsas:

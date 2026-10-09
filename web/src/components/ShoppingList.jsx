@@ -36,7 +36,7 @@ export default function ShoppingList({ list }) {
                       <span className="text-sm text-stone-500">{fmtQty(it.qty, it.unit)}</span>
                       {it.deal && (
                         <span className="block text-xs text-stone-500">
-                          {it.deal.name} · {it.deal.merchant} · {it.deal.priceText}
+                          {it.deal.name} · {it.deal.merchant} · {it.deal.priceLabel || it.deal.priceText}
                         </span>
                       )}
                     </span>

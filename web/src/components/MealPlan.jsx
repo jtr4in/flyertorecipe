@@ -27,7 +27,7 @@ export default function MealPlan({ plan, prefs }) {
                       <span className="text-green-700">●</span> {item}{' '}
                       <span className="text-stone-400">at {d.merchant}</span>
                     </span>
-                    <span className="shrink-0 font-medium">{d.priceText}</span>
+                    <span className="shrink-0 font-medium">{d.priceLabel || d.priceText}</span>
                   </li>
                 ))}
               </ul>

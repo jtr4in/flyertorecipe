@@ -6,6 +6,11 @@ on:
   schedule:
     - cron: "0 10 * * 4"
   workflow_dispatch:
+    inputs:
+      reuse_last_run:
+        description: Re-process the last Apify run instead of paying for a new fetch
+        type: boolean
+        default: false
 
 jobs:
   ingest:
@@ -27,4 +32,4 @@ jobs:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: |
           echo "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/sa.json"
-          GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json" python ingest.py
+          GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json" python ingest.py ${{ inputs.reuse_last_run && '--reuse-last-run' || '' }}

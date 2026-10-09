@@ -4,9 +4,10 @@
 import { AISLES } from './aisles'
 
 // Words that mean a deal is not the raw ingredient ("chicken" vs "chicken broth").
-const GLOBAL_EXCLUDE = ['seasoning', 'flavour', 'flavor', 'chips', 'crackers', 'soup', 'pet food', 'dog', 'cat food', 'baby']
+const GLOBAL_EXCLUDE = ['seasoning', 'flavour', 'flavor', 'flavoured', 'flavored', 'chips', 'crackers', 'soup', 'beverage', 'drink', 'pet food', 'dog', 'cat food', 'baby']
 
-const wordRe = (w) => new RegExp(`\\b${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i')
+// Whole words, plurals allowed: "bun" matches "buns" but not "bunch".
+const wordRe = (w) => new RegExp(`\\b${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:s|es)?\\b`, 'i')
 
 export function activeDeals(deals, { stores = [], today = new Date() } = {}) {
   const day = today.toISOString().slice(0, 10)
@@ -19,16 +20,35 @@ export function activeDeals(deals, { stores = [], today = new Date() } = {}) {
   })
 }
 
-/** Cheapest deal whose name matches the ingredient, or null. */
+// Put per-weight prices on one scale so $2.59/100 g doesn't beat $4.99/lb.
+const PER_LB = { '/lb': 1, '/kg': 1 / 2.2046, '/100 g': 4.536 }
+const comparable = (d) => d.price * (PER_LB[d.unit] ?? 1)
+
+// Flyer listings often bundle products: "SEEDLESS ORANGES, MINI WHITE OR YELLOW POTATOES".
+// A match near the start of a name (or of its English half after "|") is the headline
+// product; a match buried at the end is only a fallback.
+function isHeadline(name, include) {
+  return name.split('|').some((part) => include.some((r) => {
+    const m = r.exec(part.trim())
+    return m && m.index < 25
+  }))
+}
+
+/** Cheapest matching deal, preferring ones where the ingredient is the headline product. */
 export function matchDeal(ingredient, deals) {
   if (ingredient.pantry) return null
   const include = ingredient.match.map(wordRe)
   const exclude = [...GLOBAL_EXCLUDE, ...(ingredient.exclude || [])].map(wordRe)
   let best = null
+  let bestRank = null
   for (const d of deals) {
     if (!include.some((r) => r.test(d.name))) continue
     if (exclude.some((r) => r.test(d.name))) continue
-    if (!best || d.price < best.price) best = d
+    const rank = [isHeadline(d.name, include) ? 0 : 1, comparable(d)]
+    if (!best || rank[0] < bestRank[0] || (rank[0] === bestRank[0] && rank[1] < bestRank[1])) {
+      best = d
+      bestRank = rank
+    }
   }
   return best
 }
