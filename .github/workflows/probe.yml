@@ -1,4 +1,4 @@
-# Temporary: look at what Flipp returns for one flyer item (to find the full flyer clipping).
+# Temporary: look at what Flipp returns for flyer items (to find the full flyer clipping).
 name: Probe flyer item
 on: workflow_dispatch
 jobs:
@@ -6,7 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          for id in 436431498 436189195; do
-            echo "== items/$id"; curl -s "https://backflipp.wishabi.com/flipp/items/$id" | head -c 4000; echo
-          done
-          echo "== search"; curl -s "https://backflipp.wishabi.com/flipp/items/search?locale=en-ca&postal_code=K1E0A1&q=villaggio" | head -c 3000; echo
+          curl -s "https://backflipp.wishabi.com/flipp/items/search?locale=en-ca&postal_code=K1E0A1&q=villaggio" > s.json
+          jq -c '.items[] | select(.merchant_name|test("Food Basics";"i"))' s.json | head -c 3000; echo
+          echo "== keys"; jq -c '.items[0] | keys' s.json
+          id=$(jq -r '[.items[] | select(.merchant_name|test("Food Basics";"i"))][0].id' s.json)
+          echo "== item $id"; curl -s "https://backflipp.wishabi.com/flipp/items/$id" | head -c 2500; echo
