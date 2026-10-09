@@ -1,0 +1,12 @@
+# Temporary: look at what Flipp returns for one flyer item (to find the full flyer clipping).
+name: Probe flyer item
+on: workflow_dispatch
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          for id in 436431498 436189195; do
+            echo "== items/$id"; curl -s "https://backflipp.wishabi.com/flipp/items/$id" | head -c 4000; echo
+          done
+          echo "== search"; curl -s "https://backflipp.wishabi.com/flipp/items/search?locale=en-ca&postal_code=K1E0A1&q=villaggio" | head -c 3000; echo
