@@ -1,24 +1,38 @@
 import { describe, expect, it } from 'vitest'
-import { activeDeals, applySwaps, buildShoppingList, matchDeal, parsePlanQuery, planWeek, scheduleWeek, swapOptions, weekDays } from './planner'
-import { RECIPES, SWAPS } from '../data/recipes'
+import { activeDeals, buildShoppingList, cookedMeals, matchDeal, parsePlanQuery, planWeek, swapOptions, weekDays } from './planner'
+import { CATALOG } from '../data/ingredients'
 import { sampleDeals } from '../data/sampleDeals'
 
-const deals = sampleDeals(new Date('2026-10-09T12:00:00Z'))
 const today = new Date('2026-10-09T12:00:00Z')
+const deals = sampleDeals(today)
+const days = weekDays(new Date('2026-10-09T12:00:00'))
+const prefs = { householdSize: 2, diet: [], stores: [], meals: ['breakfast', 'lunch', 'dinner', 'snack'], lunchLeftovers: false }
+const item = (group, name) => CATALOG[group].find((i) => i.item === name)
+const deal = (name, extra = {}) => ({ name, merchant: 'Metro', price: 3, unit: '', priceLabel: '$3.00', ...extra })
 
 describe('matchDeal', () => {
-  it('ignores chicken soup and seasoning when looking for chicken breast', () => {
-    const d = matchDeal({ item: 'chicken', match: ['chicken'], exclude: ['soup'] }, deals)
-    expect(d.name).toMatch(/Thighs|Breast/)
+  it('ignores chicken soup when looking for noodles', () => {
+    expect(matchDeal(item('starch', 'egg noodles'), [deal('Chicken Noodle Soup')])).toBeNull()
   })
   it('never prices pantry staples', () => {
     expect(matchDeal({ item: 'salt', pantry: true, match: ['salt'] }, deals)).toBeNull()
   })
-})
-
-it('does not match chicken noodle soup for vegan noodles', () => {
-  const d = matchDeal({ item: 'noodles', match: ['noodle'] }, deals)
-  expect(d).toBeNull()
+  it('does not take ground pork for ground beef', () => {
+    expect(matchDeal(item('ground', 'ground beef'), [deal('PORC HACHÉ MAIGRE | LEAN GROUND PORK')])).toBeNull()
+  })
+  it('does not take a carrot listing for mushrooms', () => {
+    expect(matchDeal(item('cookingVeg', 'mushrooms'), [deal('Compliments Carrots or Onions 3 lb, or White Mushrooms 227 g')])).toBeNull()
+  })
+  it('prefers the headline product over one buried in a bundle', () => {
+    const d = matchDeal(item('starch', 'potatoes'), [
+      deal('SEEDLESS ORANGES, OR MINI WHITE OR YELLOW POTATOES', { price: 2 }),
+      deal('Russet Potatoes 10 lb', { price: 4 }),
+    ])
+    expect(d.name).toMatch(/Russet/)
+  })
+  it('matches bun but not bunch', () => {
+    expect(matchDeal(item('buns', 'buns'), [deal('Spinach bunch')])).toBeNull()
+  })
 })
 
 describe('activeDeals', () => {
@@ -31,108 +45,78 @@ describe('activeDeals', () => {
 })
 
 describe('planWeek', () => {
-  const prefs = { householdSize: 2, mealsPerWeek: 5, diet: [], stores: [] }
-  it('returns the requested number of distinct meals', () => {
-    const plan = planWeek(RECIPES, deals, prefs)
-    expect(plan).toHaveLength(5)
-    expect(new Set(plan.map((p) => p.recipe.id)).size).toBe(5)
+  const plan = planWeek(deals, prefs, { days })
+
+  it('plans breakfast, lunch, dinner and a snack for 7 days', () => {
+    expect(plan).toHaveLength(7)
+    for (const d of plan) expect(Object.keys(d.meals).sort()).toEqual(['breakfast', 'dinner', 'lunch', 'snack'])
   })
-  it('respects dietary tags', () => {
-    const plan = planWeek(RECIPES, deals, { ...prefs, diet: ['vegan'] })
-    expect(plan.length).toBeGreaterThan(0)
-    expect(plan.every((p) => p.recipe.tags.includes('vegan'))).toBe(true)
+  it('builds meals mostly from flyer deals', () => {
+    const lines = cookedMeals(plan).flatMap((m) => m.lines)
+    expect(lines.filter((l) => l.onSale).length / lines.length).toBeGreaterThan(0.8)
   })
-  it('caps any one protein at two dinners', () => {
-    const plan = planWeek(RECIPES, deals, { ...prefs, mealsPerWeek: 7 })
-    const counts = {}
-    plan.forEach((p) => (counts[p.recipe.protein] = (counts[p.recipe.protein] || 0) + 1))
-    expect(Math.max(...Object.values(counts))).toBeLessThanOrEqual(2)
+  it('rarely repeats a dinner', () => {
+    const ids = plan.map((d) => d.meals.dinner.template.id)
+    expect(new Set(ids).size).toBeGreaterThanOrEqual(5)
+  })
+  it('respects vegan', () => {
+    const vegan = planWeek(deals, { ...prefs, diet: ['vegan'] }, { days })
+    const has = cookedMeals(vegan).flatMap((m) => m.lines.flatMap((l) => l.ing.has))
+    expect(has.filter((h) => ['meat', 'fish', 'dairy', 'egg'].includes(h))).toEqual([])
+  })
+  it('only plans the meals asked for', () => {
+    const p = planWeek(deals, { ...prefs, meals: ['dinner'] }, { days })
+    expect(Object.keys(p[0].meals)).toEqual(['dinner'])
+  })
+  it('turns last night\'s dinner into lunch and cooks it double', () => {
+    const p = planWeek(deals, { ...prefs, lunchLeftovers: true }, { days })
+    expect(p[0].meals.lunch.lines).toBeTruthy() // nothing cooked the night before today
+    expect(p[1].meals.lunch.leftovers).toBe(p[0].meals.dinner)
+    expect(p[0].meals.dinner.batches).toBe(2)
+  })
+  it('applies skip, another idea and ingredient swaps', () => {
+    const dinner = plan[2].meals.dinner
+    const key = dinner.key
+    const swapLine = dinner.lines.find((l) => l.main) || dinner.lines[0]
+    const alt = swapOptions(dinner, swapLine, deals, prefs).find((c) => c.ing.item !== swapLine.ing.item)
+    const p = planWeek(deals, prefs, {
+      days,
+      overrides: {
+        [`${days[0].key}|snack`]: { skip: true },
+        [`${days[1].key}|dinner`]: { exclude: [plan[1].meals.dinner.template.id] },
+        [key]: { template: dinner.template.id, fills: { [swapLine.slot]: alt.ing.item } },
+      },
+    })
+    expect(p[0].meals.snack.skipped).toBe(true)
+    expect(p[1].meals.dinner.template.id).not.toBe(plan[1].meals.dinner.template.id)
+    expect(p[2].meals.dinner.lines.find((l) => l.slot === swapLine.slot).ing.item).toBe(alt.ing.item)
+  })
+  it('keeps meals within a tight budget where it can', () => {
+    const cheap = planWeek(deals, prefs, { days, budget: 60 })
+    const cost = (pl) => cookedMeals(pl).reduce((a, m) => a + m.cost, 0)
+    expect(cost(cheap)).toBeLessThanOrEqual(cost(plan))
   })
 })
 
 describe('buildShoppingList', () => {
-  it('groups by aisle, scales by household and totals savings', () => {
-    const prefs = { householdSize: 4, mealsPerWeek: 4, diet: [], stores: [] }
-    const plan = planWeek(RECIPES, deals, prefs)
-    const list = buildShoppingList(plan, deals, prefs)
-    expect(list.aisles[0].aisle).toBe('Produce')
+  const plan = planWeek(deals, prefs, { days })
+  it('price matching uses the cheapest flyer from any store and lists every flyer', () => {
+    const list = buildShoppingList(plan, deals, prefs, { mode: 'match' })
+    expect(list.itemCount).toBeGreaterThan(5)
+    expect(list.flyers.length).toBe(list.onSale)
+    expect(list.matchStores.length).toBeGreaterThan(1)
     expect(list.totalSavings).toBeGreaterThan(0)
-    expect(list.pantry.length).toBeGreaterThan(0)
-    const each = list.aisles.flatMap((a) => a.items).filter((x) => x.unit === 'each')
-    expect(each.every((x) => Number.isInteger(x.qty))).toBe(true)
   })
-})
-
-describe('per-weight prices', () => {
-  it('compares /100 g against /lb on the same scale', () => {
-    const d = matchDeal({ item: 'chicken', match: ['chicken'] }, [
-      { name: 'Chicken roast', price: 2.59, unit: '/100 g' },
-      { name: 'Chicken breast', price: 4.99, unit: '/lb' },
-    ])
-    expect(d.name).toBe('Chicken breast')
+  it('one store only uses that store\'s deals', () => {
+    const list = buildShoppingList(plan, deals, { ...prefs, homeStore: 'Metro' }, { mode: 'single' })
+    expect(list.store).toBe('Metro')
+    const used = list.groups.flatMap((g) => g.items).filter((i) => i.deal)
+    expect(used.every((i) => i.deal.merchant === 'Metro')).toBe(true)
   })
 })
 
 describe('parsePlanQuery', () => {
-  it('reads filters, budget and meal count', () => {
-    expect(parsePlanQuery('5 quick high protein dinners under $80')).toEqual({
-      filters: ['quick', 'high-protein'],
-      budget: 80,
-      meals: 5,
-    })
-    expect(parsePlanQuery('meal prep for the kids').filters).toEqual(['kid-approved', 'big-batch'])
-  })
-})
-
-describe('scheduleWeek', () => {
-  const prefs = { householdSize: 4, diet: [], stores: [] }
-  const days = weekDays(new Date('2026-10-09T12:00:00'))
-  const candidates = planWeek(RECIPES, deals, prefs, { meals: 14 })
-
-  it('fills open nights, skips nights off, and turns batch meals into leftovers', () => {
-    const { days: out, meals } = scheduleWeek(candidates, days, { off: [days[2].key] })
-    expect(out[2].type).toBe('off')
-    expect(out.filter((d) => d.type === 'open')).toHaveLength(0)
-    const cooks = out.filter((d) => d.type === 'cook').length
-    const lefts = out.filter((d) => d.type === 'leftovers').length
-    expect(cooks + lefts).toBe(6)
-    expect(meals.filter((m) => m.batches === 2)).toHaveLength(lefts)
-  })
-
-  it('without leftovers, every open night is a new meal', () => {
-    const { days: out } = scheduleWeek(candidates, days, { leftovers: false })
-    expect(out.every((d) => d.type === 'cook')).toBe(true)
-  })
-
-  it('honours a custom order', () => {
-    const { meals } = scheduleWeek(candidates, days, { leftovers: false })
-    const order = meals.map((m) => m.recipe.id).reverse()
-    const { days: out } = scheduleWeek(candidates, days, { leftovers: false, order })
-    expect(out[0].meal.recipe.id).toBe(order[0])
-  })
-
-  it('respects a budget', () => {
-    const { meals } = scheduleWeek(candidates, days, { leftovers: false, budget: 40 })
-    expect(meals.reduce((a, m) => a + m.cost, 0)).toBeLessThanOrEqual(40)
-  })
-})
-
-describe('swaps and list modes', () => {
-  const prefs = { householdSize: 2, diet: [], stores: [] }
-  it('applies an ingredient swap', () => {
-    const r = RECIPES.find((x) => x.id === 'chicken-stir-fry')
-    const swapped = applySwaps(r, { broccoli: SWAPS.broccoli.find((a) => a.item === 'green beans') })
-    expect(swapped.ingredients.some((i) => i.item === 'green beans' && i.swappedFrom === 'broccoli')).toBe(true)
-  })
-  it('hides meat swaps from vegetarians', () => {
-    const opts = swapOptions({ item: 'firm tofu', qty: 1, unit: 'block' }, SWAPS['firm tofu'], deals, { ...prefs, diet: ['vegetarian'] }, 1)
-    expect(opts.every((o) => !o.alt.notFor)).toBe(true)
-  })
-  it('single-store mode puts everything at one store', () => {
-    const plan = planWeek(RECIPES, deals, { ...prefs, mealsPerWeek: 4 })
-    const list = buildShoppingList(plan, deals, prefs, { mode: 'single' })
-    expect(list.stores).toHaveLength(1)
-    expect(list.stores[0].store).toBe(list.single.store)
-    expect(list.totalCost).toBeGreaterThan(0)
+  it('reads filters and a budget', () => {
+    expect(parsePlanQuery('quick high protein meals under $150')).toEqual({ filters: ['quick', 'high-protein'], budget: 150 })
   })
 })

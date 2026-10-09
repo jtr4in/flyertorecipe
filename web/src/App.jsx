@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { firebaseEnabled } from './lib/firebase'
 import { DEFAULT_PREFS, fsa, loadDeals, loadPrefs, loadWeek, savePrefs, saveWeek } from './lib/data'
-import { activeDeals, buildShoppingList, FILTERS, parsePlanQuery, planWeek, scheduleWeek, weekDays } from './lib/planner'
-import { money } from './lib/stores'
-import { RECIPES } from './data/recipes'
+import { activeDeals, buildShoppingList, FILTERS, parsePlanQuery, planWeek, swapOptions, weekDays } from './lib/planner'
+import { dealName, money, storeTint } from './lib/stores'
+import { cap, MEALS, TEMPLATES } from './data/templates'
 import Preferences from './components/Preferences'
 import Sheet from './components/Sheet'
 import WeekStrip from './components/WeekStrip'
@@ -18,11 +18,12 @@ export default function App() {
   const [error, setError] = useState(null)
   const [query, setQuery] = useState('')
   const [chips, setChips] = useState([])
-  const [sheet, setSheet] = useState(null) // 'settings' | 'list' | { move: dayKey }
-  const [listMode, setListMode] = useState('split')
+  const [sheet, setSheet] = useState(null) // 'settings' | 'list' | { swap: { meal, line } }
+  const [listMode, setListMode] = useState('match')
   const [proof, setProof] = useState(null)
 
   const days = useMemo(() => weekDays(), [])
+  const [selected, setSelected] = useState(days[0].key)
   const [week, setWeek] = useState(() => loadWeek(days[0].key))
   const editWeek = useCallback((fn) => setWeek((w) => {
     const next = fn(w)
@@ -55,20 +56,13 @@ export default function App() {
   const parsed = useMemo(() => parsePlanQuery(query), [query])
   const filters = useMemo(() => [...new Set([...chips, ...parsed.filters])], [chips, parsed])
 
-  const { deals, schedule, list } = useMemo(() => {
-    if (!prefs) return {}
-    // Price matchers can use any store's flyer price at their own store.
-    const deals = activeDeals(data.deals, { stores: prefs.priceMatch ? [] : prefs.stores })
-    const candidates = planWeek(RECIPES, deals, prefs, { filters, skip: week.skip, swaps: week.swaps, meals: 14 })
-    const schedule = scheduleWeek(candidates, days, {
-      off: week.off,
-      order: week.order,
-      leftovers: prefs.leftovers !== false,
-      budget: parsed.budget,
-      maxMeals: parsed.meals,
-    })
-    return { deals, schedule, list: buildShoppingList(schedule.meals, deals, prefs, { mode: listMode }) }
-  }, [prefs, data.deals, filters, parsed.budget, parsed.meals, week, days, listMode])
+  const deals = useMemo(() => (prefs ? activeDeals(data.deals, { stores: prefs.stores }) : []), [prefs, data.deals])
+  const plan = useMemo(
+    () => (prefs ? planWeek(deals, prefs, { days, filters, budget: parsed.budget, overrides: week.overrides }) : []),
+    [prefs, deals, days, filters, parsed.budget, week.overrides],
+  )
+  const list = useMemo(() => (prefs ? buildShoppingList(plan, deals, prefs, { mode: listMode }) : null), [plan, deals, prefs, listMode])
+  const listStores = useMemo(() => [...new Set(deals.map((d) => d.merchant).filter(Boolean))].sort(), [deals])
 
   const updatePrefs = (next) => {
     setPrefs(next)
@@ -77,34 +71,34 @@ export default function App() {
 
   if (!prefs) return <p className="p-6 text-stone-500">Loading…</p>
 
-  const cookDays = schedule.days.filter((d) => d.type === 'cook')
   const area = data.region?.fsa || fsa(prefs.postalCode) || (data.region?.demo ? 'Demo' : 'Set area')
+  const day = plan.find((d) => d.key === selected) || plan[0]
 
-  // Actions on the week
-  const reroll = (id) => editWeek((w) => ({ ...w, skip: [...w.skip, id] }))
-  const nightOff = (key) => editWeek((w) => ({ ...w, off: [...w.off, key] }))
-  const cookNight = (key) => editWeek((w) => ({ ...w, off: w.off.filter((k) => k !== key) }))
-  const swapIngredient = (recipeId, item, alt) =>
-    editWeek((w) => {
-      const r = { ...(w.swaps[recipeId] || {}) }
-      if (alt) r[item] = alt
-      else delete r[item]
-      return { ...w, swaps: { ...w.swaps, [recipeId]: r } }
+  // Edits to one meal of one day
+  const override = (key, fn) =>
+    editWeek((w) => ({ ...w, overrides: { ...w.overrides, [key]: fn(w.overrides[key] || {}) } }))
+  const swapLine = (meal, line, item) =>
+    override(meal.key, (o) => ({
+      ...o,
+      template: meal.template.id,
+      fills: { ...Object.fromEntries(meal.lines.map((l) => [l.slot, l.ing.item])), [line.slot]: item },
+    }))
+  const another = (meal) =>
+    override(meal.key, (o) => {
+      const tried = [...(o.exclude || []), meal.template.id]
+      const total = TEMPLATES.filter((t) => t.meal === meal.meal).length
+      return { ...o, template: undefined, fills: undefined, exclude: tried.length >= total ? [meal.template.id] : tried }
     })
-  const moveMeal = (fromKey, toKey) =>
-    editWeek((w) => {
-      const ids = cookDays.map((d) => d.meal.recipe.id)
-      const a = cookDays.findIndex((d) => d.key === fromKey)
-      const b = cookDays.findIndex((d) => d.key === toKey)
-      ;[ids[a], ids[b]] = [ids[b], ids[a]]
-      return { ...w, order: ids }
-    })
-  const resetWeek = () => editWeek((w) => ({ ...w, off: [], order: [], skip: [], swaps: {} }))
+  const resetWeek = () => editWeek((w) => ({ ...w, overrides: {} }))
   const toggleChip = (id) => setChips((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]))
-  const jumpTo = (key) => document.getElementById(`day-${key}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
   const weekCost = list.totalCost
   const overBudget = parsed.budget != null && weekCost > parsed.budget
+  const enabled = prefs.meals || DEFAULT_PREFS.meals
+  const dayMeals = day ? Object.values(day.meals).filter((m) => m.lines) : []
+  const dayLines = dayMeals.flatMap((m) => m.lines)
+  const dayCost = dayMeals.reduce((a, m) => a + m.cost * (m.batches || 1), 0)
+  const swapping = sheet?.swap
 
   return (
     <div className="mx-auto min-h-dvh max-w-md px-4 pb-32">
@@ -121,7 +115,7 @@ export default function App() {
         >
           <span className="rounded-full bg-white px-2.5 py-1 shadow-sm">📍 {area}</span>
           <span className="rounded-full bg-white px-2.5 py-1 shadow-sm">
-            🏪 {prefs.priceMatch ? 'Price matching' : prefs.stores.length ? `${prefs.stores.length} stores` : 'All stores'}
+            🏪 {prefs.stores.length ? `${prefs.stores.length} stores` : 'All stores'}
           </span>
           <span className="rounded-full bg-white px-2.5 py-1 shadow-sm">👥 {prefs.householdSize} people</span>
           {prefs.diet.length > 0 && <span className="rounded-full bg-white px-2.5 py-1 shadow-sm">🥗 {prefs.diet.join(', ')}</span>}
@@ -180,68 +174,57 @@ export default function App() {
 
       <div className="mt-5 mb-2 flex items-baseline justify-between">
         <h2 className="text-lg font-semibold">Your week</h2>
-        <button onClick={resetWeek} className="text-xs font-medium text-stone-500">
-          Reset
-        </button>
+        {Object.keys(week.overrides).length > 0 && (
+          <button onClick={resetWeek} className="text-xs font-medium text-stone-500">
+            Reset changes
+          </button>
+        )}
       </div>
       {loading ? (
         <p className="text-stone-500">Loading deals…</p>
       ) : (
         <>
-          <WeekStrip days={schedule.days} onPick={jumpTo} />
-          <div className="mt-4 space-y-3">
-            {schedule.days.map((d, idx) => {
-              if (d.type === 'cook') {
-                const next = schedule.days.slice(idx + 1).find((x) => x.type === 'leftovers' && x.meal === d.meal)
-                return (
-                  <MealCard
-                    key={d.key}
-                    day={d}
-                    nextLeftovers={next ? next.short : null}
-                    deals={deals}
-                    prefs={prefs}
-                    swaps={week.swaps[d.meal.recipe.id]}
-                    onSwap={swapIngredient}
-                    onReroll={() => reroll(d.meal.recipe.id)}
-                    onMove={() => setSheet({ move: d.key })}
-                    onNightOff={() => nightOff(d.key)}
-                  />
-                )
-              }
-              const label = d.short === 'Today' ? 'Tonight' : d.date.toLocaleDateString('en-CA', { weekday: 'long' })
-              return (
-                <div
-                  key={d.key}
-                  id={`day-${d.key}`}
-                  className="flex scroll-mt-28 items-center gap-3 rounded-2xl border border-dashed border-stone-300 px-4 py-3"
-                >
-                  <span className="text-xl" aria-hidden>
-                    {d.type === 'leftovers' ? '🥡' : d.type === 'off' ? '🌙' : '🍽️'}
+          <WeekStrip plan={plan} selected={day?.key} onPick={setSelected} />
+          {day && (
+            <section className="mt-4" aria-label={day.date.toLocaleDateString('en-CA', { weekday: 'long' })}>
+              <div className="mb-3 flex items-baseline justify-between">
+                <h3 className="text-base font-semibold">
+                  {day.short === 'Today' ? 'Today' : day.date.toLocaleDateString('en-CA', { weekday: 'long' })}
+                  <span className="ml-1.5 text-sm font-normal text-stone-500">
+                    {day.date.toLocaleDateString('en-CA', { month: 'short', day: 'numeric' })}
                   </span>
-                  <span className="flex-1 text-sm">
-                    <span className="font-medium">{label}</span>
-                    <span className="block text-xs text-stone-500">
-                      {d.type === 'leftovers'
-                        ? `Leftovers: ${d.meal.recipe.name}`
-                        : d.type === 'off'
-                          ? 'Night off'
-                          : 'Free night: nothing planned'}
+                </h3>
+                {dayLines.length > 0 && (
+                  <p className="text-xs text-stone-500">
+                    {money(dayCost)} ·{' '}
+                    <span className="text-green-700">
+                      {dayLines.filter((l) => l.onSale).length}/{dayLines.length} from flyers
                     </span>
-                  </span>
-                  {d.type === 'off' && (
-                    <button onClick={() => cookNight(d.key)} className="text-xs font-medium text-green-700">
-                      + Cook
-                    </button>
-                  )}
-                  {d.type === 'leftovers' && (
-                    <button onClick={() => nightOff(d.key)} className="text-xs font-medium text-stone-500">
-                      Night off
-                    </button>
-                  )}
-                </div>
-              )
-            })}
-          </div>
+                  </p>
+                )}
+              </div>
+              <div className="space-y-3">
+                {MEALS.filter((m) => enabled.includes(m.id)).map((m) => {
+                  const entry = day.meals[m.id]
+                  const key = `${day.key}|${m.id}`
+                  return (
+                    <MealCard
+                      key={key}
+                      label={m.label}
+                      emoji={m.emoji}
+                      entry={entry}
+                      onSwapLine={(line) => setSheet({ swap: { meal: entry, line } })}
+                      onAnother={() => another(entry)}
+                      onSkip={() => override(key, (o) => ({ ...o, skip: true }))}
+                      onRestore={() => override(key, (o) => ({ ...o, skip: false }))}
+                      onCook={() => override(key, (o) => ({ ...o, cook: true }))}
+                      onProof={setProof}
+                    />
+                  )
+                })}
+              </div>
+            </section>
+          )}
         </>
       )}
 
@@ -252,6 +235,8 @@ export default function App() {
         list={list}
         mode={listMode}
         setMode={setListMode}
+        stores={listStores}
+        onStore={(homeStore) => updatePrefs({ ...prefs, homeStore })}
         checked={week.checked}
         onCheck={(k) => editWeek((w) => ({ ...w, checked: { ...w.checked, [k]: !w.checked[k] } }))}
         postalCode={prefs.postalCode}
@@ -260,27 +245,50 @@ export default function App() {
       <Sheet open={sheet === 'settings'} onClose={() => setSheet(null)} title="Household">
         <Preferences prefs={prefs} merchants={merchants} onChange={updatePrefs} />
       </Sheet>
-      <Sheet open={!!sheet?.move} onClose={() => setSheet(null)} title="Move to…">
-        <ul className="space-y-2">
-          {cookDays
-            .filter((d) => d.key !== sheet?.move)
-            .map((d) => (
-              <li key={d.key}>
-                <button
-                  onClick={() => {
-                    moveMeal(sheet.move, d.key)
-                    setSheet(null)
-                  }}
-                  className="flex w-full items-center gap-3 rounded-2xl border border-stone-200 p-3 text-left text-sm"
-                >
-                  <span className="w-20 font-medium">{d.short === 'Today' ? 'Tonight' : d.short}</span>
-                  <span className="flex-1 truncate text-stone-500">
-                    swap with {d.meal.recipe.emoji} {d.meal.recipe.name}
-                  </span>
-                </button>
-              </li>
-            ))}
-        </ul>
+      <Sheet open={!!swapping} onClose={() => setSheet(null)} title={swapping ? `Swap ${swapping.line.ing.item}` : ''}>
+        {swapping && (
+          <ul className="space-y-2">
+            {swapOptions(swapping.meal, swapping.line, deals, prefs).map((c) => {
+              const current = c.ing.item === swapping.line.ing.item
+              return (
+                <li key={c.ing.item}>
+                  <button
+                    disabled={current}
+                    onClick={() => {
+                      swapLine(swapping.meal, swapping.line, c.ing.item)
+                      setSheet(null)
+                    }}
+                    className={`flex w-full items-center gap-3 rounded-2xl border p-3 text-left ${
+                      current ? 'border-green-600 bg-green-50' : 'border-stone-200'
+                    }`}
+                  >
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-medium">
+                        {cap(c.ing.item)} {current && <span className="text-xs font-normal text-green-700">· current</span>}
+                      </span>
+                      <span className="block truncate text-xs text-stone-500">
+                        {c.deal ? dealName(c.deal.name) : 'Not in this week\'s flyers'}
+                      </span>
+                    </span>
+                    <span className="shrink-0 text-right">
+                      {c.deal ? (
+                        <>
+                          <span className="block text-sm font-semibold text-green-700">{c.deal.priceLabel}</span>
+                          <span className={`inline-block rounded-full px-1.5 text-[10px] font-medium ${storeTint(c.deal.merchant)}`}>
+                            {c.deal.merchant}
+                          </span>
+                        </>
+                      ) : (
+                        <span className="text-xs text-stone-400">reg. price</span>
+                      )}
+                      <span className="block text-[11px] text-stone-400">~{money(c.cost)} for this meal</span>
+                    </span>
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+        )}
       </Sheet>
       <FlyerProof deal={proof} onClose={() => setProof(null)} />
     </div>

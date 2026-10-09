@@ -1,7 +1,8 @@
+import { useState } from 'react'
 import Sheet from './Sheet'
-import { dealName, mapsUrl, money, storeTint } from '../lib/stores'
-
-const fmtQty = (q, unit) => `${Number.isInteger(q) ? q : q.toFixed(2).replace(/0$/, '')} ${unit}`
+import FlyerPeek from './FlyerPeek'
+import FlyerGallery from './FlyerGallery'
+import { mapsUrl, money, storeTint } from '../lib/stores'
 
 /** Collapsed bar pinned to the bottom of the page. */
 export function ListBar({ list, onOpen }) {
@@ -16,10 +17,9 @@ export function ListBar({ list, onOpen }) {
           🛒
         </span>
         <span className="flex-1">
-          <span className="block text-sm font-semibold">Your list · {list.itemCount} items</span>
+          <span className="block text-sm font-semibold">Grocery list · {list.itemCount} items</span>
           <span className="block text-xs text-stone-300">
-            est. {money(list.totalCost)} · {list.stores.filter((s) => s.store !== 'Any store').length} store
-            {list.stores.length === 1 ? '' : 's'}
+            est. {money(list.totalCost)} · {list.onSale} from flyers
           </span>
         </span>
         <span className="rounded-full bg-green-500 px-2.5 py-1 text-xs font-semibold text-stone-900">
@@ -30,14 +30,27 @@ export function ListBar({ list, onOpen }) {
   )
 }
 
-export default function ListSheet({ open, onClose, list, mode, setMode, checked, onCheck, postalCode, onProof }) {
+const TABS = [
+  ['match', 'Price Matching'],
+  ['single', 'One Store'],
+]
+
+export default function ListSheet({ open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof }) {
+  const [gallery, setGallery] = useState(false)
   if (!list) return null
-  const done = list.stores.flatMap((s) => s.items).filter((i) => checked[`${i.item}|${i.unit}`]).length
+  const items = list.groups.flatMap((g) => g.items)
+  const done = items.filter((i) => checked[i.key]).length
 
   const share = async () => {
-    const text = list.stores
-      .map((s) => `${s.store}\n${s.items.map((i) => `- ${i.item} (${fmtQty(i.qty, i.unit)})${i.deal ? ` ${i.deal.priceLabel || ''}` : ''}`).join('\n')}`)
-      .join('\n\n')
+    const text = [
+      list.store ? `${mode === 'match' ? 'Price matching at' : 'Shopping at'} ${list.store}` : 'Grocery list',
+      ...list.groups.map(
+        (g) =>
+          `\n${g.title}\n${g.items
+            .map((i) => `- ${i.item} (${i.buy})${i.deal ? ` ${i.deal.priceLabel}${mode === 'match' ? ` @ ${i.deal.merchant}` : ''}` : ''}`)
+            .join('\n')}`,
+      ),
+    ].join('\n')
     try {
       if (navigator.share) await navigator.share({ title: 'Grocery list', text })
       else await navigator.clipboard.writeText(text)
@@ -50,7 +63,7 @@ export default function ListSheet({ open, onClose, list, mode, setMode, checked,
     <Sheet
       open={open}
       onClose={onClose}
-      title="Smart grocery list"
+      title="Grocery list"
       tall
       footer={
         <div className="flex items-center gap-3">
@@ -58,7 +71,9 @@ export default function ListSheet({ open, onClose, list, mode, setMode, checked,
             <p className="text-sm font-semibold">
               {list.itemCount} items · est. {money(list.totalCost)}
             </p>
-            <p className="text-xs text-green-700">Saves about {money(list.totalSavings)} · {done} checked off</p>
+            <p className="text-xs text-green-700">
+              Saves about {money(list.totalSavings)} · {done} checked off
+            </p>
           </div>
           <button onClick={share} className="rounded-xl border border-stone-300 px-3 py-2 text-sm font-medium">
             Share
@@ -66,11 +81,8 @@ export default function ListSheet({ open, onClose, list, mode, setMode, checked,
         </div>
       }
     >
-      <div className="mb-4 grid grid-cols-2 gap-1 rounded-2xl bg-stone-100 p-1 text-sm font-medium" role="tablist">
-        {[
-          ['split', 'Best 3 stores'],
-          ['single', 'One store'],
-        ].map(([id, label]) => (
+      <div className="mb-3 grid grid-cols-2 gap-1 rounded-2xl bg-stone-100 p-1 text-sm font-medium" role="tablist">
+        {TABS.map(([id, label]) => (
           <button
             key={id}
             role="tab"
@@ -82,80 +94,99 @@ export default function ListSheet({ open, onClose, list, mode, setMode, checked,
           </button>
         ))}
       </div>
-      {mode === 'single' && list.single && (
-        <p className="mb-3 text-xs text-stone-500">
-          {list.single.store} has {list.single.covered} of your {list.itemCount} items on sale. The rest are at regular price there.
-        </p>
+
+      {mode === 'match' ? (
+        <div className="mb-4 flex items-center gap-3 rounded-2xl bg-green-50 p-3">
+          <p className="flex-1 text-xs text-green-900">
+            Every item at its lowest flyer price from {list.matchStores.length} store{list.matchStores.length === 1 ? '' : 's'}.
+            Show the cashier the flyers at checkout.
+          </p>
+          <button
+            onClick={() => setGallery(true)}
+            disabled={!list.flyers.length}
+            className="shrink-0 rounded-xl bg-green-700 px-3 py-2 text-xs font-semibold text-white disabled:opacity-40"
+          >
+            View all flyers
+          </button>
+        </div>
+      ) : (
+        <div className="mb-4 rounded-2xl bg-stone-100 p-3">
+          <label className="flex items-center gap-2 text-sm">
+            <span className="font-medium">Store</span>
+            <select
+              value={list.store || ''}
+              onChange={(e) => onStore(e.target.value)}
+              className="min-w-0 flex-1 rounded-lg border border-stone-300 bg-white px-2 py-1.5"
+            >
+              {stores.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                  {s === list.suggestedStore?.store ? ' (most on sale)' : ''}
+                </option>
+              ))}
+            </select>
+          </label>
+          <p className="mt-1.5 text-xs text-stone-500">
+            {list.onSale} of {list.itemCount} items on sale here; the rest at regular price.{' '}
+            {list.store && (
+              <a className="text-green-700 underline" href={mapsUrl(list.store, postalCode)} target="_blank" rel="noreferrer">
+                Directions
+              </a>
+            )}
+          </p>
+        </div>
       )}
 
+      <p className="mb-2 text-[11px] text-stone-400">Hover or tap an item to see its flyer ad.</p>
+
       <div className="space-y-5">
-        {list.stores.map((group) => (
-          <section key={group.store}>
-            <div className="mb-1.5 flex items-center gap-2">
-              <span className={`rounded-md px-2 py-0.5 text-xs font-bold tracking-wide uppercase ${storeTint(group.store)}`}>
-                {group.store}
-              </span>
-              {group.savings > 0 && <span className="text-xs text-green-700">saves {money(group.savings)}</span>}
-              {group.store !== 'Any store' && (
-                <a
-                  href={mapsUrl(group.store, postalCode)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="ml-auto text-xs font-medium text-green-700"
-                >
-                  Map ↗
-                </a>
-              )}
-            </div>
-            <ul className="divide-y divide-stone-100 rounded-2xl border border-stone-200">
-              {group.items.map((it) => {
-                const k = `${it.item}|${it.unit}`
-                return (
-                  <li key={k} className="flex items-start gap-3 px-3 py-2.5">
-                    <input
-                      type="checkbox"
-                      className="mt-1 size-4 shrink-0 accent-green-700"
-                      checked={!!checked[k]}
-                      onChange={() => onCheck(k)}
-                      aria-label={it.item}
-                    />
-                    <div className={`min-w-0 flex-1 ${checked[k] ? 'text-stone-400 line-through' : ''}`}>
-                      <p className="text-sm">
-                        <span className="font-medium">{it.item}</span>{' '}
-                        <span className="text-stone-500">{fmtQty(it.qty, it.unit)}</span>
-                      </p>
-                      {it.deal ? (
-                        <p className="truncate text-xs text-stone-500">
-                          {dealName(it.deal.name)} · {it.deal.priceLabel || it.deal.priceText}
-                        </p>
+        {list.groups.map((g) => (
+          <section key={g.title}>
+            <h3 className="mb-1 text-xs font-semibold tracking-wide text-stone-500 uppercase">{g.title}</h3>
+            <ul className="divide-y divide-stone-100">
+              {g.items.map((i) => (
+                <li key={i.key} className="flex items-center gap-3 py-2">
+                  <input
+                    type="checkbox"
+                    aria-label={`Got ${i.item}`}
+                    checked={!!checked[i.key]}
+                    onChange={() => onCheck(i.key)}
+                    className="size-5 shrink-0 accent-green-700"
+                  />
+                  <FlyerPeek deal={i.deal} onOpen={onProof} className="flex min-w-0 flex-1 items-center gap-2">
+                    <span className={`min-w-0 flex-1 ${checked[i.key] ? 'text-stone-400 line-through' : ''}`}>
+                      <span className="block truncate text-sm font-medium">
+                        {i.item} <span className="font-normal text-stone-500">· {i.buy}</span>
+                      </span>
+                      <span className="block truncate text-[11px] text-stone-400">{i.meals.join(', ')}</span>
+                    </span>
+                    <span className="shrink-0 text-right">
+                      {i.deal ? (
+                        <>
+                          <span className="block text-sm font-semibold text-green-700">{i.deal.priceLabel}</span>
+                          {mode === 'match' && (
+                            <span className={`inline-block rounded-full px-1.5 text-[10px] font-medium ${storeTint(i.deal.merchant)}`}>
+                              {i.deal.merchant}
+                            </span>
+                          )}
+                        </>
                       ) : (
-                        <p className="text-xs text-stone-400">Not on sale · est. {money(it.cost)}</p>
+                        <span className="block text-xs text-stone-400">reg. ~{money(i.cost)}</span>
                       )}
-                    </div>
-                    <div className="shrink-0 text-right">
-                      {it.savings > 0 && <p className="text-xs font-medium text-green-700">−{money(it.savings)}</p>}
-                      {it.deal && (
-                        <button
-                          onClick={() => onProof(it.deal)}
-                          className="mt-0.5 rounded-md border border-stone-300 px-1.5 py-0.5 text-[11px] font-medium text-stone-600"
-                        >
-                          Flyer
-                        </button>
-                      )}
-                    </div>
-                  </li>
-                )
-              })}
+                    </span>
+                  </FlyerPeek>
+                </li>
+              ))}
             </ul>
           </section>
         ))}
         {list.pantry.length > 0 && (
-          <section>
-            <p className="mb-1 text-xs font-semibold tracking-wide text-stone-500 uppercase">Check your pantry</p>
-            <p className="text-sm text-stone-600">{list.pantry.join(', ')}</p>
-          </section>
+          <p className="text-xs text-stone-500">
+            <span className="font-medium">From your pantry:</span> {list.pantry.join(', ')}
+          </p>
         )}
       </div>
+      <FlyerGallery open={gallery} flyers={list.flyers} store={list.store} onClose={() => setGallery(false)} />
     </Sheet>
   )
 }

@@ -1,148 +1,127 @@
-import { useState } from 'react'
-import Sheet from './Sheet'
-import { swapOptions } from '../lib/planner'
-import { SWAPS } from '../data/recipes'
-import { money, shortDay } from '../lib/stores'
+import FlyerPeek from './FlyerPeek'
+import { dealName, money, storeTint } from '../lib/stores'
+import { cap } from '../data/templates'
 
-const dayLabel = (d) =>
-  d.short === 'Today' ? 'Tonight' : d.date.toLocaleDateString('en-CA', { weekday: 'long', month: 'short', day: 'numeric' })
+const fmtQty = (q, unit) => {
+  const n = Number.isInteger(q) ? q : Math.round(q * 4) / 4
+  return unit === 'each' ? `${n}` : `${n} ${unit}`
+}
 
-export default function MealCard({ day, nextLeftovers, deals, prefs, swaps, onSwap, onReroll, onMove, onNightOff }) {
-  const entry = day.meal
-  const { recipe } = entry
-  const [swapFor, setSwapFor] = useState(null) // the ingredient line being swapped
-  const factor = (prefs.householdSize / recipe.servings) * (entry.batches || 1)
-  const today = new Date().toISOString().slice(0, 10)
-  const endsIn = entry.endsSoon ? (Date.parse(entry.endsSoon.slice(0, 10)) - Date.parse(today)) / 864e5 : null
+/**
+ * One meal slot of the selected day (breakfast, lunch, dinner or snack).
+ * Tap an ingredient to swap it for something else on sale; "Another idea" re-rolls the dish.
+ */
+export default function MealCard({ label, emoji, entry, onSwapLine, onAnother, onSkip, onRestore, onCook, onProof }) {
+  const head = (
+    <p className="text-xs font-semibold tracking-wide text-stone-500 uppercase">
+      <span aria-hidden>{emoji}</span> {label}
+    </p>
+  )
 
-  const options = swapFor ? swapOptions(swapFor.ing, SWAPS[swapFor.ing.swappedFrom || swapFor.ing.item] || [], deals, prefs, factor) : []
-  const original = swapFor?.ing.swappedFrom
-
-  return (
-    <article id={`day-${day.key}`} className="scroll-mt-28 overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm">
-      <div className="flex gap-3 p-4 pb-3">
-        <div
-          className="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-green-100 to-amber-50 text-3xl"
-          aria-hidden
-        >
-          {recipe.emoji}
+  if (!entry) return null
+  if (entry.skipped || entry.empty) {
+    return (
+      <div className="flex items-center gap-3 rounded-2xl border border-dashed border-stone-300 px-4 py-3">
+        <div className="flex-1">
+          {head}
+          <p className="text-sm text-stone-500">{entry.skipped ? 'Not planning this one' : 'Nothing on sale fits your filters'}</p>
         </div>
+        {entry.skipped && (
+          <button onClick={onRestore} className="text-sm font-medium text-green-700">
+            + Plan it
+          </button>
+        )}
+      </div>
+    )
+  }
+
+  if (entry.leftovers) {
+    const m = entry.leftovers
+    return (
+      <div className="flex items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3">
+        <span className="text-2xl" aria-hidden>
+          🥡
+        </span>
         <div className="min-w-0 flex-1">
-          <p className="text-[11px] font-semibold tracking-wide text-green-700 uppercase">{dayLabel(day)}</p>
-          <h3 className="line-clamp-2 text-base leading-snug font-semibold">{recipe.name}</h3>
-          <p className="text-xs text-stone-500">
-            {recipe.minutes} min · serves {prefs.householdSize}
-            {entry.batches === 2 && ' ×2'}
+          {head}
+          <p className="truncate text-sm font-medium">Leftover {m.name.charAt(0).toLowerCase() + m.name.slice(1)}</p>
+          <p className="text-xs text-amber-800">Cooked double last night · $0 extra</p>
+        </div>
+        <button onClick={onCook} className="shrink-0 text-xs font-medium text-stone-500">
+          Make lunch
+        </button>
+      </div>
+    )
+  }
+
+  const m = entry
+  const perServing = m.cost / m.servings
+  return (
+    <article className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
+      <div className="flex items-start gap-3 px-4 pt-3">
+        <span className="mt-4 text-3xl" aria-hidden>
+          {m.emoji}
+        </span>
+        <div className="min-w-0 flex-1">
+          {head}
+          <h3 className="text-base leading-snug font-semibold">{m.name}</h3>
+          <p className="mt-0.5 text-xs text-stone-500">
+            {m.minutes} min · {money(perServing)}/serving
+            {m.batches > 1 && <span className="text-amber-700"> · makes {m.leftoversFor}'s lunch too</span>}
           </p>
         </div>
-        <div className="shrink-0 text-right">
-          <p className="text-base font-semibold">{money(entry.cost * (entry.batches || 1))}</p>
-          <p className="text-[11px] text-stone-500">est. {money(entry.perServing)}/serving</p>
-        </div>
-      </div>
-
-      <div className="flex flex-wrap gap-1.5 px-4">
-        {entry.savings > 0 && (
-          <span className="rounded-full bg-green-100 px-2 py-0.5 text-[11px] font-medium text-green-800">
-            Saves {money(entry.savings * (entry.batches || 1))}
-          </span>
-        )}
-        {endsIn != null && endsIn <= 3 && (
-          <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-medium text-amber-900">
-            Sale ends {endsIn <= 0 ? 'today' : shortDay(entry.endsSoon)}
-          </span>
-        )}
-        {nextLeftovers && (
-          <span className="rounded-full bg-orange-50 px-2 py-0.5 text-[11px] font-medium text-orange-800">
-            Cook double · leftovers {nextLeftovers}
+        {m.savings > 0.05 && (
+          <span className="mt-1 shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-[11px] font-semibold text-green-800">
+            −{money(m.savings * (m.batches || 1))}
           </span>
         )}
       </div>
 
-      <ul className="mt-3 divide-y divide-stone-100 border-t border-stone-100">
-        {entry.lines.map((l) => {
-          const canSwap = (SWAPS[l.ing.swappedFrom || l.ing.item] || []).length > 0
-          return (
-            <li key={l.ing.item} className="flex items-center gap-2 px-4 py-2 text-sm">
-              <span className={`size-2 shrink-0 rounded-full ${l.deal ? 'bg-green-600' : 'bg-stone-300'}`} aria-hidden />
-              <span className="min-w-0 flex-1 truncate">
-                {l.ing.item}
-                {l.ing.swappedFrom && <span className="text-stone-400"> (for {l.ing.swappedFrom})</span>}
-                {l.deal && <span className="text-stone-400"> · {l.deal.merchant}</span>}
-              </span>
-              <span className={`shrink-0 text-xs ${l.deal ? 'font-medium text-stone-800' : 'text-stone-400'}`}>
-                {l.deal ? l.deal.priceLabel || l.deal.priceText : 'reg. price'}
-              </span>
-              {canSwap && (
-                <button
-                  onClick={() => setSwapFor(l)}
-                  className="shrink-0 rounded-full border border-stone-200 px-2 py-0.5 text-[11px] font-medium text-stone-600"
-                  aria-label={`Swap ${l.ing.item}`}
-                >
-                  ⇄ Swap
-                </button>
-              )}
-            </li>
-          )
-        })}
-      </ul>
-
-      <div className="flex border-t border-stone-100 text-xs font-medium text-stone-600">
-        <button onClick={onReroll} className="flex-1 py-2.5 hover:bg-stone-50">⟳ Different meal</button>
-        <button onClick={onMove} className="flex-1 border-x border-stone-100 py-2.5 hover:bg-stone-50">↔ Move day</button>
-        <button onClick={onNightOff} className="flex-1 py-2.5 hover:bg-stone-50">🌙 Night off</button>
-      </div>
-
-      <Sheet open={!!swapFor} onClose={() => setSwapFor(null)} title={swapFor ? `Swap ${original || swapFor.ing.item}` : ''}>
-        <ul className="space-y-2">
-          {original && (
-            <li>
-              <button
-                onClick={() => {
-                  onSwap(recipe.id, original, null)
-                  setSwapFor(null)
-                }}
-                className="w-full rounded-2xl border border-stone-200 p-3 text-left text-sm"
-              >
-                Keep the original <span className="font-medium">{original}</span>
-              </button>
-            </li>
-          )}
-          {options.map((o) => {
-            const current = swapFor && o.alt.item === swapFor.ing.item
-            return (
-              <li key={o.alt.item}>
-                <button
-                  disabled={current}
-                  onClick={() => {
-                    onSwap(recipe.id, original || swapFor.ing.item, o.alt)
-                    setSwapFor(null)
-                  }}
-                  className={`flex w-full items-center gap-3 rounded-2xl border p-3 text-left ${
-                    current ? 'border-green-600 bg-green-50' : 'border-stone-200'
-                  }`}
-                >
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-sm font-medium">
-                      {o.alt.item} {current && '✓'}
-                    </span>
-                    <span className="block truncate text-xs text-stone-500">
-                      {o.deal ? `${o.deal.merchant} · ${o.deal.priceLabel || o.deal.priceText}` : 'Not on sale this week'}
-                    </span>
-                  </span>
+      <ul className="mt-2 px-2">
+        {m.lines.map((l) => (
+          <li key={l.slot}>
+            <FlyerPeek deal={l.deal} onOpen={onProof} className="rounded-xl">
+              <div className="flex items-center gap-2 rounded-xl px-2 py-1.5 hover:bg-stone-50">
+                <span className="min-w-0 flex-1 text-sm">
+                  <span className="font-medium">{cap(l.ing.item)}</span>{' '}
+                  <span className="text-stone-400">{fmtQty(l.qty * (m.batches || 1), l.ing.unit)}</span>
+                  {l.deal && <span className="block truncate text-[11px] text-stone-400">{dealName(l.deal.name)}</span>}
+                </span>
+                {l.deal ? (
                   <span className="shrink-0 text-right">
-                    <span className="block text-sm font-semibold">{money(o.cost)}</span>
-                    {o.savings > 0 && <span className="block text-[11px] text-green-700">saves {money(o.savings)}</span>}
+                    <span className="block text-sm font-semibold text-green-700">{l.deal.priceLabel}</span>
+                    <span className={`inline-block rounded-full px-1.5 text-[10px] font-medium ${storeTint(l.deal.merchant)}`}>
+                      {l.deal.merchant}
+                    </span>
                   </span>
+                ) : (
+                  <span className="shrink-0 text-xs text-stone-400">reg. price</span>
+                )}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    onSwapLine(l)
+                  }}
+                  aria-label={`Swap ${l.ing.item}`}
+                  className="shrink-0 rounded-lg px-1.5 py-1 text-stone-400 hover:bg-stone-100 hover:text-green-700"
+                >
+                  ⇄
                 </button>
-              </li>
-            )
-          })}
-          {swaps?.[original || swapFor?.ing.item] === undefined && options.length === 0 && (
-            <li className="text-sm text-stone-500">No swaps for this ingredient yet.</li>
-          )}
-        </ul>
-      </Sheet>
+              </div>
+            </FlyerPeek>
+          </li>
+        ))}
+      </ul>
+      {m.pantry.length > 0 && <p className="px-4 pt-1 text-[11px] text-stone-400">You have: {m.pantry.join(', ')}</p>}
+
+      <div className="mt-2 flex border-t border-stone-100 text-xs font-medium">
+        <button onClick={onAnother} className="flex-1 py-2.5 text-green-700 hover:bg-stone-50">
+          ⟳ Another idea
+        </button>
+        <button onClick={onSkip} className="flex-1 border-l border-stone-100 py-2.5 text-stone-500 hover:bg-stone-50">
+          Skip
+        </button>
+      </div>
     </article>
   )
 }

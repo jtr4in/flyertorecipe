@@ -19,22 +19,24 @@ firestore.rules, firebase.json   Firestore security rules + Hosting config
    and writes `regions/{FSA}/deals/{dealId}`. Deals that dropped off the flyer are deleted.
 2. The web app signs each household in anonymously, stores preferences at `users/{uid}`, and
    reads the deals for the household's FSA (first three characters of the postal code).
-3. `web/src/lib/planner.js` filters deals to the chosen stores and current dates, scores each seed
-   recipe (`web/src/data/recipes.js`) by how much of it is on sale, picks a varied week (no repeats,
-   at most two dinners per protein), scales to household size and builds the shopping list.
+3. `web/src/lib/planner.js` builds meals flyer-first. Meal templates (`web/src/data/templates.js`,
+   e.g. "Sheet-pan {protein} with {veg} & {starch}") have slots that draw from ingredient groups
+   (`web/src/data/ingredients.js`); each slot is filled with whatever in the group is on sale this
+   week, so nearly every ingredient comes from a flyer. The week avoids repeat dinners, reuses
+   ingredients already on the list, and scales to household size.
 
 ## The app
 
-- **Your week:** a 7-night schedule starting today. Meals whose sale ends first and the most
-  perishable proteins go early in the week; big-batch meals cook double and cover the next night
-  as leftovers. Each night can be swapped for a different meal, moved, or marked as a night off.
-- **Meal cards:** estimated cost and cost per serving, savings, "sale ends" badges, and a swap
-  drawer per ingredient ranked by this week's prices.
-- **What's the plan?** box: keywords like "quick", "high protein", "kids", "meal prep",
-  "under $80" or "5 dinners" turn into filters, a week budget (with a progress bar) and a meal
-  count. Filter chips do the same by tap.
-- **Smart grocery list:** a bottom sheet grouped by store, either the best 3 stores or the single
-  store that covers the most items, with flyer images for price matching, map links and sharing.
+- **Your week:** tap a day to see its breakfast, lunch, dinner and snack, each built from sale
+  items with the store and flyer price on every ingredient. Tap ⇄ to swap an ingredient for
+  something else on sale, "Another idea" for a different dish, or Skip. Lunch can be last
+  night's leftovers (dinner cooks double). Which meals to plan is set in Household settings.
+- **What's the plan?** box: keywords like "quick", "high protein", "kids", "meal prep" or
+  "under $80" turn into filters and a week budget (with a progress bar). Filter chips do the same.
+- **Grocery list:** grouped by aisle, with two tabs. *Price Matching* lists every item at its
+  lowest flyer price from any store, and "View all flyers" opens one scrollable page of every
+  flyer ad to show the cashier. *One Store* uses only the chosen store's deals. Hover (or tap) an
+  item to see its flyer ad.
 
 Costs are estimates: flyers rarely state package sizes, and items not on sale use typical prices.
 
@@ -80,7 +82,7 @@ The actor bills per deal returned ($0.002/deal from 2026-10-08, plus $0.0005 per
   ingest for a new postal code needs a Cloud Function (Blaze plan) that runs the same code.
 - **Savings are estimates.** Many flyer rows have no regular price; those show no savings.
   Savings assume one pack per list line.
-- **Matching is keyword based.** Each recipe ingredient lists flyer words to match and words to
-  exclude. Tune `recipes.js` as real flyer names come in.
+- **Matching is keyword based.** Each catalog ingredient lists flyer words to match and words to
+  exclude. Tune `ingredients.js` as real flyer names come in.
 - **LLM upgrade:** swap `planWeek` for a call that sends the active deals + preferences to an LLM
   (from a Cloud Function, never the browser) to generate recipes beyond the seed set.

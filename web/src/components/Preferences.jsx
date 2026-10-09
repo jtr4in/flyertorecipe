@@ -1,5 +1,6 @@
 import { DIET_TAGS } from '../lib/aisles'
-import { fsa } from '../lib/data'
+import { DEFAULT_PREFS, fsa } from '../lib/data'
+import { MEALS } from '../data/templates'
 
 const Chip = ({ on, children, ...props }) => (
   <button
@@ -17,6 +18,7 @@ const toggle = (list, v) => (list.includes(v) ? list.filter((x) => x !== v) : [.
 
 export default function Preferences({ prefs, merchants, onChange }) {
   const set = (patch) => onChange({ ...prefs, ...patch })
+  const meals = prefs.meals || DEFAULT_PREFS.meals
   const validPostal = !prefs.postalCode || fsa(prefs.postalCode)
 
   return (
@@ -56,7 +58,7 @@ export default function Preferences({ prefs, merchants, onChange }) {
 
       <fieldset>
         <legend className="text-sm font-medium">Stores</legend>
-        <p className="text-xs text-stone-500">None selected means every store in your area.</p>
+        <p className="text-xs text-stone-500">Plan from these flyers only. None selected means every store in your area.</p>
         <div className="mt-2 flex flex-wrap gap-2">
           {merchants.length === 0 && <span className="text-sm text-stone-400">No stores loaded yet.</span>}
           {merchants.map((m) => (
@@ -67,33 +69,31 @@ export default function Preferences({ prefs, merchants, onChange }) {
         </div>
       </fieldset>
 
-      <label className="flex items-start gap-3">
-        <input
-          type="checkbox"
-          className="mt-1 size-4 accent-green-700"
-          checked={prefs.leftovers !== false}
-          onChange={(e) => set({ leftovers: e.target.checked })}
-        />
-        <span>
-          <span className="text-sm font-medium">Plan leftovers</span>
-          <span className="block text-xs text-stone-500">
-            Big-batch meals cook double and cover the next night.
-          </span>
-        </span>
-      </label>
+      <fieldset>
+        <legend className="text-sm font-medium">Meals to plan</legend>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {MEALS.map((m) => (
+            <Chip
+              key={m.id}
+              on={meals.includes(m.id)}
+              onClick={() => set({ meals: MEALS.map((x) => x.id).filter((id) => (id === m.id ? !meals.includes(id) : meals.includes(id))) })}
+            >
+              {m.emoji} {m.label}
+            </Chip>
+          ))}
+        </div>
+      </fieldset>
 
       <label className="flex items-start gap-3">
         <input
           type="checkbox"
           className="mt-1 size-4 accent-green-700"
-          checked={!!prefs.priceMatch}
-          onChange={(e) => set({ priceMatch: e.target.checked })}
+          checked={prefs.lunchLeftovers !== false}
+          onChange={(e) => set({ lunchLeftovers: e.target.checked })}
         />
         <span>
-          <span className="text-sm font-medium">I price match</span>
-          <span className="block text-xs text-stone-500">
-            Use every store's flyer prices, and show the flyer image to bring to the till.
-          </span>
+          <span className="text-sm font-medium">Lunch is last night's leftovers</span>
+          <span className="block text-xs text-stone-500">Dinner cooks double so tomorrow's lunch is covered.</span>
         </span>
       </label>
     </form>
