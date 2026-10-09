@@ -1,0 +1,30 @@
+# Weekly flyer refresh. Most Canadian flyers rotate Thursday; this runs Thursday 10:00 UTC.
+# Repo secrets needed: APIFY_TOKEN, FIREBASE_SERVICE_ACCOUNT (the JSON key's full contents).
+# Repo variable: POSTAL_CODES (comma-separated).
+name: Ingest flyer deals
+on:
+  schedule:
+    - cron: "0 10 * * 4"
+  workflow_dispatch:
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python -m pytest -q
+      - name: Ingest
+        env:
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+          POSTAL_CODES: ${{ vars.POSTAL_CODES }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          echo "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/sa.json"
+          GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json" python ingest.py
