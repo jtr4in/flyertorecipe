@@ -42,6 +42,14 @@ const rows = [
   ['Chips Ahoy! Cookies 258-300 g', 'Metro', 2.99, 4.79, 'Snacks', '$2.99'],
   ["Lay's Potato Chips 235 g", 'No Frills', 2.5, 4.49, 'Snacks', '2/$5'],
   ["Chapman's Ice Cream 2 L", 'FreshCo', 3.99, 6.99, 'Frozen', '$3.99'],
+  ["Delissio Rising Crust Pizza 778-891 g", 'Metro', 5.99, 8.99, 'Frozen', '$5.99'],
+  ['Cashmere Bathroom Tissue 12 Double Rolls', 'Shoppers Drug Mart', 7.99, 12.49, 'Other', '$7.99'],
+  ['Bounty Paper Towels 6 Rolls', 'Walmart', 9.97, 13.97, 'Other', '$9.97'],
+  ['Tide Liquid Laundry Detergent 2.72 L', 'No Frills', 11.99, 17.99, 'Other', '$11.99'],
+  ['Colgate Toothpaste 120 mL', 'Shoppers Drug Mart', 1.99, 3.49, 'Other', '$1.99'],
+  ['Pampers Cruisers Diapers Jumbo Pack', 'Walmart', 18.97, 24.97, 'Other', '$18.97'],
+  ["Tim Hortons Ground Coffee 920 g", 'Food Basics', 14.99, 21.99, 'Pantry', '$14.99'],
+  ['Cheerios Cereal 570 g', 'FreshCo', 3.99, 6.49, 'Pantry', '$3.99'],
 ]
 
 export function sampleDeals(today = new Date()) {

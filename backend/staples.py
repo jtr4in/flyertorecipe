@@ -17,4 +17,8 @@ STAPLE_QUERIES = [
     "bread", "tortillas", "frozen vegetables", "tofu",
     # Treats
     "cookies", "ice cream", "chocolate", "chips",
+    # Other deals (not recipe ingredients): shown under "Other deals" in the app
+    "frozen meals", "frozen pizza", "cereal", "coffee", "juice",
+    "toilet paper", "paper towels", "laundry detergent", "dish soap",
+    "shampoo", "toothpaste", "diapers", "pet food",
 ]

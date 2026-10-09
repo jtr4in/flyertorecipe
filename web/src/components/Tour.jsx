@@ -45,6 +45,11 @@ export const TOUR_STEPS = [
     body: 'Prints the week\'s meals and the grocery list on one page.',
   },
   {
+    target: 'deals',
+    title: 'Other deals',
+    body: 'Frozen meals, paper towels, coffee, diapers and more from the flyers. Add any to your list, or watch the things you always buy.',
+  },
+  {
     target: 'list',
     title: 'Your grocery list',
     body: 'Everything for the week, sorted by aisle. "Price Matching" shows every flyer ad so you can get all the deals at one store.',

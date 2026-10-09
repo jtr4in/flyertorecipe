@@ -14,6 +14,8 @@ import IdeaSheet from './components/IdeaSheet'
 import PrintWeek from './components/PrintWeek'
 import Welcome from './components/Welcome'
 import Tour from './components/Tour'
+import DealsSheet from './components/DealsSheet'
+import { extraDeals, watchMatches, withExtras } from './lib/extras'
 
 export default function App() {
   const [prefs, setPrefs] = useState(null)
@@ -80,7 +82,12 @@ export default function App() {
     () => (prefs ? planWeek(deals, prefs, { days, filters, budget: parsed.budget, overrides: week.overrides, avoid: week.avoid }) : []),
     [prefs, deals, days, filters, parsed.budget, week.overrides, week.avoid, recipesVersion],
   )
-  const list = useMemo(() => (prefs ? buildShoppingList(plan, deals, prefs, { mode: listMode }) : null), [plan, deals, prefs, listMode])
+  const list = useMemo(
+    () => (prefs ? withExtras(buildShoppingList(plan, deals, prefs, { mode: listMode }), week.extras) : null),
+    [plan, deals, prefs, listMode, week.extras],
+  )
+  const otherDeals = useMemo(() => extraDeals(deals), [deals])
+  const watchOnSale = useMemo(() => watchMatches(deals, prefs?.watch || []).filter((w) => w.deals.length), [deals, prefs?.watch])
   const listStores = useMemo(() => [...new Set(deals.map((d) => d.merchant).filter(Boolean))].sort(), [deals])
 
   const updatePrefs = (next) => {
@@ -289,6 +296,30 @@ export default function App() {
         </>
       )}
 
+      {!loading && (otherDeals.length > 0 || watchOnSale.length > 0) && (
+        <button
+          data-tour="deals"
+          onClick={() => setSheet('deals')}
+          className="mt-4 flex w-full items-center gap-3 rounded-2xl border border-stone-200 bg-white p-4 text-left shadow-sm"
+        >
+          <span className="text-2xl" aria-hidden>
+            🏷️
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-sm font-semibold">Other deals this week</span>
+            <span className="block truncate text-xs text-stone-500">
+              {watchOnSale.length > 0
+                ? `On sale from your list: ${watchOnSale.map((w) => w.term).join(', ')}`
+                : `${otherDeals.length} on frozen meals, paper towels, coffee, personal care…`}
+            </span>
+          </span>
+          {(week.extras || []).length > 0 && (
+            <span className="shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-[11px] font-semibold text-green-800">{week.extras.length} added</span>
+          )}
+          <span className="text-stone-400">›</span>
+        </button>
+      )}
+
       <ListBar list={list} onOpen={() => setSheet('list')} />
       <ListSheet
         open={sheet === 'list'}
@@ -303,6 +334,22 @@ export default function App() {
         postalCode={prefs.postalCode}
         onProof={setProof}
         onSwap={(item) => setSwapping(item.uses)}
+        onRemoveExtra={(item) => editWeek((w) => ({ ...w, extras: (w.extras || []).filter((x) => `extra:${x.deal.dealId}` !== item.key) }))}
+      />
+      <DealsSheet
+        open={sheet === 'deals'}
+        onClose={() => setSheet(null)}
+        deals={deals}
+        extras={week.extras || []}
+        onToggle={(deal, category) =>
+          editWeek((w) => {
+            const ex = w.extras || []
+            return { ...w, extras: ex.some((x) => x.deal.dealId === deal.dealId) ? ex.filter((x) => x.deal.dealId !== deal.dealId) : [...ex, { deal, category }] }
+          })
+        }
+        watch={prefs.watch || []}
+        onWatch={(watch) => updatePrefs({ ...prefs, watch })}
+        onProof={setProof}
       />
       <Sheet open={sheet === 'settings'} onClose={() => setSheet(null)} title="Household">
         <Preferences prefs={prefs} merchants={merchants} onChange={updatePrefs} />
