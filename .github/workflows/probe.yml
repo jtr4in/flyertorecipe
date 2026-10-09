@@ -9,10 +9,10 @@ jobs:
     steps:
       - run: |
           mkdir out && cd out
-          curl -sL "https://backflipp.wishabi.com/flipp/flyers/8178726" -o flyer.json || true
-          curl -sL "https://flyers-ng.flippback.com/api/flipp/flyers/8178726/flyer_items?locale=en" -o items.json || true
-          curl -sL -A "Mozilla/5.0" "https://flipp.com/en-ca/item/1045972022" -o itempage.html || true
-          grep -o '<meta[^>]*og:image[^>]*>' itempage.html > og.txt || true
+          curl -sL "https://flyers-ng.flippback.com/api/flipp/flyers/8178726?locale=en" -o ng_flyer.json || true
+          curl -sL "https://flyers-ng.flippback.com/api/flipp/flyers/8178726/pages?locale=en" -o ng_pages.json || true
+          curl -sL "https://backflipp.wishabi.com/flipp/data?locale=en-ca&postal_code=K1E0A1" -o data.json || true
+          curl -sL "https://backflipp.wishabi.com/flipp/flyers/8178726/pages" -o bf_pages.json || true
           ls -la > info.txt
           git init -q && git checkout -q -b probe-out && git add . && git -c user.name=probe -c user.email=probe@example.com commit -qm probe
           git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" probe-out
