@@ -47,11 +47,11 @@ def fetch_raw(postal_code: str, reuse_last_run: bool = False) -> list[dict]:
         run_input={
             "postalCode": postal_code,
             "queries": STAPLE_QUERIES,
-            "maxItemsPerQuery": int(os.environ.get("MAX_ITEMS_PER_QUERY", 20)),
+            "maxItemsPerQuery": int(os.environ.get("MAX_ITEMS_PER_QUERY", 40)),
             "onlyWithPrice": True,
             "locale": os.environ.get("LOCALE", "en-ca"),
         },
-        max_total_charge_usd=Decimal(os.environ.get("MAX_CHARGE_USD", "2.00")),
+        max_total_charge_usd=Decimal(os.environ.get("MAX_CHARGE_USD", "4.50")),
     )
     if run is None:
         sys.exit("Actor run did not return")
