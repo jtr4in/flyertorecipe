@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { activeDeals, buildShoppingList, cookedMeals, matchDeal, parsePlanQuery, planWeek, swapOptions, weekDays } from './planner'
+import { activeDeals, buildShoppingList, cookedMeals, listSwapOptions, matchDeal, parsePlanQuery, planWeek, swapOptions, weekDays } from './planner'
 import { CATALOG } from '../data/ingredients'
 import { sampleDeals } from '../data/sampleDeals'
 
@@ -121,6 +121,18 @@ it('ignores a home store that is no longer in the planned stores', () => {
   const list = buildShoppingList(plan, fewer, { ...prefs, homeStore: 'Metro' }, { mode: 'single' })
   expect(list.store).not.toBe('Metro')
   expect(list.onSale).toBeGreaterThan(0)
+})
+
+it('swaps a grocery item in every meal that uses it', () => {
+  const plan = planWeek(deals, prefs, { days })
+  const list = buildShoppingList(plan, deals, prefs)
+  const item = list.groups.flatMap((g) => g.items).find((i) => i.uses.length > 1 && listSwapOptions(i.uses, deals, prefs).length > 1)
+  const alt = listSwapOptions(item.uses, deals, prefs).find((c) => c.ing.item !== item.item)
+  const overrides = {}
+  for (const { meal, line } of alt.fits) overrides[meal.key] = { template: meal.template.id, fills: { [line.slot]: alt.ing.item } }
+  const after = buildShoppingList(planWeek(deals, prefs, { days, overrides, avoid: [item.item] }), deals, prefs)
+  const left = after.groups.flatMap((g) => g.items).find((i) => i.item === item.item)
+  expect(left?.uses.length || 0).toBeLessThan(item.uses.length)
 })
 
 describe('parsePlanQuery', () => {

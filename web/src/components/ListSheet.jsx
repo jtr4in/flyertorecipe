@@ -35,7 +35,7 @@ const TABS = [
   ['single', 'One Store'],
 ]
 
-export default function ListSheet({ open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof }) {
+export default function ListSheet({ open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof, onSwap }) {
   const [gallery, setGallery] = useState(false)
   if (!list) return null
   const items = list.groups.flatMap((g) => g.items)
@@ -194,6 +194,13 @@ export default function ListSheet({ open, onClose, list, mode, setMode, stores, 
                       )}
                     </span>
                   </FlyerPeek>
+                  <button
+                    onClick={() => onSwap(i)}
+                    aria-label={`Swap ${i.item}`}
+                    className="shrink-0 rounded-lg px-1.5 py-1 text-stone-400 hover:bg-stone-100 hover:text-green-700"
+                  >
+                    ⇄
+                  </button>
                 </li>
               ))}
             </ul>

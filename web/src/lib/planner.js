@@ -172,11 +172,14 @@ export function slotCandidates(slot, deals, diet, priced = new Map()) {
  * a third dinner built on the same protein. Returns null if a required slot can't be filled.
  */
 export function fillTemplate(template, ctx) {
-  const { deals, diet, servings, fills = {}, usage = {}, priced } = ctx
+  const { deals, diet, servings, fills = {}, usage = {}, priced, avoid = [] } = ctx
   const used = new Set()
   const lines = []
   for (const slot of template.slots) {
-    const cands = slotCandidates(slot, deals, diet, priced).filter((c) => !used.has(c.ing.item))
+    let cands = slotCandidates(slot, deals, diet, priced).filter((c) => !used.has(c.ing.item))
+    // Items swapped off the grocery list stay off unless nothing else fits (or it's asked for).
+    const kept = cands.filter((c) => !avoid.includes(c.ing.item) || c.ing.item === fills[slot.key])
+    if (kept.length) cands = kept
     if (!cands.length) {
       if (slot.optional) continue
       return null
@@ -268,9 +271,10 @@ const BUDGET_SHARE = { breakfast: 0.15, lunch: 0.25, dinner: 0.45, snack: 0.15 }
 /**
  * Plan every enabled meal for every day.
  * overrides[`${day}|${meal}`] = { skip, exclude: [templateIds], fills: {slotKey: item}, template }
+ * avoid: items swapped off the grocery list, kept out of every meal where possible.
  * Lunch can be last night's dinner (prefs.lunchLeftovers): that dinner is then cooked double.
  */
-export function planWeek(deals, prefs, { days, filters = [], budget = null, overrides = {} } = {}) {
+export function planWeek(deals, prefs, { days, filters = [], budget = null, overrides = {}, avoid = [] } = {}) {
   const diet = [...new Set([...(prefs.diet || []), ...FILTERS.filter((f) => f.diet && filters.includes(f.id)).map((f) => f.diet)])]
   const tests = FILTERS.filter((f) => f.test && filters.includes(f.id)).map((f) => f.test)
   const enabled = MEALS.filter((m) => (prefs.meals || ['breakfast', 'lunch', 'dinner', 'snack']).includes(m.id)).map((m) => m.id)
@@ -305,7 +309,7 @@ export function planWeek(deals, prefs, { days, filters = [], budget = null, over
         if (template.meal !== meal) continue
         if (o.exclude?.includes(template.id)) continue
         if (o.template && o.template !== template.id) continue
-        const filled = fillTemplate(template, { deals, diet, servings, fills: o.template === template.id ? o.fills : undefined, usage: ctx.usage, priced })
+        const filled = fillTemplate(template, { deals, diet, servings, fills: o.template === template.id ? o.fills : undefined, usage: ctx.usage, priced, avoid })
         if (!filled) continue
         if (meal !== 'snack' && !tests.every((t) => t(filled))) continue
         const s = scoreMeal(filled, ctx)
@@ -353,6 +357,24 @@ export function swapOptions(meal, line, deals, prefs) {
     .sort((a, b) => (b.deal ? 1 : 0) - (a.deal ? 1 : 0) || a.cost - b.cost)
 }
 
+/**
+ * Swap options for a grocery item across every meal that uses it. Each option lists the
+ * meals it fits (`fits`) and its cost across them; items that fit every meal come first.
+ */
+export function listSwapOptions(uses, deals, prefs) {
+  const per = uses.map(({ meal, line }) => swapOptions(meal, line, deals, prefs))
+  const byItem = new Map()
+  per.forEach((opts, i) => {
+    for (const o of opts) {
+      const row = byItem.get(o.ing.item) || { ...o, cost: 0, fits: [] }
+      row.cost += o.cost * (uses[i].meal.batches || 1)
+      row.fits.push(uses[i])
+      byItem.set(o.ing.item, row)
+    }
+  })
+  return [...byItem.values()].sort((a, b) => b.fits.length - a.fits.length || (b.deal ? 1 : 0) - (a.deal ? 1 : 0) || a.cost - b.cost)
+}
+
 // ---------- Shopping list ----------
 
 /** Store that covers the most list items (ties: bigger savings). */
@@ -390,9 +412,10 @@ export function buildShoppingList(plan, deals, prefs, { mode = 'match' } = {}) {
     meal.pantry.forEach((p) => pantry.add(p))
     for (const l of meal.lines) {
       const key = l.ing.item
-      const row = totals.get(key) || { ing: l.ing, qty: 0, meals: [] }
+      const row = totals.get(key) || { ing: l.ing, qty: 0, meals: [], uses: [] }
       row.qty += l.qty * mult
       if (!row.meals.includes(meal.name)) row.meals.push(meal.name)
+      row.uses.push({ meal, line: l })
       totals.set(key, row)
     }
   }
@@ -425,6 +448,7 @@ export function buildShoppingList(plan, deals, prefs, { mode = 'match' } = {}) {
       buy: b.perWeight ? `${b.units} lb` : b.single ? `${b.units}` : `${b.units} ${b.units === 1 ? 'pkg' : 'pkgs'}`,
       deal,
       meals: row.meals,
+      uses: row.uses,
       cost: round2(b.cost),
       savings: round2(b.savings),
     }
