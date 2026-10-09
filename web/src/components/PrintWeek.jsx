@@ -95,7 +95,13 @@ export default function PrintWeek({ plan, list, meals, prefs, onClose }) {
               </div>
             ))}
           </div>
-          {list.pantry.length > 0 && <p className="mt-1 text-stone-500">From the pantry: {list.pantry.join(', ')}</p>}
+          {list.pantryCheck.length > 0 && (
+            <p className="mt-1">
+              <span className="font-semibold">Check the pantry:</span>{' '}
+              {list.pantryCheck.map((g) => `${g.title}: ${g.items.map((p) => p.item).join(', ')}`).join(' · ')}
+            </p>
+          )}
+          {list.pantry.length > 0 && <p className="mt-0.5 text-stone-500">Staples: {list.pantry.join(', ')}</p>}
         </div>
       </div>
     </div>,

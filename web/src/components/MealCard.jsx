@@ -1,6 +1,7 @@
 import FlyerPeek from './FlyerPeek'
 import { dealName, money, storeTint } from '../lib/stores'
 import { cap } from '../data/templates'
+import { pantryInfo } from '../data/pantry'
 
 const fmtQty = (q, unit) => {
   const n = Number.isInteger(q) ? q : Math.round(q * 4) / 4
@@ -112,7 +113,14 @@ export default function MealCard({ label, emoji, entry, onSwapLine, onAnother, o
           </li>
         ))}
       </ul>
-      {m.pantry.length > 0 && <p className="px-4 pt-1 text-[11px] text-stone-400">You have: {m.pantry.join(', ')}</p>}
+      {m.pantry.some((p) => !pantryInfo(p).staple) && (
+        <p className="px-4 pt-1 text-[11px] text-amber-800">
+          Check you have: {m.pantry.filter((p) => !pantryInfo(p).staple).join(', ')}
+        </p>
+      )}
+      {m.pantry.some((p) => pantryInfo(p).staple) && (
+        <p className="px-4 pt-0.5 text-[11px] text-stone-400">You have: {m.pantry.filter((p) => pantryInfo(p).staple).join(', ')}</p>
+      )}
       {m.steps?.length > 0 && (
         <details className="group px-4 pt-2 text-sm">
           <summary className="cursor-pointer list-none text-xs font-medium text-green-700">

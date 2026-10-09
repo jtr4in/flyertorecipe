@@ -184,3 +184,14 @@ describe('treats', () => {
     expect(ideas.every((m) => m.template.vibes.includes('treat'))).toBe(true)
   })
 })
+
+describe('pantry', () => {
+  it('splits staples from items to check, grouped by aisle', () => {
+    const list = buildShoppingList(planWeek(deals, prefs, { days }), deals, prefs)
+    const check = list.pantryCheck.flatMap((g) => g.items.map((p) => p.item.toLowerCase()))
+    expect(list.pantry).toContain('salt')
+    expect(check).not.toContain('salt')
+    expect(list.pantryCheck.every((g) => g.items.length > 0)).toBe(true)
+    expect(list.pantryCheck.flatMap((g) => g.items).every((p) => p.meals.length > 0)).toBe(true)
+  })
+})

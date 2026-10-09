@@ -2,6 +2,7 @@
 // filled with whatever is on sale this week, so nearly every ingredient comes from a flyer.
 // Pure functions, no Firebase, so it is unit-testable.
 import { AISLES } from './aisles'
+import { PANTRY_AISLES, pantryInfo } from '../data/pantry'
 import { CATALOG } from '../data/ingredients'
 import { fillText, MEALS, TEMPLATES } from '../data/templates'
 
@@ -482,12 +483,33 @@ function bestSingleStore(rows, deals) {
  *  mode "single": only the chosen store's own flyer deals; the rest at regular price there.
  * The store is prefs.homeStore, or the one with the most of the list on sale.
  */
+/**
+ * Pantry items the week calls for: staples (`pantry`, names only) and the less common ones to
+ * check for before shopping (`pantryCheck`, grouped by aisle, with the dishes that need them).
+ */
+function pantryList(rows) {
+  const byName = (a, b) => a.item.localeCompare(b.item)
+  const check = rows.filter((r) => !pantryInfo(r.item).staple)
+  return {
+    pantry: rows.filter((r) => pantryInfo(r.item).staple).sort(byName).map((r) => r.item),
+    pantryCheck: PANTRY_AISLES.map((title) => ({
+      title,
+      items: check.filter((r) => pantryInfo(r.item).aisle === title).sort(byName),
+    })).filter((g) => g.items.length),
+  }
+}
+
 export function buildShoppingList(plan, deals, prefs, { mode = 'match' } = {}) {
   const totals = new Map()
-  const pantry = new Set()
+  const pantry = new Map() // item -> dish names
   for (const meal of cookedMeals(plan)) {
     const mult = meal.batches || 1
-    meal.pantry.forEach((p) => pantry.add(p))
+    for (const p of meal.pantry) {
+      const k = p.toLowerCase()
+      const row = pantry.get(k) || { item: p, meals: [] }
+      if (!row.meals.includes(meal.name)) row.meals.push(meal.name)
+      pantry.set(k, row)
+    }
     for (const l of meal.lines) {
       const key = l.ing.item
       const row = totals.get(key) || { ing: l.ing, qty: 0, meals: [], uses: [] }
@@ -543,7 +565,7 @@ export function buildShoppingList(plan, deals, prefs, { mode = 'match' } = {}) {
     groups,
     flyers: flyers.sort((a, b) => a.deal.merchant.localeCompare(b.deal.merchant)),
     matchStores: [...new Set(flyers.map((f) => f.deal.merchant))],
-    pantry: [...pantry].sort(),
+    ...pantryList([...pantry.values()]),
     totalCost: round2(totalCost),
     totalSavings: round2(totalSavings),
     onSale,

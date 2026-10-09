@@ -51,6 +51,9 @@ export default function ListSheet({ open, onClose, list, mode, setMode, stores, 
             .map((i) => `- ${i.item} (${i.buy})${i.deal ? ` ${i.deal.priceLabel}${mode === 'match' ? ` @ ${i.deal.merchant}` : ''}` : ''}`)
             .join('\n')}`,
       ),
+      ...(list.pantryCheck.length
+        ? [`\nCheck the pantry for\n${list.pantryCheck.flatMap((g) => g.items.filter((p) => !checked[`pantry:${p.item.toLowerCase()}`]).map((p) => `- ${p.item}`)).join('\n')}`]
+        : []),
     ].join('\n')
     try {
       if (navigator.share) await navigator.share({ title: 'Grocery list', text })
@@ -195,9 +198,42 @@ export default function ListSheet({ open, onClose, list, mode, setMode, stores, 
             </ul>
           </section>
         ))}
+        {list.pantryCheck.length > 0 && (
+          <section className="rounded-2xl bg-amber-50 p-3">
+            <h3 className="text-sm font-semibold text-amber-900">Check your pantry for these</h3>
+            <p className="mb-2 text-xs text-amber-800">Less common items this week's recipes need. Tick off what you have; buy the rest.</p>
+            <div className="space-y-3">
+              {list.pantryCheck.map((g) => (
+                <div key={g.title}>
+                  <h4 className="mb-0.5 text-[11px] font-semibold tracking-wide text-amber-900/70 uppercase">{g.title}</h4>
+                  <ul>
+                    {g.items.map((p) => {
+                      const k = `pantry:${p.item.toLowerCase()}`
+                      return (
+                        <li key={k} className="flex items-center gap-3 py-1">
+                          <input
+                            type="checkbox"
+                            aria-label={`Have ${p.item}`}
+                            checked={!!checked[k]}
+                            onChange={() => onCheck(k)}
+                            className="size-5 shrink-0 accent-green-700"
+                          />
+                          <span className={`min-w-0 flex-1 ${checked[k] ? 'text-stone-400 line-through' : ''}`}>
+                            <span className="block text-sm font-medium">{p.item}</span>
+                            <span className="block truncate text-[11px] text-stone-500">{p.meals.join(', ')}</span>
+                          </span>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
         {list.pantry.length > 0 && (
           <p className="text-xs text-stone-500">
-            <span className="font-medium">From your pantry:</span> {list.pantry.join(', ')}
+            <span className="font-medium">Staples you probably have:</span> {list.pantry.join(', ')}
           </p>
         )}
       </div>
