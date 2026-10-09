@@ -13083,5 +13083,1468 @@
       "Pile on {cheese} and bake 8-10 minutes until melted and golden at the edges.",
       "Cut into strips and dunk in warm marinara."
     ]
+  },
+  {
+    "id": "croque-madame",
+    "meal": "breakfast",
+    "name": "Croque madame with ham & {cheese}",
+    "emoji": "🥪",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread"
+        ]
+      },
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein"
+        ],
+        "prefer": "deli turkey or ham",
+        "only": [
+          "deli turkey or ham"
+        ],
+        "main": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs"
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "butter",
+      "flour",
+      "dijon mustard",
+      "nutmeg",
+      "salt and pepper"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Melt butter, whisk in flour, then slowly whisk in {milk} with a pinch of nutmeg until thick, about 3 min.",
+      "Spread {bread} with dijon, layer with ham and {cheese}, and close the sandwiches.",
+      "Spoon the sauce over the tops, sprinkle with more {cheese} and broil 3-4 min until bubbly and golden.",
+      "Fry the eggs sunny-side up and set one on each sandwich."
+    ]
+  },
+  {
+    "id": "savoury-oats",
+    "meal": "breakfast",
+    "name": "Savoury parmesan oats with a fried egg, {greens}[ & {veg}]",
+    "emoji": "🍳",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "oats",
+        "from": [
+          "oats"
+        ],
+        "prefer": "oats",
+        "only": [
+          "oats"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "main": true
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "prefer": "spinach",
+        "only": [
+          "spinach",
+          "kale"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "mushrooms",
+        "only": [
+          "mushrooms",
+          "zucchini",
+          "bell peppers"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "chicken broth",
+      "parmesan",
+      "butter",
+      "chili crisp",
+      "salt and pepper"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "healthy",
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Simmer {oats} in broth for 5 min until creamy, then stir in parmesan and a knob of butter.",
+      "[Sauté {veg} in a hot pan until golden, then ]wilt in {greens} with a pinch of salt.",
+      "Fry eggs in the same pan until the edges are lacy and crisp.",
+      "Spoon oats into bowls, top with the vegetables and egg, and finish with chili crisp and black pepper."
+    ]
+  },
+  {
+    "id": "chilaquiles",
+    "meal": "breakfast",
+    "name": "Chilaquiles rojos with fried eggs[ & {cheese}]",
+    "emoji": "🌶️",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "chips",
+        "from": [
+          "treats"
+        ],
+        "prefer": "chips",
+        "only": [
+          "chips"
+        ]
+      },
+      {
+        "key": "tomato",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes"
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "main": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "feta",
+        "only": [
+          "feta",
+          "cheddar"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "onion",
+      "garlic",
+      "chipotle or chili powder",
+      "cumin",
+      "sour cream",
+      "cilantro",
+      "lime",
+      "cooking oil"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Blend {tomato} with a chunk of onion, garlic, chipotle and cumin until smooth.",
+      "Simmer the sauce in an oiled skillet for 5 min until slightly thickened.",
+      "Fry the eggs in a separate pan until the edges are crisp.",
+      "Toss tortilla {chips} in the sauce until just coated but still crunchy.",
+      "Top with the eggs[, crumbled {cheese}], sour cream, cilantro and a squeeze of lime."
+    ]
+  },
+  {
+    "id": "mushroom-toast",
+    "meal": "breakfast",
+    "name": "Garlicky {veg} toast with a jammy egg[ & {greens}]",
+    "emoji": "🍄",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "mushrooms",
+        "only": [
+          "mushrooms",
+          "asparagus",
+          "zucchini",
+          "bell peppers"
+        ]
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "main": true
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "prefer": "spinach",
+        "only": [
+          "spinach",
+          "kale"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "butter",
+      "garlic",
+      "thyme",
+      "lemon",
+      "chili flakes",
+      "salt and pepper"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "savoury",
+      "healthy"
+    ],
+    "steps": [
+      "Boil eggs for 6½ min, cool in ice water and peel.",
+      "Sear {veg} in butter over high heat until deeply golden, then add garlic and thyme[ and wilt in {greens}].",
+      "Toast thick slices of {bread} and rub with a cut garlic clove.",
+      "Pile the vegetables on the toast, top with halved eggs, and finish with lemon, chili flakes and pepper."
+    ]
+  },
+  {
+    "id": "nicoise-salad",
+    "meal": "lunch",
+    "name": "Niçoise salad with {protein}, {veg} & {starch}",
+    "emoji": "🥗",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein",
+          "fish"
+        ],
+        "prefer": "canned tuna",
+        "only": [
+          "canned tuna",
+          "salmon"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "green beans",
+        "only": [
+          "green beans",
+          "asparagus"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs"
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "prefer": "lettuce",
+        "only": [
+          "lettuce",
+          "salad greens"
+        ]
+      },
+      {
+        "key": "salad",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "tomatoes",
+        "only": [
+          "tomatoes",
+          "cucumber"
+        ],
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "olives",
+      "capers",
+      "dijon mustard",
+      "red wine vinegar",
+      "olive oil",
+      "salt and pepper"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "healthy",
+      "light",
+      "savoury"
+    ],
+    "steps": [
+      "Boil small or halved {starch} for 12 min, adding eggs for the last 8 min and {veg} for the last 3.",
+      "Whisk dijon, vinegar, olive oil, salt and pepper into a quick vinaigrette.",
+      "If using salmon, sear it 4 min per side while the potatoes cook.",
+      "Arrange {greens}, {salad}, potatoes, {veg}, halved eggs and flaked {protein} on plates.",
+      "Scatter with olives and capers and drizzle with the vinaigrette."
+    ]
+  },
+  {
+    "id": "pesto-panini",
+    "meal": "lunch",
+    "name": "{protein} pesto paninis with {cheese}[ & {veg}]",
+    "emoji": "🥪",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein"
+        ],
+        "prefer": "rotisserie chicken",
+        "only": [
+          "rotisserie chicken",
+          "deli turkey or ham"
+        ],
+        "main": true
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "mozzarella",
+        "only": [
+          "mozzarella",
+          "cheddar"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg",
+          "greens"
+        ],
+        "prefer": "tomatoes",
+        "only": [
+          "tomatoes",
+          "spinach"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "pesto",
+      "butter",
+      "balsamic glaze"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Spread {bread} with pesto on one side and butter on the other.",
+      "Layer sliced {protein}, {cheese}[ and {veg}] between the pesto sides.",
+      "Press in a hot skillet under a heavy pan, 3-4 min per side, until golden and melty.",
+      "Slice and drizzle with a little balsamic glaze."
+    ]
+  },
+  {
+    "id": "fattoush",
+    "meal": "lunch",
+    "name": "Fattoush with {veg}, {veg2} & crispy pita[ and {protein}]",
+    "emoji": "🥙",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "pita",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "pitas",
+        "only": [
+          "pitas"
+        ]
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "prefer": "lettuce",
+        "only": [
+          "lettuce",
+          "salad greens"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "cucumber",
+        "only": [
+          "cucumber",
+          "tomatoes",
+          "bell peppers"
+        ]
+      },
+      {
+        "key": "veg2",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "tomatoes",
+        "only": [
+          "cucumber",
+          "tomatoes",
+          "bell peppers"
+        ]
+      },
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein",
+          "plantProtein"
+        ],
+        "prefer": "chickpeas",
+        "only": [
+          "chickpeas",
+          "rotisserie chicken"
+        ],
+        "main": true,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "sumac",
+      "lemon",
+      "olive oil",
+      "garlic",
+      "red onion",
+      "dried mint",
+      "salt"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "healthy",
+      "light"
+    ],
+    "steps": [
+      "Tear {pita} into pieces, toss with olive oil and sumac, and toast in a skillet until crisp, about 5 min.",
+      "Whisk lemon juice, olive oil, grated garlic, dried mint and salt.",
+      "Chop {greens}, {veg}, {veg2} and a little red onion into a big bowl[ with {protein}].",
+      "Toss with the dressing and crispy pita right before serving, dusting with extra sumac."
+    ]
+  },
+  {
+    "id": "curried-chicken-salad",
+    "meal": "lunch",
+    "name": "Curried {protein} salad on {bread} with {fruit}[ & {nuts}]",
+    "emoji": "🍛",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein"
+        ],
+        "prefer": "rotisserie chicken",
+        "only": [
+          "rotisserie chicken",
+          "canned tuna"
+        ],
+        "main": true
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "grapes",
+        "only": [
+          "grapes",
+          "apples"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "celery",
+        "only": [
+          "celery",
+          "cucumber"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread",
+          "wraps"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread",
+          "naan"
+        ]
+      },
+      {
+        "key": "nuts",
+        "from": [
+          "nuts"
+        ],
+        "prefer": "nuts",
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "mayonnaise",
+      "curry powder",
+      "lemon",
+      "green onion",
+      "salt and pepper"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "light"
+    ],
+    "steps": [
+      "Stir mayo with curry powder, a squeeze of lemon, salt and pepper.",
+      "Fold in shredded {protein}, halved or diced {fruit}, chopped {veg} and green onion[ plus chopped {nuts}].",
+      "Toast {bread} and pile the salad on top."
+    ]
+  },
+  {
+    "id": "tomato-egg-stir-fry",
+    "meal": "lunch",
+    "name": "Chinese tomato & egg stir-fry over {starch}",
+    "emoji": "🍅",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 1.5,
+        "main": true
+      },
+      {
+        "key": "tomatoes",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "tomatoes",
+        "only": [
+          "tomatoes"
+        ]
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice",
+          "egg noodles"
+        ]
+      }
+    ],
+    "pantry": [
+      "green onion",
+      "sugar",
+      "soy sauce",
+      "ketchup",
+      "sesame oil",
+      "cooking oil",
+      "salt"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Cook {starch} and keep warm.",
+      "Beat eggs with a pinch of salt and a drop of sesame oil, then softly scramble in hot oil and remove while still glossy.",
+      "Stir-fry tomato wedges for 3 min until juicy, then add a splash of soy, ketchup and a pinch of sugar.",
+      "Return the eggs, fold gently, top with green onion and spoon over {starch}."
+    ]
+  },
+  {
+    "id": "pork-chops-apple-mustard",
+    "meal": "dinner",
+    "name": "Pan-seared {protein} with {fruit} & mustard cream[ and {veg}]",
+    "emoji": "🍎",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "pork",
+          "poultry"
+        ],
+        "prefer": "pork chops",
+        "only": [
+          "pork chops",
+          "pork tenderloin",
+          "chicken breasts",
+          "chicken thighs"
+        ],
+        "main": true
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "apples",
+        "only": [
+          "apples",
+          "pears"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "green beans",
+        "only": [
+          "green beans",
+          "asparagus",
+          "brussels sprouts",
+          "broccoli"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "butter",
+      "dijon mustard",
+      "heavy cream",
+      "apple cider vinegar",
+      "thyme",
+      "salt and pepper"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Season {protein} (slice tenderloin into medallions) and sear in butter 4-5 min per side until just cooked; rest on a plate.",
+      "Add sliced {fruit} to the pan and cook 3 min until golden at the edges.",
+      "Deglaze with cider vinegar, stir in cream, dijon and thyme, and simmer 2 min.",
+      "[Steam or pan-fry {veg} until crisp-tender while the sauce reduces.]",
+      "Return the meat and juices to the pan and spoon the sauce over to serve."
+    ]
+  },
+  {
+    "id": "blackened-fish",
+    "meal": "dinner",
+    "name": "Blackened {protein} with garlicky {veg} & {starch}",
+    "emoji": "🐟",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "fish",
+          "poultry"
+        ],
+        "prefer": "white fish",
+        "only": [
+          "white fish",
+          "salmon",
+          "shrimp",
+          "chicken breasts"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "asparagus",
+        "only": [
+          "asparagus",
+          "green beans",
+          "zucchini",
+          "broccoli",
+          "bell peppers"
+        ]
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice",
+          "quinoa"
+        ]
+      }
+    ],
+    "pantry": [
+      "smoked paprika",
+      "cajun seasoning",
+      "garlic powder",
+      "garlic",
+      "butter",
+      "lemon"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "healthy",
+      "savoury"
+    ],
+    "steps": [
+      "Start {starch} cooking.",
+      "Pat {protein} dry and coat generously with paprika, cajun seasoning and garlic powder.",
+      "Sear in a smoking-hot cast iron pan with butter, 2-4 min per side, until a dark crust forms and it's cooked through.",
+      "Sauté {veg} in the same pan with garlic until crisp-tender.",
+      "Serve over {starch} with lemon wedges and the pan butter spooned on top."
+    ]
+  },
+  {
+    "id": "puttanesca",
+    "meal": "dinner",
+    "name": "Pasta puttanesca[ with {protein}]",
+    "emoji": "🍝",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "pasta",
+        "only": [
+          "pasta"
+        ]
+      },
+      {
+        "key": "tomato",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes"
+      },
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein",
+          "fish"
+        ],
+        "prefer": "canned tuna",
+        "only": [
+          "canned tuna",
+          "shrimp"
+        ],
+        "main": true,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "olives",
+      "capers",
+      "anchovies",
+      "garlic",
+      "chili flakes",
+      "olive oil",
+      "parsley"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Boil {starch} in well-salted water.",
+      "Sizzle garlic, anchovies and chili flakes in olive oil until the anchovies melt.",
+      "Add {tomato}, olives and capers and simmer 10 min[, stirring in {protein} for the last few minutes].",
+      "Toss with the drained pasta and a splash of pasta water, then finish with parsley."
+    ]
+  },
+  {
+    "id": "carbonara",
+    "meal": "dinner",
+    "name": "Spaghetti carbonara[ with {veg}]",
+    "emoji": "🥓",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "pasta",
+        "only": [
+          "pasta"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 1.5,
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "asparagus",
+        "only": [
+          "asparagus",
+          "mushrooms",
+          "zucchini",
+          "frozen mixed vegetables"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "bacon or pancetta",
+      "parmesan",
+      "black pepper",
+      "salt"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Boil {starch} in salted water.",
+      "Crisp diced bacon in a wide pan[, adding {veg} for the last few minutes], then take off the heat.",
+      "Whisk eggs with lots of grated parmesan and black pepper.",
+      "Toss the hot drained pasta in the pan, then quickly stir in the egg mixture with splashes of pasta water until silky, not scrambled."
+    ]
+  },
+  {
+    "id": "piccata",
+    "meal": "dinner",
+    "name": "{protein} piccata with {starch}[ & {veg}]",
+    "emoji": "🍋",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "fish",
+          "pork"
+        ],
+        "prefer": "chicken breasts",
+        "only": [
+          "chicken breasts",
+          "chicken thighs",
+          "white fish",
+          "pork tenderloin"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "pasta",
+        "only": [
+          "pasta",
+          "rice"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "greens"
+        ],
+        "prefer": "asparagus",
+        "only": [
+          "asparagus",
+          "green beans",
+          "broccoli",
+          "spinach"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "flour",
+      "butter",
+      "lemon",
+      "capers",
+      "chicken broth",
+      "parsley",
+      "cooking oil",
+      "salt and pepper"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Cook {starch}.",
+      "Slice {protein} into thin cutlets, season and dredge lightly in flour.",
+      "Sear in butter and oil about 3 min per side until golden; set aside.",
+      "Add broth, lemon juice and capers to the pan, reduce 2 min, then swirl in a knob of butter.",
+      "Return the cutlets, spoon over the sauce, sprinkle parsley and serve with {starch}[ and {veg}]."
+    ]
+  },
+  {
+    "id": "thai-basil-stir-fry",
+    "meal": "dinner",
+    "name": "Thai basil {protein}[ & {veg}] with a crispy egg over {starch}",
+    "emoji": "🌿",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground",
+          "poultry"
+        ],
+        "prefer": "ground chicken",
+        "only": [
+          "ground chicken",
+          "ground pork",
+          "ground turkey",
+          "ground beef",
+          "chicken thighs"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "bell peppers",
+        "only": [
+          "bell peppers",
+          "green beans"
+        ],
+        "qty": 0.5,
+        "optional": true
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs"
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice"
+        ]
+      }
+    ],
+    "pantry": [
+      "fresh basil",
+      "garlic",
+      "Thai chilies",
+      "oyster sauce",
+      "soy sauce",
+      "fish sauce",
+      "sugar",
+      "cooking oil"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Cook {starch}.",
+      "Fry eggs in plenty of hot oil until the edges are puffed and crispy; set aside.",
+      "Stir-fry garlic and chilies 30 sec, then add {protein} and cook until browned[, adding {veg} halfway].",
+      "Stir in oyster sauce, soy, fish sauce and a pinch of sugar, then toss in a big handful of basil until wilted.",
+      "Serve over {starch} topped with the crispy egg."
+    ]
+  },
+  {
+    "id": "kung-pao",
+    "meal": "dinner",
+    "name": "Kung pao {protein} with {veg}[ & {veg2}] over {starch}",
+    "emoji": "🥜",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "fish",
+          "plantProtein"
+        ],
+        "prefer": "chicken thighs",
+        "only": [
+          "chicken thighs",
+          "chicken breasts",
+          "shrimp",
+          "firm tofu"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "bell peppers",
+        "only": [
+          "bell peppers",
+          "zucchini",
+          "broccoli",
+          "green beans"
+        ]
+      },
+      {
+        "key": "veg2",
+        "from": [
+          "cookingVeg",
+          "saladVeg"
+        ],
+        "prefer": "zucchini",
+        "only": [
+          "zucchini",
+          "bell peppers",
+          "celery",
+          "broccoli"
+        ],
+        "qty": 0.5,
+        "optional": true
+      },
+      {
+        "key": "nuts",
+        "from": [
+          "nuts"
+        ],
+        "prefer": "nuts",
+        "qty": 0.5
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice"
+        ]
+      }
+    ],
+    "pantry": [
+      "soy sauce",
+      "rice vinegar",
+      "sugar",
+      "cornstarch",
+      "dried chilies",
+      "Sichuan peppercorns",
+      "garlic",
+      "ginger",
+      "green onion",
+      "cooking oil"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "savoury"
+    ],
+    "steps": [
+      "Cook {starch}. Toss bite-size {protein} with a little soy sauce and cornstarch.",
+      "Mix soy, rice vinegar, sugar, cornstarch and a splash of water for the sauce.",
+      "Toast dried chilies and Sichuan peppercorns in hot oil, then sear the {protein} until cooked.",
+      "Add garlic, ginger, {veg}[ and {veg2}] and stir-fry 2-3 min.",
+      "Pour in the sauce, toss with {nuts} and green onion until glossy, and serve over {starch}."
+    ]
+  },
+  {
+    "id": "bruschetta",
+    "meal": "snack",
+    "name": "Tomato bruschetta[ with {cheese}]",
+    "emoji": "🍅",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "tomatoes",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "tomatoes",
+        "only": [
+          "tomatoes"
+        ]
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "mozzarella",
+        "only": [
+          "mozzarella",
+          "feta"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "garlic",
+      "fresh basil",
+      "olive oil",
+      "balsamic glaze",
+      "salt and pepper"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "light",
+      "savoury"
+    ],
+    "steps": [
+      "Dice tomatoes and toss with chopped basil, olive oil, salt and pepper.",
+      "Slice {bread}, brush with olive oil and toast until crisp, then rub with a cut garlic clove.",
+      "Spoon the tomatoes on top[, add torn or crumbled {cheese}] and finish with a drizzle of balsamic glaze."
+    ]
+  },
+  {
+    "id": "whipped-feta",
+    "meal": "snack",
+    "name": "Whipped feta dip with hot honey & {dipper}",
+    "emoji": "🧀",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "feta",
+        "only": [
+          "feta"
+        ]
+      },
+      {
+        "key": "yogurt",
+        "from": [
+          "yogurt"
+        ],
+        "prefer": "yogurt",
+        "qty": 0.5
+      },
+      {
+        "key": "dipper",
+        "from": [
+          "wraps",
+          "crackers",
+          "saladVeg"
+        ],
+        "prefer": "pitas",
+        "only": [
+          "pitas",
+          "crackers",
+          "cucumber",
+          "carrots",
+          "bell peppers"
+        ]
+      }
+    ],
+    "pantry": [
+      "honey",
+      "chili flakes",
+      "olive oil",
+      "lemon",
+      "garlic"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Blend {cheese}, {yogurt}, a splash of olive oil, lemon juice and a little garlic until very smooth.",
+      "Warm honey with chili flakes for 30 sec.",
+      "Swirl the dip into a bowl, drizzle with hot honey and olive oil, and serve with {dipper}."
+    ]
+  },
+  {
+    "id": "affogato",
+    "meal": "snack",
+    "name": "Espresso affogato[ with {cookies}]",
+    "emoji": "☕",
+    "minutes": 5,
+    "slots": [
+      {
+        "key": "icecream",
+        "from": [
+          "treats"
+        ],
+        "prefer": "ice cream",
+        "only": [
+          "ice cream"
+        ]
+      },
+      {
+        "key": "cookies",
+        "from": [
+          "treats"
+        ],
+        "prefer": "cookies",
+        "only": [
+          "cookies",
+          "chocolate"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "espresso or strong coffee"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Brew a shot of espresso or a small cup of very strong coffee.",
+      "Scoop {icecream} into small glasses or cups.",
+      "Pour the hot coffee over the ice cream at the table[ and serve with {cookies} for dunking]."
+    ]
+  },
+  {
+    "id": "honey-caramelized-fruit",
+    "meal": "snack",
+    "name": "Honey-caramelized {fruit} with yogurt[ & {crunch}]",
+    "emoji": "🍐",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "fruit",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "pears",
+        "only": [
+          "pears",
+          "apples",
+          "bananas"
+        ]
+      },
+      {
+        "key": "yogurt",
+        "from": [
+          "yogurt"
+        ],
+        "prefer": "yogurt"
+      },
+      {
+        "key": "crunch",
+        "from": [
+          "nuts",
+          "oats"
+        ],
+        "prefer": "nuts",
+        "only": [
+          "nuts",
+          "granola"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "honey",
+      "butter",
+      "cinnamon",
+      "vanilla"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "healthy"
+    ],
+    "steps": [
+      "Slice {fruit} into wedges or thick coins.",
+      "Cook in sizzling butter for 3-4 min per side until golden, then drizzle with honey and a pinch of cinnamon.",
+      "Stir a drop of vanilla into {yogurt} and spoon into bowls.",
+      "Top with the warm fruit and pan juices[ and a sprinkle of {crunch}]."
+    ]
   }
 ]
