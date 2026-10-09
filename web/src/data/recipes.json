@@ -177,7 +177,8 @@
       "kid-approved"
     ],
     "vibes": [
-      "comfort"
+      "comfort",
+      "treat"
     ],
     "steps": []
   },
@@ -697,7 +698,8 @@
       "kid-approved"
     ],
     "vibes": [
-      "comfort"
+      "comfort",
+      "treat"
     ],
     "steps": []
   },
@@ -1185,7 +1187,8 @@
     ],
     "vibes": [
       "sweet",
-      "comfort"
+      "comfort",
+      "treat"
     ],
     "steps": []
   },
@@ -1994,7 +1997,8 @@
     ],
     "vibes": [
       "sweet",
-      "comfort"
+      "comfort",
+      "treat"
     ],
     "steps": []
   },
@@ -2164,7 +2168,8 @@
     ],
     "vibes": [
       "sweet",
-      "comfort"
+      "comfort",
+      "treat"
     ],
     "steps": [
       "Whisk flour, baking powder, sugar and a pinch of salt in a bowl.",
@@ -2246,7 +2251,8 @@
     ],
     "vibes": [
       "savoury",
-      "comfort"
+      "comfort",
+      "treat"
     ],
     "steps": [
       "Heat the oven to 425°F and lay the {base} on a baking sheet.",
@@ -2316,7 +2322,8 @@
     ],
     "vibes": [
       "comfort",
-      "savoury"
+      "savoury",
+      "treat"
     ],
     "steps": [
       "Brown the {protein} with diced onion and garlic in a little oil, breaking it up.",
@@ -2396,7 +2403,8 @@
     ],
     "vibes": [
       "comfort",
-      "savoury"
+      "savoury",
+      "treat"
     ],
     "steps": [
       "Heat the oven to 425°F. Cut the {starch} into fries, toss with oil and salt, and start roasting on a sheet pan.",
@@ -2458,7 +2466,8 @@
     ],
     "vibes": [
       "sweet",
-      "healthy"
+      "healthy",
+      "treat"
     ],
     "steps": [
       "Line a baking sheet with parchment.",
@@ -2503,7 +2512,8 @@
     ],
     "vibes": [
       "healthy",
-      "sweet"
+      "sweet",
+      "treat"
     ],
     "steps": [
       "Wash the {celery} and cut into 3-inch logs.",
@@ -2705,7 +2715,8 @@
     ],
     "vibes": [
       "sweet",
-      "comfort"
+      "comfort",
+      "treat"
     ],
     "steps": [
       "Heat oven to 350°F and grease a loaf pan.",
@@ -2792,7 +2803,8 @@
     ],
     "vibes": [
       "comfort",
-      "savoury"
+      "savoury",
+      "treat"
     ],
     "steps": [
       "Dice {starch} and parboil 5 min, then drain well.",
@@ -3018,7 +3030,8 @@
     ],
     "vibes": [
       "comfort",
-      "savoury"
+      "savoury",
+      "treat"
     ],
     "steps": [
       "Brown {meat} with onion, then add chili powder, cumin and {tomatoes}; simmer 15 min until thick.",
@@ -3095,7 +3108,8 @@
     "vibes": [
       "comfort",
       "sweet",
-      "savoury"
+      "savoury",
+      "treat"
     ],
     "steps": [
       "Spread bread with a little dijon and layer with ham and {cheese}.",
@@ -3172,7 +3186,8 @@
     ],
     "vibes": [
       "comfort",
-      "savoury"
+      "savoury",
+      "treat"
     ],
     "steps": [
       "Simmer {tomatoes} with garlic, Italian seasoning and salt for 10 min to make a quick sauce.",
@@ -3242,7 +3257,8 @@
     ],
     "vibes": [
       "comfort",
-      "savoury"
+      "savoury",
+      "treat"
     ],
     "steps": [
       "Cut {starch} into thick fries, toss with oil and salt, and bake at 450°F for 30-35 min, flipping once.",
@@ -3669,7 +3685,8 @@
     "vibes": [
       "comfort",
       "sweet",
-      "savoury"
+      "savoury",
+      "treat"
     ],
     "steps": [
       "Cook {starch} and keep warm.",
@@ -3688,10 +3705,12 @@
       {
         "key": "wraps",
         "from": [
+          "treats",
           "wraps"
         ],
-        "prefer": "tortillas",
+        "prefer": "chips",
         "only": [
+          "chips",
           "tortillas"
         ]
       },
@@ -3751,10 +3770,11 @@
     ],
     "vibes": [
       "comfort",
-      "savoury"
+      "savoury",
+      "treat"
     ],
     "steps": [
-      "Cut tortillas into wedges, brush with oil, sprinkle with salt and bake at 400°F for 8-10 min until crisp.",
+      "Spread the {wraps} on a sheet pan. Tortillas need cutting into wedges, brushing with oil and baking at 400°F for 8-10 min until crisp first.",
       "Cook {protein} with taco seasoning and a splash of water.",
       "Spread chips on a sheet pan, top with {protein} and a thick layer of {cheese}, and bake 5 min until melted.",
       "Finish with[ diced {veg},] salsa, sour cream and jalapeños."
@@ -3808,7 +3828,8 @@
     ],
     "vibes": [
       "comfort",
-      "savoury"
+      "savoury",
+      "treat"
     ],
     "steps": [
       "Cut {cheese} into thick sticks.",
@@ -3858,7 +3879,8 @@
       "kid-approved"
     ],
     "vibes": [
-      "sweet"
+      "sweet",
+      "treat"
     ],
     "steps": [
       "Wash and dry {fruit} well, cutting into slices or wedges if large.",
@@ -3925,7 +3947,8 @@
     ],
     "vibes": [
       "comfort",
-      "savoury"
+      "savoury",
+      "treat"
     ],
     "steps": [
       "Rub {starch} with oil and salt and bake at 425°F for 45 min until tender.",
@@ -3984,13 +4007,202 @@
     ],
     "vibes": [
       "sweet",
-      "comfort"
+      "comfort",
+      "treat"
     ],
     "steps": [
       "Heat oven to 375°F; slice {fruit} if needed and toss with lemon juice, a spoon of flour, cinnamon and a little brown sugar.",
       "Rub cold butter into oats, flour, brown sugar and a pinch of salt until clumpy.",
       "Spread fruit in a baking dish and scatter the topping thickly over it.",
       "Bake 35-40 min until bubbling and golden; serve warm, with ice cream if you like."
+    ]
+  },
+  {
+    "id": "cookies-milk",
+    "meal": "snack",
+    "name": "{cookies} & a glass of milk",
+    "emoji": "🍪",
+    "minutes": 2,
+    "slots": [
+      {
+        "key": "cookies",
+        "from": [
+          "treats"
+        ],
+        "only": [
+          "cookies"
+        ],
+        "prefer": "cookies",
+        "main": true
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "qty": 2
+      }
+    ],
+    "pantry": [],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Pour a cold glass of {milk} and serve with a few {cookies}."
+    ]
+  },
+  {
+    "id": "choc-chip-cookies",
+    "meal": "snack",
+    "name": "Homemade chocolate chip cookies",
+    "emoji": "🍪",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "chocolate",
+        "from": [
+          "treats"
+        ],
+        "only": [
+          "chocolate"
+        ],
+        "prefer": "chocolate",
+        "main": true
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 0.3
+      }
+    ],
+    "pantry": [
+      "flour",
+      "butter",
+      "brown sugar",
+      "white sugar",
+      "baking soda",
+      "vanilla extract",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "sweet",
+      "comfort",
+      "treat"
+    ],
+    "steps": [
+      "Heat the oven to 375°F and line two baking sheets.",
+      "Cream 1 cup soft butter with 3/4 cup each brown and white sugar, then beat in 2 {eggs} and 1 tsp vanilla.",
+      "Stir in 2 1/4 cups flour, 1 tsp baking soda and 1/2 tsp salt, then fold in 2 cups chopped {chocolate}.",
+      "Scoop tablespoons onto the sheets and bake 9 to 11 minutes, until golden at the edges.",
+      "Cool 5 minutes on the sheet; extras freeze well."
+    ]
+  },
+  {
+    "id": "sundae",
+    "meal": "snack",
+    "name": "{icecream} sundaes[ with {fruit}]",
+    "emoji": "🍨",
+    "minutes": 5,
+    "slots": [
+      {
+        "key": "icecream",
+        "from": [
+          "treats"
+        ],
+        "only": [
+          "ice cream"
+        ],
+        "prefer": "ice cream",
+        "main": true
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit",
+          "frozenFruit"
+        ],
+        "only": [
+          "strawberries",
+          "bananas",
+          "blueberries",
+          "frozen fruit"
+        ],
+        "prefer": "strawberries",
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "chocolate sauce",
+      "sprinkles"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Scoop the {icecream} into bowls.",
+      "Top with sliced {fruit}, a drizzle of chocolate sauce and sprinkles."
+    ]
+  },
+  {
+    "id": "chips-salsa",
+    "meal": "snack",
+    "name": "{chips} with salsa[ & {dip}]",
+    "emoji": "🌮",
+    "minutes": 2,
+    "slots": [
+      {
+        "key": "chips",
+        "from": [
+          "treats"
+        ],
+        "only": [
+          "chips"
+        ],
+        "prefer": "chips",
+        "main": true
+      },
+      {
+        "key": "dip",
+        "from": [
+          "dip"
+        ],
+        "prefer": "hummus",
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "salsa"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Pour the {chips} into a bowl and serve with salsa and {dip} for dipping."
     ]
   }
 ]

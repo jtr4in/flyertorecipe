@@ -30,6 +30,10 @@ describe('matchDeal', () => {
     ])
     expect(d.name).toMatch(/Russet/)
   })
+  it('keeps chocolate chips out of potato chips', () => {
+    expect(matchDeal(item('treats', 'chips'), [deal('Chipits Chocolate Chips 300 g')])).toBeNull()
+    expect(matchDeal(item('treats', 'chocolate'), [deal('Chipits Chocolate Chips 300 g')])).not.toBeNull()
+  })
   it('matches bun but not bunch', () => {
     expect(matchDeal(item('buns', 'buns'), [deal('Spinach bunch')])).toBeNull()
   })
@@ -159,5 +163,24 @@ describe('suggestMeals', () => {
 describe('parsePlanQuery', () => {
   it('reads filters and a budget', () => {
     expect(parsePlanQuery('quick high protein meals under $150')).toEqual({ filters: ['quick', 'high-protein'], budget: 150 })
+  })
+  it('reads a request for treats', () => {
+    expect(parsePlanQuery('some fun snacks this week').filters).toEqual(['treats'])
+  })
+})
+
+describe('treats', () => {
+  const snacks = (plan) => plan.map((d) => d.meals.snack).filter((m) => m?.lines)
+  it('the Treats filter fills snacks with fun food from the flyers', () => {
+    const plain = snacks(planWeek(deals, prefs, { days })).filter((m) => m.template.vibes.includes('treat'))
+    const fun = snacks(planWeek(deals, prefs, { days, filters: ['treats'] })).filter((m) => m.template.vibes.includes('treat'))
+    expect(fun.length).toBeGreaterThan(plain.length)
+    expect(fun.length).toBeGreaterThanOrEqual(4)
+  })
+  it('Another idea can ask for a treat', () => {
+    const plan = planWeek(deals, prefs, { days })
+    const ideas = suggestMeals(plan[0].meals.snack, deals, prefs, { nudge: 'treat', plan })
+    expect(ideas.length).toBeGreaterThan(0)
+    expect(ideas.every((m) => m.template.vibes.includes('treat'))).toBe(true)
   })
 })

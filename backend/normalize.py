@@ -23,6 +23,7 @@ AISLE_KEYWORDS: list[tuple[str, list[str]]] = [
     ("Pantry", ["rice", "pasta", "spaghetti", "noodle", "bean", "lentil", "chickpea",
                 "canned", "soup", "oat", "cereal", "flour", "sugar", "oil", "sauce",
                 "peanut butter", "tuna", "broth", "stock", "quinoa", "salsa"]),
+    ("Snacks", ["cookie", "chips", "chocolate", "candy", "popcorn"]),
     ("Plant Protein", ["tofu", "tempeh", "plant-based", "veggie burger"]),
 ]
 AISLES = [a for a, _ in AISLE_KEYWORDS] + ["Other"]

@@ -39,6 +39,9 @@ const rows = [
   ['Extra Firm Tofu 350 g', 'Loblaws', 2.49, 3.29, 'Plant Protein', '$2.49'],
   ['Chicken Noodle Soup', 'Walmart', 0.98, null, 'Pantry', '$0.98'],
   ['Chicken Flavour Seasoning Mix', 'Metro', 1.49, 2.29, 'Pantry', '$1.49'],
+  ['Chips Ahoy! Cookies 258-300 g', 'Metro', 2.99, 4.79, 'Snacks', '$2.99'],
+  ["Lay's Potato Chips 235 g", 'No Frills', 2.5, 4.49, 'Snacks', '2/$5'],
+  ["Chapman's Ice Cream 2 L", 'FreshCo', 3.99, 6.99, 'Frozen', '$3.99'],
 ]
 
 export function sampleDeals(today = new Date()) {

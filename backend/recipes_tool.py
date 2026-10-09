@@ -29,7 +29,7 @@ CATALOG = Path(__file__).resolve().parent / "catalog.json"
 MODEL = "claude-opus-5-5"
 MEALS = ["breakfast", "lunch", "dinner", "snack"]
 TAGS = ["quick", "kid-approved", "big-batch"]
-VIBES = ["healthy", "light", "comfort", "sweet", "savoury"]
+VIBES = ["healthy", "light", "comfort", "sweet", "savoury", "treat"]
 
 
 def load_recipes() -> list[dict]:
@@ -150,7 +150,8 @@ RULES = """How these recipes work:
 - Quantities come from the catalog per serving; set qty only when the recipe needs noticeably more
   or less (0.5, 1.5). Items must be exact catalog item names, groups exact group names.
 - tags: quick (25 min or less), kid-approved, big-batch (reheats well, good for leftovers).
-  vibes: healthy, light, comfort, sweet, savoury (pick the ones that fit)."""
+  vibes: healthy, light, comfort, sweet, savoury, treat (pick the ones that fit; treat = a fun
+  splurge like cookies, sundaes, nachos or pancakes)."""
 
 
 def catalog_text(catalog: dict) -> str:
