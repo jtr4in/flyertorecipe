@@ -5,6 +5,9 @@
     python ingest.py --dry-run out.json      # fetch, normalize, write JSON, skip Firestore
     python ingest.py --from-file raw.json    # skip Apify, load raw actor rows from a file
 
+Flyers are the same across neighbouring postal areas, so one fetch can serve several.
+List extra FSAs after a colon:  POSTAL_CODES="K1E 0A1:K1C,K1W,K4A"  (all of Orleans, one fetch)
+
 Firestore layout:
     regions/{FSA}                 {fsa, postalCode, dealCount, merchants, ingestedAt}
     regions/{FSA}/deals/{dealId}  normalized deal (see normalize.py)
@@ -55,14 +58,28 @@ def build_deals(rows: list[dict]) -> list[dict]:
     return dedupe([d for d in (normalize(r, now) for r in rows) if d])
 
 
-def write_firestore(postal_code: str, deals: list[dict]) -> None:
+def parse_targets(spec: str) -> tuple[str, list[str]]:
+    """'K1E 0A1:K1C,K1W,K4A' -> ('K1E 0A1', ['K1E', 'K1C', 'K1W', 'K4A'])"""
+    code, _, extra = spec.partition(":")
+    code = code.strip()
+    fsas = [fsa(code)]
+    for x in extra.split(","):
+        x = x.strip().upper()
+        if x and x not in fsas:
+            if not (len(x) == 3 and x[0].isalpha() and x[1].isdigit() and x[2].isalpha()):
+                raise ValueError(f"Not an FSA: {x!r}")
+            fsas.append(x)
+    return code, fsas
+
+
+def write_firestore(postal_code: str, region_fsa: str, deals: list[dict]) -> None:
     import firebase_admin
     from firebase_admin import firestore
 
     if not firebase_admin._apps:
         firebase_admin.initialize_app()  # uses GOOGLE_APPLICATION_CREDENTIALS
     db = firestore.client()
-    region = db.collection("regions").document(fsa(postal_code))
+    region = db.collection("regions").document(region_fsa)
     deals_ref = region.collection("deals")
 
     keep = {d["dealId"] for d in deals}
@@ -77,13 +94,13 @@ def write_firestore(postal_code: str, deals: list[dict]) -> None:
         batch.commit()
 
     region.set({
-        "fsa": fsa(postal_code),
+        "fsa": region_fsa,
         "postalCode": postal_code,
         "dealCount": len(deals),
         "merchants": sorted({d["merchant"] for d in deals if d["merchant"]}),
         "ingestedAt": datetime.now(timezone.utc).isoformat(),
     })
-    print(f"{fsa(postal_code)}: wrote {len(deals)} deals, removed {len(stale)} stale")
+    print(f"{region_fsa}: wrote {len(deals)} deals, removed {len(stale)} stale")
 
 
 def main() -> None:
@@ -94,20 +111,23 @@ def main() -> None:
     p.add_argument("--from-file", metavar="RAW_JSON")
     a = p.parse_args()
 
-    codes = a.postal or [c.strip() for c in os.environ.get("POSTAL_CODES", "").split(",") if c.strip()]
-    if not codes:
+    raw = os.environ.get("POSTAL_CODES", "")
+    # Entries are separated by ";" (or "," when no entry uses the ":" form).
+    specs = a.postal or [s.strip() for s in (raw.split(";") if ":" in raw else raw.split(",")) if s.strip()]
+    if not specs:
         sys.exit("No postal codes: pass --postal or set POSTAL_CODES")
+    targets = [parse_targets(s) for s in specs]  # validate everything before spending money
 
     out = {}
-    for code in codes:
-        fsa(code)  # validate before spending money
+    for code, fsas in targets:
         rows = json.load(open(a.from_file)) if a.from_file else fetch_raw(code)
         deals = build_deals(rows)
-        if a.dry_run:
-            out[fsa(code)] = deals
-            print(f"{fsa(code)}: {len(rows)} rows -> {len(deals)} deals")
-        else:
-            write_firestore(code, deals)
+        print(f"{code}: {len(rows)} rows -> {len(deals)} deals for {', '.join(fsas)}")
+        for f in fsas:
+            if a.dry_run:
+                out[f] = deals
+            else:
+                write_firestore(code, f, deals)
     if a.dry_run:
         json.dump(out, open(a.dry_run, "w"), indent=2)
 

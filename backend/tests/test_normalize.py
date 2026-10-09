@@ -49,3 +49,11 @@ def test_dedupe_merges_queries():
     a = normalize({"dealId": 7, "name": "Chicken Thighs", "currentPrice": 8, "query": "chicken"})
     b = normalize({"dealId": 7, "name": "Chicken Thighs", "currentPrice": 8, "query": "pork"})
     assert [x["queries"] for x in dedupe([a, b])] == [["chicken", "pork"]]
+
+
+def test_parse_targets():
+    from ingest import parse_targets
+    assert parse_targets("K1E 0A1:k1c, K1W,K4A") == ("K1E 0A1", ["K1E", "K1C", "K1W", "K4A"])
+    assert parse_targets("M5V 2T6") == ("M5V 2T6", ["M5V"])
+    with pytest.raises(ValueError):
+        parse_targets("K1E 0A1:12345")

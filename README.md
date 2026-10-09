@@ -60,7 +60,8 @@ The actor bills per deal returned ($0.002/deal from 2026-10-08, plus $0.0005 per
 
 ## Known limits / next steps
 
-- **Coverage is per ingested area.** Only FSAs listed in `POSTAL_CODES` have deals. On-demand
+- **Coverage is per ingested area.** Only FSAs listed in `POSTAL_CODES` have deals. Neighbouring
+  FSAs can share one fetch: `K1E 0A1:K1C,K1W,K4A` stores the same deals for all four. On-demand
   ingest for a new postal code needs a Cloud Function (Blaze plan) that runs the same code.
 - **Savings are estimates.** Many flyer rows have no regular price; those show no savings.
   Savings assume one pack per list line.

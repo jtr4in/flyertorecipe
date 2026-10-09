@@ -1,6 +1,6 @@
 # Weekly flyer refresh. Most Canadian flyers rotate Thursday; this runs Thursday 10:00 UTC.
 # Repo secrets needed: APIFY_TOKEN, FIREBASE_SERVICE_ACCOUNT (the JSON key's full contents).
-# Repo variable: POSTAL_CODES (comma-separated).
+# Repo variable: POSTAL_CODES, e.g. "K1E 0A1:K1C,K1W,K4A" (one fetch shared by all of Orleans).
 name: Ingest flyer deals
 on:
   schedule:
