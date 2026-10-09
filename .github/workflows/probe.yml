@@ -10,10 +10,8 @@ jobs:
       - run: |
           mkdir out && cd out
           P="https://f.wishabi.net/flyers/1135d195-8c72-4b5e-8ae4-9e98155d819f"
-          for u in "$P/0/0_0.jpg" "$P/1/0_0.jpg" "$P/5/0_0.jpg" "$P/0/0/0.jpg" "$P/5/0/0.jpg" "$P/1.0/0_0.jpg" "$P/0_0_0.jpg" "$P/5/0-0.jpg" "$P/tiles/0/0_0.jpg" "$P/" "$P/flyer.pdf" "https://f.wishabi.net/flyers/8178726/web_premium/1791304578.jpg"; do
-            echo "$(curl -s -o /dev/null -w '%{http_code} %{content_type} %{size_download}' "$u") $u" >> codes.txt
-          done
-          curl -sL "$P/" -o root.txt || true
+          for r in 0 3 5; do for t in 0_0 1_0 0_1 2_0; do curl -s -o "t${r}_${t}.jpg" "$P/${r}_${t}.jpg"; done; done
+          identify t*.jpg > codes.txt 2>&1 || true
           ls -la > info.txt
           git init -q && git checkout -q -b probe-out && git add . && git -c user.name=probe -c user.email=probe@example.com commit -qm probe
           git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" probe-out
