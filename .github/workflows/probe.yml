@@ -9,10 +9,11 @@ jobs:
     steps:
       - run: |
           mkdir out && cd out
-          curl -sL "https://flyers-ng.flippback.com/api/flipp/flyers/8178726?locale=en" -o ng_flyer.json || true
-          curl -sL "https://flyers-ng.flippback.com/api/flipp/flyers/8178726/pages?locale=en" -o ng_pages.json || true
-          curl -sL "https://backflipp.wishabi.com/flipp/data?locale=en-ca&postal_code=K1E0A1" -o data.json || true
-          curl -sL "https://backflipp.wishabi.com/flipp/flyers/8178726/pages" -o bf_pages.json || true
+          P="https://f.wishabi.net/flyers/1135d195-8c72-4b5e-8ae4-9e98155d819f"
+          for u in "$P/0/0_0.jpg" "$P/1/0_0.jpg" "$P/5/0_0.jpg" "$P/0/0/0.jpg" "$P/5/0/0.jpg" "$P/1.0/0_0.jpg" "$P/0_0_0.jpg" "$P/5/0-0.jpg" "$P/tiles/0/0_0.jpg" "$P/" "$P/flyer.pdf" "https://f.wishabi.net/flyers/8178726/web_premium/1791304578.jpg"; do
+            echo "$(curl -s -o /dev/null -w '%{http_code} %{content_type} %{size_download}' "$u") $u" >> codes.txt
+          done
+          curl -sL "$P/" -o root.txt || true
           ls -la > info.txt
           git init -q && git checkout -q -b probe-out && git add . && git -c user.name=probe -c user.email=probe@example.com commit -qm probe
           git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" probe-out
