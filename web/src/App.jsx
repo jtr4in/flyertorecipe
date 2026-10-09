@@ -12,6 +12,8 @@ import ListSheet, { ListBar } from './components/ListSheet'
 import FlyerProof from './components/FlyerProof'
 import IdeaSheet from './components/IdeaSheet'
 import PrintWeek from './components/PrintWeek'
+import Welcome from './components/Welcome'
+import Tour from './components/Tour'
 
 export default function App() {
   const [prefs, setPrefs] = useState(null)
@@ -26,6 +28,8 @@ export default function App() {
   const [swapping, setSwapping] = useState(null) // [{ meal, line }]: every meal the swap applies to
   const [listMode, setListMode] = useState('match')
   const [proof, setProof] = useState(null)
+  const [welcome, setWelcome] = useState(false)
+  const [touring, setTouring] = useState(false)
 
   const days = useMemo(() => weekDays(), [])
   const [selected, setSelected] = useState(days[0].key)
@@ -48,7 +52,8 @@ export default function App() {
     loadPrefs()
       .then((p) => {
         setPrefs(p)
-        if (firebaseEnabled && !p.postalCode) setSheet('settings')
+        // New here: the setup quiz. Already set up before the tour existed: just the tour.
+        if (!p.onboarded) (p.postalCode ? setTouring : setWelcome)(true)
       })
       .catch((e) => {
         setError(e.message)
@@ -83,6 +88,16 @@ export default function App() {
   }
 
   if (!prefs) return <p className="p-6 text-stone-500">Loading…</p>
+
+  const finishWelcome = (tour) => {
+    setWelcome(false)
+    updatePrefs({ ...prefs, onboarded: true })
+    if (tour) setTouring(true)
+  }
+  const endTour = () => {
+    setTouring(false)
+    if (!prefs.onboarded) updatePrefs({ ...prefs, onboarded: true })
+  }
 
   const area = data.region?.fsa || fsa(prefs.postalCode) || (data.region?.demo ? 'Demo' : 'Set area')
   const day = plan.find((d) => d.key === selected) || plan[0]
@@ -119,11 +134,22 @@ export default function App() {
       <header className="sticky top-0 z-20 -mx-4 bg-stone-50/90 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 backdrop-blur">
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold tracking-tight text-green-800">Flyer2Recipes</h1>
-          <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-800">
-            Saving {money(list.totalSavings)}
+          <span className="flex items-center gap-2">
+            <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-800">
+              Saving {money(list.totalSavings)}
+            </span>
+            <button
+              onClick={() => setTouring(true)}
+              aria-label="How this works"
+              title="How this works"
+              className="flex size-7 items-center justify-center rounded-full bg-white text-sm font-semibold text-green-700 shadow-sm"
+            >
+              ?
+            </button>
           </span>
         </div>
         <button
+          data-tour="household"
           onClick={() => setSheet('settings')}
           className="mt-2 flex w-full flex-wrap items-center gap-1.5 text-left text-xs text-stone-600"
         >
@@ -142,7 +168,7 @@ export default function App() {
       )}
       {error && <p className="mb-3 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
 
-      <label className="block">
+      <label className="block" data-tour="plan">
         <span className="sr-only">What's the plan?</span>
         <input
           value={query}
@@ -168,7 +194,7 @@ export default function App() {
         </div>
       )}
 
-      <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]">
+      <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]" data-tour="filters">
         {FILTERS.map((f) => {
           const on = filters.includes(f.id)
           return (
@@ -189,7 +215,7 @@ export default function App() {
       <div className="mt-5 mb-2 flex items-baseline justify-between">
         <h2 className="text-lg font-semibold">
           Your week{' '}
-          <button onClick={() => setPrinting(true)} className="ml-1 align-middle text-xs font-medium text-green-700">
+          <button data-tour="print" onClick={() => setPrinting(true)} className="ml-1 align-middle text-xs font-medium text-green-700">
             🖨 Print for the fridge
           </button>
         </h2>
@@ -327,6 +353,8 @@ export default function App() {
       />
       {printing && <PrintWeek plan={plan} list={list} meals={MEALS.filter((m) => enabled.includes(m.id))} prefs={prefs} onClose={() => setPrinting(false)} />}
       <FlyerProof deal={proof} onClose={() => setProof(null)} />
+      {welcome && <Welcome prefs={prefs} merchants={merchants} needsPostal={firebaseEnabled} onChange={updatePrefs} onDone={finishWelcome} />}
+      <Tour open={touring && !welcome && !loading} onClose={endTour} />
     </div>
   )
 }

@@ -57,7 +57,7 @@ export default function MealCard({ label, emoji, entry, onSwapLine, onAnother, o
   const m = entry
   const perServing = m.cost / m.servings
   return (
-    <article className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
+    <article data-tour="meal" className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
       <div className="flex items-start gap-3 px-4 pt-3">
         <span className="mt-4 text-3xl" aria-hidden>
           {m.emoji}
@@ -77,7 +77,7 @@ export default function MealCard({ label, emoji, entry, onSwapLine, onAnother, o
         )}
       </div>
 
-      <ul className="mt-2 px-2">
+      <ul className="mt-2 px-2" data-tour="ingredients">
         {m.lines.map((l) => (
           <li key={l.slot}>
             <FlyerPeek deal={l.deal} onOpen={onProof} className="rounded-xl">
@@ -127,7 +127,7 @@ export default function MealCard({ label, emoji, entry, onSwapLine, onAnother, o
         </details>
       )}
 
-      <div className="mt-2 flex border-t border-stone-100 text-xs font-medium">
+      <div className="mt-2 flex border-t border-stone-100 text-xs font-medium" data-tour="another">
         <button onClick={onAnother} className="flex-1 py-2.5 text-green-700 hover:bg-stone-50">
           ⟳ Another idea
         </button>

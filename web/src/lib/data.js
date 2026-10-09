@@ -11,6 +11,7 @@ export const DEFAULT_PREFS = {
   meals: ['breakfast', 'lunch', 'dinner', 'snack'],
   lunchLeftovers: true,
   homeStore: '',
+  onboarded: false, // finished the welcome setup / tour
 }
 
 const PREFS_KEY = 'f2r.prefs'

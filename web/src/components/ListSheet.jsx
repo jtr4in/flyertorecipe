@@ -10,6 +10,7 @@ export function ListBar({ list, onOpen }) {
   return (
     <div className="fixed inset-x-0 bottom-0 z-30 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
       <button
+        data-tour="list"
         onClick={onOpen}
         className="mx-auto flex w-full max-w-md items-center gap-3 rounded-2xl bg-stone-900 px-4 py-3 text-left text-white shadow-xl"
       >

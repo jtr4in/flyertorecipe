@@ -1,7 +1,7 @@
 /** Seven-day strip. Tap a day to plan it; each pill shows that night's dinner. */
 export default function WeekStrip({ plan, selected, onPick }) {
   return (
-    <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none]" role="tablist" aria-label="Days">
+    <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none]" role="tablist" aria-label="Days" data-tour="week">
       {plan.map((d) => {
         const on = d.key === selected
         const dinner = d.meals.dinner
