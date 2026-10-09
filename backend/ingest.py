@@ -25,6 +25,7 @@ from decimal import Decimal
 
 from dotenv import load_dotenv
 
+from flyer_clips import attach_clips, flyer_index
 from normalize import dedupe, fsa, normalize
 from staples import STAPLE_QUERIES
 
@@ -132,6 +133,11 @@ def main() -> None:
         rows = json.load(open(a.from_file)) if a.from_file else fetch_raw(code, a.reuse_last_run)
         deals = build_deals(rows)
         print(f"{code}: {len(rows)} rows -> {len(deals)} deals for {', '.join(fsas)}")
+        try:
+            matched = attach_clips(deals, flyer_index(code))
+            print(f"{code}: flyer clippings for {matched} of {len(deals)} deals")
+        except Exception as e:  # clippings are a nice-to-have; keep the deals either way
+            print(f"{code}: no flyer clippings ({e})")
         for f in fsas:
             if a.dry_run:
                 out[f] = deals

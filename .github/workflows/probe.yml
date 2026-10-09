@@ -1,4 +1,4 @@
-# Temporary: look at what Flipp returns for flyer items (to find the full flyer clipping).
+# Temporary: render a few flyer clippings from tiles to check the crop maths.
 name: Probe flyer item
 on: workflow_dispatch
 permissions:
@@ -7,11 +7,33 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+      - run: pip install pillow
+      - working-directory: backend
+        run: |
+          mkdir -p ../out
+          python - <<'PY'
+          import io, json, math, urllib.request
+          from PIL import Image
+          from flyer_clips import flyer_index
+          idx = flyer_index("K1E 0A1")
+          print(len(idx), "items indexed")
+          json.dump(idx, open("../out/index.json", "w"))
+          want = ["436395910", "436431961"] + list(idx)[::400][:4]
+          for pid in want:
+              hit = idx.get(pid)
+              if not hit: print("missing", pid); continue
+              c = hit["clip"]; r = len(c["res"]) - 1; s = 1 / c["res"][r]
+              l, t, rr, b = [v * s for v in c["box"]]; H = c["h"] * s
+              img = Image.new("RGB", (math.ceil(rr - l), math.ceil(b - t)), "white")
+              for i in range(int(l // 256), int((rr - 1) // 256) + 1):
+                  for j in range(int((H - b) // 256), int((H - t - 1) // 256) + 1):
+                      url = f"{c['base']}{r}_{i}_{j}.jpg"
+                      try: tile = Image.open(io.BytesIO(urllib.request.urlopen(url).read()))
+                      except Exception as e: print(url, e); continue
+                      img.paste(tile, (round(i * 256 - l), round(H - (j + 1) * 256 - t)))
+              img.save(f"../out/{pid}.jpg", quality=80)
+          PY
       - run: |
-          mkdir out && cd out
-          P="https://f.wishabi.net/flyers/1135d195-8c72-4b5e-8ae4-9e98155d819f"
-          for r in 0 3 5; do for t in 0_0 1_0 0_1 2_0; do curl -s -o "t${r}_${t}.jpg" "$P/${r}_${t}.jpg"; done; done
-          identify t*.jpg > codes.txt 2>&1 || true
-          ls -la > info.txt
-          git init -q && git checkout -q -b probe-out && git add . && git -c user.name=probe -c user.email=probe@example.com commit -qm probe
+          cd out && git init -q && git checkout -q -b probe-out && git add . && git -c user.name=probe -c user.email=probe@example.com commit -qm probe
           git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" probe-out
