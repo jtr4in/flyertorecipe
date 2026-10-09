@@ -3992,5 +3992,1583 @@
       "Spread fruit in a baking dish and scatter the topping thickly over it.",
       "Bake 35-40 min until bubbling and golden; serve warm, with ice cream if you like."
     ]
+  },
+  {
+    "id": "shakshuka",
+    "meal": "breakfast",
+    "name": "Shakshuka with {veg}[ & {cheese}] and warm {bread}",
+    "emoji": "🍳",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "main": true
+      },
+      {
+        "key": "tomato",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes"
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "bell peppers",
+        "only": [
+          "bell peppers",
+          "zucchini",
+          "mushrooms"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "feta",
+        "only": [
+          "feta"
+        ],
+        "qty": 0.5,
+        "optional": true
+      },
+      {
+        "key": "bread",
+        "from": [
+          "wraps",
+          "bread"
+        ],
+        "prefer": "pitas",
+        "only": [
+          "pitas",
+          "naan",
+          "bread"
+        ]
+      }
+    ],
+    "pantry": [
+      "olive oil",
+      "onion",
+      "garlic",
+      "cumin",
+      "smoked paprika",
+      "chili flakes",
+      "salt"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort",
+      "healthy"
+    ],
+    "steps": [
+      "Soften onion, garlic and sliced {veg} in olive oil for 5 minutes.",
+      "Stir in cumin, paprika and chili flakes, then add the {tomato} and simmer 8 minutes until thick.",
+      "Make little wells and crack in the eggs; cover and cook 5-6 minutes until the whites set.",
+      "Scatter over [{cheese} and ]serve straight from the pan with warm {bread} for dipping."
+    ]
+  },
+  {
+    "id": "huevos-rancheros",
+    "meal": "breakfast",
+    "name": "Huevos rancheros with {beans}[ & {cheese}]",
+    "emoji": "🌮",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "main": true
+      },
+      {
+        "key": "tortillas",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "tortillas",
+        "only": [
+          "tortillas"
+        ]
+      },
+      {
+        "key": "beans",
+        "from": [
+          "plantProtein"
+        ],
+        "prefer": "black beans",
+        "only": [
+          "black beans",
+          "chickpeas"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "tomato",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes",
+        "qty": 0.5
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "feta"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "cooking oil",
+      "onion",
+      "garlic",
+      "cumin",
+      "chili powder",
+      "hot sauce",
+      "salt"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Simmer the {tomato} with onion, garlic, cumin and chili powder for 8 minutes to make a quick ranchero sauce.",
+      "Warm the {beans} in a small pot and mash lightly with a pinch of salt.",
+      "Crisp the tortillas in a dry pan and fry the eggs sunny-side up.",
+      "Top each tortilla with {beans}, an egg and spoonfuls of sauce[, then sprinkle with {cheese}]."
+    ]
+  },
+  {
+    "id": "crepes",
+    "meal": "breakfast",
+    "name": "Sweet crêpes with {fruit}[ & {topping}]",
+    "emoji": "🥞",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs"
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk"
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit",
+          "frozenFruit"
+        ],
+        "prefer": "strawberries",
+        "only": [
+          "strawberries",
+          "blueberries",
+          "bananas",
+          "frozen fruit"
+        ]
+      },
+      {
+        "key": "topping",
+        "from": [
+          "yogurt"
+        ],
+        "prefer": "yogurt",
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "flour",
+      "sugar",
+      "butter",
+      "vanilla",
+      "salt",
+      "chocolate-hazelnut spread"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "comfort"
+    ],
+    "steps": [
+      "Whisk flour, eggs, milk, a little sugar, melted butter and vanilla into a thin batter; rest 5 minutes.",
+      "Swirl a ladle of batter into a hot buttered pan and cook 1 minute per side.",
+      "Spread each crêpe with chocolate-hazelnut spread and fill with {fruit}.",
+      "Fold into quarters and serve warm[ with a dollop of {topping}]."
+    ]
+  },
+  {
+    "id": "turkish-eggs",
+    "meal": "breakfast",
+    "name": "Turkish eggs with garlic yogurt on {bread}[ & {greens}]",
+    "emoji": "🥚",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "main": true
+      },
+      {
+        "key": "yogurt",
+        "from": [
+          "yogurt"
+        ],
+        "prefer": "yogurt",
+        "qty": 0.5
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread",
+          "wraps"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread",
+          "pitas",
+          "naan"
+        ]
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "prefer": "spinach",
+        "only": [
+          "spinach",
+          "kale"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "garlic",
+      "butter",
+      "paprika",
+      "chili flakes",
+      "lemon",
+      "dill",
+      "salt"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "savoury",
+      "healthy"
+    ],
+    "steps": [
+      "Stir grated garlic, a squeeze of lemon and salt into the yogurt and spread it on plates.",
+      "Poach the eggs in gently simmering water for 3-4 minutes.",
+      "Melt butter with paprika and chili flakes until sizzling[; wilt the {greens} in a dry pan].",
+      "Set eggs on the yogurt[ with the {greens}], drizzle with chili butter and dill, and serve with toasted {bread}."
+    ]
+  },
+  {
+    "id": "shawarma-pitas",
+    "meal": "lunch",
+    "name": "{protein} shawarma pitas with {veg}[ & {veg2}]",
+    "emoji": "🥙",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "plantProtein"
+        ],
+        "prefer": "chicken thighs",
+        "exclude": [
+          "whole chicken",
+          "black beans",
+          "lentils"
+        ],
+        "main": true
+      },
+      {
+        "key": "wraps",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "pitas",
+        "only": [
+          "pitas",
+          "naan",
+          "tortillas"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "tomatoes",
+        "only": [
+          "tomatoes",
+          "cucumber"
+        ]
+      },
+      {
+        "key": "veg2",
+        "from": [
+          "saladVeg",
+          "greens"
+        ],
+        "prefer": "cucumber",
+        "only": [
+          "cucumber",
+          "lettuce"
+        ],
+        "qty": 0.5,
+        "optional": true
+      },
+      {
+        "key": "sauce",
+        "from": [
+          "yogurt"
+        ],
+        "prefer": "yogurt",
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "olive oil",
+      "garlic",
+      "lemon",
+      "cumin",
+      "paprika",
+      "turmeric",
+      "cinnamon",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "healthy"
+    ],
+    "steps": [
+      "Toss sliced {protein} with olive oil, garlic, lemon, cumin, paprika, turmeric and a pinch of cinnamon.",
+      "Sear in a hot pan or roast at 425°F until charred and cooked through, about 15 minutes.",
+      "Mix the {sauce} with garlic, lemon and salt for a quick garlic sauce.",
+      "Warm the {wraps}, then fill with {protein}, {veg}[, {veg2}] and plenty of garlic sauce."
+    ]
+  },
+  {
+    "id": "banh-mi",
+    "meal": "lunch",
+    "name": "{protein} banh mi sandwiches with pickled {veg}",
+    "emoji": "🥖",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "pork",
+          "poultry",
+          "ground",
+          "plantProtein"
+        ],
+        "prefer": "pork tenderloin",
+        "exclude": [
+          "whole chicken",
+          "sausages",
+          "chickpeas",
+          "black beans",
+          "lentils"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "carrots",
+        "only": [
+          "carrots",
+          "cucumber"
+        ]
+      },
+      {
+        "key": "veg2",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "cucumber",
+        "only": [
+          "cucumber"
+        ],
+        "qty": 0.5,
+        "optional": true
+      },
+      {
+        "key": "bread",
+        "from": [
+          "buns",
+          "bread"
+        ],
+        "prefer": "buns",
+        "only": [
+          "buns",
+          "bread"
+        ]
+      }
+    ],
+    "pantry": [
+      "rice vinegar",
+      "sugar",
+      "soy sauce",
+      "fish sauce",
+      "garlic",
+      "mayonnaise",
+      "sriracha",
+      "cilantro",
+      "cooking oil"
+    ],
+    "tags": [],
+    "vibes": [
+      "savoury"
+    ],
+    "steps": [
+      "Cut the {veg} into thin matchsticks and soak in rice vinegar, sugar and salt for 15 minutes.",
+      "Slice the {protein} thinly and toss with soy sauce, fish sauce, garlic and a pinch of sugar.",
+      "Stir-fry over high heat until caramelized and cooked through.",
+      "Spread toasted {bread} with sriracha mayo, then pile in {protein}, pickled {veg}[, {veg2}] and cilantro."
+    ]
+  },
+  {
+    "id": "falafel-wraps",
+    "meal": "lunch",
+    "name": "Crispy falafel wraps with {veg}[ & {dip}]",
+    "emoji": "🧆",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "chickpeas",
+        "from": [
+          "plantProtein"
+        ],
+        "prefer": "chickpeas",
+        "only": [
+          "chickpeas"
+        ],
+        "main": true
+      },
+      {
+        "key": "wraps",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "pitas",
+        "only": [
+          "pitas",
+          "tortillas",
+          "naan"
+        ]
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "prefer": "lettuce",
+        "only": [
+          "lettuce",
+          "salad greens"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "tomatoes",
+        "only": [
+          "tomatoes",
+          "cucumber"
+        ]
+      },
+      {
+        "key": "dip",
+        "from": [
+          "dip",
+          "yogurt"
+        ],
+        "prefer": "hummus",
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "flour",
+      "onion",
+      "garlic",
+      "cumin",
+      "coriander",
+      "parsley",
+      "baking powder",
+      "cooking oil",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "healthy"
+    ],
+    "steps": [
+      "Pulse drained {chickpeas} with onion, garlic, parsley, cumin, coriander, a spoon of flour and baking powder until coarse.",
+      "Shape into small patties and chill 10 minutes.",
+      "Pan-fry in a little oil for 3 minutes per side until deep golden.",
+      "Fill warm {wraps} with {greens}, {veg} and the falafel[, then add a spoonful of {dip}]."
+    ]
+  },
+  {
+    "id": "tuna-sushi-bowl",
+    "meal": "lunch",
+    "name": "Spicy {protein} sushi bowls with {veg}[ & {veg2}]",
+    "emoji": "🍣",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein",
+          "fish"
+        ],
+        "prefer": "canned tuna",
+        "only": [
+          "canned tuna",
+          "salmon",
+          "shrimp"
+        ],
+        "main": true
+      },
+      {
+        "key": "rice",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "cucumber",
+        "only": [
+          "cucumber",
+          "carrots"
+        ]
+      },
+      {
+        "key": "veg2",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "carrots",
+        "only": [
+          "carrots",
+          "cucumber"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "soy sauce",
+      "rice vinegar",
+      "sugar",
+      "mayonnaise",
+      "sriracha",
+      "sesame seeds",
+      "nori"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "healthy",
+      "light",
+      "savoury"
+    ],
+    "steps": [
+      "Cook the rice and season with rice vinegar, a pinch of sugar and salt.",
+      "Mix the {protein} with mayonnaise, sriracha and a splash of soy sauce (sear fresh salmon or shrimp first).",
+      "Slice the {veg}[ and {veg2}] into thin strips.",
+      "Spoon rice into bowls, top with spicy {protein} and the veg, then finish with sesame seeds and torn nori."
+    ]
+  },
+  {
+    "id": "ramen",
+    "meal": "lunch",
+    "name": "Quick {protein} ramen with {greens}[ & {veg}]",
+    "emoji": "🍜",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein",
+          "poultry",
+          "pork",
+          "plantProtein"
+        ],
+        "prefer": "rotisserie chicken",
+        "only": [
+          "rotisserie chicken",
+          "chicken thighs",
+          "chicken breasts",
+          "pork tenderloin",
+          "firm tofu"
+        ],
+        "main": true
+      },
+      {
+        "key": "noodles",
+        "from": [
+          "starch"
+        ],
+        "prefer": "egg noodles",
+        "only": [
+          "egg noodles"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 0.5
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "prefer": "spinach",
+        "only": [
+          "spinach",
+          "kale"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "mushrooms",
+        "only": [
+          "mushrooms",
+          "carrots",
+          "broccoli"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "chicken broth",
+      "soy sauce",
+      "miso paste",
+      "garlic",
+      "ginger",
+      "sesame oil",
+      "green onion"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Simmer broth with garlic, ginger, soy sauce and a spoon of miso for 10 minutes.",
+      "Soft-boil the eggs for 6.5 minutes, then cool and peel.",
+      "Cook the {protein} in the broth until done (or just warm through if precooked)[ along with the {veg}].",
+      "Cook the noodles, divide into bowls, add {greens} and ladle over the hot broth.",
+      "Top with halved eggs, green onion and a drizzle of sesame oil."
+    ]
+  },
+  {
+    "id": "pad-thai",
+    "meal": "dinner",
+    "name": "{protein} pad thai with {veg}[ & {nuts}]",
+    "emoji": "🍤",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "fish",
+          "poultry",
+          "plantProtein"
+        ],
+        "prefer": "shrimp",
+        "exclude": [
+          "whole chicken",
+          "white fish",
+          "salmon",
+          "chickpeas",
+          "black beans",
+          "lentils"
+        ],
+        "main": true
+      },
+      {
+        "key": "noodles",
+        "from": [
+          "starch"
+        ],
+        "prefer": "egg noodles",
+        "only": [
+          "egg noodles"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "carrots",
+        "only": [
+          "carrots",
+          "bell peppers",
+          "broccoli"
+        ]
+      },
+      {
+        "key": "nuts",
+        "from": [
+          "nuts"
+        ],
+        "prefer": "nuts",
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "fish sauce",
+      "brown sugar",
+      "ketchup",
+      "lime",
+      "garlic",
+      "green onion",
+      "cooking oil",
+      "chili flakes"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "savoury"
+    ],
+    "steps": [
+      "Cook the noodles until just tender, rinse and toss with a little oil.",
+      "Whisk fish sauce, brown sugar, ketchup and lime juice into a sauce.",
+      "Stir-fry garlic and {protein} in a hot pan, then add the {veg} for 2 minutes.",
+      "Push aside, scramble the eggs, then toss in the noodles and sauce until glossy.",
+      "Serve with lime wedges, green onion[ and chopped {nuts}]."
+    ]
+  },
+  {
+    "id": "bulgogi-bowls",
+    "meal": "dinner",
+    "name": "Korean {protein} bulgogi bowls with {veg}[ & {veg2}]",
+    "emoji": "🍚",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "rice",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice",
+          "quinoa"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "carrots",
+        "only": [
+          "carrots",
+          "broccoli",
+          "zucchini",
+          "mushrooms",
+          "green beans"
+        ]
+      },
+      {
+        "key": "veg2",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "cucumber",
+        "only": [
+          "cucumber"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "soy sauce",
+      "brown sugar",
+      "sesame oil",
+      "garlic",
+      "ginger",
+      "gochujang",
+      "green onion",
+      "sesame seeds"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Cook the rice.",
+      "Brown the {protein} in a hot pan, breaking it up, and drain any excess fat.",
+      "Add garlic, ginger, soy sauce, brown sugar, sesame oil and a spoon of gochujang; simmer 2 minutes until sticky.",
+      "Stir-fry the {veg} separately until tender-crisp.",
+      "Serve the bulgogi over rice with the {veg}[, sliced {veg2}], green onion and sesame seeds."
+    ]
+  },
+  {
+    "id": "souvlaki",
+    "meal": "dinner",
+    "name": "{protein} souvlaki with tzatziki, {starch} & {veg}",
+    "emoji": "🍢",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "pork"
+        ],
+        "prefer": "chicken breasts",
+        "exclude": [
+          "whole chicken",
+          "sausages"
+        ],
+        "main": true
+      },
+      {
+        "key": "yogurt",
+        "from": [
+          "yogurt"
+        ],
+        "prefer": "yogurt",
+        "qty": 0.5
+      },
+      {
+        "key": "cucumber",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "cucumber",
+        "only": [
+          "cucumber"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes",
+          "rice"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "tomatoes",
+        "only": [
+          "tomatoes",
+          "bell peppers"
+        ]
+      },
+      {
+        "key": "pitas",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "pitas",
+        "only": [
+          "pitas"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "olive oil",
+      "lemon",
+      "garlic",
+      "oregano",
+      "dill",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "healthy",
+      "savoury"
+    ],
+    "steps": [
+      "Cube the {protein} and marinate in olive oil, lemon, garlic and oregano for at least 10 minutes.",
+      "Roast lemony {starch} wedges at 425°F (or cook the rice) while you thread the meat onto skewers.",
+      "Grill or broil the skewers 10-12 minutes, turning, until charred and cooked through.",
+      "Grate the {cucumber} into the {yogurt} with garlic, dill and salt for tzatziki.",
+      "Serve skewers with {starch}, chopped {veg}[, warm {pitas}] and tzatziki."
+    ]
+  },
+  {
+    "id": "teriyaki",
+    "meal": "dinner",
+    "name": "Teriyaki {protein} with {veg} over {starch}",
+    "emoji": "🍱",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "fish",
+          "poultry",
+          "plantProtein"
+        ],
+        "prefer": "salmon",
+        "exclude": [
+          "whole chicken",
+          "chickpeas",
+          "black beans",
+          "lentils"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "broccoli",
+        "only": [
+          "broccoli",
+          "green beans",
+          "asparagus",
+          "bell peppers",
+          "zucchini"
+        ]
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice",
+          "quinoa"
+        ]
+      }
+    ],
+    "pantry": [
+      "soy sauce",
+      "honey",
+      "garlic",
+      "ginger",
+      "cornstarch",
+      "rice vinegar",
+      "sesame seeds",
+      "cooking oil"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "healthy",
+      "savoury"
+    ],
+    "steps": [
+      "Cook the {starch}.",
+      "Simmer soy sauce, honey, garlic, ginger and rice vinegar, then thicken with a little cornstarch slurry.",
+      "Sear the {protein} in a hot oiled pan until cooked through, then brush generously with teriyaki sauce.",
+      "Steam or stir-fry the {veg} until tender-crisp.",
+      "Serve over {starch}, spoon over extra sauce and sprinkle with sesame seeds."
+    ]
+  },
+  {
+    "id": "jambalaya",
+    "meal": "dinner",
+    "name": "{protein} jambalaya with {veg}[ & {protein2}]",
+    "emoji": "🥘",
+    "minutes": 45,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "pork"
+        ],
+        "prefer": "sausages",
+        "only": [
+          "sausages"
+        ],
+        "main": true
+      },
+      {
+        "key": "protein2",
+        "from": [
+          "fish",
+          "poultry"
+        ],
+        "prefer": "shrimp",
+        "only": [
+          "shrimp",
+          "chicken thighs",
+          "chicken breasts"
+        ],
+        "qty": 0.5,
+        "optional": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "saladVeg"
+        ],
+        "prefer": "bell peppers",
+        "only": [
+          "bell peppers",
+          "celery",
+          "zucchini"
+        ]
+      },
+      {
+        "key": "rice",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice"
+        ]
+      },
+      {
+        "key": "tomato",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes"
+      }
+    ],
+    "pantry": [
+      "cooking oil",
+      "onion",
+      "garlic",
+      "cajun seasoning",
+      "chicken broth",
+      "bay leaf",
+      "hot sauce"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Brown sliced {protein} in a large pot, then remove.",
+      "Soften onion, garlic and chopped {veg} in the drippings with cajun seasoning.",
+      "Stir in the rice, {tomato}, broth and a bay leaf; return the {protein}, cover and simmer 20 minutes.",
+      "[Tuck in the {protein2} for the last 5-8 minutes until cooked through. ]Fluff and season with hot sauce to taste."
+    ]
+  },
+  {
+    "id": "lettuce-wraps",
+    "meal": "dinner",
+    "name": "{protein} lettuce wraps with {veg}[ & {rice}]",
+    "emoji": "🥬",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground",
+          "plantProtein"
+        ],
+        "prefer": "ground chicken",
+        "exclude": [
+          "chickpeas",
+          "black beans",
+          "lentils"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "mushrooms",
+        "only": [
+          "mushrooms",
+          "carrots",
+          "bell peppers",
+          "zucchini"
+        ]
+      },
+      {
+        "key": "lettuce",
+        "from": [
+          "greens"
+        ],
+        "prefer": "lettuce",
+        "only": [
+          "lettuce"
+        ]
+      },
+      {
+        "key": "rice",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "hoisin sauce",
+      "soy sauce",
+      "rice vinegar",
+      "garlic",
+      "ginger",
+      "sesame oil",
+      "green onion"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "healthy",
+      "light",
+      "savoury"
+    ],
+    "steps": [
+      "[Start the {rice} cooking. ]Finely chop the {veg}.",
+      "Brown the {protein} with garlic and ginger, breaking it into small pieces (crumble tofu if using).",
+      "Add the {veg} and cook 3 minutes, then stir in hoisin, soy sauce and rice vinegar.",
+      "Spoon into crisp lettuce cups and top with green onion and a drizzle of sesame oil."
+    ]
+  },
+  {
+    "id": "peanut-noodles",
+    "meal": "dinner",
+    "name": "Thai peanut noodles with {protein} & {veg}[ & {veg2}]",
+    "emoji": "🥜",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "plantProtein",
+          "fish",
+          "lunchProtein"
+        ],
+        "prefer": "chicken breasts",
+        "only": [
+          "chicken breasts",
+          "chicken thighs",
+          "firm tofu",
+          "shrimp",
+          "rotisserie chicken"
+        ],
+        "main": true
+      },
+      {
+        "key": "noodles",
+        "from": [
+          "starch"
+        ],
+        "prefer": "egg noodles",
+        "only": [
+          "egg noodles",
+          "pasta"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "bell peppers",
+        "only": [
+          "bell peppers",
+          "carrots",
+          "broccoli"
+        ]
+      },
+      {
+        "key": "veg2",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "cucumber",
+        "only": [
+          "cucumber",
+          "carrots"
+        ],
+        "qty": 0.5,
+        "optional": true
+      },
+      {
+        "key": "spread",
+        "from": [
+          "spread"
+        ],
+        "prefer": "peanut butter",
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "soy sauce",
+      "lime",
+      "honey",
+      "sriracha",
+      "garlic",
+      "sesame oil",
+      "cooking oil"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Cook the {noodles} and save a splash of the cooking water.",
+      "Whisk {spread} with soy sauce, lime, honey, sriracha, garlic and hot water until smooth.",
+      "Cook the {protein} in a hot pan until done, then add the {veg} for 2-3 minutes.",
+      "Toss the noodles with the sauce, {protein} and {veg}[, then top with crunchy {veg2}]."
+    ]
+  },
+  {
+    "id": "lassi",
+    "meal": "snack",
+    "name": "Sweet {fruit} lassi",
+    "emoji": "🥭",
+    "minutes": 5,
+    "slots": [
+      {
+        "key": "fruit",
+        "from": [
+          "frozenFruit",
+          "fruit"
+        ],
+        "prefer": "frozen fruit",
+        "only": [
+          "frozen fruit",
+          "bananas",
+          "strawberries"
+        ]
+      },
+      {
+        "key": "yogurt",
+        "from": [
+          "yogurt"
+        ],
+        "prefer": "yogurt"
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "honey",
+      "ground cardamom",
+      "ice"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "light"
+    ],
+    "steps": [
+      "Add the {fruit}, {yogurt} and {milk} to a blender (frozen mango is classic).",
+      "Add a drizzle of honey and a pinch of cardamom.",
+      "Blend until thick and frothy, adding ice to chill.",
+      "Pour into glasses and dust with a little more cardamom."
+    ]
+  },
+  {
+    "id": "cinnamon-chips-salsa",
+    "meal": "snack",
+    "name": "Cinnamon-sugar tortilla chips with {fruit}[ & {fruit2}] salsa",
+    "emoji": "🍓",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "tortillas",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "tortillas",
+        "only": [
+          "tortillas"
+        ]
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "strawberries",
+        "only": [
+          "strawberries",
+          "apples",
+          "blueberries",
+          "pears",
+          "oranges"
+        ]
+      },
+      {
+        "key": "fruit2",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "apples",
+        "only": [
+          "strawberries",
+          "apples",
+          "blueberries",
+          "pears",
+          "oranges"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "butter",
+      "cinnamon",
+      "sugar",
+      "lime",
+      "honey"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet"
+    ],
+    "steps": [
+      "Brush tortillas with melted butter, sprinkle with cinnamon sugar and cut into wedges.",
+      "Bake at 375°F for 8-10 minutes until crisp and golden.",
+      "Dice the {fruit}[ and {fruit2}] and toss with lime juice and a drizzle of honey.",
+      "Scoop the fruit salsa with the warm chips."
+    ]
+  },
+  {
+    "id": "coconut-sticky-rice",
+    "meal": "snack",
+    "name": "Coconut sticky rice with {fruit}",
+    "emoji": "🍚",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "rice",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "frozenFruit",
+          "fruit"
+        ],
+        "prefer": "frozen fruit",
+        "only": [
+          "frozen fruit",
+          "bananas",
+          "strawberries"
+        ]
+      }
+    ],
+    "pantry": [
+      "coconut milk",
+      "sugar",
+      "salt",
+      "sesame seeds"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "comfort"
+    ],
+    "steps": [
+      "Cook the rice until soft and slightly sticky.",
+      "Warm coconut milk with sugar and a pinch of salt until dissolved.",
+      "Stir most of the coconut sauce into the hot rice and let it soak 10 minutes.",
+      "Serve with sliced or thawed {fruit}, the remaining sauce and a sprinkle of sesame seeds."
+    ]
+  },
+  {
+    "id": "masala-chickpeas",
+    "meal": "snack",
+    "name": "Crispy masala roasted chickpeas[ & {nuts}]",
+    "emoji": "🌶️",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "chickpeas",
+        "from": [
+          "plantProtein"
+        ],
+        "prefer": "chickpeas",
+        "only": [
+          "chickpeas"
+        ],
+        "main": true
+      },
+      {
+        "key": "nuts",
+        "from": [
+          "nuts"
+        ],
+        "prefer": "nuts",
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "olive oil",
+      "garam masala",
+      "cumin",
+      "chili powder",
+      "salt",
+      "lime"
+    ],
+    "tags": [
+      "big-batch"
+    ],
+    "vibes": [
+      "savoury",
+      "healthy"
+    ],
+    "steps": [
+      "Drain, rinse and pat the chickpeas very dry.",
+      "Toss with olive oil, garam masala, cumin, chili powder and salt.",
+      "Roast at 400°F for 25-30 minutes, shaking halfway, until crunchy[; add the {nuts} for the last 5 minutes].",
+      "Finish with a squeeze of lime and cool before snacking."
+    ]
   }
 ]
