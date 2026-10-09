@@ -85,6 +85,16 @@ export const TEMPLATES = [
     [{ key: 'bread', from: ['bread'] }, { key: 'spread', from: ['spread'] }, { key: 'fruit', from: ['fruit'], only: ['bananas', 'apples', 'strawberries'] }],
     (f) => `Peanut butter ${f.bread === 'bread' ? 'toast' : f.bread} with ${f.fruit}`, { tags: ['quick', 'kid-approved'] }),
 
+  t('breakfast', 'french-toast', '🍞', 15,
+    [{ key: 'bread', from: ['bread'], only: ['bread'] }, { key: 'eggs', from: ['eggs'], main: true, qty: 0.75 }, { key: 'milk', from: ['milk'] }, { key: 'fruit', from: ['fruit', 'frozenFruit'], only: ['strawberries', 'blueberries', 'bananas', 'frozen fruit'] }],
+    (f) => `French toast with ${f.fruit}`, { pantry: ['cinnamon', 'maple syrup', 'butter'], tags: ['kid-approved'] }),
+  t('breakfast', 'oatmeal', '🥣', 10,
+    [{ key: 'oats', from: ['oats'], only: ['oats'] }, { key: 'milk', from: ['milk'] }, { key: 'fruit', from: ['fruit', 'frozenFruit'], only: ['apples', 'bananas', 'blueberries', 'strawberries', 'pears', 'frozen fruit'] }, { key: 'nuts', from: ['nuts', 'spread'], optional: true, qty: 0.5 }],
+    (f) => `Warm oatmeal with ${f.fruit}${f.nuts ? ` & ${f.nuts}` : ''}`, { pantry: ['cinnamon', 'brown sugar'], tags: ['quick', 'kid-approved'] }),
+  t('breakfast', 'egg-muffins', '🧁', 25,
+    [{ key: 'eggs', from: ['eggs'], main: true }, { key: 'veg', from: ['cookingVeg', 'greens'], only: ['spinach', 'bell peppers', 'mushrooms', 'broccoli', 'zucchini'] }, { key: 'cheese', from: ['cheese'], only: ['cheddar', 'feta'] }],
+    (f) => `${cap(f.veg)} & ${f.cheese} egg muffins`, { pantry: ['salt & pepper'], tags: ['big-batch', 'kid-approved'] }),
+
   // ---------------- Lunch ----------------
   t('lunch', 'wrap', '🌯', 10,
     [{ key: 'protein', from: ['lunchProtein', 'plantProtein'], main: true, only: ['deli turkey or ham', 'rotisserie chicken', 'canned tuna', 'chickpeas'] }, { key: 'wrap', from: ['wraps'], only: ['tortillas', 'pitas'] }, { key: 'greens', from: ['greens'] }, { key: 'veg', from: ['saladVeg'] }],
@@ -112,7 +122,29 @@ export const TEMPLATES = [
   t('snack', 'cheese-crackers', '🧀', 2, [{ key: 'cheese', from: ['cheese'], only: ['cheddar'] }, { key: 'crackers', from: ['crackers'] }, { key: 'fruit', from: ['fruit'], only: ['grapes', 'apples', 'pears'], optional: true }], (f) => `Cheese & crackers${f.fruit ? ` with ${f.fruit}` : ''}`, { tags: ['quick', 'kid-approved'] }),
   t('snack', 'apple-pb', '🍏', 2, [{ key: 'fruit', from: ['fruit'], only: ['apples', 'bananas', 'pears'] }, { key: 'spread', from: ['spread'] }], (f) => `${cap(f.fruit)} with peanut butter`, { tags: ['quick', 'kid-approved'] }),
   t('snack', 'nuts', '🥜', 1, [{ key: 'nuts', from: ['nuts'] }, { key: 'fruit', from: ['fruit'], only: ['oranges', 'apples', 'grapes'], optional: true }], (f) => `Nuts${f.fruit ? ` & ${f.fruit}` : ''}`, { tags: ['quick'] }),
+  t('snack', 'boiled-eggs', '🥚', 12, [{ key: 'eggs', from: ['eggs'], main: true, qty: 0.5 }, { key: 'veg', from: ['saladVeg'], only: ['cucumber', 'carrots', 'celery', 'bell peppers'], optional: true }], (f) => `Hard-boiled eggs${f.veg ? ` & ${f.veg}` : ''}`, { pantry: ['salt & pepper'] }),
+  t('snack', 'energy-bites', '🍪', 15, [{ key: 'oats', from: ['oats'], only: ['oats'], qty: 0.4 }, { key: 'spread', from: ['spread'], qty: 1.5 }, { key: 'fruit', from: ['fruit'], only: ['bananas'], optional: true, qty: 0.5 }], (f) => `Peanut butter oat bites${f.fruit ? ' with banana' : ''}`, { pantry: ['honey', 'chocolate chips'], tags: ['kid-approved', 'big-batch'] }),
+  t('snack', 'pita-hummus', '🫓', 3, [{ key: 'wrap', from: ['wraps'], only: ['pitas'], qty: 0.5 }, { key: 'dip', from: ['dip'] }], () => 'Warm pita & hummus', { tags: ['quick', 'kid-approved'] }),
+  t('snack', 'snack-smoothie', '🥤', 5, [{ key: 'fruit', from: ['fruit', 'frozenFruit'], only: ['bananas', 'strawberries', 'blueberries', 'frozen fruit'], qty: 0.6 }, { key: 'yogurt', from: ['yogurt', 'milk'], qty: 0.6 }], (f) => `${cap(f.fruit)} smoothie`, { tags: ['quick', 'kid-approved'] }),
+  t('snack', 'cheese-fruit', '🍇', 3, [{ key: 'cheese', from: ['cheese'], only: ['cheddar'] }, { key: 'fruit', from: ['fruit'], only: ['apples', 'grapes', 'pears'] }], (f) => `Cheddar & ${f.fruit}`, { tags: ['quick', 'kid-approved'] }),
 ]
+
+// What each dish is like, for the "Another idea" nudges (healthier, sweet, comfort food...).
+const VIBES = {
+  'sheet-pan': ['healthy'], 'stir-fry': ['healthy', 'light'], tacos: ['comfort'], pasta: ['comfort'],
+  'fish-plate': ['healthy', 'light'], fajitas: ['light'], curry: ['comfort'], 'fried-rice': ['comfort'],
+  skillet: ['comfort'], chili: ['comfort', 'healthy'], burgers: ['comfort'], frittata: ['light', 'healthy'], roast: ['comfort'],
+  'overnight-oats': ['healthy', 'sweet'], parfait: ['healthy', 'sweet'], 'eggs-toast': ['savoury'],
+  'breakfast-wrap': ['savoury', 'comfort'], 'smoothie': ['healthy', 'sweet'], 'pb-toast': ['sweet'],
+  'french-toast': ['sweet', 'comfort'], oatmeal: ['healthy', 'sweet', 'comfort'], 'egg-muffins': ['savoury', 'healthy'],
+  wrap: ['light'], 'big-salad': ['healthy', 'light'], 'grain-bowl': ['healthy'], quesadilla: ['comfort'],
+  'pita-plate': ['light', 'healthy'], sandwich: ['comfort'],
+  fruit: ['healthy', 'sweet', 'light'], 'yogurt-fruit': ['healthy', 'sweet'], 'veg-dip': ['healthy', 'savoury', 'light'],
+  'cheese-crackers': ['savoury', 'comfort'], 'apple-pb': ['sweet'], nuts: ['savoury', 'healthy'],
+  'boiled-eggs': ['savoury', 'healthy', 'light'], 'energy-bites': ['sweet', 'comfort'], 'pita-hummus': ['savoury'],
+  'cheese-fruit': ['savoury', 'sweet'], 'snack-smoothie': ['healthy', 'sweet'],
+}
+for (const tpl of TEMPLATES) tpl.vibes = VIBES[tpl.id] || []
 
 export const MEALS = [
   { id: 'breakfast', label: 'Breakfast', emoji: '☀️' },

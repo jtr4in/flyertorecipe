@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { activeDeals, buildShoppingList, cookedMeals, listSwapOptions, matchDeal, parsePlanQuery, planWeek, swapOptions, weekDays } from './planner'
+import { activeDeals, buildShoppingList, cookedMeals, listSwapOptions, matchDeal, NUDGES, suggestMeals, parsePlanQuery, planWeek, swapOptions, weekDays } from './planner'
 import { CATALOG } from '../data/ingredients'
 import { sampleDeals } from '../data/sampleDeals'
 
@@ -133,6 +133,27 @@ it('swaps a grocery item in every meal that uses it', () => {
   const after = buildShoppingList(planWeek(deals, prefs, { days, overrides, avoid: [item.item] }), deals, prefs)
   const left = after.groups.flatMap((g) => g.items).find((i) => i.item === item.item)
   expect(left?.uses.length || 0).toBeLessThan(item.uses.length)
+})
+
+describe('suggestMeals', () => {
+  const plan = planWeek(deals, prefs, { days })
+  const snack = plan[0].meals.snack
+  it('offers several other ideas, never the current one', () => {
+    const ideas = suggestMeals(snack, deals, prefs, { plan })
+    expect(ideas.length).toBeGreaterThanOrEqual(6)
+    expect(ideas.map((m) => m.name)).not.toContain(snack.name)
+    expect(ideas.every((m) => m.fills)).toBe(true)
+  })
+  it('narrows by nudge', () => {
+    const sweet = suggestMeals(snack, deals, prefs, { plan, nudge: 'sweet' })
+    expect(sweet.length).toBeGreaterThan(0)
+    expect(sweet.every((m) => NUDGES.sweet.test(m))).toBe(true)
+  })
+  it('locks in a picked idea', () => {
+    const idea = suggestMeals(snack, deals, prefs, { plan })[1]
+    const p = planWeek(deals, prefs, { days, overrides: { [snack.key]: { template: idea.template.id, fills: idea.fills } } })
+    expect(p[0].meals.snack.name).toBe(idea.name)
+  })
 })
 
 describe('parsePlanQuery', () => {

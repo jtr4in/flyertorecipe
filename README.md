@@ -30,7 +30,10 @@ firestore.rules, firebase.json   Firestore security rules + Hosting config
 - **Your week:** tap a day to see its breakfast, lunch, dinner and snack, each built from sale
   items with the store and flyer price on every ingredient. Tap ⇄ to swap an ingredient for
   something else on sale, "Another idea" for a different dish, or Skip. Lunch can be last
-  night's leftovers (dinner cooks double). Which meals to plan is set in Household settings.
+  night's leftovers (dinner cooks double). "Another idea" opens a picker that rotates through
+  other on-sale dishes, with nudges like Healthier, More protein, Sweet or Comfort food.
+- **Print for the fridge:** a one-page landscape plan of the week plus the grocery list
+  (print, or save as PDF from the print dialog). Which meals to plan is set in Household settings.
 - **What's the plan?** box: keywords like "quick", "high protein", "kids", "meal prep" or
   "under $80" turn into filters and a week budget (with a progress bar). Filter chips do the same.
 - **Grocery list:** grouped by aisle, with two tabs. *Price Matching* lists every item at its

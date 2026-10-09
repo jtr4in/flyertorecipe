@@ -375,6 +375,76 @@ export function listSwapOptions(uses, deals, prefs) {
   return [...byItem.values()].sort((a, b) => b.fits.length - a.fits.length || (b.deal ? 1 : 0) - (a.deal ? 1 : 0) || a.cost - b.cost)
 }
 
+// ---------- Another idea ----------
+
+const PROTEIN_SNACKS = ['eggs', 'yogurt', 'nuts', 'cheddar', 'peanut butter', 'hummus', 'chickpeas']
+
+export const NUDGES = {
+  healthy: { label: 'Healthier', emoji: '🥗', test: (m) => m.template.vibes.includes('healthy') },
+  light: { label: 'Lighter', emoji: '🌿', test: (m) => m.template.vibes.includes('light') },
+  comfort: { label: 'Comfort food', emoji: '🍲', test: (m) => m.template.vibes.includes('comfort') },
+  sweet: { label: 'Sweet', emoji: '🍓', test: (m) => m.template.vibes.includes('sweet') },
+  savoury: { label: 'Savoury', emoji: '🧂', test: (m) => m.template.vibes.includes('savoury') },
+  protein: {
+    label: 'More protein', emoji: '💪',
+    test: (m) => isHighProtein(m) || m.lines.some((l) => PROTEIN_SNACKS.includes(l.ing.item)),
+  },
+  veggie: { label: 'Meatless', emoji: '🥦', test: (m) => !m.lines.some((l) => l.ing.has.some((h) => h === 'meat' || h === 'fish')) },
+  quick: { label: 'Quicker', emoji: '⚡', test: (m, cur) => m.minutes < cur.minutes || m.minutes <= 10 },
+  cheap: { label: 'Cheaper', emoji: '💸', test: (m, cur) => m.cost < cur.cost },
+}
+export const MEAL_NUDGES = {
+  breakfast: ['healthy', 'protein', 'sweet', 'savoury', 'quick'],
+  lunch: ['light', 'protein', 'veggie', 'quick', 'cheap'],
+  dinner: ['light', 'comfort', 'veggie', 'quick', 'cheap'],
+  snack: ['healthy', 'protein', 'sweet', 'savoury', 'cheap'],
+}
+
+/**
+ * Other dishes for one meal slot, best first: every template for that meal, plus variants
+ * built around each on-sale main ingredient, so there's always another idea to rotate to.
+ * Each idea carries `fills` to lock it in as an override.
+ */
+export function suggestMeals(current, deals, prefs, { nudge = null, plan = [] } = {}) {
+  const diet = prefs.diet || []
+  const priced = new Map()
+  const weekUse = {}
+  for (const m of cookedMeals(plan)) weekUse[m.template.id] = (weekUse[m.template.id] || 0) + 1
+  const ideas = new Map()
+  const add = (m) => {
+    if (!m || m.name === current.name || ideas.has(m.name)) return
+    m.fills = Object.fromEntries(m.lines.map((l) => [l.slot, l.ing.item]))
+    ideas.set(m.name, m)
+  }
+  for (const template of TEMPLATES) {
+    if (template.meal !== current.meal) continue
+    const ctx = { deals, diet, servings: current.servings, priced }
+    const base = fillTemplate(template, ctx)
+    add(base)
+    if (!base) continue
+    // Variants: the same dish around a different on-sale lead ingredient.
+    const lead = template.slots.find((sl) => sl.main) || template.slots[0]
+    const others = slotCandidates(lead, deals, diet, priced).filter((c) => c.deal && c.ing.item !== base.fills?.[lead.key])
+    for (const c of others.slice(0, 3)) add(fillTemplate(template, { ...ctx, fills: { [lead.key]: c.ing.item } }))
+  }
+  const test = nudge && NUDGES[nudge]?.test
+  return [...ideas.values()]
+    .filter((m) => !test || test(m, current))
+    .map((m) => {
+      const share = m.lines.length ? m.onSale / m.lines.length : 0
+      let score = share * 100 + Math.min(m.savings, 8) - (weekUse[m.template.id] || 0) * 6
+      if (m.template.id === current.template.id) score -= 4
+      if (nudge === 'cheap') score -= m.cost * 3
+      return { m, score }
+    })
+    .sort((a, b) => b.score - a.score)
+    .map((x) => x.m)
+    // Rotate through dishes: each template's best version before any second version.
+    .map((m, i, all) => ({ m, round: all.slice(0, i).filter((o) => o.template.id === m.template.id).length, i }))
+    .sort((a, b) => a.round - b.round || a.i - b.i)
+    .map((x) => x.m)
+}
+
 // ---------- Shopping list ----------
 
 /** Store that covers the most list items (ties: bigger savings). */

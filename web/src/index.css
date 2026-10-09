@@ -1,1 +1,28 @@
 @import "tailwindcss";
+
+/* Printable week: only the page prints, on one landscape sheet. */
+@media print {
+  @page {
+    size: letter landscape;
+    margin: 0;
+  }
+  #root,
+  .print-chrome {
+    display: none !important;
+  }
+  .print-sheet {
+    position: static !important;
+    overflow: visible !important;
+    background: white !important;
+  }
+  .print-page {
+    margin: 0 !important;
+    zoom: 1 !important;
+    box-shadow: none !important;
+    width: 11in !important;
+    height: 8.5in;
+    overflow: hidden;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

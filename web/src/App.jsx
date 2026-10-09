@@ -3,13 +3,15 @@ import { firebaseEnabled } from './lib/firebase'
 import { DEFAULT_PREFS, fsa, loadDeals, loadPrefs, loadWeek, savePrefs, saveWeek } from './lib/data'
 import { activeDeals, buildShoppingList, FILTERS, listSwapOptions, parsePlanQuery, planWeek, swapOptions, weekDays } from './lib/planner'
 import { dealName, money, storeTint } from './lib/stores'
-import { cap, MEALS, TEMPLATES } from './data/templates'
+import { cap, MEALS } from './data/templates'
 import Preferences from './components/Preferences'
 import Sheet from './components/Sheet'
 import WeekStrip from './components/WeekStrip'
 import MealCard from './components/MealCard'
 import ListSheet, { ListBar } from './components/ListSheet'
 import FlyerProof from './components/FlyerProof'
+import IdeaSheet from './components/IdeaSheet'
+import PrintWeek from './components/PrintWeek'
 
 export default function App() {
   const [prefs, setPrefs] = useState(null)
@@ -19,6 +21,8 @@ export default function App() {
   const [query, setQuery] = useState('')
   const [chips, setChips] = useState([])
   const [sheet, setSheet] = useState(null) // 'settings' | 'list'
+  const [ideaFor, setIdeaFor] = useState(null) // the meal entry "Another idea" was tapped on
+  const [printing, setPrinting] = useState(false)
   const [swapping, setSwapping] = useState(null) // [{ meal, line }]: every meal the swap applies to
   const [listMode, setListMode] = useState('match')
   const [proof, setProof] = useState(null)
@@ -90,12 +94,8 @@ export default function App() {
       }
       return { ...w, overrides, avoid }
     })
-  const another = (meal) =>
-    override(meal.key, (o) => {
-      const tried = [...(o.exclude || []), meal.template.id]
-      const total = TEMPLATES.filter((t) => t.meal === meal.meal).length
-      return { ...o, template: undefined, fills: undefined, exclude: tried.length >= total ? [meal.template.id] : tried }
-    })
+  const pickIdea = (meal, idea) =>
+    override(meal.key, (o) => ({ ...o, skip: false, template: idea.template.id, fills: idea.fills }))
   const resetWeek = () => editWeek((w) => ({ ...w, overrides: {}, avoid: [] }))
   const toggleChip = (id) => setChips((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]))
 
@@ -179,7 +179,12 @@ export default function App() {
       </div>
 
       <div className="mt-5 mb-2 flex items-baseline justify-between">
-        <h2 className="text-lg font-semibold">Your week</h2>
+        <h2 className="text-lg font-semibold">
+          Your week{' '}
+          <button onClick={() => setPrinting(true)} className="ml-1 align-middle text-xs font-medium text-green-700">
+            🖨 Print for the fridge
+          </button>
+        </h2>
         {(Object.keys(week.overrides).length > 0 || week.avoid?.length > 0) && (
           <button onClick={resetWeek} className="text-xs font-medium text-stone-500">
             Reset changes
@@ -220,7 +225,7 @@ export default function App() {
                       emoji={m.emoji}
                       entry={entry}
                       onSwapLine={(line) => setSwapping([{ meal: entry, line }])}
-                      onAnother={() => another(entry)}
+                      onAnother={() => setIdeaFor({ entry, label: m.label })}
                       onSkip={() => override(key, (o) => ({ ...o, skip: true }))}
                       onRestore={() => override(key, (o) => ({ ...o, skip: false }))}
                       onCook={() => override(key, (o) => ({ ...o, cook: true }))}
@@ -301,6 +306,18 @@ export default function App() {
           </ul>
         )}
       </Sheet>
+      <IdeaSheet
+        current={ideaFor?.entry}
+        deals={deals}
+        prefs={prefs}
+        plan={plan}
+        onPick={(idea) => {
+          pickIdea(ideaFor.entry, idea)
+          setIdeaFor(null)
+        }}
+        onClose={() => setIdeaFor(null)}
+      />
+      {printing && <PrintWeek plan={plan} list={list} meals={MEALS.filter((m) => enabled.includes(m.id))} prefs={prefs} onClose={() => setPrinting(false)} />}
       <FlyerProof deal={proof} onClose={() => setProof(null)} />
     </div>
   )
