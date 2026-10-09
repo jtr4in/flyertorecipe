@@ -43,7 +43,8 @@ function isHeadline(name, include) {
 export function matchDeal(ingredient, deals) {
   if (ingredient.pantry || !ingredient.match?.length) return null
   const include = ingredient.match.map(wordRe)
-  const exclude = [...GLOBAL_EXCLUDE, ...(ingredient.exclude || [])].map(wordRe)
+  const global = GLOBAL_EXCLUDE.filter((w) => !ingredient.allow?.includes(w))
+  const exclude = [...global, ...(ingredient.exclude || [])].map(wordRe)
   let best = null
   let bestRank = null
   for (const d of deals) {
@@ -63,7 +64,7 @@ export function matchDeal(ingredient, deals) {
 // Typical regular price of one package (or one lb) when nothing is on sale, by aisle.
 const FALLBACK_PRICE = {
   Produce: 3, 'Meat & Seafood': 7.5, 'Dairy & Eggs': 5, Bakery: 3.75, Frozen: 4.5,
-  Pantry: 3.5, 'Plant Protein': 3.5, Other: 4,
+  Pantry: 3.5, Snacks: 4, 'Plant Protein': 3.5, Other: 4,
 }
 const LB_PER_ITEM = 0.4 // when a per-lb deal meets a recipe that counts items (apples, peppers)
 
@@ -117,6 +118,8 @@ export const FILTERS = [
   { id: 'kid-approved', label: 'Kid-approved', emoji: '🧒', test: (m) => m.template.tags.includes('kid-approved') },
   { id: 'big-batch', label: 'Big batch', emoji: '🍲', test: (m) => m.template.tags.includes('big-batch') },
   { id: 'vegetarian', label: 'Vegetarian', emoji: '🥦', diet: 'vegetarian' },
+  // A nudge, not a rule: fun dishes win where they're on sale, most of all for snacks.
+  { id: 'treats', label: 'Treats', emoji: '🍪', boost: (m) => (m.template.vibes.includes('treat') ? (m.template.meal === 'snack' ? 60 : 25) : 0) },
 ]
 
 /**
@@ -131,6 +134,7 @@ export function parsePlanQuery(q) {
   if (/kid|family|picky/.test(text)) filters.add('kid-approved')
   if (/batch|meal ?prep|leftover|freez/.test(text)) filters.add('big-batch')
   if (/vegetarian|veggie|meatless/.test(text)) filters.add('vegetarian')
+  if (/treat|fun|dessert|cookie|sweet tooth|junk/.test(text)) filters.add('treats')
   const m = text.match(/(?:under|below|less than|max|budget)\s*\$?\s*(\d{2,4})|\$\s*(\d{2,4})/)
   return { filters: [...filters], budget: m ? Number(m[1] || m[2]) : null }
 }
@@ -279,6 +283,7 @@ const BUDGET_SHARE = { breakfast: 0.15, lunch: 0.25, dinner: 0.45, snack: 0.15 }
 export function planWeek(deals, prefs, { days, filters = [], budget = null, overrides = {}, avoid = [] } = {}) {
   const diet = [...new Set([...(prefs.diet || []), ...FILTERS.filter((f) => f.diet && filters.includes(f.id)).map((f) => f.diet)])]
   const tests = FILTERS.filter((f) => f.test && filters.includes(f.id)).map((f) => f.test)
+  const boosts = FILTERS.filter((f) => f.boost && filters.includes(f.id)).map((f) => f.boost)
   const enabled = MEALS.filter((m) => (prefs.meals || ['breakfast', 'lunch', 'dinner', 'snack']).includes(m.id)).map((m) => m.id)
   const servings = prefs.householdSize || 2
   const priced = new Map()
@@ -314,7 +319,7 @@ export function planWeek(deals, prefs, { days, filters = [], budget = null, over
         const filled = fillTemplate(template, { deals, diet, servings, fills: o.template === template.id ? o.fills : undefined, usage: ctx.usage, priced, avoid })
         if (!filled) continue
         if (meal !== 'snack' && !tests.every((t) => t(filled))) continue
-        const s = scoreMeal(filled, ctx)
+        const s = scoreMeal(filled, ctx) + boosts.reduce((sum, b) => sum + b(filled), 0)
         if (s > bestScore) {
           best = filled
           bestScore = s
@@ -387,6 +392,7 @@ export const NUDGES = {
   comfort: { label: 'Comfort food', emoji: '🍲', test: (m) => m.template.vibes.includes('comfort') },
   sweet: { label: 'Sweet', emoji: '🍓', test: (m) => m.template.vibes.includes('sweet') },
   savoury: { label: 'Savoury', emoji: '🧂', test: (m) => m.template.vibes.includes('savoury') },
+  treat: { label: 'Fun / treat', emoji: '🍪', test: (m) => m.template.vibes.includes('treat') },
   protein: {
     label: 'More protein', emoji: '💪',
     test: (m) => isHighProtein(m) || m.lines.some((l) => PROTEIN_SNACKS.includes(l.ing.item)),
@@ -396,10 +402,10 @@ export const NUDGES = {
   cheap: { label: 'Cheaper', emoji: '💸', test: (m, cur) => m.cost < cur.cost },
 }
 export const MEAL_NUDGES = {
-  breakfast: ['healthy', 'protein', 'sweet', 'savoury', 'quick'],
-  lunch: ['light', 'protein', 'veggie', 'quick', 'cheap'],
-  dinner: ['light', 'comfort', 'veggie', 'quick', 'cheap'],
-  snack: ['healthy', 'protein', 'sweet', 'savoury', 'cheap'],
+  breakfast: ['healthy', 'protein', 'treat', 'sweet', 'savoury', 'quick'],
+  lunch: ['light', 'protein', 'treat', 'veggie', 'quick', 'cheap'],
+  dinner: ['light', 'comfort', 'treat', 'veggie', 'quick', 'cheap'],
+  snack: ['healthy', 'treat', 'protein', 'sweet', 'savoury', 'cheap'],
 }
 
 /**

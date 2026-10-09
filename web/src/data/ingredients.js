@@ -4,7 +4,8 @@
 // pkg is how many of `unit` one flyer package holds (default 1); lb is what one package weighs,
 // for flyers that price it per lb or per 100 g (cheese, mushrooms, berries).
 // qty is per serving, in `unit`. `has` lists what the item contains, for diet filtering:
-// meat, fish, dairy, egg, gluten. `match`/`exclude` are flyer words (see planner.matchDeal).
+// meat, fish, dairy, egg, gluten. `match`/`exclude` are flyer words (see planner.matchDeal);
+// `allow` lifts words the planner normally rejects everywhere ("chips", "flavour").
 const x = (item, unit, qty, aisle, match, opts = {}) => ({ item, unit, qty, aisle, match, has: [], ...opts })
 
 const MEAT = ['meat']
@@ -116,6 +117,12 @@ export const CATALOG = {
     x('deli turkey or ham', 'pack', 0.2, 'Meat & Seafood', ['sliced turkey', 'deli turkey', 'sliced ham', 'deli ham', 'shaved ham', 'shaved turkey'], { lb: 0.4, as: 'turkey & ham', has: MEAT }),
     x('canned tuna', 'can', 0.5, 'Pantry', ['tuna'], { as: 'tuna', has: FISH, exclude: ['steak', 'fillet', 'sushi'] }),
     x('rotisserie chicken', 'each', 0.2, 'Meat & Seafood', ['rotisserie', 'roast chicken', 'bbq chicken'], { lb: 2.5, as: 'chicken', has: MEAT, pkg: 1 }),
+  ],
+  treats: [
+    x('cookies', 'pack', 0.15, 'Snacks', ['cookie', 'biscuit', 'oreo', 'chips ahoy', 'peek freans', "dad's"], { has: GLUTEN, allow: ['chips'], exclude: ['dog', 'cat', 'dough', 'ice cream', 'cereal'] }),
+    x('ice cream', 'tub', 0.12, 'Frozen', ['ice cream', 'gelato', 'frozen dessert', 'crème glacée'], { has: DAIRY, allow: ['flavour', 'flavor', 'flavoured', 'flavored'], exclude: ['cone', 'sandwich', 'bar', 'cake', 'cookie'] }),
+    x('chocolate', 'bag', 0.15, 'Snacks', ['chocolate chips', 'chocolate bar', 'chocolate', 'chipits'], { allow: ['chips'], exclude: ['milk', 'cookie', 'cereal', 'ice cream', 'almond', 'syrup', 'drink', 'beverage', 'cake', 'protein'] }),
+    x('chips', 'bag', 0.2, 'Snacks', ['potato chips', 'tortilla chips', 'chips', 'croustilles', 'doritos', 'tostitos', 'lays', "lay's", 'ruffles'], { allow: ['chips', 'flavour', 'flavor', 'flavoured', 'flavored'], exclude: ['chocolate chips', 'chipits', 'cookie', 'fish', 'chips ahoy'] }),
   ],
   cannedTomato: [x('canned tomatoes', 'can', 0.25, 'Pantry', ['canned tomato', 'diced tomato', 'crushed tomato', 'whole tomatoes', 'tomato sauce', 'pasta sauce'], { exclude: ['soup', 'ketchup', 'juice'] })],
 }

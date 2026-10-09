@@ -11,7 +11,7 @@
 //   name:  "{slot}" is the filled item; "[ with {veg2}]" shows only when every slot inside is filled.
 //   slot:  { key, from: [catalog groups], only?, exclude?, prefer?, qty?: multiplier, main?, optional? }
 //   steps: short method lines, which may use the same {slot} placeholders.
-//   tags:  quick | kid-approved | big-batch    vibes: healthy | light | comfort | sweet | savoury
+//   tags:  quick | kid-approved | big-batch    vibes: healthy | light | comfort | sweet | savoury | treat
 import RECIPES from './recipes.json'
 
 export function cap(s) {

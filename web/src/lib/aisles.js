@@ -6,6 +6,7 @@ export const AISLES = [
   'Bakery',
   'Frozen',
   'Pantry',
+  'Snacks',
   'Plant Protein',
   'Other',
 ]

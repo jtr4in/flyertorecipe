@@ -15,4 +15,6 @@ STAPLE_QUERIES = [
     "peanut butter",
     # Bakery / frozen / plant protein
     "bread", "tortillas", "frozen vegetables", "tofu",
+    # Treats
+    "cookies", "ice cream", "chocolate", "chips",
 ]
