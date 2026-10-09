@@ -1,6 +1,6 @@
 // Every flyer ad on the list in one scroll, to hand the cashier when price matching.
 import { createPortal } from 'react-dom'
-import { dealName, shortDay } from '../lib/stores'
+import { dealName, flyerUrl, shortDay } from '../lib/stores'
 
 export default function FlyerGallery({ open, flyers, store, onClose }) {
   if (!open) return null
@@ -29,6 +29,9 @@ export default function FlyerGallery({ open, flyers, store, onClose }) {
                   <span className="block text-base font-bold">{deal.merchant}</span>
                   <span className="block truncate text-sm text-stone-600">{dealName(deal.name)}</span>
                   {deal.validTo && <span className="block text-xs text-stone-400">Valid until {shortDay(deal.validTo)}</span>}
+                  <a href={flyerUrl(deal.merchant)} target="_blank" rel="noreferrer" className="text-xs font-medium text-green-700 underline">
+                    Full flyer ↗
+                  </a>
                 </span>
                 <span className="shrink-0 text-right">
                   <span className="block text-2xl font-bold text-green-700">{deal.priceLabel || deal.priceText}</span>

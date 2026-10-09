@@ -30,3 +30,31 @@ export function dealName(name) {
   if (parts.length < 2) return name
   return parts.find((p) => !FRENCH.test(p)) || parts[parts.length - 1]
 }
+
+// Each store's own weekly-flyer page, to check a price against the full flyer.
+// Stores not listed fall back to a web search for their current flyer.
+const FLYER_PAGES = {
+  metro: 'https://www.metro.ca/en/flyer',
+  'food basics': 'https://www.foodbasics.ca/flyer',
+  'super c': 'https://www.superc.ca/en/flyer',
+  walmart: 'https://www.walmart.ca/en/flyer',
+  iga: 'https://www.iga.net/en/flyer',
+  sobeys: 'https://www.sobeys.com/en/flyer/',
+  freshco: 'https://freshco.com/flyer/',
+  'no frills': 'https://www.nofrills.ca/print-flyer',
+  'real canadian superstore': 'https://www.realcanadiansuperstore.ca/print-flyer',
+  loblaws: 'https://www.loblaws.ca/print-flyer',
+  provigo: 'https://www.provigo.ca/print-flyer',
+  maxi: 'https://www.maxi.ca/print-flyer',
+  'your independent grocer': 'https://www.yourindependentgrocer.ca/print-flyer',
+  'wholesale club': 'https://www.wholesaleclub.ca/print-flyer',
+  'shoppers drug mart': 'https://www.shoppersdrugmart.ca/flyer',
+  pharmaprix: 'https://www.pharmaprix.ca/flyer',
+  'farm boy': 'https://www.farmboy.ca/weekly-flyer-specials/',
+  'giant tiger': 'https://www.gianttiger.com/pages/flyer',
+}
+export function flyerUrl(merchant) {
+  const m = (merchant || '').toLowerCase()
+  const key = Object.keys(FLYER_PAGES).find((k) => m.startsWith(k))
+  return key ? FLYER_PAGES[key] : `https://www.google.com/search?q=${encodeURIComponent(`${merchant} weekly flyer`)}`
+}

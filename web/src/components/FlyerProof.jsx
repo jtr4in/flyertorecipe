@@ -1,5 +1,6 @@
 // Full-screen flyer view to show a cashier when price matching.
 import { createPortal } from 'react-dom'
+import { flyerUrl } from '../lib/stores'
 
 // Date-only strings parse as UTC midnight, which shows as the previous day in Canada.
 const fmtDate = (d) =>
@@ -41,6 +42,9 @@ export default function FlyerProof({ deal, onClose }) {
             {to && <>to {to}</>}
           </p>
         )}
+        <a href={flyerUrl(deal.merchant)} target="_blank" rel="noreferrer" className="mt-5 rounded-xl border border-stone-300 px-4 py-2 text-sm font-medium text-green-700">
+          See {deal.merchant}'s full flyer ↗
+        </a>
       </div>
     </div>,
     document.body,

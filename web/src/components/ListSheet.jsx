@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Sheet from './Sheet'
 import FlyerPeek from './FlyerPeek'
 import FlyerGallery from './FlyerGallery'
-import { mapsUrl, money, storeTint } from '../lib/stores'
+import { flyerUrl, mapsUrl, money, storeTint } from '../lib/stores'
 
 /** Collapsed bar pinned to the bottom of the page. */
 export function ListBar({ list, onOpen }) {
@@ -109,7 +109,20 @@ export default function ListSheet({ open, onClose, list, mode, setMode, stores, 
             View all flyers
           </button>
         </div>
-      ) : (
+      ) : null}
+      {mode === 'match' && list.matchStores.length > 0 && (
+        <div className="-mt-2 mb-4">
+          <p className="mb-1.5 text-[11px] text-stone-500">Check against each store's full flyer:</p>
+          <div className="flex flex-wrap gap-1.5">
+            {list.matchStores.map((s) => (
+              <a key={s} href={flyerUrl(s)} target="_blank" rel="noreferrer" className={`rounded-full px-2.5 py-1 text-xs font-medium ${storeTint(s)}`}>
+                {s} ↗
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+      {mode === 'single' && (
         <div className="mb-4 rounded-2xl bg-stone-100 p-3">
           <label className="flex items-center gap-2 text-sm">
             <span className="font-medium">Store</span>
@@ -129,9 +142,15 @@ export default function ListSheet({ open, onClose, list, mode, setMode, stores, 
           <p className="mt-1.5 text-xs text-stone-500">
             {list.onSale} of {list.itemCount} items on sale here; the rest at regular price.{' '}
             {list.store && (
-              <a className="text-green-700 underline" href={mapsUrl(list.store, postalCode)} target="_blank" rel="noreferrer">
-                Directions
-              </a>
+              <>
+                <a className="text-green-700 underline" href={flyerUrl(list.store)} target="_blank" rel="noreferrer">
+                  Full flyer
+                </a>{' '}
+                ·{' '}
+                <a className="text-green-700 underline" href={mapsUrl(list.store, postalCode)} target="_blank" rel="noreferrer">
+                  Directions
+                </a>
+              </>
             )}
           </p>
         </div>
