@@ -21,6 +21,8 @@ import { placeNeeds, wantedItems, withNeeds } from './lib/needs'
 import NeedsSheet from './components/NeedsSheet'
 import PlanBuilder from './components/PlanBuilder'
 import RecipesSheet from './components/RecipesSheet'
+import DinnerPlan from './components/DinnerPlan'
+import { heroDeals, poolMeals, poolPlan, toPick } from './lib/anchors'
 import { withSchedule } from './components/PlanSteps'
 import {
   createHousehold, currentHousehold, householdLink, leaveHousehold, saveHousehold, saveHouseholdWeek, setHouseholdCheck, sharedPrefs, watchHousehold,
@@ -43,6 +45,7 @@ export default function App() {
   const [touring, setTouring] = useState(false)
   const [toast, setToast] = useState(null)
   const [building, setBuilding] = useState(false)
+  const [tab, setTab] = useState('plan')
   const flash = useCallback((msg) => {
     setToast(msg)
     setTimeout(() => setToast((t) => (t === msg ? null : t)), 2500)
@@ -182,9 +185,14 @@ export default function App() {
     [allDeals, prefs?.matchAt, prefs?.matchExtras],
   )
   const want = useMemo(() => wantedItems(week.needs), [week.needs])
+  const byDinners = prefs?.planBy !== 'week'
+  // Plan by dinners: this week's protein deals and the household's pool of picked dinners.
+  const heroes = useMemo(() => (prefs && byDinners ? heroDeals(deals, prefs) : []), [prefs, byDinners, deals, recipesVersion])
+  const pool = useMemo(() => (prefs && byDinners ? poolMeals(week.dinners || [], deals, prefs) : []), [prefs, byDinners, week.dinners, deals, recipesVersion])
   const plan = useMemo(
-    () => (prefs ? planWeek(deals, prefs, { days, filters, overrides: week.overrides, avoid: week.avoid, want }) : []),
-    [prefs, deals, days, filters, week.overrides, week.avoid, want, recipesVersion],
+    () =>
+      !prefs ? [] : byDinners ? poolPlan(pool) : planWeek(deals, prefs, { days, filters, overrides: week.overrides, avoid: week.avoid, want }),
+    [prefs, byDinners, pool, deals, days, filters, week.overrides, week.avoid, want, recipesVersion],
   )
   const baseList = useMemo(
     () => (prefs ? withExtras(buildShoppingList(plan, listMode === 'single' ? allDeals : deals, prefs, { mode: listMode }), week.extras) : null),
@@ -231,11 +239,14 @@ export default function App() {
       const old = uses[0].line.ing.item
       const avoid = fromList ? [...new Set([...(w.avoid || []), old])].filter((x) => x !== item) : w.avoid || []
       const overrides = { ...w.overrides }
+      const dinners = [...(w.dinners || [])]
       for (const { meal, line } of uses) {
-        const fills = Object.fromEntries(meal.lines.map((l) => [l.slot, l.ing.item]))
-        overrides[meal.key] = { ...overrides[meal.key], template: meal.template.id, fills: { ...fills, [line.slot]: item } }
+        const fills = { ...Object.fromEntries(meal.lines.map((l) => [l.slot, l.ing.item])), [line.slot]: item }
+        // A dinner from the pool keeps its swap in the pool; a day's meal in the overrides.
+        if (meal.pick != null && dinners[meal.pick]) dinners[meal.pick] = { ...dinners[meal.pick], fills }
+        else overrides[meal.key] = { ...overrides[meal.key], template: meal.template.id, fills }
       }
-      return { ...w, overrides, avoid }
+      return { ...w, overrides, avoid, dinners }
     })
   const pickIdea = (meal, idea, alsoKeys = []) =>
     editWeek((w) => {
@@ -270,6 +281,36 @@ export default function App() {
   const dayMeals = day ? Object.values(day.meals).filter((m) => m.lines) : []
   const dayLines = dayMeals.flatMap((m) => m.lines)
   const dayCost = dayMeals.reduce((a, m) => a + m.cost * (m.batches || 1), 0)
+
+  const listView = (
+    <ListSheet
+      inline={tab === 'shop'}
+      open={tab === 'shop' || sheet === 'list'}
+      onClose={() => setSheet(null)}
+      list={list}
+      mode={listMode}
+      setMode={setListMode}
+      stores={listStores}
+      onStore={(homeStore) => updatePrefs({ ...prefs, homeStore })}
+      matchAt={prefs.matchAt || ''}
+      matchExtras={prefs.matchExtras || []}
+      onMatch={(matchAt, matchExtras) => updatePrefs({ ...prefs, matchAt, matchExtras })}
+      checked={week.checked}
+      onCheck={toggleCheck}
+      onShareLink={firebaseEnabled ? shareLink : null}
+      shared={!!hid}
+      postalCode={prefs.postalCode}
+      onProof={setProof}
+      onSwap={(item) => setSwapping(item.uses)}
+      onRemoveExtra={(item) =>
+        editWeek((w) =>
+          item.need
+            ? { ...w, needs: (w.needs || []).filter((n) => `need:${n}` !== item.key) }
+            : { ...w, extras: (w.extras || []).filter((x) => `extra:${x.deal.dealId}` !== item.key) },
+        )
+      }
+    />
+  )
 
   return (
     <div className="mx-auto min-h-dvh max-w-md px-4 pb-32">
@@ -310,190 +351,238 @@ export default function App() {
       )}
       {error && <p className="mb-3 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
 
-      <button
-        data-tour="plan"
-        onClick={() => setSheet('needs')}
-        className="flex w-full items-center gap-3 rounded-2xl border border-stone-200 bg-white px-4 py-3 text-left shadow-sm"
-      >
-        <span className="text-xl" aria-hidden>
-          📝
-        </span>
-        <span className="min-w-0 flex-1">
-          {(week.needs || []).length ? (
-            <>
-              <span className="block text-sm font-semibold">We need: {week.needs.join(', ')}</span>
-              <span className="block text-xs text-stone-500">Meals use these where they can. Tap to change.</span>
-            </>
+      <div className="mb-4 grid grid-cols-2 gap-1 rounded-2xl bg-stone-200/70 p-1 text-sm font-semibold" role="tablist" data-tour="tabs">
+        {[['plan', '🍽️ Plan'], ['shop', `🛒 Shop · ${list.itemCount}`]].map(([id, label]) => (
+          <button
+            key={id}
+            role="tab"
+            aria-selected={tab === id}
+            onClick={() => setTab(id)}
+            className={`rounded-xl py-2 ${tab === id ? 'bg-white text-green-800 shadow-sm' : 'text-stone-600'}`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {tab === 'shop' ? (
+        <>
+          <button
+            data-tour="plan"
+            onClick={() => setSheet('needs')}
+            className="flex w-full items-center gap-3 rounded-2xl border border-stone-200 bg-white px-4 py-3 text-left shadow-sm"
+          >
+            <span className="text-xl" aria-hidden>
+              📝
+            </span>
+            <span className="min-w-0 flex-1">
+              {(week.needs || []).length ? (
+                <>
+                  <span className="block text-sm font-semibold">We need: {week.needs.join(', ')}</span>
+                  <span className="block text-xs text-stone-500">{byDinners ? 'On your list below. Tap to change.' : 'Meals use these where they can. Tap to change.'}</span>
+                </>
+              ) : (
+                <>
+                  <span className="block text-sm font-semibold">Add what you need</span>
+                  <span className="block text-xs text-stone-500">{byDinners ? 'e.g. salami, cheese, cereal' : "e.g. salami, cheese, cereal. We'll plan meals around them."}</span>
+                </>
+              )}
+            </span>
+            <span className="text-stone-400">›</span>
+          </button>
+          {!loading && (otherDeals.length > 0 || watchOnSale.length > 0) && (
+            <button
+              data-tour="deals"
+              onClick={() => setSheet('deals')}
+              className="mt-4 flex w-full items-center gap-3 rounded-2xl border border-stone-200 bg-white p-4 text-left shadow-sm"
+            >
+              <span className="text-2xl" aria-hidden>
+                🏷️
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-semibold">Other deals this week</span>
+                <span className="block truncate text-xs text-stone-500">
+                  {watchOnSale.length > 0
+                    ? `On sale from your list: ${watchOnSale.map((w) => w.term).join(', ')}`
+                    : `${otherDeals.length} on frozen meals, paper towels, coffee, personal care…`}
+                </span>
+              </span>
+              {(week.extras || []).length > 0 && (
+                <span className="shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-[11px] font-semibold text-green-800">{week.extras.length} added</span>
+              )}
+              <span className="text-stone-400">›</span>
+            </button>
+          )}
+          <div className="mt-4">{listView}</div>
+        </>
+      ) : prefs.planBy === 'week' ? (
+        <>
+          <button
+            data-tour="plan"
+            onClick={() => setSheet('needs')}
+            className="flex w-full items-center gap-3 rounded-2xl border border-stone-200 bg-white px-4 py-3 text-left shadow-sm"
+          >
+            <span className="text-xl" aria-hidden>
+              📝
+            </span>
+            <span className="min-w-0 flex-1">
+              {(week.needs || []).length ? (
+                <>
+                  <span className="block text-sm font-semibold">We need: {week.needs.join(', ')}</span>
+                  <span className="block text-xs text-stone-500">Meals use these where they can. Tap to change.</span>
+                </>
+              ) : (
+                <>
+                  <span className="block text-sm font-semibold">Add what you need</span>
+                  <span className="block text-xs text-stone-500">e.g. salami, cheese, cereal. We'll plan meals around them.</span>
+                </>
+              )}
+            </span>
+            <span className="text-stone-400">›</span>
+          </button>
+
+          <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]" data-tour="filters">
+            {FILTERS.map((f) => {
+              const on = filters.includes(f.id)
+              return (
+                <button
+                  key={f.id}
+                  onClick={() => toggleChip(f.id)}
+                  aria-pressed={on}
+                  className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium ${
+                    on ? 'border-green-700 bg-green-700 text-white' : 'border-stone-200 bg-white text-stone-700'
+                  }`}
+                >
+                  {f.emoji} {f.label}
+                </button>
+              )
+            })}
+          </div>
+
+          <div className="mt-5 mb-2 flex items-baseline justify-between">
+            <h2 className="text-lg font-semibold">
+              Your week{' '}
+              <button data-tour="print" onClick={() => setPrinting(true)} className="ml-1 align-middle text-xs font-medium text-green-700">
+                🖨 Print for the fridge
+              </button>
+            </h2>
+            {(Object.keys(week.overrides).length > 0 || week.avoid?.length > 0) && (
+              <button onClick={resetWeek} className="text-xs font-medium text-stone-500">
+                Reset changes
+              </button>
+            )}
+          </div>
+          {loading ? (
+            <p className="text-stone-500">Loading deals…</p>
           ) : (
             <>
-              <span className="block text-sm font-semibold">Add what you need</span>
-              <span className="block text-xs text-stone-500">e.g. salami, cheese, cereal. We'll plan meals around them.</span>
+              <div className="mb-3 grid grid-cols-2 gap-2">
+                <button
+                  data-tour="build"
+                  onClick={() => setBuilding(true)}
+                  className="rounded-2xl border border-stone-200 bg-white px-3 py-2.5 text-left text-sm font-semibold shadow-sm"
+                >
+                  🧩 Build my week
+                  <span className="block text-xs font-normal text-stone-500">Pick days, meats, carbs, veg</span>
+                </button>
+                <button
+                  data-tour="recipes"
+                  onClick={() => setSheet('recipes')}
+                  className="rounded-2xl border border-stone-200 bg-white px-3 py-2.5 text-left text-sm font-semibold shadow-sm"
+                >
+                  📖 Browse recipes
+                  <span className="block text-xs font-normal text-stone-500">Add dishes to any day</span>
+                </button>
+              </div>
+              <WeekStrip plan={plan} selected={day?.key} onPick={setSelected} />
+              {day && (
+                <section className="mt-4" aria-label={day.date.toLocaleDateString('en-CA', { weekday: 'long' })}>
+                  <div className="mb-3 flex items-baseline justify-between">
+                    <h3 className="text-base font-semibold">
+                      {day.short === 'Today' ? 'Today' : day.date.toLocaleDateString('en-CA', { weekday: 'long' })}
+                      <span className="ml-1.5 text-sm font-normal text-stone-500">
+                        {day.date.toLocaleDateString('en-CA', { month: 'short', day: 'numeric' })}
+                      </span>
+                    </h3>
+                    {dayLines.length > 0 && (
+                      <p className="text-xs text-stone-500">
+                        {money(dayCost)} ·{' '}
+                        <span className="text-green-700">
+                          {dayLines.filter((l) => l.onSale).length}/{dayLines.length} from flyers
+                        </span>
+                      </p>
+                    )}
+                  </div>
+                  <div className="space-y-3">
+                    {!Object.values(day.meals).some((m) => !m.off) && (
+                      <p className="rounded-2xl border border-dashed border-stone-300 px-4 py-3 text-sm text-stone-500">
+                        No meals on your schedule this day.{' '}
+                        <button onClick={() => setSheet('recipes')} className="font-medium text-green-700">
+                          Browse recipes
+                        </button>{' '}
+                        to add one.
+                      </p>
+                    )}
+                    {MEALS.filter((m) => day.meals[m.id] && !day.meals[m.id].off).map((m) => {
+                      const entry = day.meals[m.id]
+                      const key = `${day.key}|${m.id}`
+                      return (
+                        <MealCard
+                          key={key}
+                          label={m.label}
+                          emoji={m.emoji}
+                          entry={entry}
+                          onSwapLine={(line) => {
+                            setSwapAll(true)
+                            setSwapping([{ meal: entry, line }])
+                          }}
+                          onAnother={() => setIdeaFor({ entry, label: m.label })}
+                          onSkip={() => override(key, (o) => ({ ...o, skip: true }))}
+                          onRestore={() => override(key, (o) => ({ ...o, skip: false, on: true }))}
+                          onCook={() => override(key, (o) => ({ ...o, cook: true }))}
+                          onProof={setProof}
+                        />
+                      )
+                    })}
+                  </div>
+                </section>
+              )}
             </>
           )}
-        </span>
-        <span className="text-stone-400">›</span>
-      </button>
-
-      <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]" data-tour="filters">
-        {FILTERS.map((f) => {
-          const on = filters.includes(f.id)
-          return (
-            <button
-              key={f.id}
-              onClick={() => toggleChip(f.id)}
-              aria-pressed={on}
-              className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium ${
-                on ? 'border-green-700 bg-green-700 text-white' : 'border-stone-200 bg-white text-stone-700'
-              }`}
-            >
-              {f.emoji} {f.label}
-            </button>
-          )
-        })}
-      </div>
-
-      <div className="mt-5 mb-2 flex items-baseline justify-between">
-        <h2 className="text-lg font-semibold">
-          Your week{' '}
-          <button data-tour="print" onClick={() => setPrinting(true)} className="ml-1 align-middle text-xs font-medium text-green-700">
-            🖨 Print for the fridge
+          <button onClick={() => updatePrefs({ ...prefs, planBy: 'dinners' })} className="mt-6 block w-full text-center text-sm font-medium text-green-700">
+            Just pick a few dinners instead
           </button>
-        </h2>
-        {(Object.keys(week.overrides).length > 0 || week.avoid?.length > 0) && (
-          <button onClick={resetWeek} className="text-xs font-medium text-stone-500">
-            Reset changes
-          </button>
-        )}
-      </div>
-      {loading ? (
+        </>
+      ) : loading ? (
         <p className="text-stone-500">Loading deals…</p>
       ) : (
         <>
-          <div className="mb-3 grid grid-cols-2 gap-2">
-            <button
-              data-tour="build"
-              onClick={() => setBuilding(true)}
-              className="rounded-2xl border border-stone-200 bg-white px-3 py-2.5 text-left text-sm font-semibold shadow-sm"
-            >
-              🧩 Build my week
-              <span className="block text-xs font-normal text-stone-500">Pick days, meats, carbs, veg</span>
-            </button>
-            <button
-              data-tour="recipes"
-              onClick={() => setSheet('recipes')}
-              className="rounded-2xl border border-stone-200 bg-white px-3 py-2.5 text-left text-sm font-semibold shadow-sm"
-            >
-              📖 Browse recipes
-              <span className="block text-xs font-normal text-stone-500">Add dishes to any day</span>
-            </button>
-          </div>
-          <WeekStrip plan={plan} selected={day?.key} onPick={setSelected} />
-          {day && (
-            <section className="mt-4" aria-label={day.date.toLocaleDateString('en-CA', { weekday: 'long' })}>
-              <div className="mb-3 flex items-baseline justify-between">
-                <h3 className="text-base font-semibold">
-                  {day.short === 'Today' ? 'Today' : day.date.toLocaleDateString('en-CA', { weekday: 'long' })}
-                  <span className="ml-1.5 text-sm font-normal text-stone-500">
-                    {day.date.toLocaleDateString('en-CA', { month: 'short', day: 'numeric' })}
-                  </span>
-                </h3>
-                {dayLines.length > 0 && (
-                  <p className="text-xs text-stone-500">
-                    {money(dayCost)} ·{' '}
-                    <span className="text-green-700">
-                      {dayLines.filter((l) => l.onSale).length}/{dayLines.length} from flyers
-                    </span>
-                  </p>
-                )}
-              </div>
-              <div className="space-y-3">
-                {!Object.values(day.meals).some((m) => !m.off) && (
-                  <p className="rounded-2xl border border-dashed border-stone-300 px-4 py-3 text-sm text-stone-500">
-                    No meals on your schedule this day.{' '}
-                    <button onClick={() => setSheet('recipes')} className="font-medium text-green-700">
-                      Browse recipes
-                    </button>{' '}
-                    to add one.
-                  </p>
-                )}
-                {MEALS.filter((m) => day.meals[m.id] && !day.meals[m.id].off).map((m) => {
-                  const entry = day.meals[m.id]
-                  const key = `${day.key}|${m.id}`
-                  return (
-                    <MealCard
-                      key={key}
-                      label={m.label}
-                      emoji={m.emoji}
-                      entry={entry}
-                      onSwapLine={(line) => {
-                        setSwapAll(true)
-                        setSwapping([{ meal: entry, line }])
-                      }}
-                      onAnother={() => setIdeaFor({ entry, label: m.label })}
-                      onSkip={() => override(key, (o) => ({ ...o, skip: true }))}
-                      onRestore={() => override(key, (o) => ({ ...o, skip: false, on: true }))}
-                      onCook={() => override(key, (o) => ({ ...o, cook: true }))}
-                      onProof={setProof}
-                    />
-                  )
-                })}
-              </div>
-            </section>
-          )}
+          <DinnerPlan
+            heroes={heroes}
+            deals={deals}
+            prefs={prefs}
+            anchors={week.anchors || []}
+            pool={pool}
+            itemCount={list.itemCount}
+            onAnchors={(anchors) => editWeek((w) => ({ ...w, anchors }))}
+            onAdd={(m) => editWeek((w) => ({ ...w, dinners: [...(w.dinners || []), toPick(m)] }))}
+            onRemove={(i) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).filter((_, j) => j !== i) }))}
+            onReplace={(i, m) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).map((p, j) => (j === i ? { ...toPick(m), leftovers: p.leftovers } : p)) }))}
+            onLeftovers={(i, on) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).map((p, j) => (j === i ? { ...p, leftovers: on } : p)) }))}
+            onShop={() => {
+              setTab('shop')
+              window.scrollTo(0, 0)
+            }}
+          />
+          <button onClick={() => updatePrefs({ ...prefs, planBy: 'week' })} className="mt-6 block w-full text-center text-sm font-medium text-green-700">
+            Plan every meal by day instead
+          </button>
         </>
       )}
 
-      {!loading && (otherDeals.length > 0 || watchOnSale.length > 0) && (
-        <button
-          data-tour="deals"
-          onClick={() => setSheet('deals')}
-          className="mt-4 flex w-full items-center gap-3 rounded-2xl border border-stone-200 bg-white p-4 text-left shadow-sm"
-        >
-          <span className="text-2xl" aria-hidden>
-            🏷️
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block text-sm font-semibold">Other deals this week</span>
-            <span className="block truncate text-xs text-stone-500">
-              {watchOnSale.length > 0
-                ? `On sale from your list: ${watchOnSale.map((w) => w.term).join(', ')}`
-                : `${otherDeals.length} on frozen meals, paper towels, coffee, personal care…`}
-            </span>
-          </span>
-          {(week.extras || []).length > 0 && (
-            <span className="shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-[11px] font-semibold text-green-800">{week.extras.length} added</span>
-          )}
-          <span className="text-stone-400">›</span>
-        </button>
-      )}
+      {tab === 'plan' && prefs.planBy === 'week' && <ListBar list={list} onOpen={() => setSheet('list')} />}
+      {tab !== 'shop' && listView}
 
-      <ListBar list={list} onOpen={() => setSheet('list')} />
-      <ListSheet
-        open={sheet === 'list'}
-        onClose={() => setSheet(null)}
-        list={list}
-        mode={listMode}
-        setMode={setListMode}
-        stores={listStores}
-        onStore={(homeStore) => updatePrefs({ ...prefs, homeStore })}
-        matchAt={prefs.matchAt || ''}
-        matchExtras={prefs.matchExtras || []}
-        onMatch={(matchAt, matchExtras) => updatePrefs({ ...prefs, matchAt, matchExtras })}
-        checked={week.checked}
-        onCheck={toggleCheck}
-        onShareLink={firebaseEnabled ? shareLink : null}
-        shared={!!hid}
-        postalCode={prefs.postalCode}
-        onProof={setProof}
-        onSwap={(item) => setSwapping(item.uses)}
-        onRemoveExtra={(item) =>
-          editWeek((w) =>
-            item.need
-              ? { ...w, needs: (w.needs || []).filter((n) => `need:${n}` !== item.key) }
-              : { ...w, extras: (w.extras || []).filter((x) => `extra:${x.deal.dealId}` !== item.key) },
-          )
-        }
-      />
       <NeedsSheet
         open={sheet === 'needs'}
         onClose={() => setSheet(null)}

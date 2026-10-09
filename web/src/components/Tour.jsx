@@ -10,6 +10,21 @@ export const TOUR_STEPS = [
     body: 'Your area, the stores you shop at, and how many people you feed. Tap here any time to change them.',
   },
   {
+    target: 'tabs',
+    title: 'Plan at home, then shop',
+    body: 'Plan is where you pick dinners. Shop is just the grocery checklist, sorted by aisle, for when you\'re in the store.',
+  },
+  {
+    target: 'heroes',
+    title: 'Start with the protein',
+    body: 'These are the week\'s best meat and protein deals. Tap one or two, and we\'ll suggest dinners built around them from everything else on sale.',
+  },
+  {
+    target: 'pool',
+    title: 'Your 3–4 dinners',
+    body: 'No days to stick to. Cook them in any order, swap one for another dish, or make extra for lunch. Then tap Generate my list.',
+  },
+  {
     target: 'plan',
     title: 'What do you need?',
     body: 'Add things you need this week, like "salami, cheese, cereal". Meals get planned around them, and the rest go straight on the grocery list.',

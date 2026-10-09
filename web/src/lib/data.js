@@ -6,6 +6,7 @@ import { sampleDeals } from '../data/sampleDeals'
 export const DEFAULT_PREFS = {
   postalCode: '',
   schedule: null, // { [weekday 0-6]: ['breakfast', 'dinner'] } from Build my week; null = every meal daily
+  planBy: 'dinners', // 'dinners' (pick 3–4, no days) or 'week' (every meal, day by day)
   likes: {}, // { protein: ['chicken'], carb: ['rice'], veg: ['broccoli'] }
   householdSize: 2,
   diet: [],
@@ -107,7 +108,7 @@ export async function loadDeals(postalCode) {
 // Device-local on purpose:
 // it's scratch state for this week, and resets after 7 days.
 const WEEK_KEY = 'f2r.week'
-export const EMPTY_WEEK = { overrides: {}, avoid: [], checked: {}, extras: [], needs: [] }
+export const EMPTY_WEEK = { overrides: {}, avoid: [], checked: {}, extras: [], needs: [], anchors: [], dinners: [] }
 
 export function loadWeek(todayKey) {
   try {

@@ -27,7 +27,7 @@ export function activeDeals(deals, { stores = [], today = new Date() } = {}) {
 }
 
 // Put per-weight prices on one scale so $2.59/100 g doesn't beat $4.99/lb.
-const PER_LB = { '/lb': 1, '/kg': 1 / 2.2046, '/100 g': 4.536 }
+export const PER_LB = { '/lb': 1, '/kg': 1 / 2.2046, '/100 g': 4.536 }
 const comparable = (d) => d.price * (PER_LB[d.unit] ?? 1)
 
 // Flyer listings often bundle products: "SEEDLESS ORANGES, MINI WHITE OR YELLOW POTATOES".

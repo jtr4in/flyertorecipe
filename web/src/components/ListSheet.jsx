@@ -37,7 +37,17 @@ const TABS = [
   ['single', 'One Store'],
 ]
 
-export default function ListSheet({ open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof, onSwap, onRemoveExtra, onShareLink, shared, matchAt, matchExtras, onMatch }) {
+// Shop mode: the same list as a page of its own, with the totals and Share pinned at the bottom.
+function InlinePanel({ title, footer, children }) {
+  return (
+    <section aria-label={title}>
+      {children}
+      <div className="sticky bottom-0 z-10 -mx-4 mt-4 border-t border-stone-200 bg-white/95 px-4 py-3 backdrop-blur">{footer}</div>
+    </section>
+  )
+}
+
+export default function ListSheet({ inline = false, open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof, onSwap, onRemoveExtra, onShareLink, shared, matchAt, matchExtras, onMatch }) {
   const [gallery, setGallery] = useState(false)
   if (!list) return null
   const items = list.groups.flatMap((g) => g.items)
@@ -69,8 +79,9 @@ export default function ListSheet({ open, onClose, list, mode, setMode, stores, 
     }
   }
 
+  const Panel = inline ? InlinePanel : Sheet
   return (
-    <Sheet
+    <Panel
       open={open}
       onClose={onClose}
       title="Grocery list"
@@ -227,7 +238,7 @@ export default function ListSheet({ open, onClose, list, mode, setMode, stores, 
                       <span className="block truncate text-sm font-medium">
                         {i.item} <span className="font-normal text-stone-500">· {i.buy}</span>
                       </span>
-                      <span className="block truncate text-[11px] text-stone-400">{i.meals.join(', ')}</span>
+                      {(!inline || i.extra || i.need) && <span className="block truncate text-[11px] text-stone-400">{i.meals.join(', ')}</span>}
                     </span>
                     <span className="shrink-0 text-right">
                       {i.deal ? (
@@ -252,7 +263,7 @@ export default function ListSheet({ open, onClose, list, mode, setMode, stores, 
                     >
                       ✕
                     </button>
-                  ) : (
+                  ) : inline ? null : (
                     <button
                       onClick={() => onSwap(i)}
                       aria-label={`Swap ${i.item}`}
@@ -288,7 +299,7 @@ export default function ListSheet({ open, onClose, list, mode, setMode, stores, 
                           />
                           <span className={`min-w-0 flex-1 ${checked[k] ? 'text-stone-400 line-through' : ''}`}>
                             <span className="block text-sm font-medium">{p.item}</span>
-                            <span className="block truncate text-[11px] text-stone-500">{p.meals.join(', ')}</span>
+                            {!inline && <span className="block truncate text-[11px] text-stone-500">{p.meals.join(', ')}</span>}
                           </span>
                         </li>
                       )
@@ -306,6 +317,6 @@ export default function ListSheet({ open, onClose, list, mode, setMode, stores, 
         )}
       </div>
       <FlyerGallery open={gallery} flyers={list.flyers} stores={list.matchStores} store={list.store} onClose={() => setGallery(false)} />
-    </Sheet>
+    </Panel>
   )
 }
