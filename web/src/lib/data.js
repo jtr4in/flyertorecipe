@@ -13,6 +13,8 @@ export const DEFAULT_PREFS = {
   homeStore: '',
   onboarded: false, // finished the welcome setup / tour
   watch: [], // things always bought ("toilet paper"): shown whenever on sale
+  matchAt: '', // the store you price match at ('' = any flyer); see lib/priceMatch.js
+  matchExtras: [], // optional flyers that store sometimes accepts (Farm Boy)
 }
 
 const PREFS_KEY = 'f2r.prefs'

@@ -16,6 +16,7 @@ import Welcome from './components/Welcome'
 import Tour from './components/Tour'
 import DealsSheet from './components/DealsSheet'
 import { extraDeals, watchMatches, withExtras } from './lib/extras'
+import { matchableDeals } from './lib/priceMatch'
 import {
   createHousehold, currentHousehold, householdLink, leaveHousehold, saveHousehold, saveHouseholdWeek, setHouseholdCheck, sharedPrefs, watchHousehold,
 } from './lib/household'
@@ -170,18 +171,23 @@ export default function App() {
   const parsed = useMemo(() => parsePlanQuery(query), [query])
   const filters = useMemo(() => [...new Set([...chips, ...parsed.filters])], [chips, parsed])
 
-  const deals = useMemo(() => (prefs ? activeDeals(data.deals, { stores: prefs.stores }) : []), [prefs, data.deals])
+  const allDeals = useMemo(() => (prefs ? activeDeals(data.deals, { stores: prefs.stores }) : []), [prefs, data.deals])
+  // Price matching at one store: plan only from the flyers that store's cashiers accept.
+  const deals = useMemo(
+    () => (prefs?.matchAt ? matchableDeals(allDeals, prefs.matchAt, prefs.matchExtras) : allDeals),
+    [allDeals, prefs?.matchAt, prefs?.matchExtras],
+  )
   const plan = useMemo(
     () => (prefs ? planWeek(deals, prefs, { days, filters, budget: parsed.budget, overrides: week.overrides, avoid: week.avoid }) : []),
     [prefs, deals, days, filters, parsed.budget, week.overrides, week.avoid, recipesVersion],
   )
   const list = useMemo(
-    () => (prefs ? withExtras(buildShoppingList(plan, deals, prefs, { mode: listMode }), week.extras) : null),
-    [plan, deals, prefs, listMode, week.extras],
+    () => (prefs ? withExtras(buildShoppingList(plan, listMode === 'single' ? allDeals : deals, prefs, { mode: listMode }), week.extras) : null),
+    [plan, deals, allDeals, prefs, listMode, week.extras],
   )
-  const otherDeals = useMemo(() => extraDeals(deals), [deals])
-  const watchOnSale = useMemo(() => watchMatches(deals, prefs?.watch || []).filter((w) => w.deals.length), [deals, prefs?.watch])
-  const listStores = useMemo(() => [...new Set(deals.map((d) => d.merchant).filter(Boolean))].sort(), [deals])
+  const otherDeals = useMemo(() => extraDeals(allDeals), [allDeals])
+  const watchOnSale = useMemo(() => watchMatches(allDeals, prefs?.watch || []).filter((w) => w.deals.length), [allDeals, prefs?.watch])
+  const listStores = useMemo(() => [...new Set(allDeals.map((d) => d.merchant).filter(Boolean))].sort(), [allDeals])
 
   const updatePrefs = (next) => {
     setPrefs(next)
@@ -424,6 +430,9 @@ export default function App() {
         setMode={setListMode}
         stores={listStores}
         onStore={(homeStore) => updatePrefs({ ...prefs, homeStore })}
+        matchAt={prefs.matchAt || ''}
+        matchExtras={prefs.matchExtras || []}
+        onMatch={(matchAt, matchExtras) => updatePrefs({ ...prefs, matchAt, matchExtras })}
         checked={week.checked}
         onCheck={toggleCheck}
         onShareLink={firebaseEnabled ? shareLink : null}
@@ -436,7 +445,7 @@ export default function App() {
       <DealsSheet
         open={sheet === 'deals'}
         onClose={() => setSheet(null)}
-        deals={deals}
+        deals={allDeals}
         extras={week.extras || []}
         onToggle={(deal, category) =>
           editWeek((w) => {

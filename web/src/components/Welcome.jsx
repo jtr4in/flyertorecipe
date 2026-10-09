@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom'
 import { DIET_TAGS } from '../lib/aisles'
 import { DEFAULT_PREFS, fsa } from '../lib/data'
 import { MEALS } from '../data/templates'
+import { MATCH_STORES, PRICE_MATCH } from '../lib/priceMatch'
 
 const toggle = (list, v) => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v])
 
@@ -96,6 +97,23 @@ export default function Welcome({ prefs, merchants, needsPostal, onChange, onDon
       ),
     },
     {
+      title: 'Do you price match?',
+      hint: "Pick where you shop and we'll only use the flyers its cashiers accept.",
+      body: (
+        <div className="grid gap-2">
+          {MATCH_STORES.map((s) => (
+            <Choice key={s} on={prefs.matchAt === s} onClick={() => set({ matchAt: s })}>
+              {s}
+              <span className="block text-xs font-normal text-stone-500">{PRICE_MATCH[s].note}</span>
+            </Choice>
+          ))}
+          <Choice on={!prefs.matchAt} onClick={() => set({ matchAt: '' })}>
+            No, I shop around
+          </Choice>
+        </div>
+      ),
+    },
+    !prefs.matchAt && {
       title: 'Where do you shop?',
       hint: "We'll only use these stores' flyers. Leave them all off to use every store nearby.",
       body: merchants.length ? (

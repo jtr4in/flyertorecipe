@@ -1,6 +1,7 @@
 import { DIET_TAGS } from '../lib/aisles'
 import { DEFAULT_PREFS, fsa } from '../lib/data'
 import { MEALS } from '../data/templates'
+import { MATCH_STORES } from '../lib/priceMatch'
 
 const Chip = ({ on, children, ...props }) => (
   <button
@@ -55,6 +56,23 @@ export default function Preferences({ prefs, merchants, onChange }) {
           ))}
         </div>
       </fieldset>
+
+      <label className="block">
+        <span className="text-sm font-medium">Price match at</span>
+        <select
+          className="mt-1 block w-full rounded-lg border border-stone-300 bg-white px-3 py-2"
+          value={prefs.matchAt || ''}
+          onChange={(e) => set({ matchAt: e.target.value })}
+        >
+          <option value="">Don't price match (cheapest flyer anywhere)</option>
+          {MATCH_STORES.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+        <span className="text-xs text-stone-500">Meals and the list use only flyers that store's cashiers accept.</span>
+      </label>
 
       <fieldset>
         <legend className="text-sm font-medium">Stores</legend>
