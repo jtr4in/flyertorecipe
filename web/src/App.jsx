@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { firebaseEnabled } from './lib/firebase'
 import { DEFAULT_PREFS, EMPTY_WEEK, fsa, loadDeals, loadPrefs, loadRecipes, loadWeek, savePrefs, saveWeek } from './lib/data'
-import { activeDeals, buildShoppingList, FILTERS, listSwapOptions, parsePlanQuery, planWeek, swapOptions, weekDays } from './lib/planner'
+import { activeDeals, buildShoppingList, FILTERS, listSwapOptions, planWeek, swapOptions, weekDays } from './lib/planner'
 import { dealName, money, storeTint } from './lib/stores'
 import { cap, MEALS, setRecipes } from './data/templates'
 import Preferences from './components/Preferences'
@@ -16,7 +16,9 @@ import Welcome from './components/Welcome'
 import Tour from './components/Tour'
 import DealsSheet from './components/DealsSheet'
 import { extraDeals, watchMatches, withExtras } from './lib/extras'
-import { matchableDeals } from './lib/priceMatch'
+import { followMatch, matchableDeals, tidyMatch } from './lib/priceMatch'
+import { placeNeeds, wantedItems, withNeeds } from './lib/needs'
+import NeedsSheet from './components/NeedsSheet'
 import {
   createHousehold, currentHousehold, householdLink, leaveHousehold, saveHousehold, saveHouseholdWeek, setHouseholdCheck, sharedPrefs, watchHousehold,
 } from './lib/household'
@@ -26,7 +28,6 @@ export default function App() {
   const [data, setData] = useState({ deals: [], region: null })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [query, setQuery] = useState('')
   const [chips, setChips] = useState([])
   const [sheet, setSheet] = useState(null) // 'settings' | 'list'
   const [ideaFor, setIdeaFor] = useState(null) // the meal entry "Change meal" was tapped on
@@ -47,7 +48,7 @@ export default function App() {
   const [hid, setHid] = useState(() => (firebaseEnabled ? currentHousehold() : null))
   const hidRef = useRef(hid)
   hidRef.current = hid
-  const remote = useRef(null) // last { chips, query } seen from the household, to skip echo writes
+  const remote = useRef(null) // last { chips } seen from the household, to skip echo writes
   const fail = useCallback((e) => setError(e.message), [])
 
   const days = useMemo(() => weekDays(), [])
@@ -80,7 +81,7 @@ export default function App() {
           setHid(null)
           return
         }
-        if (d.prefs) setPrefs((p) => ({ ...DEFAULT_PREFS, ...d.prefs, onboarded: p?.onboarded ?? false }))
+        if (d.prefs) setPrefs((p) => tidyMatch({ ...DEFAULT_PREFS, ...d.prefs, onboarded: p?.onboarded ?? false }))
         const stale = !d.week?.started || (Date.parse(days[0].key) - Date.parse(d.week.started)) / 864e5 >= 7
         if (stale) {
           const fresh = { ...EMPTY_WEEK, started: days[0].key }
@@ -89,28 +90,26 @@ export default function App() {
         } else {
           setWeek({ ...EMPTY_WEEK, ...d.week })
         }
-        remote.current = { chips: d.chips || [], query: d.query || '' }
+        remote.current = { chips: d.chips || [] }
         setChips(remote.current.chips)
-        // Don't yank the plan box out from under someone typing in it.
-        if (document.activeElement?.dataset?.planInput == null) setQuery(remote.current.query)
       },
       fail,
     )
   }, [hid, days, fail])
 
-  // Filters and the plan box are part of the shared plan too.
+  // Filters are part of the shared plan too.
   useEffect(() => {
     if (!hid || !remote.current) return
-    if (remote.current.query === query && remote.current.chips.join() === chips.join()) return
-    const t = setTimeout(() => saveHousehold(hid, { chips, query }).catch(fail), 600)
+    if (remote.current.chips.join() === chips.join()) return
+    const t = setTimeout(() => saveHousehold(hid, { chips }).catch(fail), 400)
     return () => clearTimeout(t)
-  }, [hid, chips, query, fail])
+  }, [hid, chips, fail])
 
   const shareLink = async () => {
     let id = hid
     try {
       if (!id) {
-        id = await createHousehold({ prefs: sharedPrefs(prefs), week, chips, query })
+        id = await createHousehold({ prefs: sharedPrefs(prefs), week, chips })
         setHid(id)
       }
     } catch (e) {
@@ -148,7 +147,7 @@ export default function App() {
     loadPrefs()
       .then((p) => {
         // In a shared household its settings win; only "seen the tour" is this phone's own.
-        setPrefs((prev) => (hidRef.current && prev ? { ...prev, onboarded: p.onboarded } : p))
+        setPrefs((prev) => (hidRef.current && prev ? { ...prev, onboarded: p.onboarded } : tidyMatch(p)))
         // New here: the setup quiz. Already set up, or joining someone's plan: just the tour.
         if (!p.onboarded) (p.postalCode || hidRef.current ? setTouring : setWelcome)(true)
       })
@@ -168,8 +167,7 @@ export default function App() {
   }, [prefs?.postalCode])
 
   const merchants = useMemo(() => [...new Set(data.deals.map((d) => d.merchant).filter(Boolean))].sort(), [data.deals])
-  const parsed = useMemo(() => parsePlanQuery(query), [query])
-  const filters = useMemo(() => [...new Set([...chips, ...parsed.filters])], [chips, parsed])
+  const filters = chips
 
   const allDeals = useMemo(() => (prefs ? activeDeals(data.deals, { stores: prefs.stores }) : []), [prefs, data.deals])
   // Price matching at one store: plan only from the flyers that store's cashiers accept.
@@ -177,19 +175,27 @@ export default function App() {
     () => (prefs?.matchAt ? matchableDeals(allDeals, prefs.matchAt, prefs.matchExtras) : allDeals),
     [allDeals, prefs?.matchAt, prefs?.matchExtras],
   )
+  const want = useMemo(() => wantedItems(week.needs), [week.needs])
   const plan = useMemo(
-    () => (prefs ? planWeek(deals, prefs, { days, filters, budget: parsed.budget, overrides: week.overrides, avoid: week.avoid }) : []),
-    [prefs, deals, days, filters, parsed.budget, week.overrides, week.avoid, recipesVersion],
+    () => (prefs ? planWeek(deals, prefs, { days, filters, overrides: week.overrides, avoid: week.avoid, want }) : []),
+    [prefs, deals, days, filters, week.overrides, week.avoid, want, recipesVersion],
   )
-  const list = useMemo(
+  const baseList = useMemo(
     () => (prefs ? withExtras(buildShoppingList(plan, listMode === 'single' ? allDeals : deals, prefs, { mode: listMode }), week.extras) : null),
     [plan, deals, allDeals, prefs, listMode, week.extras],
   )
+  // The "we need" list: what meals didn't use goes on the list as its own lines.
+  const needs = useMemo(
+    () => placeNeeds(week.needs || [], baseList, listMode === 'single' && baseList?.store ? allDeals.filter((d) => d.merchant === baseList.store) : deals),
+    [week.needs, baseList, listMode, allDeals, deals],
+  )
+  const list = useMemo(() => withNeeds(baseList, needs.group), [baseList, needs.group])
   const otherDeals = useMemo(() => extraDeals(allDeals), [allDeals])
   const watchOnSale = useMemo(() => watchMatches(allDeals, prefs?.watch || []).filter((w) => w.deals.length), [allDeals, prefs?.watch])
   const listStores = useMemo(() => [...new Set(allDeals.map((d) => d.merchant).filter(Boolean))].sort(), [allDeals])
 
-  const updatePrefs = (next) => {
+  const updatePrefs = (picked) => {
+    const next = followMatch(picked, prefs)
     setPrefs(next)
     savePrefs(next).catch(fail)
     if (hid) saveHousehold(hid, { prefs: sharedPrefs(next) }).catch(fail)
@@ -242,8 +248,6 @@ export default function App() {
     : []
   const swapUses = swapping && otherUses.length && swapAll ? [swapping[0], ...otherUses] : swapping
 
-  const weekCost = list.totalCost
-  const overBudget = parsed.budget != null && weekCost > parsed.budget
   const enabled = prefs.meals || DEFAULT_PREFS.meals
   const dayMeals = day ? Object.values(day.meals).filter((m) => m.lines) : []
   const dayLines = dayMeals.flatMap((m) => m.lines)
@@ -288,32 +292,29 @@ export default function App() {
       )}
       {error && <p className="mb-3 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
 
-      <label className="block" data-tour="plan">
-        <span className="sr-only">What's the plan?</span>
-        <input
-          value={query}
-          data-plan-input
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="What's the plan? e.g. quick dinners under $80"
-          className="w-full rounded-2xl border border-stone-200 bg-white px-4 py-3 text-sm shadow-sm placeholder:text-stone-400 focus:border-green-600 focus:outline-none"
-        />
-      </label>
-      {parsed.budget != null && (
-        <div className="mt-2">
-          <div className="flex justify-between text-xs">
-            <span className="text-stone-600">Week budget</span>
-            <span className={overBudget ? 'font-semibold text-red-700' : 'text-stone-600'}>
-              {money(weekCost)} of {money(parsed.budget)}
-            </span>
-          </div>
-          <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-stone-200">
-            <div
-              className={`h-full rounded-full ${overBudget ? 'bg-red-500' : 'bg-green-600'}`}
-              style={{ width: `${Math.min(100, (weekCost / parsed.budget) * 100)}%` }}
-            />
-          </div>
-        </div>
-      )}
+      <button
+        data-tour="plan"
+        onClick={() => setSheet('needs')}
+        className="flex w-full items-center gap-3 rounded-2xl border border-stone-200 bg-white px-4 py-3 text-left shadow-sm"
+      >
+        <span className="text-xl" aria-hidden>
+          📝
+        </span>
+        <span className="min-w-0 flex-1">
+          {(week.needs || []).length ? (
+            <>
+              <span className="block text-sm font-semibold">We need: {week.needs.join(', ')}</span>
+              <span className="block text-xs text-stone-500">Meals use these where they can. Tap to change.</span>
+            </>
+          ) : (
+            <>
+              <span className="block text-sm font-semibold">Add what you need</span>
+              <span className="block text-xs text-stone-500">e.g. salami, cheese, cereal. We'll plan meals around them.</span>
+            </>
+          )}
+        </span>
+        <span className="text-stone-400">›</span>
+      </button>
 
       <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]" data-tour="filters">
         {FILTERS.map((f) => {
@@ -440,7 +441,20 @@ export default function App() {
         postalCode={prefs.postalCode}
         onProof={setProof}
         onSwap={(item) => setSwapping(item.uses)}
-        onRemoveExtra={(item) => editWeek((w) => ({ ...w, extras: (w.extras || []).filter((x) => `extra:${x.deal.dealId}` !== item.key) }))}
+        onRemoveExtra={(item) =>
+          editWeek((w) =>
+            item.need
+              ? { ...w, needs: (w.needs || []).filter((n) => `need:${n}` !== item.key) }
+              : { ...w, extras: (w.extras || []).filter((x) => `extra:${x.deal.dealId}` !== item.key) },
+          )
+        }
+      />
+      <NeedsSheet
+        open={sheet === 'needs'}
+        onClose={() => setSheet(null)}
+        needs={week.needs || []}
+        status={needs.status}
+        onChange={(next) => editWeek((w) => ({ ...w, needs: next }))}
       />
       <DealsSheet
         open={sheet === 'deals'}

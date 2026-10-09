@@ -78,7 +78,7 @@ export async function loadDeals(postalCode) {
 // Device-local on purpose:
 // it's scratch state for this week, and resets after 7 days.
 const WEEK_KEY = 'f2r.week'
-export const EMPTY_WEEK = { overrides: {}, avoid: [], checked: {}, extras: [] }
+export const EMPTY_WEEK = { overrides: {}, avoid: [], checked: {}, extras: [], needs: [] }
 
 export function loadWeek(todayKey) {
   try {

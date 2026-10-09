@@ -177,7 +177,7 @@ export function slotCandidates(slot, deals, diet, priced = new Map()) {
  * a third dinner built on the same protein. Returns null if a required slot can't be filled.
  */
 export function fillTemplate(template, ctx) {
-  const { deals, diet, servings, fills = {}, usage = {}, priced, avoid = [] } = ctx
+  const { deals, diet, servings, fills = {}, usage = {}, priced, avoid = [], want } = ctx
   const used = new Set()
   const lines = []
   for (const slot of template.slots) {
@@ -199,6 +199,8 @@ export function fillTemplate(template, ctx) {
         s -= p.cost * 2
         const n = usage[c.ing.item] || 0
         if (slot.prefer === c.ing.item) s += 6 // the recipe's usual pick, when it's on sale too
+        // On the household's "we need" list: they're buying it anyway, so cook with it.
+        if (want?.has(c.ing.item) && !n) s += 110
         if (n) s += 3 // reuse what's already bought...
         s -= Math.max(0, n - 3) * 4 // ...but not pears at every meal
         if (slot.main && template.meal === 'dinner' && (usage[`main:${c.ing.item}`] || 0) >= 2) s -= 60
@@ -257,6 +259,8 @@ function scoreMeal(meal, ctx) {
   s -= (ctx.templateUse[meal.template.id] || 0) * REPEAT_PENALTY[meal.template.meal]
   if (ctx.yesterday?.[meal.template.meal] === meal.template.id) s -= 15
   if (ctx.budgetPerServing) s -= Math.max(0, meal.cost / meal.servings - ctx.budgetPerServing) * 8
+  // Dishes that use up something on the "we need" list that no meal uses yet.
+  if (ctx.want) s += meal.lines.filter((l) => ctx.want.has(l.ing.item) && !ctx.usage[l.ing.item]).length * 30
   return s
 }
 
@@ -281,14 +285,14 @@ const BUDGET_SHARE = { breakfast: 0.15, lunch: 0.25, dinner: 0.45, snack: 0.15 }
  * avoid: items swapped off the grocery list, kept out of every meal where possible.
  * Lunch can be last night's dinner (prefs.lunchLeftovers): that dinner is then cooked double.
  */
-export function planWeek(deals, prefs, { days, filters = [], budget = null, overrides = {}, avoid = [] } = {}) {
+export function planWeek(deals, prefs, { days, filters = [], budget = null, overrides = {}, avoid = [], want = null } = {}) {
   const diet = [...new Set([...(prefs.diet || []), ...FILTERS.filter((f) => f.diet && filters.includes(f.id)).map((f) => f.diet)])]
   const tests = FILTERS.filter((f) => f.test && filters.includes(f.id)).map((f) => f.test)
   const boosts = FILTERS.filter((f) => f.boost && filters.includes(f.id)).map((f) => f.boost)
   const enabled = MEALS.filter((m) => (prefs.meals || ['breakfast', 'lunch', 'dinner', 'snack']).includes(m.id)).map((m) => m.id)
   const servings = prefs.householdSize || 2
   const priced = new Map()
-  const ctx = { templateUse: {}, usage: {}, yesterday: null }
+  const ctx = { templateUse: {}, usage: {}, yesterday: null, want: want?.size ? want : null }
   const perDayBudget = budget ? budget / days.length : null
 
   const plan = []
@@ -317,7 +321,7 @@ export function planWeek(deals, prefs, { days, filters = [], budget = null, over
         if (template.meal !== meal) continue
         if (o.exclude?.includes(template.id)) continue
         if (o.template && o.template !== template.id) continue
-        const filled = fillTemplate(template, { deals, diet, servings, fills: o.template === template.id ? o.fills : undefined, usage: ctx.usage, priced, avoid })
+        const filled = fillTemplate(template, { deals, diet, servings, fills: o.template === template.id ? o.fills : undefined, usage: ctx.usage, priced, avoid, want: ctx.want })
         if (!filled) continue
         if (meal !== 'snack' && !tests.every((t) => t(filled))) continue
         const s = scoreMeal(filled, ctx) + boosts.reduce((sum, b) => sum + b(filled), 0)

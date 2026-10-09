@@ -239,12 +239,12 @@ export default function ListSheet({ open, onClose, list, mode, setMode, stores, 
                             </span>
                           )}
                         </>
-                      ) : (
+                      ) : i.need ? null : (
                         <span className="block text-xs text-stone-400">reg. ~{money(i.cost)}</span>
                       )}
                     </span>
                   </FlyerPeek>
-                  {i.extra ? (
+                  {i.extra || i.need ? (
                     <button
                       onClick={() => onRemoveExtra(i)}
                       aria-label={`Remove ${i.item}`}

@@ -11,8 +11,8 @@ export const TOUR_STEPS = [
   },
   {
     target: 'plan',
-    title: 'Tell it what you want',
-    body: 'Type things like "quick dinners under $80" or "kid-friendly". The whole week re-plans around it.',
+    title: 'What do you need?',
+    body: 'Add things you need this week, like "salami, cheese, cereal". Meals get planned around them, and the rest go straight on the grocery list.',
   },
   {
     target: 'filters',

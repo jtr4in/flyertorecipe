@@ -1,7 +1,7 @@
 import { DIET_TAGS } from '../lib/aisles'
 import { DEFAULT_PREFS, fsa } from '../lib/data'
 import { MEALS } from '../data/templates'
-import { MATCH_STORES } from '../lib/priceMatch'
+import { MATCH_STORES, PRICE_MATCH } from '../lib/priceMatch'
 
 const Chip = ({ on, children, ...props }) => (
   <button
@@ -9,7 +9,7 @@ const Chip = ({ on, children, ...props }) => (
     {...props}
     className={`rounded-full border px-3 py-1.5 text-sm ${
       on ? 'border-green-700 bg-green-700 text-white' : 'border-stone-300 bg-white text-stone-700'
-    }`}
+    } disabled:border-stone-200 disabled:bg-stone-50 disabled:text-stone-300`}
   >
     {children}
   </button>
@@ -21,6 +21,7 @@ export default function Preferences({ prefs, merchants, onChange }) {
   const set = (patch) => onChange({ ...prefs, ...patch })
   const meals = prefs.meals || DEFAULT_PREFS.meals
   const validPostal = !prefs.postalCode || fsa(prefs.postalCode)
+  const match = PRICE_MATCH[prefs.matchAt] || null
 
   return (
     <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
@@ -76,14 +77,29 @@ export default function Preferences({ prefs, merchants, onChange }) {
 
       <fieldset>
         <legend className="text-sm font-medium">Stores</legend>
-        <p className="text-xs text-stone-500">Plan from these flyers only. None selected means every store in your area.</p>
+        <p className="text-xs text-stone-500">
+          {match
+            ? `${prefs.matchAt} accepts the flyers in green. Grey ones can't be price matched there.`
+            : 'Plan from these flyers only. None selected means every store in your area.'}
+        </p>
         <div className="mt-2 flex flex-wrap gap-2">
           {merchants.length === 0 && <span className="text-sm text-stone-400">No stores loaded yet.</span>}
-          {merchants.map((m) => (
-            <Chip key={m} on={prefs.stores.includes(m)} onClick={() => set({ stores: toggle(prefs.stores, m) })}>
-              {m}
-            </Chip>
-          ))}
+          {merchants.map((m) =>
+            match && match.optional.includes(m) ? (
+              <Chip key={m} on={(prefs.matchExtras || []).includes(m)} onClick={() => set({ matchExtras: toggle(prefs.matchExtras || [], m) })}>
+                {m} <span className="text-xs opacity-75">(if your store takes it)</span>
+              </Chip>
+            ) : (
+              <Chip
+                key={m}
+                on={prefs.stores.includes(m)}
+                disabled={!!match && m !== prefs.matchAt && !match.accepts.includes(m)}
+                onClick={() => set({ stores: toggle(prefs.stores, m) })}
+              >
+                {m}
+              </Chip>
+            ),
+          )}
         </div>
       </fieldset>
 
