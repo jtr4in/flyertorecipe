@@ -8627,5 +8627,1450 @@
       "Slice into 1-inch 'sushi' rounds and dust with cinnamon.",
       "Serve with chopsticks for fun."
     ]
+  },
+  {
+    "id": "freezer-breakfast-burritos",
+    "meal": "breakfast",
+    "name": "Freezer breakfast burritos with {protein}[, {veg}] & {cheese}",
+    "emoji": "🌯",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "pork",
+          "ground"
+        ],
+        "prefer": "sausages",
+        "only": [
+          "sausages",
+          "ground pork",
+          "ground turkey",
+          "ground beef"
+        ],
+        "main": true
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs"
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes",
+          "sweet potatoes"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ]
+      },
+      {
+        "key": "wraps",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "tortillas",
+        "only": [
+          "tortillas"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "bell peppers",
+        "only": [
+          "bell peppers",
+          "mushrooms",
+          "zucchini"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "cooking oil",
+      "salt",
+      "pepper",
+      "salsa"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Brown the {protein} in a large skillet, breaking it up, then set aside.",
+      "Fry the diced {starch}[ and {veg}] in a little oil until tender and golden.",
+      "Scramble the {eggs} softly, then fold in the {protein} and {starch}.",
+      "Spoon onto {wraps}, top with {cheese} and a spoon of salsa, and roll up tightly.",
+      "Wrap each burrito in foil and freeze; microwave from frozen 2-3 minutes, turning halfway."
+    ]
+  },
+  {
+    "id": "freezer-waffles",
+    "meal": "breakfast",
+    "name": "Make-ahead buttermilk waffles with {fruit}",
+    "emoji": "🧇",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 0.5
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "only": [
+          "milk"
+        ]
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit",
+          "frozenFruit"
+        ],
+        "prefer": "strawberries",
+        "only": [
+          "strawberries",
+          "blueberries",
+          "bananas",
+          "frozen fruit"
+        ]
+      }
+    ],
+    "pantry": [
+      "flour",
+      "sugar",
+      "baking powder",
+      "butter",
+      "vanilla",
+      "lemon juice",
+      "maple syrup"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Stir a spoon of lemon juice into the {milk} and let it sit 5 minutes to sour.",
+      "Whisk flour, sugar and baking powder, then mix in the {milk}, {eggs}, melted butter and vanilla.",
+      "Cook in a hot greased waffle iron until crisp and golden.",
+      "Cool extras on a rack, freeze flat, then bag; reheat in the toaster.",
+      "Serve with {fruit} and maple syrup."
+    ]
+  },
+  {
+    "id": "quiche",
+    "meal": "breakfast",
+    "name": "{protein} & {veg} quiche with {cheese}",
+    "emoji": "🥧",
+    "minutes": 55,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein",
+          "pork"
+        ],
+        "prefer": "deli turkey or ham",
+        "only": [
+          "deli turkey or ham",
+          "sausages"
+        ],
+        "qty": 0.5,
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "greens"
+        ],
+        "prefer": "spinach",
+        "only": [
+          "spinach",
+          "kale",
+          "broccoli",
+          "mushrooms",
+          "bell peppers",
+          "asparagus",
+          "zucchini"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "feta",
+          "mozzarella"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs"
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "only": [
+          "milk"
+        ],
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "frozen pie crust",
+      "onion",
+      "salt",
+      "pepper",
+      "nutmeg"
+    ],
+    "tags": [
+      "big-batch"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Heat oven to 375°F and sauté the onion and {veg} until soft.",
+      "Scatter the {protein}, {veg} and {cheese} into the pie crust.",
+      "Whisk the {eggs} with {milk}, salt, pepper and a pinch of nutmeg, then pour over.",
+      "Bake 35-40 minutes until just set in the centre.",
+      "Cool, slice and freeze wedges individually; reheat in the oven or microwave."
+    ]
+  },
+  {
+    "id": "hash-brown-egg-cups",
+    "meal": "breakfast",
+    "name": "Hash brown egg cups with {protein}[ & {veg}]",
+    "emoji": "🧁",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes",
+          "sweet potatoes"
+        ],
+        "qty": 0.75
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs"
+      },
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein",
+          "pork"
+        ],
+        "prefer": "deli turkey or ham",
+        "only": [
+          "deli turkey or ham",
+          "sausages"
+        ],
+        "qty": 0.5,
+        "main": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella",
+          "feta"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "greens",
+          "cookingVeg"
+        ],
+        "prefer": "spinach",
+        "only": [
+          "spinach",
+          "bell peppers",
+          "broccoli"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "cooking oil",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "savoury"
+    ],
+    "steps": [
+      "Heat oven to 400°F; grate the {starch}, squeeze dry and season.",
+      "Press into greased muffin cups and bake 15 minutes until crisp at the edges.",
+      "Fill with chopped {protein}[, {veg}] and {cheese}, then pour beaten {eggs} over.",
+      "Bake 12-15 minutes until set; cool and freeze in a bag, reheating in the microwave."
+    ]
+  },
+  {
+    "id": "pizza-pockets",
+    "meal": "lunch",
+    "name": "Homemade {protein} & {cheese} pizza pockets[ with {veg}]",
+    "emoji": "🍕",
+    "minutes": 45,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein",
+          "pork",
+          "ground"
+        ],
+        "prefer": "deli turkey or ham",
+        "only": [
+          "deli turkey or ham",
+          "sausages",
+          "ground beef",
+          "rotisserie chicken"
+        ],
+        "qty": 0.75,
+        "main": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "mozzarella",
+        "only": [
+          "mozzarella",
+          "cheddar"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "bell peppers",
+        "only": [
+          "bell peppers",
+          "mushrooms"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "pizza dough",
+      "pizza sauce",
+      "olive oil",
+      "Italian seasoning"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "treat"
+    ],
+    "steps": [
+      "Heat oven to 400°F; cook the {protein} first if it's raw and chop everything small.",
+      "Roll pizza dough thin and cut into rectangles.",
+      "Spread a little sauce on half of each, add {protein}, {cheese}[ and {veg}], then fold and crimp with a fork.",
+      "Brush with oil, sprinkle Italian seasoning and bake 15-18 minutes until golden.",
+      "Cool completely, wrap and freeze; reheat in the oven or microwave."
+    ]
+  },
+  {
+    "id": "minestrone",
+    "meal": "lunch",
+    "name": "Minestrone with {veg}, {beans}[ & {greens}]",
+    "emoji": "🍲",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "zucchini",
+        "only": [
+          "zucchini",
+          "carrots",
+          "green beans",
+          "frozen mixed vegetables"
+        ]
+      },
+      {
+        "key": "beans",
+        "from": [
+          "plantProtein"
+        ],
+        "prefer": "chickpeas",
+        "only": [
+          "chickpeas",
+          "black beans"
+        ],
+        "qty": 0.5,
+        "main": true
+      },
+      {
+        "key": "tomato",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes"
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "pasta",
+        "only": [
+          "pasta"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "prefer": "kale",
+        "only": [
+          "kale",
+          "spinach"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "olive oil",
+      "onion",
+      "garlic",
+      "vegetable broth",
+      "Italian seasoning",
+      "parmesan"
+    ],
+    "tags": [
+      "big-batch"
+    ],
+    "vibes": [
+      "healthy",
+      "comfort"
+    ],
+    "steps": [
+      "Soften onion and garlic in olive oil, then add the chopped {veg}.",
+      "Pour in the {tomato}, broth, Italian seasoning and drained {beans}; simmer 15 minutes.",
+      "Add the {starch} and cook until tender[, stirring in the {greens} at the end].",
+      "Serve with parmesan; freeze extra portions (pasta softens a little but reheats fine)."
+    ]
+  },
+  {
+    "id": "taco-soup",
+    "meal": "lunch",
+    "name": "{protein} taco soup with {beans}[ & {cheese}]",
+    "emoji": "🥣",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "beans",
+        "from": [
+          "plantProtein"
+        ],
+        "prefer": "black beans",
+        "only": [
+          "black beans",
+          "chickpeas"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "tomato",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes"
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "frozen mixed vegetables",
+        "only": [
+          "frozen mixed vegetables",
+          "bell peppers"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "onion",
+      "taco seasoning",
+      "chicken broth",
+      "sour cream"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Brown the {protein} with onion and drain any fat.",
+      "Stir in taco seasoning, {tomato}, broth, {veg} and drained {beans}.",
+      "Simmer 20 minutes until thick and flavourful.",
+      "Serve with sour cream[ and {cheese}]; freeze cooled leftovers in portions."
+    ]
+  },
+  {
+    "id": "taquitos",
+    "meal": "lunch",
+    "name": "Baked {protein} & {cheese} taquitos",
+    "emoji": "🌮",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein",
+          "poultry"
+        ],
+        "prefer": "rotisserie chicken",
+        "only": [
+          "rotisserie chicken",
+          "chicken breasts",
+          "chicken thighs"
+        ],
+        "main": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ]
+      },
+      {
+        "key": "wraps",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "tortillas",
+        "only": [
+          "tortillas"
+        ]
+      }
+    ],
+    "pantry": [
+      "cream cheese",
+      "salsa",
+      "cumin",
+      "chili powder",
+      "cooking oil"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Heat oven to 425°F; shred the cooked {protein}.",
+      "Mix with cream cheese, a spoon of salsa, cumin, chili powder and the {cheese}.",
+      "Spread a line of filling on each warmed tortilla, roll tightly and place seam-side down.",
+      "Brush with oil and bake 15 minutes until crisp; freeze extras and bake from frozen."
+    ]
+  },
+  {
+    "id": "broccoli-cheddar-soup",
+    "meal": "lunch",
+    "name": "{veg} cheddar soup[ with crusty {bread}]",
+    "emoji": "🥦",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "broccoli",
+        "only": [
+          "broccoli",
+          "cauliflower"
+        ]
+      },
+      {
+        "key": "carrots",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "carrots",
+        "only": [
+          "carrots"
+        ],
+        "qty": 0.5,
+        "optional": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar"
+        ],
+        "qty": 1.5
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "only": [
+          "milk"
+        ]
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "butter",
+      "flour",
+      "onion",
+      "chicken broth",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort"
+    ],
+    "steps": [
+      "Melt butter, soften the onion, then stir in flour for a minute.",
+      "Whisk in broth and {milk}, then add chopped {veg}[ and grated {carrots}].",
+      "Simmer 15 minutes until tender and partly blend for a chunky texture.",
+      "Stir in the {cheese} off the heat until melted; freeze cooled portions."
+    ]
+  },
+  {
+    "id": "enchiladas",
+    "meal": "dinner",
+    "name": "{protein} enchiladas with {beans}[ & {veg}]",
+    "emoji": "🫔",
+    "minutes": 50,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "ground",
+          "lunchProtein"
+        ],
+        "prefer": "chicken breasts",
+        "only": [
+          "chicken breasts",
+          "chicken thighs",
+          "ground beef",
+          "ground turkey",
+          "rotisserie chicken"
+        ],
+        "main": true
+      },
+      {
+        "key": "beans",
+        "from": [
+          "plantProtein"
+        ],
+        "prefer": "black beans",
+        "only": [
+          "black beans"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ]
+      },
+      {
+        "key": "wraps",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "tortillas",
+        "only": [
+          "tortillas"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "greens"
+        ],
+        "prefer": "bell peppers",
+        "only": [
+          "bell peppers",
+          "zucchini",
+          "spinach"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "enchilada sauce",
+      "onion",
+      "cumin",
+      "cooking oil"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Cook the {protein} with onion and cumin, shredding or crumbling it as it cooks.",
+      "Stir in the drained {beans}[, {veg}] and a splash of enchilada sauce.",
+      "Fill and roll the tortillas, then pack seam-side down in a baking dish.",
+      "Cover with remaining sauce and {cheese}; bake at 375°F for 20 minutes.",
+      "To freeze, assemble unbaked, cover tightly and bake from thawed."
+    ]
+  },
+  {
+    "id": "butter-chicken",
+    "meal": "dinner",
+    "name": "Creamy butter {protein} with {starch}[ & {bread}]",
+    "emoji": "🍛",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "plantProtein"
+        ],
+        "prefer": "chicken thighs",
+        "only": [
+          "chicken thighs",
+          "chicken breasts",
+          "firm tofu",
+          "chickpeas"
+        ],
+        "main": true
+      },
+      {
+        "key": "tomato",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes"
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice",
+          "quinoa"
+        ]
+      },
+      {
+        "key": "bread",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "naan",
+        "only": [
+          "naan"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "butter",
+      "heavy cream",
+      "garam masala",
+      "ginger",
+      "garlic",
+      "onion"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Brown bite-sized {protein} in butter and set aside.",
+      "Cook onion, garlic, ginger and garam masala until fragrant, then add the {tomato} and simmer 10 minutes.",
+      "Blend smooth, stir in cream and return the {protein} to simmer until cooked through.",
+      "Serve over {starch}[ with warm {bread}]; the sauce freezes beautifully."
+    ]
+  },
+  {
+    "id": "hearty-stew",
+    "meal": "dinner",
+    "name": "Hearty {protein} stew with {veg} & {starch}",
+    "emoji": "🥘",
+    "minutes": 75,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "pork"
+        ],
+        "prefer": "chicken thighs",
+        "only": [
+          "chicken thighs",
+          "pork tenderloin",
+          "sausages"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "carrots",
+        "only": [
+          "carrots",
+          "green beans",
+          "mushrooms",
+          "frozen mixed vegetables",
+          "squash"
+        ]
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes",
+          "sweet potatoes"
+        ]
+      },
+      {
+        "key": "celery",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "celery",
+        "only": [
+          "celery"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "onion",
+      "garlic",
+      "flour",
+      "chicken broth",
+      "tomato paste",
+      "thyme",
+      "cooking oil"
+    ],
+    "tags": [
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Toss cubed {protein} in flour and brown in oil in batches.",
+      "Soften onion, garlic[ and {celery}], then stir in tomato paste and thyme.",
+      "Add broth, the {protein}, chunks of {starch} and {veg}.",
+      "Cover and simmer about 45 minutes until thick and tender; freeze in portions."
+    ]
+  },
+  {
+    "id": "stuffed-shells",
+    "meal": "dinner",
+    "name": "Cheesy stuffed shells with {greens}[ & {protein}]",
+    "emoji": "🐚",
+    "minutes": 50,
+    "slots": [
+      {
+        "key": "pasta",
+        "from": [
+          "starch"
+        ],
+        "prefer": "pasta",
+        "only": [
+          "pasta"
+        ],
+        "qty": 0.75
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "prefer": "spinach",
+        "only": [
+          "spinach",
+          "kale"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "mozzarella",
+        "only": [
+          "mozzarella"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 0.5
+      },
+      {
+        "key": "protein",
+        "from": [
+          "ground",
+          "pork"
+        ],
+        "prefer": "ground beef",
+        "only": [
+          "ground beef",
+          "ground turkey",
+          "ground pork",
+          "sausages"
+        ],
+        "qty": 0.5,
+        "main": true,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "ricotta",
+      "pasta sauce",
+      "parmesan",
+      "garlic",
+      "Italian seasoning"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort"
+    ],
+    "steps": [
+      "Boil jumbo shells until just shy of al dente and drain.",
+      "Wilt the chopped {greens} with garlic[ and brown the {protein} in the same pan].",
+      "Mix ricotta, {eggs}, parmesan, half the {cheese} and the {greens}.",
+      "Spread sauce in a dish, fill the shells, top with more sauce[, the {protein}] and remaining {cheese}.",
+      "Bake at 375°F for 25 minutes, or cover and freeze unbaked."
+    ]
+  },
+  {
+    "id": "potstickers",
+    "meal": "dinner",
+    "name": "{protein} & {veg} potstickers",
+    "emoji": "🥟",
+    "minutes": 45,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground",
+          "fish"
+        ],
+        "prefer": "ground pork",
+        "only": [
+          "ground pork",
+          "ground chicken",
+          "ground turkey",
+          "shrimp"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "greens"
+        ],
+        "prefer": "mushrooms",
+        "only": [
+          "mushrooms",
+          "carrots",
+          "spinach",
+          "kale"
+        ],
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "dumpling wrappers",
+      "soy sauce",
+      "ginger",
+      "garlic",
+      "green onion",
+      "sesame oil",
+      "rice vinegar"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Mix the {protein} with finely chopped {veg}, ginger, garlic, green onion, soy sauce and sesame oil.",
+      "Spoon a little onto each wrapper, wet the edges and pleat shut.",
+      "Freeze extras on a tray, then bag them.",
+      "Fry in oil until golden on the bottom, add a splash of water, cover and steam 5 minutes (a few more from frozen).",
+      "Serve with soy sauce mixed with rice vinegar."
+    ]
+  },
+  {
+    "id": "stroganoff",
+    "meal": "dinner",
+    "name": "Creamy {protein} stroganoff with {veg} over {starch}",
+    "emoji": "🍝",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground",
+          "poultry",
+          "pork"
+        ],
+        "prefer": "ground beef",
+        "only": [
+          "ground beef",
+          "ground turkey",
+          "chicken thighs",
+          "pork tenderloin"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "mushrooms",
+        "only": [
+          "mushrooms"
+        ]
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "egg noodles",
+        "only": [
+          "egg noodles",
+          "rice",
+          "pasta"
+        ]
+      }
+    ],
+    "pantry": [
+      "butter",
+      "onion",
+      "garlic",
+      "flour",
+      "beef broth",
+      "Worcestershire sauce",
+      "sour cream"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort"
+    ],
+    "steps": [
+      "Cook the {starch} according to the package.",
+      "Brown the {protein} (sliced thin if not ground), then add butter, onion, garlic and sliced {veg}.",
+      "Sprinkle in flour, then stir in broth and Worcestershire and simmer until thickened.",
+      "Take off the heat and stir in sour cream; serve over {starch}.",
+      "Freeze the sauce on its own and add a fresh spoon of sour cream when reheating."
+    ]
+  },
+  {
+    "id": "ice-cream-sandwiches",
+    "meal": "snack",
+    "name": "Cookie ice cream sandwiches[ rolled in {crunch}]",
+    "emoji": "🍪",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "cookies",
+        "from": [
+          "treats"
+        ],
+        "prefer": "cookies",
+        "only": [
+          "cookies"
+        ]
+      },
+      {
+        "key": "icecream",
+        "from": [
+          "treats"
+        ],
+        "prefer": "ice cream",
+        "only": [
+          "ice cream"
+        ]
+      },
+      {
+        "key": "crunch",
+        "from": [
+          "nuts",
+          "treats"
+        ],
+        "prefer": "chocolate",
+        "only": [
+          "chocolate",
+          "nuts"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "sprinkles"
+    ],
+    "tags": [
+      "kid-approved",
+      "quick"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Let the {icecream} soften on the counter for 5 minutes.",
+      "Sandwich a scoop between two {cookies} and press gently.",
+      "Roll the edges in sprinkles[ or chopped {crunch}].",
+      "Wrap each in plastic and freeze at least an hour before eating."
+    ]
+  },
+  {
+    "id": "granola-bars",
+    "meal": "snack",
+    "name": "Chewy homemade granola bars[ with {mixin}]",
+    "emoji": "🥜",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "oats",
+        "from": [
+          "oats"
+        ],
+        "prefer": "oats",
+        "only": [
+          "oats"
+        ]
+      },
+      {
+        "key": "spread",
+        "from": [
+          "spread"
+        ],
+        "prefer": "peanut butter",
+        "qty": 0.5
+      },
+      {
+        "key": "mixin",
+        "from": [
+          "treats",
+          "nuts"
+        ],
+        "prefer": "chocolate",
+        "only": [
+          "chocolate",
+          "nuts"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "honey",
+      "butter",
+      "vanilla",
+      "salt",
+      "cinnamon"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch",
+      "quick"
+    ],
+    "vibes": [
+      "sweet"
+    ],
+    "steps": [
+      "Warm the {spread}, honey and butter together until smooth, then add vanilla and a pinch of salt.",
+      "Stir in the {oats} and cinnamon[, then fold in the {mixin}].",
+      "Press firmly into a lined pan and chill until set.",
+      "Cut into bars, wrap individually and freeze for grab-and-go snacks."
+    ]
+  },
+  {
+    "id": "nice-cream",
+    "meal": "snack",
+    "name": "Banana nice cream with {fruit}[ & {spread}]",
+    "emoji": "🍨",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "bananas",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "bananas",
+        "only": [
+          "bananas"
+        ]
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "frozenFruit",
+          "fruit"
+        ],
+        "prefer": "frozen fruit",
+        "only": [
+          "frozen fruit",
+          "strawberries",
+          "blueberries"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "spread",
+        "from": [
+          "spread"
+        ],
+        "prefer": "peanut butter",
+        "qty": 0.25,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "vanilla"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "healthy",
+      "sweet"
+    ],
+    "steps": [
+      "Slice ripe {bananas} and freeze them solid (keep a bag ready in the freezer).",
+      "Blend the frozen bananas with the {fruit}[, the {spread}] and a drop of vanilla until creamy like soft-serve.",
+      "Eat right away, or freeze 30 minutes for scoopable nice cream."
+    ]
+  },
+  {
+    "id": "veggie-muffins",
+    "meal": "snack",
+    "name": "Grated {veg} muffins[ with {chocolate} chips]",
+    "emoji": "🧁",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "zucchini",
+        "only": [
+          "zucchini",
+          "carrots"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 0.5
+      },
+      {
+        "key": "chocolate",
+        "from": [
+          "treats"
+        ],
+        "prefer": "chocolate",
+        "only": [
+          "chocolate"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "flour",
+      "brown sugar",
+      "cooking oil",
+      "baking soda",
+      "cinnamon",
+      "vanilla",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "sweet"
+    ],
+    "steps": [
+      "Heat oven to 350°F and grate the {veg}, squeezing out extra moisture.",
+      "Whisk {eggs}, oil, brown sugar and vanilla, then stir in the {veg}.",
+      "Fold in flour, baking soda, cinnamon and salt[ plus the {chocolate}] until just combined.",
+      "Bake in lined muffin cups 20-22 minutes; cool and freeze, thawing one at a time for lunches."
+    ]
   }
 ]
