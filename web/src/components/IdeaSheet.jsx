@@ -40,7 +40,7 @@ export default function IdeaSheet({ current, deals, prefs, plan, onPick, onClose
   const meal = current?.meal
   const scopes = [
     ['one', `Just ${day?.short === 'Today' ? 'today' : day?.short || 'this day'}`],
-    repeats.length > 0 && ['repeats', `Also ${repeats.map(({ day: d }) => d.short).join(', ')} (same dish)`],
+    ['repeats', repeats.length ? `Everywhere this dish is planned (${repeats.length + 1} days)` : 'Everywhere this dish is planned (only today)'],
     others.length > 0 && ['all', `Every ${meal} this week`],
   ].filter(Boolean)
 
@@ -65,8 +65,9 @@ export default function IdeaSheet({ current, deals, prefs, plan, onPick, onClose
                     key={id}
                     type="button"
                     aria-pressed={scope === id}
+                    disabled={id === 'repeats' && !repeats.length}
                     onClick={() => setScope(id)}
-                    className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
+                    className={`rounded-full border px-3 py-1.5 text-xs font-medium disabled:border-stone-200 disabled:text-stone-400 ${
                       scope === id ? 'border-green-700 bg-green-700 text-white' : 'border-stone-300 bg-white text-stone-700'
                     }`}
                   >
@@ -78,7 +79,7 @@ export default function IdeaSheet({ current, deals, prefs, plan, onPick, onClose
                 {scope === 'all'
                   ? `Same ${meal} all week, so you buy one set of ingredients in bulk instead of a bit of everything.`
                   : scope === 'repeats'
-                    ? `${current.name} is planned ${repeats.length + 1} times. Changing them all keeps you from buying for both dishes.`
+                    ? `${current.name} is also planned ${repeats.map(({ day: d }) => d.short).join(', ')}. Changing them all keeps you from buying for both dishes.`
                     : 'Only this one changes.'}
               </p>
             </fieldset>
