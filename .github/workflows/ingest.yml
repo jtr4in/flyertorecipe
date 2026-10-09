@@ -23,7 +23,7 @@ jobs:
       - name: Ingest
         env:
           APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
-          POSTAL_CODES: ${{ vars.POSTAL_CODES }}
+          POSTAL_CODES: ${{ vars.POSTAL_CODES || secrets.POSTAL_CODES }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: |
           echo "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/sa.json"
