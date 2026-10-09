@@ -1,4 +1,6 @@
-# Builds the web app and publishes it to GitHub Pages, and deploys Firestore rules.
+# Builds the web app and publishes it to GitHub Pages.
+# Firestore rules (firestore.rules) are pasted into the Firebase console, or deployed with
+# `firebase deploy --only firestore:rules`; the Admin SDK key can't deploy them.
 # One-time setup: repo Settings > Pages > Source: "GitHub Actions".
 # Firebase web config comes from web/.env.production (public identifiers, safe to commit).
 name: Deploy web app
@@ -46,18 +48,3 @@ jobs:
       - id: deployment
         uses: actions/deploy-pages@v4
 
-  firestore-rules:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Deploy firestore.rules
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-        run: |
-          echo "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/sa.json"
-          PROJECT_ID=$(jq -r .project_id "$RUNNER_TEMP/sa.json")
-          GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json" \
-            npx --yes firebase-tools@15.33.0 deploy --only firestore:rules --project "$PROJECT_ID" --non-interactive
