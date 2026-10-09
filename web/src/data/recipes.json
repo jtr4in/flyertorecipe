@@ -2111,5 +2111,404 @@
       "sweet"
     ],
     "steps": []
+  },
+  {
+    "id": "pancakes",
+    "meal": "breakfast",
+    "name": "Fluffy pancakes with {fruit}",
+    "emoji": "🥞",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 0.5
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk"
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit",
+          "frozenFruit"
+        ],
+        "prefer": "blueberries",
+        "only": [
+          "strawberries",
+          "blueberries",
+          "bananas",
+          "apples",
+          "frozen fruit"
+        ]
+      }
+    ],
+    "pantry": [
+      "flour",
+      "baking powder",
+      "sugar",
+      "butter",
+      "maple syrup",
+      "salt"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "comfort"
+    ],
+    "steps": [
+      "Whisk flour, baking powder, sugar and a pinch of salt in a bowl.",
+      "Beat in the {milk}, {eggs} and a little melted butter until just combined (lumps are fine).",
+      "Ladle onto a hot buttered pan, drop a few pieces of {fruit} on top and flip when bubbles appear.",
+      "Stack them high and serve with more {fruit} and maple syrup."
+    ]
+  },
+  {
+    "id": "mini-pizzas",
+    "meal": "lunch",
+    "name": "Mini {base} pizzas with {veg}[ & {protein}]",
+    "emoji": "🍕",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "base",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "naan",
+        "only": [
+          "naan",
+          "pitas",
+          "tortillas"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "mozzarella",
+        "only": [
+          "mozzarella",
+          "cheddar",
+          "feta"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "saladVeg"
+        ],
+        "prefer": "bell peppers",
+        "only": [
+          "bell peppers",
+          "mushrooms",
+          "zucchini",
+          "tomatoes",
+          "broccoli"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein"
+        ],
+        "prefer": "deli turkey or ham",
+        "only": [
+          "deli turkey or ham",
+          "rotisserie chicken"
+        ],
+        "qty": 0.5,
+        "main": true,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "pizza sauce",
+      "Italian seasoning",
+      "olive oil"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Heat the oven to 425°F and lay the {base} on a baking sheet.",
+      "Spread each with pizza sauce and sprinkle with Italian seasoning.",
+      "Let everyone build their own with sliced {veg}[, {protein}] and a handful of {cheese}.",
+      "Bake 8-10 minutes until the cheese is bubbly and the edges are crisp."
+    ]
+  },
+  {
+    "id": "sloppy-joes",
+    "meal": "dinner",
+    "name": "{protein} sloppy joes[ with {veg}]",
+    "emoji": "🍔",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "tomatoes",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes",
+        "qty": 0.5
+      },
+      {
+        "key": "buns",
+        "from": [
+          "buns"
+        ],
+        "prefer": "buns"
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "bell peppers",
+        "only": [
+          "bell peppers",
+          "carrots",
+          "mushrooms",
+          "zucchini"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "onion",
+      "garlic",
+      "ketchup",
+      "brown sugar",
+      "Worcestershire sauce",
+      "mustard",
+      "cooking oil"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Brown the {protein} with diced onion and garlic in a little oil, breaking it up.",
+      "[Stir in finely chopped {veg} and cook 3 minutes.]",
+      "Add the {tomatoes}, a big squeeze of ketchup, a spoon of brown sugar, mustard and Worcestershire.",
+      "Simmer 10-15 minutes until thick and saucy.",
+      "Pile onto toasted {buns} and hand out lots of napkins."
+    ]
+  },
+  {
+    "id": "crispy-fingers",
+    "meal": "dinner",
+    "name": "Crispy {protein} fingers with {starch} fries[ & {veg}]",
+    "emoji": "🍗",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "fish"
+        ],
+        "prefer": "chicken breasts",
+        "only": [
+          "chicken breasts",
+          "chicken thighs",
+          "white fish"
+        ],
+        "main": true
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 0.5
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes",
+          "sweet potatoes"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "carrots",
+        "only": [
+          "carrots",
+          "cucumber",
+          "celery",
+          "bell peppers"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "breadcrumbs",
+      "flour",
+      "paprika",
+      "garlic powder",
+      "salt",
+      "cooking oil",
+      "ketchup"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 425°F. Cut the {starch} into fries, toss with oil and salt, and start roasting on a sheet pan.",
+      "Slice the {protein} into strips; dip in flour, then beaten {eggs}, then breadcrumbs mixed with paprika and garlic powder.",
+      "Lay the fingers on a second oiled pan and bake 15-18 minutes, flipping once, until golden and cooked through.",
+      "Flip the fries halfway so they crisp evenly.",
+      "[Cut {veg} into sticks and] serve with ketchup for dipping."
+    ]
+  },
+  {
+    "id": "yogurt-bark",
+    "meal": "snack",
+    "name": "Frozen yogurt bark with {fruit}[ & {crunch}]",
+    "emoji": "🍓",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "yogurt",
+        "from": [
+          "yogurt"
+        ],
+        "prefer": "yogurt"
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit",
+          "frozenFruit"
+        ],
+        "prefer": "strawberries",
+        "only": [
+          "strawberries",
+          "blueberries",
+          "bananas",
+          "frozen fruit"
+        ]
+      },
+      {
+        "key": "crunch",
+        "from": [
+          "oats",
+          "nuts"
+        ],
+        "prefer": "granola",
+        "only": [
+          "granola",
+          "nuts"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "honey",
+      "vanilla extract"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "healthy"
+    ],
+    "steps": [
+      "Line a baking sheet with parchment.",
+      "Stir a drizzle of honey and a splash of vanilla into the {yogurt}, then spread it about 1 cm thick.",
+      "Scatter chopped {fruit}[ and {crunch}] over the top and press in lightly.",
+      "Freeze at least 2 hours, then snap into pieces and keep frozen."
+    ]
+  },
+  {
+    "id": "ants-on-a-log",
+    "meal": "snack",
+    "name": "Ants on a log",
+    "emoji": "🐜",
+    "minutes": 5,
+    "slots": [
+      {
+        "key": "celery",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "celery",
+        "only": [
+          "celery"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "spread",
+        "from": [
+          "spread"
+        ],
+        "prefer": "peanut butter",
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "raisins"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "healthy",
+      "sweet"
+    ],
+    "steps": [
+      "Wash the {celery} and cut into 3-inch logs.",
+      "Fill each groove with {spread}.",
+      "Line up raisins on top as the ants and serve right away."
+    ]
   }
 ]
