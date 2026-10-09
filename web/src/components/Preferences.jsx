@@ -33,26 +33,15 @@ export default function Preferences({ prefs, merchants, onChange }) {
         {!validPostal && <span className="text-xs text-red-600">That doesn't look like a Canadian postal code.</span>}
       </label>
 
-      <div className="grid grid-cols-2 gap-4">
-        <label className="block">
-          <span className="text-sm font-medium">People</span>
-          <input
-            type="number" min="1" max="12"
-            className="mt-1 block w-full rounded-lg border border-stone-300 px-3 py-2"
-            value={prefs.householdSize}
-            onChange={(e) => set({ householdSize: Math.max(1, Number(e.target.value) || 1) })}
-          />
-        </label>
-        <label className="block">
-          <span className="text-sm font-medium">Dinners per week</span>
-          <input
-            type="number" min="1" max="7"
-            className="mt-1 block w-full rounded-lg border border-stone-300 px-3 py-2"
-            value={prefs.mealsPerWeek}
-            onChange={(e) => set({ mealsPerWeek: Math.min(7, Math.max(1, Number(e.target.value) || 1)) })}
-          />
-        </label>
-      </div>
+      <label className="block">
+        <span className="text-sm font-medium">People</span>
+        <input
+          type="number" min="1" max="12"
+          className="mt-1 block w-full rounded-lg border border-stone-300 px-3 py-2"
+          value={prefs.householdSize}
+          onChange={(e) => set({ householdSize: Math.max(1, Number(e.target.value) || 1) })}
+        />
+      </label>
 
       <fieldset>
         <legend className="text-sm font-medium">Diet</legend>
@@ -77,6 +66,21 @@ export default function Preferences({ prefs, merchants, onChange }) {
           ))}
         </div>
       </fieldset>
+
+      <label className="flex items-start gap-3">
+        <input
+          type="checkbox"
+          className="mt-1 size-4 accent-green-700"
+          checked={prefs.leftovers !== false}
+          onChange={(e) => set({ leftovers: e.target.checked })}
+        />
+        <span>
+          <span className="text-sm font-medium">Plan leftovers</span>
+          <span className="block text-xs text-stone-500">
+            Big-batch meals cook double and cover the next night.
+          </span>
+        </span>
+      </label>
 
       <label className="flex items-start gap-3">
         <input

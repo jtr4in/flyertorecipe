@@ -23,6 +23,21 @@ firestore.rules, firebase.json   Firestore security rules + Hosting config
    recipe (`web/src/data/recipes.js`) by how much of it is on sale, picks a varied week (no repeats,
    at most two dinners per protein), scales to household size and builds the shopping list.
 
+## The app
+
+- **Your week:** a 7-night schedule starting today. Meals whose sale ends first and the most
+  perishable proteins go early in the week; big-batch meals cook double and cover the next night
+  as leftovers. Each night can be swapped for a different meal, moved, or marked as a night off.
+- **Meal cards:** estimated cost and cost per serving, savings, "sale ends" badges, and a swap
+  drawer per ingredient ranked by this week's prices.
+- **What's the plan?** box: keywords like "quick", "high protein", "kids", "meal prep",
+  "under $80" or "5 dinners" turn into filters, a week budget (with a progress bar) and a meal
+  count. Filter chips do the same by tap.
+- **Smart grocery list:** a bottom sheet grouped by store, either the best 3 stores or the single
+  store that covers the most items, with flyer images for price matching, map links and sharing.
+
+Costs are estimates: flyers rarely state package sizes, and items not on sale use typical prices.
+
 ## Run it
 
 **Web app (works with no credentials; uses bundled demo deals):**

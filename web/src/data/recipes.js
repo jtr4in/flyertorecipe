@@ -12,7 +12,7 @@ const salt = P('salt & pepper')
 export const RECIPES = [
   {
     id: 'sheet-pan-chicken', name: 'Sheet-pan chicken thighs & potatoes', servings: 4, minutes: 45,
-    protein: 'chicken', tags: ['high-protein', 'gluten-free', 'dairy-free'],
+    protein: 'chicken', tags: ['high-protein', 'gluten-free', 'dairy-free', 'kid-approved', 'big-batch'], emoji: '🍗',
     ingredients: [
       i('chicken thighs', 2, 'lb', 'Meat & Seafood', ['chicken thigh', 'chicken drumstick', 'chicken leg'], { main: true }),
       i('potatoes', 2, 'lb', 'Produce', ['potato'], { exclude: ['sweet', 'chips', 'fries'] }),
@@ -22,7 +22,7 @@ export const RECIPES = [
   },
   {
     id: 'chicken-stir-fry', name: 'Chicken & broccoli stir-fry', servings: 4, minutes: 25,
-    protein: 'chicken', tags: ['high-protein', 'dairy-free'],
+    protein: 'chicken', tags: ['high-protein', 'dairy-free'], emoji: '🥦',
     ingredients: [
       i('chicken breast', 1.5, 'lb', 'Meat & Seafood', ['chicken breast'], { main: true }),
       i('broccoli', 1, 'head', 'Produce', ['broccoli'], { exclude: ['frozen'] }),
@@ -33,7 +33,7 @@ export const RECIPES = [
   },
   {
     id: 'chicken-tacos', name: 'Chicken tacos with salsa', servings: 4, minutes: 30,
-    protein: 'chicken', tags: ['high-protein'],
+    protein: 'chicken', tags: ['high-protein', 'kid-approved'], emoji: '🌮',
     ingredients: [
       i('chicken breast', 1.5, 'lb', 'Meat & Seafood', ['chicken breast'], { main: true }),
       i('tortillas', 1, 'pack', 'Bakery', ['tortilla'], { exclude: ['chips'] }),
@@ -45,7 +45,7 @@ export const RECIPES = [
   },
   {
     id: 'beef-chili', name: 'Beef & bean chili', servings: 6, minutes: 50,
-    protein: 'beef', tags: ['high-protein', 'gluten-free', 'dairy-free'],
+    protein: 'beef', tags: ['high-protein', 'gluten-free', 'dairy-free', 'big-batch'], emoji: '🌶️',
     ingredients: [
       i('ground beef', 1.5, 'lb', 'Meat & Seafood', ['ground beef', 'lean ground'], { main: true }),
       i('canned beans', 2, 'can', 'Pantry', ['kidney bean', 'black bean', 'canned bean'], { exclude: ['green bean', 'coffee', 'jelly', 'baked'] }),
@@ -56,7 +56,7 @@ export const RECIPES = [
   },
   {
     id: 'spaghetti-bolognese', name: 'Spaghetti bolognese', servings: 4, minutes: 40,
-    protein: 'beef', tags: ['high-protein'],
+    protein: 'beef', tags: ['high-protein', 'kid-approved', 'big-batch'], emoji: '🍝',
     ingredients: [
       i('ground beef', 1, 'lb', 'Meat & Seafood', ['ground beef', 'lean ground'], { main: true }),
       i('pasta', 1, 'lb', 'Pantry', ['pasta', 'spaghetti', 'penne', 'rotini'], { exclude: ['sauce', 'salad'] }),
@@ -66,7 +66,7 @@ export const RECIPES = [
   },
   {
     id: 'beef-rice-bowls', name: 'Korean-style beef rice bowls', servings: 4, minutes: 25,
-    protein: 'beef', tags: ['high-protein', 'dairy-free'],
+    protein: 'beef', tags: ['high-protein', 'dairy-free'], emoji: '🍚',
     ingredients: [
       i('ground beef', 1, 'lb', 'Meat & Seafood', ['ground beef', 'lean ground'], { main: true }),
       i('rice', 2, 'cup', 'Pantry', ['rice'], { exclude: ['cake', 'krispies', 'crispy'] }),
@@ -78,7 +78,7 @@ export const RECIPES = [
   },
   {
     id: 'pork-chops-apples', name: 'Pork chops with roasted apples', servings: 4, minutes: 35,
-    protein: 'pork', tags: ['high-protein', 'gluten-free', 'dairy-free'],
+    protein: 'pork', tags: ['high-protein', 'gluten-free', 'dairy-free'], emoji: '🍎',
     ingredients: [
       i('pork chops', 4, 'each', 'Meat & Seafood', ['pork chop', 'pork loin'], { main: true }),
       i('apples', 3, 'each', 'Produce', ['apple'], { exclude: ['juice', 'sauce', 'pie'] }),
@@ -88,7 +88,7 @@ export const RECIPES = [
   },
   {
     id: 'pork-fried-rice', name: 'Pork & veggie fried rice', servings: 4, minutes: 25,
-    protein: 'pork', tags: ['dairy-free'],
+    protein: 'pork', tags: ['dairy-free', 'kid-approved'], emoji: '🍳',
     ingredients: [
       i('pork', 1, 'lb', 'Meat & Seafood', ['pork'], { main: true, exclude: ['rind', 'skin'] }),
       i('rice', 2, 'cup', 'Pantry', ['rice'], { exclude: ['cake', 'krispies', 'crispy'] }),
@@ -99,7 +99,7 @@ export const RECIPES = [
   },
   {
     id: 'baked-salmon', name: 'Baked salmon, rice & broccoli', servings: 4, minutes: 30,
-    protein: 'fish', tags: ['high-protein', 'gluten-free', 'dairy-free'],
+    protein: 'fish', tags: ['high-protein', 'gluten-free', 'dairy-free'], emoji: '🐟',
     ingredients: [
       i('salmon fillets', 1.5, 'lb', 'Meat & Seafood', ['salmon'], { main: true, exclude: ['smoked', 'canned'] }),
       i('rice', 2, 'cup', 'Pantry', ['rice'], { exclude: ['cake', 'krispies', 'crispy'] }),
@@ -109,7 +109,7 @@ export const RECIPES = [
   },
   {
     id: 'shrimp-pasta', name: 'Garlic shrimp pasta', servings: 4, minutes: 25,
-    protein: 'fish', tags: ['high-protein'],
+    protein: 'fish', tags: ['high-protein'], emoji: '🍤',
     ingredients: [
       i('shrimp', 1, 'lb', 'Meat & Seafood', ['shrimp', 'prawn'], { main: true, exclude: ['ring', 'chips', 'surimi', 'pasta', 'alfredo', 'tempura', 'dumpling', 'ravioli', 'raviolis'] }),
       i('pasta', 1, 'lb', 'Pantry', ['pasta', 'spaghetti', 'linguine', 'penne'], { exclude: ['sauce', 'salad'] }),
@@ -120,7 +120,7 @@ export const RECIPES = [
   },
   {
     id: 'veggie-frittata', name: 'Spinach & cheese frittata', servings: 4, minutes: 30,
-    protein: 'egg', tags: ['vegetarian', 'high-protein', 'gluten-free'],
+    protein: 'egg', tags: ['vegetarian', 'high-protein', 'gluten-free'], emoji: '🥚',
     ingredients: [
       i('eggs', 10, 'each', 'Dairy & Eggs', ['egg'], { main: true, exclude: ['eggplant', 'nog', 'noodle'] }),
       i('spinach', 1, 'bag', 'Produce', ['spinach']),
@@ -131,7 +131,7 @@ export const RECIPES = [
   },
   {
     id: 'shakshuka', name: 'Shakshuka with crusty bread', servings: 4, minutes: 30,
-    protein: 'egg', tags: ['vegetarian', 'dairy-free'],
+    protein: 'egg', tags: ['vegetarian', 'dairy-free'], emoji: '🍅',
     ingredients: [
       i('eggs', 8, 'each', 'Dairy & Eggs', ['egg'], { main: true, exclude: ['eggplant', 'nog', 'noodle'] }),
       i('canned tomatoes', 2, 'can', 'Pantry', ['canned tomato', 'diced tomato', 'crushed tomato'], {}),
@@ -142,7 +142,7 @@ export const RECIPES = [
   },
   {
     id: 'lentil-curry', name: 'Red lentil curry', servings: 4, minutes: 35,
-    protein: 'legume', tags: ['vegetarian', 'vegan', 'gluten-free', 'dairy-free'],
+    protein: 'legume', tags: ['vegetarian', 'vegan', 'gluten-free', 'dairy-free', 'big-batch'], emoji: '🍛',
     ingredients: [
       i('red lentils', 2, 'cup', 'Pantry', ['lentil'], { main: true, exclude: ['chips', 'soup'] }),
       i('canned tomatoes', 1, 'can', 'Pantry', ['canned tomato', 'diced tomato', 'crushed tomato'], {}),
@@ -153,7 +153,7 @@ export const RECIPES = [
   },
   {
     id: 'black-bean-burritos', name: 'Black bean & rice burritos', servings: 4, minutes: 25,
-    protein: 'legume', tags: ['vegetarian'],
+    protein: 'legume', tags: ['vegetarian', 'kid-approved'], emoji: '🌯',
     ingredients: [
       i('canned black beans', 2, 'can', 'Pantry', ['black bean', 'canned bean'], { main: true, exclude: ['green bean', 'coffee', 'jelly', 'baked'] }),
       i('rice', 1.5, 'cup', 'Pantry', ['rice'], { exclude: ['cake', 'krispies', 'crispy'] }),
@@ -165,7 +165,7 @@ export const RECIPES = [
   },
   {
     id: 'chickpea-pasta', name: 'Tomato chickpea pasta', servings: 4, minutes: 25,
-    protein: 'legume', tags: ['vegetarian', 'vegan', 'dairy-free'],
+    protein: 'legume', tags: ['vegetarian', 'vegan', 'dairy-free'], emoji: '🍝',
     ingredients: [
       i('pasta', 1, 'lb', 'Pantry', ['pasta', 'penne', 'rotini', 'spaghetti'], { exclude: ['sauce', 'salad'] }),
       i('canned chickpeas', 1, 'can', 'Pantry', ['chickpea', 'canned bean'], { main: true, exclude: ['green bean', 'coffee', 'jelly', 'baked'] }),
@@ -176,7 +176,7 @@ export const RECIPES = [
   },
   {
     id: 'tofu-stir-fry', name: 'Crispy tofu & veggie stir-fry', servings: 4, minutes: 30,
-    protein: 'tofu', tags: ['vegetarian', 'vegan', 'high-protein', 'dairy-free'],
+    protein: 'tofu', tags: ['vegetarian', 'vegan', 'high-protein', 'dairy-free'], emoji: '🥢',
     ingredients: [
       i('firm tofu', 2, 'block', 'Plant Protein', ['tofu'], { main: true }),
       i('broccoli', 1, 'head', 'Produce', ['broccoli'], { exclude: ['frozen'] }),
@@ -187,7 +187,7 @@ export const RECIPES = [
   },
   {
     id: 'peanut-tofu-noodles', name: 'Peanut tofu noodles', servings: 4, minutes: 25,
-    protein: 'tofu', tags: ['vegetarian', 'vegan', 'high-protein', 'dairy-free'],
+    protein: 'tofu', tags: ['vegetarian', 'vegan', 'high-protein', 'dairy-free'], emoji: '🥜',
     ingredients: [
       i('firm tofu', 1, 'block', 'Plant Protein', ['tofu'], { main: true }),
       i('pasta or noodles', 1, 'lb', 'Pantry', ['noodle', 'spaghetti', 'pasta'], { exclude: ['sauce', 'instant', 'cup'] }),
@@ -199,7 +199,7 @@ export const RECIPES = [
   },
   {
     id: 'mac-cheese-broccoli', name: 'Stovetop mac & cheese with broccoli', servings: 4, minutes: 25,
-    protein: 'cheese', tags: ['vegetarian'],
+    protein: 'cheese', tags: ['vegetarian', 'kid-approved'], emoji: '🧀',
     ingredients: [
       i('pasta', 1, 'lb', 'Pantry', ['macaroni', 'pasta', 'elbow'], { exclude: ['sauce', 'salad', 'dinner'] }),
       i('cheddar', 2, 'cup', 'Dairy & Eggs', ['cheddar', 'cheese'], { main: true, exclude: ['cream cheese', 'cheesecake'] }),
@@ -211,7 +211,7 @@ export const RECIPES = [
   },
   {
     id: 'turkey-burgers', name: 'Turkey burgers & salad', servings: 4, minutes: 30,
-    protein: 'poultry', tags: ['high-protein', 'dairy-free'],
+    protein: 'poultry', tags: ['high-protein', 'dairy-free', 'kid-approved'], emoji: '🍔',
     ingredients: [
       i('ground turkey', 1.5, 'lb', 'Meat & Seafood', ['ground turkey'], { main: true, exclude: ['deli', 'sliced', 'bacon'] }),
       i('buns', 1, 'pack', 'Bakery', ['bun', 'kaiser'], {}),
@@ -222,7 +222,7 @@ export const RECIPES = [
   },
   {
     id: 'sausage-peppers', name: 'Sausage, peppers & potatoes', servings: 4, minutes: 40,
-    protein: 'pork', tags: ['high-protein', 'gluten-free', 'dairy-free'],
+    protein: 'pork', tags: ['high-protein', 'gluten-free', 'dairy-free', 'big-batch'], emoji: '🌭',
     ingredients: [
       i('sausages', 1.5, 'lb', 'Meat & Seafood', ['sausage'], { main: true, exclude: ['breakfast', 'roll'] }),
       i('bell peppers', 3, 'each', 'Produce', ['pepper'], { exclude: ['pepperoni', 'black pepper', 'peppercorn'] }),
@@ -232,7 +232,7 @@ export const RECIPES = [
   },
   {
     id: 'yogurt-oats-bake', name: 'Baked berry oatmeal (make-ahead breakfast)', servings: 6, minutes: 40,
-    protein: 'dairy', tags: ['vegetarian', 'gluten-free'],
+    protein: 'dairy', tags: ['vegetarian', 'gluten-free', 'kid-approved', 'big-batch'], emoji: '🫐',
     ingredients: [
       i('rolled oats', 3, 'cup', 'Pantry', ['oat'], { main: true, exclude: ['milk', 'bar', 'cookie'] }),
       i('berries', 2, 'cup', 'Produce', ['berry', 'berries', 'blueberries', 'strawberries', 'raspberries'], { exclude: ['juice', 'jam', 'cereal'] }),
@@ -243,3 +243,67 @@ export const RECIPES = [
     ],
   },
 ]
+
+// Swap options per ingredient (by item name). Same quantity and unit as the original
+// unless the alternative says otherwise. `notFor` hides meat options from vegetarians.
+const MEAT = ['vegetarian', 'vegan']
+const veg = (item, match, opts = {}) => i(item, 0, opts.unit, 'Produce', match, opts)
+const GREEN_VEG = [
+  veg('broccoli', ['broccoli'], { unit: 'head', exclude: ['frozen'] }),
+  veg('green beans', ['green bean'], { unit: 'lb', exclude: ['canned'] }),
+  veg('asparagus', ['asparagus'], { unit: 'bunch' }),
+  veg('cauliflower', ['cauliflower'], { unit: 'head', exclude: ['frozen', 'rice'] }),
+  veg('zucchini', ['zucchini'], { unit: 'each' }),
+  i('frozen mixed vegetables', 0, 'bag', 'Frozen', ['frozen vegetable', 'frozen mixed', 'mixed vegetables']),
+]
+const LEAFY = [
+  veg('spinach', ['spinach'], { unit: 'bag' }),
+  veg('kale', ['kale'], { unit: 'bunch', exclude: ['chips'] }),
+  veg('lettuce', ['lettuce', 'romaine'], { unit: 'head' }),
+]
+const PEPPERY = [
+  veg('bell peppers', ['pepper'], { unit: 'each', exclude: ['pepperoni', 'black pepper', 'peppercorn'] }),
+  veg('mushrooms', ['mushroom'], { unit: 'pack', exclude: ['soup', 'canned'] }),
+  veg('zucchini', ['zucchini'], { unit: 'each' }),
+  veg('carrots', ['carrot'], { unit: 'each', exclude: ['cake'] }),
+]
+const POULTRY = [
+  i('chicken breast', 0, 'lb', 'Meat & Seafood', ['chicken breast'], { main: true, notFor: MEAT }),
+  i('chicken thighs', 0, 'lb', 'Meat & Seafood', ['chicken thigh', 'chicken drumstick', 'chicken leg'], { main: true, notFor: MEAT }),
+  i('ground turkey', 0, 'lb', 'Meat & Seafood', ['ground turkey'], { main: true, notFor: MEAT }),
+  i('pork', 0, 'lb', 'Meat & Seafood', ['pork loin', 'pork chop', 'pork tenderloin'], { main: true, notFor: MEAT }),
+  i('firm tofu', 0, 'block', 'Plant Protein', ['tofu'], { main: true }),
+]
+const GROUND = [
+  i('ground beef', 0, 'lb', 'Meat & Seafood', ['ground beef', 'lean ground'], { main: true, notFor: MEAT }),
+  i('ground turkey', 0, 'lb', 'Meat & Seafood', ['ground turkey'], { main: true, notFor: MEAT }),
+  i('ground pork', 0, 'lb', 'Meat & Seafood', ['ground pork'], { main: true, notFor: MEAT }),
+  i('ground chicken', 0, 'lb', 'Meat & Seafood', ['ground chicken'], { main: true, notFor: MEAT }),
+  i('red lentils', 0, 'cup', 'Pantry', ['lentil'], { main: true, exclude: ['chips', 'soup'] }),
+]
+const FISH = [
+  i('salmon fillets', 0, 'lb', 'Meat & Seafood', ['salmon'], { main: true, notFor: MEAT, exclude: ['smoked', 'canned'] }),
+  i('tilapia or basa', 0, 'lb', 'Meat & Seafood', ['tilapia', 'basa', 'sole', 'haddock', 'cod'], { main: true, notFor: MEAT, exclude: ['breaded', 'battered'] }),
+  i('shrimp', 0, 'lb', 'Meat & Seafood', ['shrimp', 'prawn'], { main: true, notFor: MEAT, exclude: ['ring', 'surimi', 'pasta'] }),
+]
+const STARCH = [
+  i('rice', 0, 'cup', 'Pantry', ['rice'], { exclude: ['cake', 'krispies', 'crispy'] }),
+  i('pasta', 0, 'lb', 'Pantry', ['pasta', 'spaghetti', 'penne', 'rotini'], { exclude: ['sauce', 'salad'] }),
+  i('potatoes', 0, 'lb', 'Produce', ['potato'], { exclude: ['sweet', 'chips', 'fries'] }),
+  i('quinoa', 0, 'cup', 'Pantry', ['quinoa']),
+]
+const CHEESE = [
+  i('cheddar', 0, 'cup', 'Dairy & Eggs', ['cheddar', 'cheese'], { exclude: ['cream cheese', 'cheesecake'] }),
+  i('mozzarella', 0, 'cup', 'Dairy & Eggs', ['mozzarella'], {}),
+]
+const group = (list) => Object.fromEntries(list.map((a) => [a.item, list.filter((b) => b.item !== a.item)]))
+export const SWAPS = {
+  ...group(GREEN_VEG),
+  ...group(LEAFY),
+  ...group(PEPPERY),
+  ...group(POULTRY),
+  ...group(GROUND),
+  ...group(FISH),
+  ...group(STARCH),
+  ...group(CHEESE),
+}

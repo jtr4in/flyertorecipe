@@ -6,7 +6,7 @@ import { sampleDeals } from '../data/sampleDeals'
 export const DEFAULT_PREFS = {
   postalCode: '',
   householdSize: 2,
-  mealsPerWeek: 5,
+  leftovers: true,
   diet: [],
   stores: [],
   priceMatch: false,
@@ -58,5 +58,28 @@ export async function loadDeals(postalCode) {
   return {
     deals: dealSnap.docs.map((d) => d.data()),
     region: regionSnap.exists() ? regionSnap.data() : null,
+  }
+}
+
+// Per-household week edits (nights off, moved meals, swaps). Device-local on purpose:
+// it's scratch state for this week, and resets after 7 days.
+const WEEK_KEY = 'f2r.week'
+export const EMPTY_WEEK = { off: [], order: [], skip: [], swaps: {}, checked: {} }
+
+export function loadWeek(todayKey) {
+  try {
+    const w = JSON.parse(localStorage.getItem(WEEK_KEY) || 'null')
+    if (w && w.started && (Date.parse(todayKey) - Date.parse(w.started)) / 864e5 < 7) return { ...EMPTY_WEEK, ...w }
+  } catch {
+    /* fall through */
+  }
+  return { ...EMPTY_WEEK, started: todayKey }
+}
+
+export function saveWeek(week) {
+  try {
+    localStorage.setItem(WEEK_KEY, JSON.stringify(week))
+  } catch {
+    /* private mode */
   }
 }
