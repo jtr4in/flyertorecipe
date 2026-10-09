@@ -3,7 +3,7 @@
 // Pure functions, no Firebase, so it is unit-testable.
 import { AISLES } from './aisles'
 import { CATALOG } from '../data/ingredients'
-import { MEALS, TEMPLATES } from '../data/templates'
+import { fillText, MEALS, TEMPLATES } from '../data/templates'
 
 // ---------- Deals ----------
 
@@ -193,6 +193,7 @@ export function fillTemplate(template, ctx) {
         s += Math.min(p.savings * 4, 8)
         s -= p.cost * 2
         const n = usage[c.ing.item] || 0
+        if (slot.prefer === c.ing.item) s += 6 // the recipe's usual pick, when it's on sale too
         if (n) s += 3 // reuse what's already bought...
         s -= Math.max(0, n - 3) * 4 // ...but not pears at every meal
         if (slot.main && template.meal === 'dinner' && (usage[`main:${c.ing.item}`] || 0) >= 2) s -= 60
@@ -225,6 +226,7 @@ export function fillTemplate(template, ctx) {
   return {
     template,
     name: template.name(label),
+    steps: template.steps.map((st) => fillText(st, label)),
     emoji: template.emoji,
     minutes: template.minutes,
     lines,

@@ -46,6 +46,14 @@ export async function savePrefs(prefs) {
   }
 }
 
+/** The shared recipe list from Firestore, or null to keep the bundled copy. */
+export async function loadRecipes() {
+  if (!firebaseEnabled) return null
+  await authReady
+  const snap = await getDocs(collection(db, 'recipes'))
+  return snap.empty ? null : snap.docs.map((d) => d.data())
+}
+
 /** Returns { deals, region } for the household's postal code. */
 export async function loadDeals(postalCode) {
   if (!firebaseEnabled) return { deals: sampleDeals(), region: { demo: true } }

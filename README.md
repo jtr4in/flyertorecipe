@@ -45,6 +45,25 @@ firestore.rules, firebase.json   Firestore security rules + Hosting config
 
 Costs are estimates: flyers rarely state package sizes, and items not on sale use typical prices.
 
+## Recipes
+
+Recipes live in `web/src/data/recipes.json`. Each one is a normal recipe whose ingredients are
+slots: the recipe's usual pick (`prefer`) plus the catalog groups it can swap to when something
+similar is on sale. "{protein} & {veg} stir-fry over {starch}" becomes "Chicken thighs &
+broccoli stir-fry over rice" in a week where those are in the flyers.
+
+- **Live set:** merging a change to `recipes.json` runs the *Recipes* workflow, which checks
+  every recipe against the ingredient catalog and copies the set to Firestore `recipes/`. The
+  app loads that set at start and falls back to the bundled file.
+- **New recipes:** Actions > Recipes > Run workflow, choose *draft*, how many, a meal and an
+  optional theme. Claude writes them in the slot format, the check drops any that use
+  ingredients the catalog can't match to flyers, and the rest arrive as a pull request to
+  review. Mode *steps* writes short methods for recipes that have none.
+  Needs the `ANTHROPIC_API_KEY` repo secret and "Allow GitHub Actions to create and approve
+  pull requests" (Settings > Actions > General).
+- **Locally:** `node -e "import('./web/src/data/ingredients.js').then(m => console.log(JSON.stringify(m.CATALOG)))" > backend/catalog.json`,
+  then `python backend/recipes_tool.py check` (or `draft --count 6 --meal dinner --theme ...`).
+
 ## Run it
 
 **Web app (works with no credentials; uses bundled demo deals):**

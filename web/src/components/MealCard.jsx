@@ -113,6 +113,19 @@ export default function MealCard({ label, emoji, entry, onSwapLine, onAnother, o
         ))}
       </ul>
       {m.pantry.length > 0 && <p className="px-4 pt-1 text-[11px] text-stone-400">You have: {m.pantry.join(', ')}</p>}
+      {m.steps?.length > 0 && (
+        <details className="group px-4 pt-2 text-sm">
+          <summary className="cursor-pointer list-none text-xs font-medium text-green-700">
+            <span className="group-open:hidden">▸ How to make it</span>
+            <span className="hidden group-open:inline">▾ How to make it</span>
+          </summary>
+          <ol className="mt-1.5 list-decimal space-y-1 pl-5 text-[13px] text-stone-700">
+            {m.steps.map((st, i) => (
+              <li key={i}>{st}</li>
+            ))}
+          </ol>
+        </details>
+      )}
 
       <div className="mt-2 flex border-t border-stone-100 text-xs font-medium">
         <button onClick={onAnother} className="flex-1 py-2.5 text-green-700 hover:bg-stone-50">

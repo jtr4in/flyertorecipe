@@ -1,0 +1,105 @@
+# Recipe library. web/src/data/recipes.json is the source of truth.
+# - On push to main that changes recipes.json: check every recipe against the ingredient catalog,
+#   then copy the set to Firestore `recipes/` (needs FIREBASE_SERVICE_ACCOUNT).
+# - Run manually to have Claude draft new recipes (mode "draft") or write methods for recipes that
+#   have none (mode "steps"). Results land as a pull request; merging it puts them live.
+#   Needs the ANTHROPIC_API_KEY repo secret, and Settings > Actions > General >
+#   "Allow GitHub Actions to create and approve pull requests".
+name: Recipes
+on:
+  push:
+    branches: [main]
+    paths: [web/src/data/recipes.json, web/src/data/ingredients.js]
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: draft = new recipes, steps = write methods for existing ones
+        type: choice
+        options: [draft, steps]
+        default: draft
+      count:
+        description: How many new recipes (draft mode)
+        default: "6"
+      meal:
+        description: Only this meal (draft mode)
+        type: choice
+        options: [any, breakfast, lunch, dinner, snack]
+        default: any
+      theme:
+        description: Optional theme, e.g. "kid-friendly", "Indian", "under 20 minutes"
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  seed:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r backend/requirements.txt
+      - name: Export catalog
+        run: node -e "import('./web/src/data/ingredients.js').then(m => console.log(JSON.stringify(m.CATALOG)))" > backend/catalog.json
+      - run: python backend/recipes_tool.py check
+      - name: Seed Firestore
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          echo "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/sa.json"
+          GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json" python backend/recipes_tool.py seed
+
+  draft:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r backend/requirements.txt
+      - name: Export catalog
+        run: node -e "import('./web/src/data/ingredients.js').then(m => console.log(JSON.stringify(m.CATALOG)))" > backend/catalog.json
+      - name: Ask Claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MODE: ${{ inputs.mode }}
+          COUNT: ${{ inputs.count }}
+          MEAL: ${{ inputs.meal }}
+          THEME: ${{ inputs.theme }}
+        run: |
+          if [ "$MODE" = steps ]; then
+            python backend/recipes_tool.py steps
+          else
+            args=(--count "$COUNT")
+            [ "$MEAL" != any ] && args+=(--meal "$MEAL")
+            [ -n "$THEME" ] && args+=(--theme "$THEME")
+            python backend/recipes_tool.py draft "${args[@]}"
+          fi
+          python backend/recipes_tool.py check
+      - name: Open a pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MODE: ${{ inputs.mode }}
+        run: |
+          if git diff --quiet -- web/src/data/recipes.json; then echo "Nothing new to propose."; exit 0; fi
+          branch="recipe-drafts-${{ github.run_id }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add web/src/data/recipes.json
+          git commit -m "Recipes: $MODE from Claude"
+          git push -u origin "$branch"
+          { echo "Review these, then merge to put them live (the app picks them up on its next load)."; echo; cat recipe-report.md; } > "$RUNNER_TEMP/body.md"
+          gh pr create --title "New recipes ($MODE)" --body-file "$RUNNER_TEMP/body.md" --head "$branch" \
+            || echo "::warning::Couldn't open the PR. Open it here: https://github.com/${{ github.repository }}/compare/$branch?expand=1"

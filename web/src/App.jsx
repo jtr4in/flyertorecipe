@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { firebaseEnabled } from './lib/firebase'
-import { DEFAULT_PREFS, fsa, loadDeals, loadPrefs, loadWeek, savePrefs, saveWeek } from './lib/data'
+import { DEFAULT_PREFS, fsa, loadDeals, loadPrefs, loadRecipes, loadWeek, savePrefs, saveWeek } from './lib/data'
 import { activeDeals, buildShoppingList, FILTERS, listSwapOptions, parsePlanQuery, planWeek, swapOptions, weekDays } from './lib/planner'
 import { dealName, money, storeTint } from './lib/stores'
-import { cap, MEALS } from './data/templates'
+import { cap, MEALS, setRecipes } from './data/templates'
 import Preferences from './components/Preferences'
 import Sheet from './components/Sheet'
 import WeekStrip from './components/WeekStrip'
@@ -36,6 +36,14 @@ export default function App() {
     return next
   }), [])
 
+  // Recipes added since this build ship through Firestore; the bundled set works offline.
+  const [recipesVersion, setRecipesVersion] = useState(0)
+  useEffect(() => {
+    loadRecipes()
+      .then((list) => list && setRecipes(list) && setRecipesVersion((v) => v + 1))
+      .catch(() => {})
+  }, [])
+
   useEffect(() => {
     loadPrefs()
       .then((p) => {
@@ -64,7 +72,7 @@ export default function App() {
   const deals = useMemo(() => (prefs ? activeDeals(data.deals, { stores: prefs.stores }) : []), [prefs, data.deals])
   const plan = useMemo(
     () => (prefs ? planWeek(deals, prefs, { days, filters, budget: parsed.budget, overrides: week.overrides, avoid: week.avoid }) : []),
-    [prefs, deals, days, filters, parsed.budget, week.overrides, week.avoid],
+    [prefs, deals, days, filters, parsed.budget, week.overrides, week.avoid, recipesVersion],
   )
   const list = useMemo(() => (prefs ? buildShoppingList(plan, deals, prefs, { mode: listMode }) : null), [plan, deals, prefs, listMode])
   const listStores = useMemo(() => [...new Set(deals.map((d) => d.merchant).filter(Boolean))].sort(), [deals])
