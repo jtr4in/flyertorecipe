@@ -5785,5 +5785,1433 @@
       "Roast at 400°F for 25-30 minutes, shaking halfway, until crunchy[; add the {nuts} for the last 5 minutes].",
       "Finish with a squeeze of lime and cool before snacking."
     ]
+  },
+  {
+    "id": "breakfast-strata",
+    "meal": "breakfast",
+    "name": "Christmas morning breakfast strata with {protein} & {veg}",
+    "emoji": "🎄",
+    "minutes": 60,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "pork",
+          "lunchProtein"
+        ],
+        "prefer": "sausages",
+        "only": [
+          "sausages",
+          "deli turkey or ham"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "greens"
+        ],
+        "prefer": "bell peppers",
+        "only": [
+          "bell peppers",
+          "mushrooms",
+          "spinach",
+          "kale",
+          "broccoli",
+          "asparagus"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs"
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread",
+          "English muffins"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ]
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "butter",
+      "dry mustard",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Brown the {protein} in a skillet, then add the {veg} and cook until soft.",
+      "Cube the {bread} and spread it in a buttered baking dish with the {protein} mixture and {cheese}.",
+      "Whisk the eggs with the milk, mustard, salt and pepper and pour over everything.",
+      "Cover and refrigerate overnight (or at least 30 minutes).",
+      "Bake at 350°F for 45 minutes until puffed and golden."
+    ]
+  },
+  {
+    "id": "orange-scones",
+    "meal": "breakfast",
+    "name": "Glazed orange scones[ with {fruit}]",
+    "emoji": "🍊",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "orange",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "oranges",
+        "only": [
+          "oranges"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit",
+          "frozenFruit"
+        ],
+        "prefer": "blueberries",
+        "only": [
+          "blueberries",
+          "strawberries",
+          "apples",
+          "frozen fruit"
+        ],
+        "qty": 0.5,
+        "optional": true
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk",
+          "yogurt"
+        ],
+        "prefer": "milk",
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "flour",
+      "sugar",
+      "baking powder",
+      "butter",
+      "icing sugar",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Zest and juice the oranges.",
+      "Rub cold butter into flour, sugar, baking powder, salt and the zest.",
+      "Stir in the {milk}[ and fold in the {fruit}] until a shaggy dough forms.",
+      "Pat into a circle, cut into wedges and bake at 400°F for 18-20 minutes.",
+      "Whisk icing sugar with orange juice and drizzle over the cooled scones."
+    ]
+  },
+  {
+    "id": "gingerbread-baked-oatmeal",
+    "meal": "breakfast",
+    "name": "Gingerbread baked oatmeal with {fruit}",
+    "emoji": "🫚",
+    "minutes": 45,
+    "slots": [
+      {
+        "key": "oats",
+        "from": [
+          "oats"
+        ],
+        "prefer": "oats",
+        "only": [
+          "oats"
+        ]
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk"
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 0.5
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit",
+          "frozenFruit"
+        ],
+        "prefer": "apples",
+        "only": [
+          "apples",
+          "pears",
+          "bananas",
+          "blueberries",
+          "frozen fruit"
+        ]
+      }
+    ],
+    "pantry": [
+      "molasses",
+      "maple syrup",
+      "ground ginger",
+      "cinnamon",
+      "baking powder",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "healthy",
+      "sweet",
+      "comfort"
+    ],
+    "steps": [
+      "Chop the {fruit} and spread it in a greased baking dish.",
+      "Mix oats, baking powder, ginger, cinnamon and salt in a bowl.",
+      "Whisk the milk, eggs, molasses and maple syrup, then stir into the oats.",
+      "Pour over the {fruit} and bake at 375°F for 35 minutes until set."
+    ]
+  },
+  {
+    "id": "breakfast-hash",
+    "meal": "breakfast",
+    "name": "{starch} & {protein} breakfast hash with eggs[ and {veg}]",
+    "emoji": "🍳",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "sweet potatoes",
+        "only": [
+          "sweet potatoes",
+          "potatoes"
+        ]
+      },
+      {
+        "key": "protein",
+        "from": [
+          "pork",
+          "lunchProtein"
+        ],
+        "prefer": "sausages",
+        "only": [
+          "sausages",
+          "deli turkey or ham",
+          "rotisserie chicken"
+        ],
+        "main": true
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs"
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "greens"
+        ],
+        "prefer": "brussels sprouts",
+        "only": [
+          "brussels sprouts",
+          "bell peppers",
+          "mushrooms",
+          "kale",
+          "spinach"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "cooking oil",
+      "onion",
+      "smoked paprika",
+      "salt",
+      "pepper"
+    ],
+    "tags": [],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Dice the {starch} and fry in oil with onion for 12-15 minutes until tender and crisp.",
+      "Add the {protein}[ and {veg}] and cook until browned.",
+      "Season with paprika, salt and pepper.",
+      "Make wells in the hash, crack in the eggs, cover and cook until the whites set."
+    ]
+  },
+  {
+    "id": "gingerbread-waffles",
+    "meal": "breakfast",
+    "name": "Gingerbread waffles with {fruit}[ & {topping}]",
+    "emoji": "🧇",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 0.5
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk"
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit",
+          "frozenFruit"
+        ],
+        "prefer": "pears",
+        "only": [
+          "pears",
+          "apples",
+          "bananas",
+          "strawberries",
+          "blueberries",
+          "frozen fruit"
+        ]
+      },
+      {
+        "key": "topping",
+        "from": [
+          "yogurt",
+          "treats"
+        ],
+        "prefer": "yogurt",
+        "only": [
+          "yogurt",
+          "ice cream"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "flour",
+      "molasses",
+      "brown sugar",
+      "ground ginger",
+      "cinnamon",
+      "baking powder",
+      "butter",
+      "maple syrup"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Whisk flour, brown sugar, ginger, cinnamon and baking powder.",
+      "Beat in the eggs, milk, molasses and melted butter until just combined.",
+      "Cook in a hot greased waffle iron until crisp.",
+      "Top with sliced {fruit}[, a spoonful of {topping}] and maple syrup."
+    ]
+  },
+  {
+    "id": "cozy-chicken-rice-soup",
+    "meal": "lunch",
+    "name": "Cozy {protein} & {starch} soup with {veg}[ & {greens}]",
+    "emoji": "🍲",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein",
+          "poultry"
+        ],
+        "prefer": "rotisserie chicken",
+        "only": [
+          "rotisserie chicken",
+          "chicken thighs",
+          "chicken breasts"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice",
+          "egg noodles"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "saladVeg"
+        ],
+        "prefer": "carrots",
+        "only": [
+          "carrots",
+          "celery",
+          "frozen mixed vegetables"
+        ]
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "prefer": "spinach",
+        "only": [
+          "spinach",
+          "kale"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "chicken broth",
+      "onion",
+      "garlic",
+      "thyme",
+      "bay leaf",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "healthy"
+    ],
+    "steps": [
+      "Soften onion, garlic and the {veg} in a big pot.",
+      "Add broth, thyme and bay leaf and bring to a simmer.",
+      "Stir in the {starch} and cook until tender.",
+      "Add the shredded or diced {protein}[ and {greens}] and simmer 5 more minutes; season to taste."
+    ]
+  },
+  {
+    "id": "roasted-squash-soup",
+    "meal": "lunch",
+    "name": "Roasted {veg}[ & {fruit}] soup with warm {bread}",
+    "emoji": "🎃",
+    "minutes": 45,
+    "slots": [
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "starch"
+        ],
+        "prefer": "squash",
+        "only": [
+          "squash",
+          "sweet potatoes",
+          "carrots",
+          "cauliflower"
+        ]
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "apples",
+        "only": [
+          "apples",
+          "pears"
+        ],
+        "qty": 0.5,
+        "optional": true
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread",
+          "wraps"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread",
+          "naan"
+        ]
+      }
+    ],
+    "pantry": [
+      "vegetable broth",
+      "onion",
+      "garlic",
+      "cooking oil",
+      "nutmeg",
+      "butter",
+      "salt"
+    ],
+    "tags": [
+      "big-batch"
+    ],
+    "vibes": [
+      "healthy",
+      "comfort",
+      "light"
+    ],
+    "steps": [
+      "Cube the {veg}[ and {fruit}], toss with oil, onion and garlic and roast at 425°F for 30 minutes.",
+      "Transfer to a pot with broth and simmer 5 minutes.",
+      "Blend until smooth and season with nutmeg and salt.",
+      "Serve with buttered, warmed {bread}."
+    ]
+  },
+  {
+    "id": "hearty-lentil-soup",
+    "meal": "lunch",
+    "name": "Hearty lentil soup with {veg}[ & {protein}]",
+    "emoji": "🥣",
+    "minutes": 45,
+    "slots": [
+      {
+        "key": "lentils",
+        "from": [
+          "plantProtein"
+        ],
+        "prefer": "lentils",
+        "only": [
+          "lentils"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "saladVeg"
+        ],
+        "prefer": "carrots",
+        "only": [
+          "carrots",
+          "celery",
+          "zucchini",
+          "squash"
+        ]
+      },
+      {
+        "key": "tomatoes",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes"
+      },
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein",
+          "pork"
+        ],
+        "prefer": "deli turkey or ham",
+        "only": [
+          "deli turkey or ham",
+          "sausages"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "onion",
+      "garlic",
+      "vegetable broth",
+      "cumin",
+      "thyme",
+      "cooking oil"
+    ],
+    "tags": [
+      "big-batch"
+    ],
+    "vibes": [
+      "healthy",
+      "comfort"
+    ],
+    "steps": [
+      "Sauté onion, garlic and the {veg} in oil until soft[, then add the chopped {protein}].",
+      "Stir in rinsed lentils, canned tomatoes, broth, cumin and thyme.",
+      "Simmer 30 minutes until the lentils are tender.",
+      "Season and serve, or cool and freeze in portions."
+    ]
+  },
+  {
+    "id": "waldorf-salad",
+    "meal": "lunch",
+    "name": "{protein} Waldorf salad with {fruit}[ & {nuts}]",
+    "emoji": "🍏",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein"
+        ],
+        "prefer": "rotisserie chicken",
+        "only": [
+          "rotisserie chicken",
+          "deli turkey or ham"
+        ],
+        "main": true
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "apples",
+        "only": [
+          "apples",
+          "grapes",
+          "pears"
+        ]
+      },
+      {
+        "key": "celery",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "celery",
+        "only": [
+          "celery"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "prefer": "lettuce",
+        "only": [
+          "lettuce",
+          "salad greens"
+        ]
+      },
+      {
+        "key": "nuts",
+        "from": [
+          "nuts"
+        ],
+        "prefer": "nuts",
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "mayonnaise",
+      "lemon juice",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "healthy",
+      "light"
+    ],
+    "steps": [
+      "Dice the {protein}, {fruit} and celery.",
+      "Toss with mayonnaise, a squeeze of lemon, salt and pepper[ and the chopped {nuts}].",
+      "Spoon over the {greens} or into lettuce cups."
+    ]
+  },
+  {
+    "id": "pot-pie",
+    "meal": "dinner",
+    "name": "{protein} pot pie with {veg}[ & {starch}]",
+    "emoji": "🥧",
+    "minutes": 60,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "lunchProtein",
+          "ground"
+        ],
+        "prefer": "chicken thighs",
+        "only": [
+          "chicken thighs",
+          "chicken breasts",
+          "rotisserie chicken",
+          "ground turkey"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "frozen mixed vegetables",
+        "only": [
+          "frozen mixed vegetables",
+          "carrots",
+          "mushrooms",
+          "green beans",
+          "broccoli"
+        ]
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes"
+        ],
+        "qty": 0.5,
+        "optional": true
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "pie crust",
+      "flour",
+      "butter",
+      "chicken broth",
+      "onion",
+      "thyme",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Cook the diced {protein} in butter with onion[ and cubed {starch}] until cooked through.",
+      "Sprinkle in flour, then stir in broth and milk until thick and creamy.",
+      "Add the {veg} and thyme and season well.",
+      "Pour into a pie dish, top with crust and cut a few slits.",
+      "Bake at 400°F for 30 minutes until golden."
+    ]
+  },
+  {
+    "id": "tourtiere",
+    "meal": "dinner",
+    "name": "Classic {protein} tourtière[ with {greens} salad]",
+    "emoji": "🥧",
+    "minutes": 75,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground pork",
+        "only": [
+          "ground pork",
+          "ground beef",
+          "ground turkey"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "prefer": "salad greens",
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "pie crust",
+      "onion",
+      "garlic",
+      "cinnamon",
+      "ground cloves",
+      "allspice",
+      "beef broth",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Boil the peeled potatoes until soft and mash.",
+      "Brown the {protein} with onion and garlic, then add broth and the spices and simmer 15 minutes.",
+      "Stir the mashed potatoes into the meat to bind the filling.",
+      "Fill a pie crust, cover with a top crust, crimp and cut vents.",
+      "Bake at 400°F for 35-40 minutes[ and serve with a {greens} salad]."
+    ]
+  },
+  {
+    "id": "swedish-meatballs",
+    "meal": "dinner",
+    "name": "Swedish {protein} meatballs over {starch}[ with {veg}]",
+    "emoji": "🧆",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "egg noodles",
+        "only": [
+          "egg noodles",
+          "potatoes",
+          "rice"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 0.5
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "green beans",
+        "only": [
+          "green beans",
+          "broccoli",
+          "carrots",
+          "asparagus",
+          "brussels sprouts"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "breadcrumbs",
+      "onion",
+      "allspice",
+      "nutmeg",
+      "butter",
+      "flour",
+      "beef broth",
+      "Worcestershire sauce"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Mix the {protein} with egg, breadcrumbs, grated onion, allspice and nutmeg; roll into small balls.",
+      "Brown the meatballs in butter and set aside.",
+      "Whisk flour into the pan, then add broth, milk and Worcestershire and simmer until thick.",
+      "Return the meatballs to the gravy and simmer 10 minutes.",
+      "Serve over cooked {starch}[ with steamed {veg}]."
+    ]
+  },
+  {
+    "id": "cranberry-meatloaf",
+    "meal": "dinner",
+    "name": "Cranberry-glazed {protein} meatloaf with mashed {starch} & {veg}",
+    "emoji": "🍖",
+    "minutes": 70,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground turkey",
+        "main": true
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 0.5
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes",
+          "sweet potatoes"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "green beans",
+        "only": [
+          "green beans",
+          "carrots",
+          "broccoli",
+          "brussels sprouts",
+          "asparagus"
+        ]
+      }
+    ],
+    "pantry": [
+      "cranberry sauce",
+      "ketchup",
+      "breadcrumbs",
+      "onion",
+      "garlic",
+      "butter",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Mix the {protein} with egg, breadcrumbs, onion, garlic, salt and pepper and shape into a loaf.",
+      "Spread with cranberry sauce stirred with a little ketchup.",
+      "Bake at 375°F for 55-60 minutes.",
+      "Meanwhile boil and mash the {starch} with butter and steam the {veg}.",
+      "Rest the meatloaf 10 minutes, then slice and serve."
+    ]
+  },
+  {
+    "id": "stuffed-peppers",
+    "meal": "dinner",
+    "name": "Festive stuffed peppers with {protein} & {starch}",
+    "emoji": "🫑",
+    "minutes": 55,
+    "slots": [
+      {
+        "key": "peppers",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "bell peppers",
+        "only": [
+          "bell peppers"
+        ]
+      },
+      {
+        "key": "protein",
+        "from": [
+          "ground",
+          "plantProtein"
+        ],
+        "prefer": "ground beef",
+        "only": [
+          "ground beef",
+          "ground turkey",
+          "ground pork",
+          "ground chicken",
+          "black beans",
+          "lentils"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice",
+          "quinoa"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "tomatoes",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes"
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "mozzarella",
+        "only": [
+          "mozzarella",
+          "cheddar",
+          "feta"
+        ]
+      }
+    ],
+    "pantry": [
+      "onion",
+      "garlic",
+      "Italian seasoning",
+      "cooking oil",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "healthy",
+      "savoury"
+    ],
+    "steps": [
+      "Cook the {starch}; halve and seed red and green peppers.",
+      "Brown the {protein} with onion and garlic, then stir in the tomatoes, seasoning and cooked {starch}.",
+      "Pack the filling into the peppers in a baking dish.",
+      "Cover with foil and bake at 375°F for 30 minutes.",
+      "Top with {cheese} and bake uncovered 10 more minutes."
+    ]
+  },
+  {
+    "id": "roast-with-stuffing",
+    "meal": "dinner",
+    "name": "Herb-roasted {protein} with bread stuffing & {veg}",
+    "emoji": "🍗",
+    "minutes": 55,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "pork"
+        ],
+        "prefer": "chicken thighs",
+        "only": [
+          "chicken thighs",
+          "chicken breasts",
+          "pork chops",
+          "pork tenderloin"
+        ],
+        "main": true
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "celery",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "celery",
+        "only": [
+          "celery"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "brussels sprouts",
+        "only": [
+          "brussels sprouts",
+          "green beans",
+          "carrots",
+          "broccoli",
+          "asparagus",
+          "squash"
+        ]
+      }
+    ],
+    "pantry": [
+      "butter",
+      "chicken broth",
+      "onion",
+      "dried sage",
+      "thyme",
+      "cooking oil",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Rub the {protein} with oil, sage, thyme, salt and pepper and roast at 425°F for 25-35 minutes until cooked through.",
+      "Meanwhile soften onion and celery in butter, toss with cubed {bread}, herbs and enough broth to moisten.",
+      "Bake the stuffing in a dish alongside for 25 minutes until crisp on top.",
+      "Toss the {veg} with oil and roast on a sheet pan for the last 20 minutes."
+    ]
+  },
+  {
+    "id": "deviled-eggs",
+    "meal": "snack",
+    "name": "Classic deviled eggs[ with {veg} sticks]",
+    "emoji": "🥚",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "celery",
+        "only": [
+          "celery",
+          "cucumber",
+          "carrots",
+          "bell peppers"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "mayonnaise",
+      "Dijon mustard",
+      "paprika",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "light"
+    ],
+    "steps": [
+      "Hard-boil the eggs for 10 minutes, then cool in ice water and peel.",
+      "Halve them and mash the yolks with mayonnaise, mustard, salt and pepper.",
+      "Pipe or spoon the filling back into the whites and dust with paprika.",
+      "Serve chilled[ with {veg} sticks]."
+    ]
+  },
+  {
+    "id": "shrimp-cocktail",
+    "meal": "snack",
+    "name": "Shrimp cocktail[ with {veg}]",
+    "emoji": "🍤",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "shrimp",
+        "from": [
+          "fish"
+        ],
+        "prefer": "shrimp",
+        "only": [
+          "shrimp"
+        ],
+        "qty": 0.5,
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "celery",
+        "only": [
+          "celery",
+          "cucumber"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "ketchup",
+      "horseradish",
+      "lemon juice",
+      "hot sauce",
+      "salt"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "light",
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Poach the shrimp in salted boiling water for 2-3 minutes until pink, then chill in ice water.",
+      "Stir ketchup with horseradish, lemon juice and a dash of hot sauce.",
+      "Arrange the shrimp around the sauce[ with {veg} sticks] and serve cold."
+    ]
+  },
+  {
+    "id": "hot-chocolate",
+    "meal": "snack",
+    "name": "Homemade hot chocolate[ with {cookies}]",
+    "emoji": "☕",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk"
+      },
+      {
+        "key": "chocolate",
+        "from": [
+          "treats"
+        ],
+        "prefer": "chocolate",
+        "only": [
+          "chocolate"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "cookies",
+        "from": [
+          "treats"
+        ],
+        "prefer": "cookies",
+        "only": [
+          "cookies"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "cocoa powder",
+      "sugar",
+      "vanilla",
+      "marshmallows"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "treat",
+      "comfort"
+    ],
+    "steps": [
+      "Warm the milk in a pot until steaming.",
+      "Whisk in cocoa, sugar and the chopped chocolate until melted and smooth.",
+      "Add a splash of vanilla and pour into mugs.",
+      "Top with marshmallows[ and serve with {cookies} for dunking]."
+    ]
+  },
+  {
+    "id": "candied-nuts",
+    "meal": "snack",
+    "name": "Maple-cinnamon candied nuts",
+    "emoji": "🌰",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "nuts",
+        "from": [
+          "nuts"
+        ],
+        "prefer": "nuts"
+      }
+    ],
+    "pantry": [
+      "maple syrup",
+      "cinnamon",
+      "brown sugar",
+      "salt",
+      "butter"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Toss the nuts with melted butter, maple syrup, brown sugar, cinnamon and a pinch of salt.",
+      "Spread on a lined baking sheet and roast at 325°F for 12-15 minutes, stirring once.",
+      "Cool completely so they crisp, then break apart and store in a jar."
+    ]
+  },
+  {
+    "id": "molasses-cookies",
+    "meal": "snack",
+    "name": "Chewy ginger molasses cookies",
+    "emoji": "🍪",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "qty": 0.25
+      }
+    ],
+    "pantry": [
+      "flour",
+      "butter",
+      "brown sugar",
+      "molasses",
+      "ground ginger",
+      "cinnamon",
+      "ground cloves",
+      "baking soda",
+      "sugar"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Cream butter and brown sugar, then beat in the egg and molasses.",
+      "Stir in flour, baking soda, ginger, cinnamon and cloves.",
+      "Roll into balls and coat in sugar.",
+      "Bake at 350°F for 9-10 minutes until crackled but still soft in the middle."
+    ]
   }
 ]
