@@ -108,7 +108,7 @@ function OptionCard({ meal, added, onAdd, label, shared = 0 }) {
             {label && <span className="block text-[10px] font-semibold uppercase tracking-wide text-amber-700">{label}</span>}
             <span className="block text-sm font-semibold leading-snug">{meal.name}</span>
             <span className="block text-xs text-stone-500">
-              {meal.minutes} min · {money(meal.cost / meal.servings)}/serving ·{' '}
+              {meal.minutes} min · ~{money(meal.cost)}/meal ·{' '}
               <span className="text-green-700">
                 {meal.onSale}/{meal.lines.length} on sale
               </span>
@@ -144,7 +144,7 @@ function PoolCard({ meal, n, deals, onRemove, onSwap, onLeftovers, onJar, leftov
           </span>
           <span className="block text-xs text-stone-500">
             {meal.meal !== 'dinner' && `${meal.meal === 'breakfast' ? 'Breakfast' : 'Lunch'} · `}
-            {meal.minutes} min · {money((meal.cost * (meal.batches || 1)) / meal.servings / (meal.batches || 1))}/serving
+            {meal.minutes} min · ~{money(meal.cost)}/meal
             {meal.batches > 1 && ' · cooking double'}
           </span>
         </button>
