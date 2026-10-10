@@ -23,7 +23,7 @@ export const CATALOG = {
   pork: [
     x('pork chops', 'lb', 0.33, 'Meat & Seafood', ['pork chop', 'pork loin', 'loin chop', 'rib chop', 'côtelette de porc', 'côtelettes de porc', 'longe de porc'], {as: 'pork', has: MEAT, exclude: ['roast'], pkg: 1.5 }),
     x('pork tenderloin', 'lb', 0.33, 'Meat & Seafood', ['pork tenderloin', 'filet de porc', 'filets de porc'], {as: 'pork tenderloin', has: MEAT, pkg: 1 }),
-    x('sausages', 'lb', 0.3, 'Meat & Seafood', ['sausage', 'saucisse'], {as: 'sausage', has: MEAT, exclude: ['breakfast', 'roll', 'pizza', 'cocktail', 'hot dog', 'wiener', 'sausage roll'], pkg: 1 }),
+    x('sausages', 'lb', 0.3, 'Meat & Seafood', ['sausage', 'saucisse'], {as: 'sausage', has: MEAT, exclude: ['breakfast', 'roll', 'pizza', 'cocktail', 'hot dog', 'wiener', 'sausage roll', 'vegan', 'végane', 'véganes', 'plant-based', 'veggie'], pkg: 1 }),
   ],
   ground: [
     x('ground beef', 'lb', 0.25, 'Meat & Seafood', ['ground beef', 'boeuf haché'], {has: MEAT, exclude: ['pork', 'porc', 'turkey', 'chicken'], pkg: 1 }),
@@ -140,7 +140,7 @@ export const CATALOG = {
     x('frozen pizza', 'each', 0.5, 'Frozen', ['frozen pizza', 'pizza'], { has: [...DAIRY, ...GLUTEN], exclude: ['sauce', 'dough', 'pâte', 'pocket', 'kit', 'cheese', 'mozzarella', 'crust', 'pizzeria', 'rolls', 'bites', 'pepperoni sticks', 'pops', 'stromboli', 'pizzaiolo'] }),
   ],
   pastaSauce: [x('pasta sauce', 'jar', 0.25, 'Pantry', ['pasta sauce', 'spaghetti sauce', 'marinara', 'sauce pour pâtes', 'sauce à spaghetti', 'classico', 'prego', "rao's", 'tonnelli', 'catelli garden select', 'olivieri'], { allow: ['sauce'], exclude: ['pizza sauce', 'alfredo', 'pesto', 'pasta,', 'pâtes pc,'] })],
-  hotDogs: [x('hot dogs', 'pack', 0.25, 'Meat & Seafood', ['hot dog', 'wiener', 'weiner', 'saucisses fumées', 'smokies', 'franks'], { has: MEAT, exclude: ['bun', 'pain', 'relish', 'plant', 'veggie', "frank's", 'wraps', 'wrap', 'cocktail', 'crescents'] })],
+  hotDogs: [x('hot dogs', 'pack', 0.25, 'Meat & Seafood', ['hot dog', 'wiener', 'weiner', 'saucisses fumées', 'smokies', 'franks'], { has: MEAT, exclude: ['bun', 'pain', 'relish', 'plant', 'veggie', "frank's", 'wraps', 'wrap', 'cocktail', 'crescents', 'pogo', 'breaded', 'corn dog'] })],
   cannedSoup: [x('canned soup', 'can', 0.5, 'Pantry', ['soup', 'soupe', 'chunky'], { as: 'soup', allow: ['soup'], exclude: ['mix', 'cream of mushroom', 'broth', 'bouillon', 'noodle soup mix', 'cup', 'stock', 'base', 'tamarind'] })],
   cannedTomato: [x('canned tomatoes', 'can', 0.25, 'Pantry', ['canned tomato', 'diced tomato', 'crushed tomato', 'whole tomatoes', 'tomato sauce', 'pasta sauce'], { allow: ['sauce', 'paste'], exclude: ['soup', 'ketchup', 'juice'] })],
 }
