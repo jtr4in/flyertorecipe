@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import re
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 
 API = "https://backflipp.wishabi.com/flipp"
 PAGE_ITEM = re.compile(r"/page_items/(\d+)/")
@@ -119,13 +120,37 @@ def _price(v) -> str | None:
     return m.group(0).replace(",", ".") if m else None
 
 
+# The flyer's item list has name and price only; each item's own page adds "/lb", "2/",
+# "SAVE $2" and the regular price.
+DETAIL_KEYS = ("pre_price_text", "post_price_text", "sale_story", "original_price", "current_price")
+
+
+def add_item_details(flyers: list[tuple[dict, dict]], workers: int = 8) -> int:
+    """Fill DETAIL_KEYS on every named, priced flyer item in place; returns how many worked."""
+    items = [it for _, d in flyers for it in d.get("items", []) if it.get("name") and it.get("price") not in (None, "")]
+
+    def one(it):
+        try:
+            got = _get(f"{API}/items/{it['id']}")
+        except Exception:
+            return False
+        got = got.get("item", got) if isinstance(got, dict) else {}
+        for k in DETAIL_KEYS:
+            if got.get(k) not in (None, ""):
+                it[k] = got[k]
+        return True
+
+    with ThreadPoolExecutor(workers) as pool:
+        return sum(pool.map(one, items))
+
+
 def flyer_rows(flyers: list[tuple[dict, dict]]) -> list[dict]:
     """Every priced item on the flyers, shaped like the search actor's rows so normalize()
     reads both: "2/" + "5.00" + "ea." becomes currentPrice 5.00, priceText "2/ ea."."""
     rows = []
     for f, detail in flyers:
         for it in detail.get("items", []):
-            price = it.get("price") if it.get("price") not in (None, "") else it.get("current_price")
+            price = it.get("current_price") if it.get("current_price") not in (None, "") else it.get("price")
             if not it.get("name") or price in (None, ""):
                 continue
             story = _text(it.get("sale_story"))

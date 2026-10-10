@@ -30,7 +30,7 @@ from decimal import Decimal
 
 from dotenv import load_dotenv
 
-from flyer_clips import attach_clips, clip_index, flyer_rows, grocery_flyers
+from flyer_clips import add_item_details, attach_clips, clip_index, flyer_rows, grocery_flyers
 from normalize import dedupe, fsa, normalize
 from staples import QUERY_LIMITS, SEARCH_BUDGET
 
@@ -163,6 +163,18 @@ def sample_keys(flyers) -> str:
     return "no items"
 
 
+def sample_detail(flyers) -> str:
+    """A few items' price text after the detail pass, to check it in the run summary."""
+    out = []
+    for _, detail in flyers:
+        for it in detail.get("items", []):
+            if it.get("post_price_text") or it.get("pre_price_text") or it.get("sale_story"):
+                out.append({k: it.get(k) for k in ("name", "price", "pre_price_text", "post_price_text", "sale_story", "original_price")})
+                if len(out) == 4:
+                    return json.dumps(out, ensure_ascii=False)[:900]
+    return json.dumps(out, ensure_ascii=False)[:900] or "none"
+
+
 def notice(title: str, message: str) -> None:
     """A GitHub Actions annotation (shown on the run page); plain output elsewhere."""
     msg = message.replace("%", "%25").replace("\r", "").replace("\n", " ")
@@ -196,7 +208,9 @@ def main() -> None:
         else:
             try:
                 flyers = grocery_flyers(code, locale=os.environ.get("LOCALE", "en-ca"))
+                detailed = add_item_details(flyers)
                 rows = flyer_rows(flyers)
+                notice(f"{code}: item details for {detailed} of {len(rows)}", sample_detail(flyers))
             except Exception as e:
                 print(f"{code}: Flipp flyer feed failed ({e})")
                 rows = []
