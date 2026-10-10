@@ -205,7 +205,6 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                   <FlyerPeek
                     deal={i.deal}
                     onOpen={(d) => onProof(d, (i.ing || i.need) && onOptions ? i : null)}
-                    onRemove={onRemoveItem ? () => onRemoveItem(i) : null}
                     action={(i.ing || i.need) && onOptions ? { label: 'Options', onClick: () => onOptions(i) } : null}
                     className="flex min-w-0 flex-1 items-center gap-2"
                   >
@@ -241,9 +240,9 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                       Options
                     </button>
                   )}
-                  {i.extra || i.need ? (
+                  {i.extra || i.need || onRemoveItem ? (
                     <button
-                      onClick={() => onRemoveExtra(i)}
+                      onClick={() => (onRemoveItem ? onRemoveItem(i) : onRemoveExtra(i))}
                       aria-label={`Remove ${i.item}`}
                       className="shrink-0 rounded-lg px-1.5 py-1 text-stone-400 hover:bg-stone-100 hover:text-red-600"
                     >
