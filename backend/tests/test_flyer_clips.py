@@ -58,3 +58,12 @@ def test_price_text_cleanup():
     from flyer_clips import _price
 
     assert _price("4,99") == "4.99" and _price("2.99/lb") == "2.99" and _price("") is None
+
+
+def test_page_of_finds_the_page_under_the_item():
+    from flyer_clips import page_of
+    pages = [{"left": 0, "right": 100, "page": 1}, {"left": 100, "right": 200, "page": 2}]
+    assert page_of({"left": 120, "right": 160}, pages) == 2
+    assert page_of({"left": 10, "right": 20}, pages) == 1
+    assert page_of({"left": 500, "right": 600}, pages) is None
+    assert page_of({}, pages) is None

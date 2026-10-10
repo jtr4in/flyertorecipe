@@ -63,6 +63,7 @@ export default function FlyerGallery({ open, flyers, stores = [], store, onClose
                 <span className="min-w-0">
                   <span className="block text-base font-bold">{zoom.deal.merchant}</span>
                   <span className="block truncate text-sm text-stone-600">{dealName(zoom.deal.name)}</span>
+                  {zoom.deal.page && <span className="block text-xs font-semibold text-amber-800">Page {zoom.deal.page} of the flyer</span>}
                   {zoom.deal.validTo && <span className="block text-xs text-stone-400">Valid until {shortDay(zoom.deal.validTo)}</span>}
                   <a
                     href={adUrl(zoom.deal) || flyerUrl(zoom.deal.merchant)}

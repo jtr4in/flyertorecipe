@@ -42,6 +42,11 @@ export default function FlyerProof({ deal, onClose, action }) {
           {deal.priceText && deal.priceLabel && deal.priceText !== deal.priceLabel && /\d/.test(deal.priceText) && (
             <p className="mt-1 text-sm text-stone-500">Flyer says: {deal.priceText}</p>
           )}
+          {deal.page && (
+            <p className="mt-3 rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-900">
+              Page {deal.page} of the {deal.merchant} flyer
+            </p>
+          )}
           {(from || to) && (
             <p className="mt-4 text-sm text-stone-500">
               Valid {from && <>{from} </>}

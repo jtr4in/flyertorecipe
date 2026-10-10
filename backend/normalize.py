@@ -172,6 +172,7 @@ def normalize(row: dict, fetched_at: datetime | None = None) -> dict | None:
         "imageUrl": row.get("imageUrl"),  # flyer clipping, shown for price matching
         "saleStory": row.get("saleStory"),
         "flyerId": row.get("flyerId"),
+        "page": row.get("page"),
         "fetchedAt": (fetched_at or datetime.now(timezone.utc)).isoformat(),
     }
 

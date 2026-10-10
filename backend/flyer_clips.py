@@ -156,11 +156,25 @@ def _name(it: dict) -> str:
     return name
 
 
+def page_of(item: dict, pages: list[dict]) -> int | None:
+    """The flyer page number an item sits on (pages sit side by side on one wide canvas), so the
+    app can say "page 3 of the Metro flyer" when it sends someone to the store's flyer."""
+    try:
+        x = (float(item["left"]) + float(item["right"])) / 2
+    except (KeyError, TypeError, ValueError):
+        return None
+    for p in pages:
+        if p.get("left") is not None and p.get("right") is not None and p["left"] <= x <= p["right"] and isinstance(p.get("page"), int):
+            return p["page"]
+    return None
+
+
 def flyer_rows(flyers: list[tuple[dict, dict]]) -> list[dict]:
     """Every priced item on the flyers, shaped like the search actor's rows so normalize()
     reads both: "2/" + "5.00" + "ea." becomes currentPrice 5.00, priceText "2/ ea."."""
     rows = []
     for f, detail in flyers:
+        pages = detail.get("pages") or []
         for it in detail.get("items", []):
             price = it.get("current_price") if it.get("current_price") not in (None, "") else it.get("price")
             if not it.get("name") or price in (None, ""):
@@ -181,6 +195,7 @@ def flyer_rows(flyers: list[tuple[dict, dict]]) -> list[dict]:
                 "validFrom": it.get("valid_from") or f.get("valid_from"),
                 "validTo": it.get("valid_to") or f.get("valid_to"),
                 "flyerId": f.get("id"),
+                "page": page_of(it, pages),
             })
     return rows
 
