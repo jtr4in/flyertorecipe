@@ -101,7 +101,7 @@ export const CATALOG = {
   yogurt: [x('yogurt', 'tub', 0.2, 'Dairy & Eggs', ['yogurt', 'yoghurt', 'yogourt'], { has: DAIRY, exclude: ['drink', 'tube', 'frozen', 'bar'] })],
   milk: [x('milk', 'carton', 0.1, 'Dairy & Eggs', ['milk'], { has: DAIRY, exclude: ['chocolate', 'almond', 'oat', 'coconut', 'soy', 'condensed', 'evaporated', 'powder', 'flavoured', 'lactose'] })],
   cheese: [
-    x('cheddar', 'pack', 0.1, 'Dairy & Eggs', ['cheddar', 'cheese'], { lb: 0.9, has: DAIRY, exclude: ['cream cheese', 'cheesecake', 'puffs', 'crackers', 'string', 'feta', 'ricotta', 'cottage'] }),
+    x('cheddar', 'pack', 0.1, 'Dairy & Eggs', ['cheddar', 'cheese'], { lb: 0.9, has: DAIRY, exclude: ['cream cheese', 'cheesecake', 'puffs', 'crackers', 'string', 'feta', 'ricotta', 'cottage', 'macaroni', 'mac', 'kraft dinner', 'kd', 'cheese sauce', 'cheese dip', 'pizza'] }),
     x('mozzarella', 'pack', 0.1, 'Dairy & Eggs', ['mozzarella'], { lb: 0.75, has: DAIRY, exclude: ['sticks'] }),
     x('feta', 'pack', 0.1, 'Dairy & Eggs', ['feta'], { lb: 0.44, has: DAIRY }),
   ],

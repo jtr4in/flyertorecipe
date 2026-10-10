@@ -135,3 +135,11 @@ describe('pantry deals', () => {
     expect(pantryDeal('beef or chicken broth', deals).dealId).toBe('c')
   })
 })
+
+describe('pantry deals match whole words', () => {
+  it('does not read dill in Dillon’s', () => {
+    const deals = [{ dealId: 'g', name: "Dillon's gin cocktails 12 x 355 mL", price: 27 }, { dealId: 'h', name: 'Fresh dill bunch', price: 1.5 }]
+    expect(pantryDeal('dill', deals).dealId).toBe('h')
+    expect(pantryDeal('dill', deals.slice(0, 1))).toBe(null)
+  })
+})

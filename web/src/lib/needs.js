@@ -225,12 +225,13 @@ const MADE_WITH = /\b(bagels?|crackers?|chips|bread|muffins?|cookies?|bars?|pret
 
 export function pantryDeal(item, deals) {
   for (const alt of pantryAlternatives(item)) {
-    const groups = termGroups(alt)
-    if (!groups.length) continue
+    // Whole words only: "dill" is not "Dillon's gin".
+    const words = fold(alt).split(/\s+/).filter(Boolean).map((w) => new RegExp(`(^|[^\\p{L}])${esc(w.replace(/(es|s)$/, ''))}(s|es)?($|[^\\p{L}'’])`, 'iu'))
+    if (!words.length) continue
     const hits = deals
       .filter((d) => {
         const name = fold(d.name || '')
-        return groups.every((alts) => alts.some((re) => re.test(name))) && (!MADE_WITH.test(name) || MADE_WITH.test(alt))
+        return words.every((re) => re.test(name)) && (!MADE_WITH.test(name) || MADE_WITH.test(alt))
       })
       .sort((a, b) => (a.price ?? 1e9) - (b.price ?? 1e9))
     const plain = hits.find((d) => !(fold(dealName(d.name)).match(VARIETY) || []).some((w) => !alt.includes(w)))
