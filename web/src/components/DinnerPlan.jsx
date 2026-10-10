@@ -439,7 +439,7 @@ export function MealsCard({ pool }) {
   return (
     <section className="mb-3 rounded-2xl border border-stone-200 bg-white">
       <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex w-full items-center gap-2 px-4 py-2.5 text-left">
-        <span className="flex-1 text-sm font-semibold">
+        <span className="min-w-0 flex-1 text-sm font-semibold">
           🍽️ Your meals · {pool.length}
           {!open && <span className="block truncate text-xs font-normal text-stone-500">{pool.map((m) => m.name).join(', ')}</span>}
         </span>

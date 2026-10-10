@@ -6,6 +6,24 @@ import { MATCH_STORES } from '../lib/priceMatch'
 import { flyerUrl, mapsUrl, money, storeTint } from '../lib/stores'
 
 /** Collapsed bar pinned to the bottom of the page. */
+// The list regrouped by meal: an item two meals share shows under both, with one checkmark
+// (same key), so ticking it under one meal ticks it everywhere. Restocks go under Other items.
+function mealGroups(groups) {
+  const byMeal = new Map()
+  const other = []
+  for (const i of groups.flatMap((g) => g.items)) {
+    if (!i.ing) {
+      other.push(i)
+      continue
+    }
+    for (const m of i.meals) {
+      if (!byMeal.has(m)) byMeal.set(m, [])
+      byMeal.get(m).push(i)
+    }
+  }
+  return [...[...byMeal].map(([meal, items]) => ({ title: meal, meal, items })), ...(other.length ? [{ title: 'Other items', items: other }] : [])]
+}
+
 export function ListBar({ list, onOpen }) {
   if (!list?.itemCount) return null
   return (
@@ -49,6 +67,21 @@ function InlinePanel({ title, footer, children }) {
 
 export default function ListSheet({ inline = false, open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof, onSwap, onOptions, onRemoveExtra, onShareLink, shared, matchAt, matchExtras, onMatch, pantryDeals = {}, onRemoveItem, removed = 0, onRestore }) {
   const [gallery, setGallery] = useState(false)
+  const [byMeal, setByMeal] = useState(() => {
+    try {
+      return localStorage.getItem('f2r.byMeal') === '1'
+    } catch {
+      return false
+    }
+  })
+  const sortByMeal = (on) => {
+    setByMeal(on)
+    try {
+      localStorage.setItem('f2r.byMeal', on ? '1' : '0')
+    } catch {
+      /* private mode */
+    }
+  }
   if (!list) return null
   const items = list.groups.flatMap((g) => g.items)
   const done = items.filter((i) => checked[i.key]).length
@@ -188,8 +221,26 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
         </p>
       </div>
 
+      <div className="mb-2 flex items-center justify-end gap-2 text-xs text-stone-500">
+        <span>Sort by</span>
+        <div className="grid grid-cols-2 gap-0.5 rounded-lg bg-stone-200/70 p-0.5 font-medium" role="group" aria-label="Sort groceries">
+          {[
+            [false, 'Aisle'],
+            [true, 'Meal'],
+          ].map(([on, label]) => (
+            <button
+              key={label}
+              aria-pressed={byMeal === on}
+              onClick={() => sortByMeal(on)}
+              className={`rounded-md px-2.5 py-0.5 ${byMeal === on ? 'bg-white text-green-800 shadow-sm' : ''}`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
       <div className="space-y-5">
-        {list.groups.map((g) => (
+        {(byMeal ? mealGroups(list.groups) : list.groups).map((g) => (
           <section key={g.title}>
             <h3 className="mb-1 text-xs font-semibold tracking-wide text-stone-500 uppercase">{g.title}</h3>
             <ul className="divide-y divide-stone-100">
@@ -216,10 +267,14 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                         {i.deal && mode === 'match' && (
                           <span className={`max-w-[55%] shrink-0 truncate rounded-full px-1.5 text-[10px] font-medium ${storeTint(i.deal.merchant)}`}>{i.deal.merchant}</span>
                         )}
-                        <span className="truncate" title={i.meals.join(', ')}>
-                          {i.meals[0]}
-                          {i.meals.length > 1 && ` +${i.meals.length - 1}`}
-                        </span>
+                        {byMeal && g.meal ? (
+                          i.meals.length > 1 && <span className="truncate">Also in {i.meals.filter((m) => m !== g.meal).join(', ')}</span>
+                        ) : (
+                          <span className="truncate" title={i.meals.join(', ')}>
+                            {i.meals[0]}
+                            {i.meals.length > 1 && ` +${i.meals.length - 1}`}
+                          </span>
+                        )}
                       </span>
                     </span>
                     <span className="shrink-0 text-right">
