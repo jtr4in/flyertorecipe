@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+import pytest
+
 from staples import QUERY_LIMITS, SEARCH_BUDGET, STAPLE_QUERIES
 
 # Found by a broader term's search: "cheese" returns mozzarella and feta, "fish fillets"
@@ -9,7 +11,10 @@ FOUND_BY_BROADER = {"mozzarella", "feta", "black beans", "white fish", "deli tur
 
 
 def test_every_recipe_ingredient_has_a_search_term():
-    catalog = json.loads((Path(__file__).parent.parent / "catalog.json").read_text())
+    path = Path(__file__).parent.parent / "catalog.json"
+    if not path.exists():
+        pytest.skip("catalog.json not exported")
+    catalog = json.loads(path.read_text())
     terms = [q.lower() for q in STAPLE_QUERIES]
     missing = []
     for items in catalog.values():
