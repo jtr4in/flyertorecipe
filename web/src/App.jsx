@@ -272,7 +272,7 @@ export default function App() {
           <h1 className="text-xl font-bold tracking-tight text-green-800">Flyer2Recipes</h1>
           <span className="flex items-center gap-2">
             <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-800">
-              Saving {money(list.totalSavings)}
+              Saving {money(list.totalSavings)}+
             </span>
             <button
               onClick={() => setTouring(true)}

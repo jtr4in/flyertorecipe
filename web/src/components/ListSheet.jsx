@@ -52,6 +52,7 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
   if (!list) return null
   const items = list.groups.flatMap((g) => g.items)
   const done = items.filter((i) => checked[i.key]).length
+  const priced = items.filter((i) => i.deal?.savings > 0).length
 
   const shareText = async () => {
     const text = [
@@ -92,8 +93,12 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
             <p className="text-sm font-semibold">
               {list.itemCount} items · est. {money(list.totalCost)}
             </p>
+            {/* Savings only count flyers that print a regular price or "save $X"; the rest add $0. */}
             <p className="text-xs text-green-700">
-              Saves about {money(list.totalSavings)} · {done} checked off
+              Saves at least {money(list.totalSavings)} · {done} checked off
+            </p>
+            <p className="text-[11px] text-stone-500">
+              Counts the {priced} of {list.itemCount} items whose flyer shows a regular price
             </p>
             {shared && <p className="text-[11px] text-stone-500">🔗 Shared · checkmarks update live</p>}
           </div>
