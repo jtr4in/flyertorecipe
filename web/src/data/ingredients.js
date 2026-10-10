@@ -32,7 +32,7 @@ export const CATALOG = {
     x('ground chicken', 'lb', 0.25, 'Meat & Seafood', ['ground chicken'], {has: MEAT, pkg: 1 }),
   ],
   fish: [
-    x('salmon', 'lb', 0.33, 'Meat & Seafood', ['salmon'], {has: FISH, exclude: ['smoked', 'canned', 'roast'], pkg: 1 }),
+    x('salmon', 'lb', 0.33, 'Meat & Seafood', ['salmon'], {has: FISH, exclude: ['smoked', 'canned', 'roast', 'clover leaf', 'gold seal', 'saumon rose', 'pink'], pkg: 1 }),
     x('white fish', 'lb', 0.33, 'Meat & Seafood', ['tilapia', 'basa', 'haddock', 'cod fillet', 'pollock', 'sole fillet'], {as: 'white fish', has: FISH, exclude: ['breaded', 'battered', 'pasta'], pkg: 1 }),
     x('shrimp', 'lb', 0.25, 'Meat & Seafood', ['shrimp', 'prawn'], {has: FISH, exclude: ['ring', 'surimi', 'pasta', 'cooked', 'tempura'], pkg: 0.75 }),
   ],
@@ -42,7 +42,7 @@ export const CATALOG = {
     x('black beans', 'can', 0.33, 'Pantry', ['black bean'], {as: 'black bean', }),
     x('lentils', 'cup', 0.25, 'Pantry', ['lentil'], {as: 'lentil', exclude: ['chips', 'soup', 'snack'], pkg: 5 }),
   ],
-  eggs: [x('eggs', 'each', 2, 'Dairy & Eggs', ['egg'], { as: 'egg', has: EGG, exclude: ['eggplant', 'nog', 'noodle', 'chocolate', 'roll'], pkg: 12 })],
+  eggs: [x('eggs', 'each', 2, 'Dairy & Eggs', ['egg'], { as: 'egg', has: EGG, exclude: ['eggplant', 'nog', 'noodle', 'chocolate', 'roll', 'quail'], pkg: 12 })],
   cookingVeg: [
     x('broccoli', 'head', 0.25, 'Produce', ['broccoli', 'brocoli'], { lb: 1.2, exclude: ['frozen', 'slaw'] }),
     x('bell peppers', 'each', 0.5, 'Produce', ['pepper'], {exclude: ['pepperoni', 'black pepper', 'peppercorn', 'jalapeno', 'hot'], pkg: 3 }),
@@ -111,7 +111,7 @@ export const CATALOG = {
   ],
   spread: [x('peanut butter', 'jar', 0.05, 'Pantry', ['peanut butter'], { exclude: ['cookie', 'cups', 'bar'] })],
   dip: [x('hummus', 'tub', 0.2, 'Dairy & Eggs', ['hummus'], {})],
-  crackers: [x('crackers', 'box', 0.15, 'Pantry', ['cracker', 'triscuit', 'wheat thins', 'ritz'], { exclude: ['barrel', 'cheese'], has: GLUTEN })],
+  crackers: [x('crackers', 'box', 0.15, 'Pantry', ['cracker', 'triscuit', 'wheat thins', 'ritz'], { allow: ['cracker'], exclude: ['barrel', 'cheese'], has: GLUTEN })],
   nuts: [x('nuts', 'bag', 0.1, 'Pantry', ['almonds', 'cashews', 'peanuts', 'mixed nuts', 'trail mix', 'walnuts'], { exclude: ['butter', 'milk', 'beverage', 'chocolate'] })],
   lunchProtein: [
     x('deli turkey or ham', 'pack', 0.2, 'Meat & Seafood', ['sliced turkey', 'deli turkey', 'sliced ham', 'deli ham', 'shaved ham', 'shaved turkey'], { lb: 0.4, as: 'turkey & ham', has: MEAT }),
@@ -124,5 +124,5 @@ export const CATALOG = {
     x('chocolate', 'bag', 0.15, 'Snacks', ['chocolate chips', 'chocolate bar', 'chocolate', 'chipits'], { allow: ['chips'], exclude: ['milk', 'cookie', 'cereal', 'ice cream', 'almond', 'syrup', 'drink', 'beverage', 'cake', 'protein'] }),
     x('chips', 'bag', 0.2, 'Snacks', ['potato chips', 'tortilla chips', 'chips', 'croustilles', 'doritos', 'tostitos', 'lays', "lay's", 'ruffles'], { allow: ['chips', 'flavour', 'flavor', 'flavoured', 'flavored'], exclude: ['chocolate chips', 'chipits', 'cookie', 'fish', 'chips ahoy'] }),
   ],
-  cannedTomato: [x('canned tomatoes', 'can', 0.25, 'Pantry', ['canned tomato', 'diced tomato', 'crushed tomato', 'whole tomatoes', 'tomato sauce', 'pasta sauce'], { exclude: ['soup', 'ketchup', 'juice'] })],
+  cannedTomato: [x('canned tomatoes', 'can', 0.25, 'Pantry', ['canned tomato', 'diced tomato', 'crushed tomato', 'whole tomatoes', 'tomato sauce', 'pasta sauce'], { allow: ['sauce', 'paste'], exclude: ['soup', 'ketchup', 'juice'] })],
 }

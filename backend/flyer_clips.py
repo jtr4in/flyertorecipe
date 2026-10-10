@@ -177,7 +177,7 @@ def flyer_rows(flyers: list[tuple[dict, dict]]) -> list[dict]:
                 "originalPrice": it.get("original_price"),
                 "priceText": _text(it.get("pre_price_text"), it.get("price_text"), it.get("post_price_text")),
                 "saleStory": story or None,
-                "imageUrl": it.get("cutout_image_url"),
+                "imageUrl": (it.get("cutout_image_url") or "").replace("http://", "https://", 1) or None,
                 "validFrom": it.get("valid_from") or f.get("valid_from"),
                 "validTo": it.get("valid_to") or f.get("valid_to"),
                 "flyerId": f.get("id"),

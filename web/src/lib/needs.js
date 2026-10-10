@@ -79,7 +79,8 @@ const SAY = {
   oj: ['orange juice', "jus d'orange"],
 }
 
-const fold = (t) => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+// Quebec flyers write 3,25 %; fold that to 3.25% too.
+const fold = (t) => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/(\d),(\d)/g, '$1.$2')
 const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 // A typed word matches the start of a word ("mil" → milk); "3.25%"-style words match anywhere.
 const wordStart = (w) => new RegExp(/^[\p{L}]/u.test(w) ? `(^|[^\\p{L}])${esc(w)}` : esc(w), 'iu')

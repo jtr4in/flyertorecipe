@@ -10,7 +10,9 @@ import { fillText, MEALS, TEMPLATES } from '../data/templates'
 // ---------- Deals ----------
 
 // Words that mean a deal is not the raw ingredient ("chicken" vs "chicken broth").
-const GLOBAL_EXCLUDE = ['seasoning', 'flavour', 'flavor', 'flavoured', 'flavored', 'chips', 'soup', 'beverage', 'drink', 'pet food', 'dog', 'cat food', 'baby']
+const GLOBAL_EXCLUDE = ['seasoning', 'flavour', 'flavor', 'flavoured', 'flavored', 'chips', 'soup', 'beverage', 'drink', 'pet food', 'dog', 'cat food', 'baby',
+  // Full flyers carry prepared foods that name a protein: "black bean sauce", "shrimp pastry roll".
+  'sauce', 'paste', 'pastry', 'dumpling', 'spring roll', 'marinade', 'dressing', 'cracker']
 
 // Whole words, plurals allowed: "bun" matches "buns" but not "bunch".
 const wordRe = (w) => new RegExp(`\\b${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:s|es)?\\b`, 'i')

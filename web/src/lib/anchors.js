@@ -25,7 +25,7 @@ export function heroDeals(deals, prefs = {}) {
       if (!anchorMeals(ing.item, deals, prefs).length) continue
       seen.add(deal.dealId ?? deal.name)
       // Meat and fish lead (that's what most people plan dinner around), unless they don't eat it.
-      const lead = ['plantProtein', 'eggs'].includes(group) ? -15 : 0
+      const lead = ['plantProtein', 'eggs'].includes(group) ? -30 : 0
       out.push({ item: ing.item, group, deal, pct: pctOff(deal), score: heroScore(deal) + lead })
     }
   }
