@@ -238,7 +238,7 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                       <span className="block truncate text-sm font-medium">
                         {i.item} <span className="font-normal text-stone-500">· {i.buy}</span>
                       </span>
-                      {(!inline || i.extra || i.need) && <span className="block truncate text-[11px] text-stone-400">{i.meals.join(', ')}</span>}
+                      <span className="block truncate text-[11px] text-stone-400">{i.meals.join(', ')}</span>
                     </span>
                     <span className="shrink-0 text-right">
                       {i.deal ? (
@@ -299,7 +299,7 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                           />
                           <span className={`min-w-0 flex-1 ${checked[k] ? 'text-stone-400 line-through' : ''}`}>
                             <span className="block text-sm font-medium">{p.item}</span>
-                            {!inline && <span className="block truncate text-[11px] text-stone-500">{p.meals.join(', ')}</span>}
+                            <span className="block truncate text-[11px] text-stone-500">{p.meals.join(', ')}</span>
                           </span>
                         </li>
                       )
