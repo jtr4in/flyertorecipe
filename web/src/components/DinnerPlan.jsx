@@ -366,7 +366,7 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
           Breakfasts and lunches are optional.
         </p>
         {pool.length === 0 ? (
-          <p className="rounded-2xl border border-dashed border-stone-300 p-4 text-sm text-stone-500">Pick a protein above, then add the dinners you like.</p>
+          <p className="rounded-2xl border border-dashed border-stone-300 p-4 text-sm text-stone-500">Tap something on sale above, then add the meals you like.</p>
         ) : (
           <ul className="space-y-2">
             {sortedPool.map((m, i) => (
