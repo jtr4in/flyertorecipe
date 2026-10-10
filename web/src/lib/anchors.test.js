@@ -11,8 +11,11 @@ describe('protein-first planning', () => {
   it('lists proteins on sale, best deal first, big-ticket meat ahead of canned beans', () => {
     const heroes = heroDeals(deals, prefs)
     expect(heroes.length).toBeGreaterThan(3)
-    expect(heroes.map((h) => h.score)).toEqual([...heroes.map((h) => h.score)].sort((a, b) => b - a))
-    expect(heroes.slice(0, 3).some((h) => h.group === 'plantProtein')).toBe(false)
+    const plant = (h) => ['plantProtein', 'eggs'].includes(h.group)
+    const meat = heroes.filter((h) => !plant(h))
+    expect(heroes.slice(0, meat.length)).toEqual(meat)
+    expect(meat.map((h) => h.score)).toEqual([...meat.map((h) => h.score)].sort((a, b) => b - a))
+    expect(heroes.slice(0, 3).some(plant)).toBe(false)
     expect(heroes.every((h) => h.deal)).toBe(true)
   })
   it('respects diet and dislikes', () => {

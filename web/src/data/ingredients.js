@@ -39,10 +39,10 @@ export const CATALOG = {
   plantProtein: [
     x('firm tofu', 'block', 0.33, 'Plant Protein', ['tofu'], { lb: 1, as: 'tofu', exclude: ['dessert', 'pudding'] }),
     x('chickpeas', 'can', 0.33, 'Pantry', ['chickpea'], { as: 'chickpea', exclude: ['flour', 'snack'] }),
-    x('black beans', 'can', 0.33, 'Pantry', ['black bean'], {as: 'black bean', }),
+    x('black beans', 'can', 0.33, 'Pantry', ['black bean'], {as: 'black bean', exclude: ['salted', 'fermented', 'fish', 'dace'] }),
     x('lentils', 'cup', 0.25, 'Pantry', ['lentil'], {as: 'lentil', exclude: ['chips', 'soup', 'snack'], pkg: 5 }),
   ],
-  eggs: [x('eggs', 'each', 2, 'Dairy & Eggs', ['egg'], { as: 'egg', has: EGG, exclude: ['eggplant', 'nog', 'noodle', 'chocolate', 'roll', 'quail'], pkg: 12 })],
+  eggs: [x('eggs', 'each', 2, 'Dairy & Eggs', ['egg'], { as: 'egg', has: EGG, exclude: ['eggplant', 'nog', 'noodle', 'chocolate', 'roll', 'quail', 'yolk', 'custard', 'bread', 'puff', 'tart', 'cake', 'salted'], pkg: 12 })],
   cookingVeg: [
     x('broccoli', 'head', 0.25, 'Produce', ['broccoli', 'brocoli'], { lb: 1.2, exclude: ['frozen', 'slaw'] }),
     x('bell peppers', 'each', 0.5, 'Produce', ['pepper'], {exclude: ['pepperoni', 'black pepper', 'peppercorn', 'jalapeno', 'hot'], pkg: 3 }),

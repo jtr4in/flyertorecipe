@@ -29,8 +29,12 @@ export function heroDeals(deals, prefs = {}) {
       out.push({ item: ing.item, group, deal, pct: pctOff(deal), score: heroScore(deal) + lead })
     }
   }
-  return out.sort((a, b) => b.score - a.score)
+  // Meat and fish always come first: most flyers give no regular price for meat, so a 39%-off
+  // bag of lentils would otherwise outrank every chicken deal.
+  return out.sort((a, b) => plant(a) - plant(b) || b.score - a.score)
 }
+
+const plant = (h) => (['plantProtein', 'eggs'].includes(h.group) ? 1 : 0)
 
 const fillsOf = (m) => Object.fromEntries(m.lines.map((l) => [l.slot, l.ing.item]))
 
