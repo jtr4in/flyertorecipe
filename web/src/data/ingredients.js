@@ -126,5 +126,21 @@ export const CATALOG = {
     x('chocolate', 'bag', 0.15, 'Snacks', ['chocolate chips', 'chocolate bar', 'chocolate', 'chipits'], { allow: ['chips'], exclude: ['milk', 'cookie', 'cereal', 'ice cream', 'almond', 'syrup', 'drink', 'beverage', 'cake', 'protein'] }),
     x('chips', 'bag', 0.2, 'Snacks', ['potato chips', 'tortilla chips', 'chips', 'croustilles', 'doritos', 'tostitos', 'lays', "lay's", 'ruffles'], { allow: ['chips', 'flavour', 'flavor', 'flavoured', 'flavored'], exclude: ['chocolate chips', 'chipits', 'cookie', 'fish', 'chips ahoy'] }),
   ],
+  // Shortcuts people actually lean on: boxed dinners, freezer staples, a jar of sauce.
+  boxedMeals: [
+    x('boxed mac & cheese', 'box', 0.5, 'Pantry', ['kraft dinner', 'kraft mac', 'macaroni & cheese', 'macaroni and cheese', 'mac & cheese', 'mac and cheese', 'macaroni au fromage'], { as: 'mac & cheese', has: [...DAIRY, ...GLUTEN], exclude: ['frozen', 'cheese sauce', 'bites', 'baked', 'vegan', 'véganes'] }),
+    x('Hamburger Helper', 'box', 0.25, 'Pantry', ['hamburger helper', 'helper'], { has: [...DAIRY, ...GLUTEN] }),
+    x('instant noodles', 'pack', 1, 'Pantry', ['instant noodle', 'mr. noodles', 'mr noodles', 'ramen noodle', 'cup noodles', 'nouilles instantanées', 'nissin'], { as: 'noodles', has: GLUTEN, allow: ['soup', 'flavour', 'flavor', 'flavoured', 'flavored'], exclude: ['soup mix', 'rice noodle'] }),
+  ],
+  freezerMeals: [
+    x('frozen meatballs', 'bag', 0.25, 'Frozen', ['meatball', 'boulettes'], { as: 'meatballs', has: MEAT, exclude: ['sub', 'spaghetti and', 'sauce', 'swedish meatball dinner', 'plant', 'vegetarian', 'ragoût', 'stew'] }),
+    x('chicken nuggets', 'bag', 0.25, 'Frozen', ['nugget', 'chicken strips', 'popcorn chicken', 'croquettes de poulet', 'chicken fingers'], { as: 'nuggets', has: MEAT, exclude: ['plant', 'dino'] }),
+    x('fish sticks', 'box', 0.25, 'Frozen', ['fish stick', 'fish finger', 'bâtonnets de poisson', 'breaded fish', 'battered fish', 'fish fillets, breaded'], { has: FISH }),
+    x('perogies', 'bag', 0.25, 'Frozen', ['perogies', 'perogy', 'pierogi', 'pierogies', 'pyrohy', 'pirojkis'], { has: [...DAIRY, ...GLUTEN] }),
+    x('frozen pizza', 'each', 0.5, 'Frozen', ['frozen pizza', 'pizza'], { has: [...DAIRY, ...GLUTEN], exclude: ['sauce', 'dough', 'pâte', 'pocket', 'kit', 'cheese', 'mozzarella', 'crust', 'pizzeria', 'rolls', 'bites', 'pepperoni sticks', 'pops', 'stromboli', 'pizzaiolo'] }),
+  ],
+  pastaSauce: [x('pasta sauce', 'jar', 0.25, 'Pantry', ['pasta sauce', 'spaghetti sauce', 'marinara', 'sauce pour pâtes', 'sauce à spaghetti', 'classico', 'prego', "rao's", 'tonnelli', 'catelli garden select', 'olivieri'], { allow: ['sauce'], exclude: ['pizza sauce', 'alfredo', 'pesto', 'pasta,', 'pâtes pc,'] })],
+  hotDogs: [x('hot dogs', 'pack', 0.25, 'Meat & Seafood', ['hot dog', 'wiener', 'weiner', 'saucisses fumées', 'smokies', 'franks'], { has: MEAT, exclude: ['bun', 'pain', 'relish', 'plant', 'veggie', "frank's", 'wraps', 'wrap', 'cocktail', 'crescents'] })],
+  cannedSoup: [x('canned soup', 'can', 0.5, 'Pantry', ['soup', 'soupe', 'chunky'], { as: 'soup', allow: ['soup'], exclude: ['mix', 'cream of mushroom', 'broth', 'bouillon', 'noodle soup mix', 'cup', 'stock', 'base', 'tamarind'] })],
   cannedTomato: [x('canned tomatoes', 'can', 0.25, 'Pantry', ['canned tomato', 'diced tomato', 'crushed tomato', 'whole tomatoes', 'tomato sauce', 'pasta sauce'], { allow: ['sauce', 'paste'], exclude: ['soup', 'ketchup', 'juice'] })],
 }

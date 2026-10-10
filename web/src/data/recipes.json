@@ -15482,13 +15482,14 @@
       {
         "key": "meat",
         "from": [
+          "hotDogs",
           "pork"
         ],
-        "prefer": "sausages",
+        "prefer": "hot dogs",
         "only": [
+          "hot dogs",
           "sausages"
-        ],
-        "main": true
+        ]
       },
       {
         "key": "buns",
@@ -16175,6 +16176,492 @@
       "Stir in flour, baking soda, cinnamon and a pinch of salt, then the {oats} and a handful of raisins[ and {mixin}].",
       "Scoop spoonfuls onto lined baking sheets, leaving room to spread.",
       "Bake 10-12 minutes until the edges are golden but centres look soft; cool on the pan 5 minutes."
+    ]
+  },
+  {
+    "id": "easy-spaghetti-meatballs",
+    "meal": "dinner",
+    "name": "Easy spaghetti & meatballs[ with {veg}]",
+    "emoji": "🍝",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "meatballs",
+        "from": [
+          "freezerMeals"
+        ],
+        "only": [
+          "frozen meatballs"
+        ],
+        "main": true
+      },
+      {
+        "key": "sauce",
+        "from": [
+          "pastaSauce"
+        ]
+      },
+      {
+        "key": "pasta",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "pasta"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "greens",
+          "saladVeg"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "parmesan"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort"
+    ],
+    "steps": [
+      "Boil the {pasta} in salted water.",
+      "Warm the {meatballs} in a pot with the {sauce} for 10-12 minutes, until hot through.",
+      "Drain the pasta, top with meatballs and sauce, and finish with parmesan.[ Serve a side of {veg}.]"
+    ]
+  },
+  {
+    "id": "hamburger-helper",
+    "meal": "dinner",
+    "name": "Hamburger Helper with {protein}[ & {veg}]",
+    "emoji": "🍔",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "box",
+        "from": [
+          "boxedMeals"
+        ],
+        "only": [
+          "Hamburger Helper"
+        ]
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort"
+    ],
+    "steps": [
+      "Brown the {protein} in a large skillet and drain the fat.",
+      "Stir in the {box} pasta and seasoning with the milk and hot water the box calls for.",
+      "Simmer covered about 12 minutes, stirring now and then, until the pasta is tender.[ Stir in the {veg} for the last 4 minutes.]"
+    ]
+  },
+  {
+    "id": "kd-hot-dogs",
+    "meal": "lunch",
+    "name": "Kraft Dinner[ with sliced {protein}]",
+    "emoji": "🧀",
+    "minutes": 12,
+    "slots": [
+      {
+        "key": "mac",
+        "from": [
+          "boxedMeals"
+        ],
+        "only": [
+          "boxed mac & cheese"
+        ]
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ]
+      },
+      {
+        "key": "protein",
+        "from": [
+          "hotDogs"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "butter"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort"
+    ],
+    "steps": [
+      "Boil the macaroni 7-8 minutes, then drain.",
+      "Stir in butter, a splash of {milk} and the cheese packet.",
+      "[Slice the {protein} into coins, warm in the pan and stir through.]"
+    ]
+  },
+  {
+    "id": "hot-dog-night",
+    "meal": "dinner",
+    "name": "Hot dogs[ with {veg} on the side]",
+    "emoji": "🌭",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "dogs",
+        "from": [
+          "hotDogs"
+        ],
+        "main": true
+      },
+      {
+        "key": "buns",
+        "from": [
+          "buns"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "ketchup",
+      "mustard",
+      "relish"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "treat"
+    ],
+    "steps": [
+      "Simmer or grill the {dogs} until hot, about 6 minutes.",
+      "Toast the {buns} if you like.",
+      "Load up with ketchup, mustard and relish.[ Slice the {veg} for the side.]"
+    ]
+  },
+  {
+    "id": "nuggets-fries",
+    "meal": "dinner",
+    "name": "Chicken nuggets & oven {starch}[ with {veg}]",
+    "emoji": "🍗",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "nuggets",
+        "from": [
+          "freezerMeals"
+        ],
+        "only": [
+          "chicken nuggets"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "potatoes"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg",
+          "cookingVeg"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "cooking oil",
+      "salt",
+      "ketchup"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "treat"
+    ],
+    "steps": [
+      "Heat the oven to 425°F. Cut the {starch} into wedges, toss with oil and salt and roast 25 minutes.",
+      "Add the {nuggets} to the oven for the last 15 minutes.",
+      "Serve with ketchup.[ Add some {veg} on the side.]"
+    ]
+  },
+  {
+    "id": "fish-sticks-dinner",
+    "meal": "dinner",
+    "name": "Fish sticks with {starch}[ & {veg}]",
+    "emoji": "🐟",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "fish",
+        "from": [
+          "freezerMeals"
+        ],
+        "only": [
+          "fish sticks"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "potatoes",
+          "rice"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "tartar sauce",
+      "lemon juice"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort"
+    ],
+    "steps": [
+      "Bake the {fish} as the box says, usually 15-18 minutes at 425°F.",
+      "Meanwhile cook the {starch}.[ Steam the {veg}.]",
+      "Serve with tartar sauce and a squeeze of lemon."
+    ]
+  },
+  {
+    "id": "perogies-sausage",
+    "meal": "dinner",
+    "name": "Perogies & onions[ with {protein}]",
+    "emoji": "🥟",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "perogies",
+        "from": [
+          "freezerMeals"
+        ],
+        "only": [
+          "perogies"
+        ],
+        "main": true
+      },
+      {
+        "key": "protein",
+        "from": [
+          "pork",
+          "breakfastMeat"
+        ],
+        "only": [
+          "sausages",
+          "bacon"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "butter",
+      "onion",
+      "sour cream"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort"
+    ],
+    "steps": [
+      "Boil the {perogies} until they float, about 4 minutes, then drain.",
+      "[Brown the sliced {protein} in a big pan.] Fry sliced onion in butter until golden.",
+      "Add the perogies to the pan and fry until crisp. Serve with sour cream."
+    ]
+  },
+  {
+    "id": "frozen-pizza-night",
+    "meal": "dinner",
+    "name": "Frozen pizza night with {veg} salad",
+    "emoji": "🍕",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "pizza",
+        "from": [
+          "freezerMeals"
+        ],
+        "only": [
+          "frozen pizza"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "greens"
+        ]
+      }
+    ],
+    "pantry": [
+      "salad dressing"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "treat"
+    ],
+    "steps": [
+      "Bake the {pizza} as the box says.",
+      "Toss the {veg} with dressing while it bakes.",
+      "Slice and serve."
+    ]
+  },
+  {
+    "id": "soup-grilled-cheese",
+    "meal": "lunch",
+    "name": "{soup} & grilled {cheese}",
+    "emoji": "🥫",
+    "minutes": 12,
+    "slots": [
+      {
+        "key": "soup",
+        "from": [
+          "cannedSoup"
+        ]
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "only": [
+          "bread"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar"
+      }
+    ],
+    "pantry": [
+      "butter"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort"
+    ],
+    "steps": [
+      "Heat the {soup} in a small pot.",
+      "Butter the outside of two slices of {bread}, fill with {cheese} and cook in a pan until golden on both sides.",
+      "Cut in half and dunk."
+    ]
+  },
+  {
+    "id": "instant-noodles-egg",
+    "meal": "lunch",
+    "name": "Upgraded instant noodles with egg[ & {veg}]",
+    "emoji": "🍜",
+    "minutes": 8,
+    "slots": [
+      {
+        "key": "noodles",
+        "from": [
+          "boxedMeals"
+        ],
+        "only": [
+          "instant noodles"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "greens"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "green onion",
+      "sesame oil"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "comfort"
+    ],
+    "steps": [
+      "Boil the {noodles} with the flavour packet.",
+      "Crack an egg in for the last 2 minutes (or drop in a boiled egg).[ Stir in a handful of {veg}.]",
+      "Top with green onion and a drop of sesame oil."
     ]
   }
 ]

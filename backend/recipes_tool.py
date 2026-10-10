@@ -188,6 +188,12 @@ def draft(count: int, meal: str | None, theme: str | None) -> None:
     examples = [r for r in recipes if r["id"] in ("stir-fry", "big-salad", "overnight-oats")]
     prompt = f"""Write {count} new recipes for a Canadian household meal planner{f' for {meal}' if meal else ' across breakfast, lunch, dinner and snacks'}{f', with this theme: {theme}' if theme else ''}.
 Pick well-known, everyday dishes people actually cook on a weeknight, not ones already in the list.
+Write what a tired parent really makes, not what a food magazine would: few ingredients, little
+prep, and store-bought shortcuts wherever people normally use them. Kraft Dinner beats homemade
+cheese sauce, a jar of pasta sauce beats simmering tomatoes, frozen meatballs, nuggets, fish sticks,
+perogies and frozen pizza are fair game, and Hamburger Helper counts as a recipe. Use the catalog's
+boxedMeals, freezerMeals, pastaSauce, hotDogs and cannedSoup groups for these. Skip homemade sauces,
+doughs, batters and baking projects unless the theme asks for them.
 
 {RULES}
 

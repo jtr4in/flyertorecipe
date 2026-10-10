@@ -110,7 +110,7 @@ costs a handful of reads. The paid Apify search actor below only runs if that fe
 nearly empty.
 
 The actor bills per deal returned ($0.002/deal from 2026-10-08, plus $0.0005 per run).
-82 search terms in three tiers (`backend/staples.py`): broad staples like chicken and milk fetch up to 60 deals, mid items 30, narrow items 15. That caps a run at 2160 deals, about $4.32 per postal area per week, under the $4.50 `MAX_CHARGE_USD` cap (narrow searches often return fewer).
+86 search terms in three tiers (`backend/staples.py`): broad staples like chicken and milk fetch up to 60 deals, mid items 30, narrow items 15. That caps a run at 2220 deals, about $4.44 per postal area per week, under the $4.50 `MAX_CHARGE_USD` cap (narrow searches often return fewer).
 `MAX_CHARGE_USD` sets a hard cap per run.
 
 ## Known limits / next steps

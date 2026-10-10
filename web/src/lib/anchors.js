@@ -17,6 +17,7 @@ export const SECTIONS = {
     ['fish', '🐟', 'Fish & seafood', CATALOG.fish.map((i) => i.item)],
     ['plantProtein', '🌱', 'Beans, lentils & tofu', CATALOG.plantProtein.map((i) => i.item)],
     ['eggs', '🥚', 'Eggs', ['eggs']],
+    ['easy', '🧊', 'Easy nights', ['frozen meatballs', 'chicken nuggets', 'fish sticks', 'perogies', 'frozen pizza', 'hot dogs']],
   ],
   breakfast: [
     ['cereal', '🥣', 'Cereal & oats', ['cereal', 'oats', 'granola']],
@@ -33,6 +34,7 @@ export const SECTIONS = {
     ['salad', '🥗', 'Salad', ['lettuce', 'salad greens', 'spinach', 'tomatoes', 'cucumber']],
     ['dips', '🫘', 'Hummus & beans', ['hummus', 'chickpeas', 'black beans']],
     ['eggs', '🥚', 'Eggs', ['eggs']],
+    ['quick', '🥫', 'Quick lunches', ['boxed mac & cheese', 'instant noodles', 'canned soup', 'hot dogs']],
   ],
 }
 const ingredient = (item) => Object.values(CATALOG).flat().find((i) => i.item === item)
@@ -57,7 +59,7 @@ export function heroDeals(deals, prefs = {}, meal = 'dinner') {
       const found = matchAll(ing, deals).filter((d) => !seen.has(d.dealId ?? d.name))
       if (!found.length || !anchorMeals(item, deals, prefs, null, meal).length) continue
       // Meat and fish lead dinner (that's what most people plan it around), unless they don't eat it.
-      const low = meal === 'dinner' && ['plantProtein', 'eggs'].includes(group)
+      const low = meal === 'dinner' && ['plantProtein', 'eggs', 'easy'].includes(group)
       for (const deal of found.slice(0, MAX_PER_ITEM)) {
         seen.add(deal.dealId ?? deal.name)
         out.push({ item, group, label, emoji, deal, low, pct: pctOff(deal), score: heroScore(deal) })

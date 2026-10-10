@@ -27,6 +27,7 @@ QUERY_LIMITS = {
         "lentils", "canned tomatoes", "oats", "granola", "peanut butter", "hummus",
         "crackers", "nuts", "quinoa", "egg noodles", "tortillas", "pitas", "naan",
         "bagels", "english muffins", "buns", "frozen fruit",
+        "mac and cheese", "pasta sauce", "hot dogs", "soup",
         "dish soap", "shampoo", "toothpaste",
     ],
 }
