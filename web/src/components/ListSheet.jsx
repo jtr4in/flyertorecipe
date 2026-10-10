@@ -114,62 +114,41 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
         </div>
       }
     >
-      <div className="mb-3 grid grid-cols-2 gap-1 rounded-2xl bg-stone-100 p-1 text-sm font-medium" role="tablist">
-        {TABS.map(([id, label]) => (
-          <button
-            key={id}
-            role="tab"
-            aria-selected={mode === id}
-            onClick={() => setMode(id)}
-            className={`rounded-xl px-2 py-2 ${mode === id ? 'bg-white shadow-sm' : 'text-stone-500'}`}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-
-      {mode === 'match' && (
-        <div className="mb-3 rounded-2xl bg-stone-100 p-3">
-          <label className="flex items-center gap-2 text-sm">
-            <span className="font-medium">Price match at</span>
+      {/* One card for how you're shopping: the mode, where, and what that means. */}
+      <div className="mb-4 rounded-2xl border border-stone-200 bg-white p-2">
+        <div className="grid grid-cols-2 gap-1 rounded-xl bg-stone-100 p-1 text-sm font-medium" role="tablist">
+          {TABS.map(([id, label]) => (
+            <button
+              key={id}
+              role="tab"
+              aria-selected={mode === id}
+              onClick={() => setMode(id)}
+              className={`rounded-lg px-2 py-1.5 ${mode === id ? 'bg-white shadow-sm' : 'text-stone-500'}`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        <label className="mt-2 flex items-center gap-2 px-1 text-sm">
+          <span className="shrink-0 text-stone-500">{mode === 'match' ? 'Match at' : 'Store'}</span>
+          {mode === 'match' ? (
             <select
               value={matchAt}
               onChange={(e) => onMatch(e.target.value, matchExtras)}
-              className="min-w-0 flex-1 rounded-lg border border-stone-300 bg-white px-2 py-1.5"
+              className="min-w-0 flex-1 rounded-lg border border-stone-200 bg-white px-2 py-1"
             >
-              <option value="">Any store (cheapest flyer anywhere)</option>
+              <option value="">Any store</option>
               {MATCH_STORES.map((s) => (
                 <option key={s} value={s}>
                   {s}
                 </option>
               ))}
             </select>
-          </label>
-        </div>
-      )}
-      {mode === 'match' ? (
-        <div className="mb-4 flex items-center gap-3 rounded-2xl bg-green-50 p-3">
-          <p className="flex-1 text-xs text-green-900">
-            Every item at its lowest flyer price from {list.matchStores.length} store{list.matchStores.length === 1 ? '' : 's'}.
-            Show the cashier the flyers at checkout.
-          </p>
-          <button
-            onClick={() => setGallery(true)}
-            disabled={!list.flyers.length}
-            className="shrink-0 rounded-xl bg-green-700 px-3 py-2 text-xs font-semibold text-white disabled:opacity-40"
-          >
-            View all flyers
-          </button>
-        </div>
-      ) : null}
-      {mode === 'single' && (
-        <div className="mb-4 rounded-2xl bg-stone-100 p-3">
-          <label className="flex items-center gap-2 text-sm">
-            <span className="font-medium">Store</span>
+          ) : (
             <select
               value={list.store || ''}
               onChange={(e) => onStore(e.target.value)}
-              className="min-w-0 flex-1 rounded-lg border border-stone-300 bg-white px-2 py-1.5"
+              className="min-w-0 flex-1 rounded-lg border border-stone-200 bg-white px-2 py-1"
             >
               {stores.map((s) => (
                 <option key={s} value={s}>
@@ -178,25 +157,36 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                 </option>
               ))}
             </select>
-          </label>
-          <p className="mt-1.5 text-xs text-stone-500">
-            {list.onSale} of {list.itemCount} items on sale here; the rest at regular price.{' '}
-            {list.store && (
-              <>
-                <a className="text-green-700 underline" href={flyerUrl(list.store)} target="_blank" rel="noreferrer">
-                  Full flyer
-                </a>{' '}
-                ·{' '}
-                <a className="text-green-700 underline" href={mapsUrl(list.store, postalCode)} target="_blank" rel="noreferrer">
-                  Directions
-                </a>
-              </>
-            )}
-          </p>
-        </div>
-      )}
-
-      <p className="mb-2 text-[11px] text-stone-400">Hover or tap an item to see its flyer ad.</p>
+          )}
+        </label>
+        <p className="mt-1.5 px-1 text-xs text-stone-500">
+          {mode === 'match' ? (
+            <>
+              Lowest flyer price from {list.matchStores.length} store{list.matchStores.length === 1 ? '' : 's'}; show the cashier the flyers.{' '}
+              {list.flyers.length > 0 && (
+                <button onClick={() => setGallery(true)} className="font-medium text-green-700 underline">
+                  View flyers
+                </button>
+              )}
+            </>
+          ) : (
+            <>
+              {list.onSale} of {list.itemCount} on sale here.{' '}
+              {list.store && (
+                <>
+                  <a className="font-medium text-green-700 underline" href={flyerUrl(list.store)} target="_blank" rel="noreferrer">
+                    Flyer
+                  </a>{' '}
+                  ·{' '}
+                  <a className="font-medium text-green-700 underline" href={mapsUrl(list.store, postalCode)} target="_blank" rel="noreferrer">
+                    Directions
+                  </a>
+                </>
+              )}
+            </>
+          )}
+        </p>
+      </div>
 
       <div className="space-y-5">
         {list.groups.map((g) => (
@@ -204,7 +194,7 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
             <h3 className="mb-1 text-xs font-semibold tracking-wide text-stone-500 uppercase">{g.title}</h3>
             <ul className="divide-y divide-stone-100">
               {g.items.map((i) => (
-                <li key={i.key} className="flex items-center gap-3 py-2">
+                <li key={i.key} className="flex items-center gap-2.5 py-2">
                   <input
                     type="checkbox"
                     aria-label={`Got ${i.item}`}
@@ -222,18 +212,19 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                       <span className="block truncate text-sm font-medium">
                         {i.item} <span className="font-normal text-stone-500">· {i.buy}</span>
                       </span>
-                      <span className="block truncate text-[11px] text-stone-400">{i.meals.join(', ')}</span>
+                      <span className="mt-0.5 flex min-w-0 items-center gap-1.5 text-[11px] text-stone-400">
+                        {i.deal && mode === 'match' && (
+                          <span className={`max-w-[55%] shrink-0 truncate rounded-full px-1.5 text-[10px] font-medium ${storeTint(i.deal.merchant)}`}>{i.deal.merchant}</span>
+                        )}
+                        <span className="truncate" title={i.meals.join(', ')}>
+                          {i.meals[0]}
+                          {i.meals.length > 1 && ` +${i.meals.length - 1}`}
+                        </span>
+                      </span>
                     </span>
                     <span className="shrink-0 text-right">
                       {i.deal ? (
-                        <>
-                          <span className="block text-sm font-semibold text-green-700">{i.deal.priceLabel}</span>
-                          {mode === 'match' && (
-                            <span className={`inline-block rounded-full px-1.5 text-[10px] font-medium ${storeTint(i.deal.merchant)}`}>
-                              {i.deal.merchant}
-                            </span>
-                          )}
-                        </>
+                        <span className="block text-sm font-semibold text-green-700">{i.deal.priceLabel}</span>
                       ) : i.need ? null : (
                         <span className="block text-xs text-stone-400">reg. ~{money(i.cost)}</span>
                       )}
@@ -243,7 +234,7 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                     <button
                       onClick={() => onOptions(i)}
                       aria-label={`Other options for ${i.item}`}
-                      className="shrink-0 rounded-lg border border-stone-200 px-2 py-1 text-xs font-medium text-stone-600 hover:border-green-600 hover:text-green-700"
+                      className="shrink-0 rounded-lg px-1.5 py-1 text-xs font-medium text-green-700 hover:bg-green-50"
                     >
                       Options
                     </button>
@@ -272,42 +263,34 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
         ))}
         {list.pantryCheck.length > 0 && (
           <section className="rounded-2xl bg-amber-50 p-3">
-            <h3 className="text-sm font-semibold text-amber-900">Check your pantry for these</h3>
-            <p className="mb-2 text-xs text-amber-800">Less common items this week's recipes need. Tick off what you have; buy the rest. Prices show where a flyer has it on sale.</p>
-            <div className="space-y-3">
-              {list.pantryCheck.map((g) => (
-                <div key={g.title}>
-                  <h4 className="mb-0.5 text-[11px] font-semibold tracking-wide text-amber-900/70 uppercase">{g.title}</h4>
-                  <ul>
-                    {g.items.map((p) => {
-                      const k = `pantry:${p.item.toLowerCase()}`
-                      const deal = pantryDeals[p.item]
-                      return (
-                        <li key={k} className="flex items-center gap-3 py-1">
-                          <input
-                            type="checkbox"
-                            aria-label={`Have ${p.item}`}
-                            checked={!!checked[k]}
-                            onChange={() => onCheck(k)}
-                            className="size-5 shrink-0 accent-green-700"
-                          />
-                          <span className={`min-w-0 flex-1 ${checked[k] ? 'text-stone-400 line-through' : ''}`}>
-                            <span className="block text-sm font-medium">{p.item}</span>
-                            <span className="block truncate text-[11px] text-stone-500">{p.meals.join(', ')}</span>
-                          </span>
-                          {deal && (
-                            <FlyerPeek deal={deal} onOpen={(d) => onProof(d, null)} className="shrink-0 text-right">
-                              <span className="block text-sm font-semibold text-green-700">{deal.priceLabel || deal.priceText}</span>
-                              <span className={`inline-block rounded-full px-1.5 text-[10px] font-medium ${storeTint(deal.merchant)}`}>{deal.merchant}</span>
-                            </FlyerPeek>
-                          )}
-                        </li>
-                      )
-                    })}
-                  </ul>
-                </div>
-              ))}
-            </div>
+            <h3 className="text-sm font-semibold text-amber-900">Check your pantry</h3>
+            <p className="mb-1 text-xs text-amber-800">Tick what you have; buy the rest.</p>
+            <ul>
+              {list.pantryCheck
+                .flatMap((g) => g.items)
+                .map((p) => {
+                  const k = `pantry:${p.item.toLowerCase()}`
+                  const deal = pantryDeals[p.item]
+                  return (
+                    <li key={k} className="flex items-center gap-2.5 py-1" title={p.meals.join(', ')}>
+                      <input
+                        type="checkbox"
+                        aria-label={`Have ${p.item}`}
+                        checked={!!checked[k]}
+                        onChange={() => onCheck(k)}
+                        className="size-5 shrink-0 accent-green-700"
+                      />
+                      <span className={`min-w-0 flex-1 text-sm ${checked[k] ? 'text-stone-400 line-through' : ''}`}>{p.item}</span>
+                      {deal && (
+                        <FlyerPeek deal={deal} onOpen={(d) => onProof(d, null)} className="flex max-w-[60%] shrink-0 items-center gap-1.5">
+                          <span className={`max-w-[7rem] truncate rounded-full px-1.5 text-[10px] font-medium ${storeTint(deal.merchant)}`}>{deal.merchant}</span>
+                          <span className="text-sm font-semibold text-green-700">{deal.priceLabel || deal.priceText}</span>
+                        </FlyerPeek>
+                      )}
+                    </li>
+                  )
+                })}
+            </ul>
           </section>
         )}
         {list.pantry.length > 0 && (

@@ -21,7 +21,7 @@ const calm = (t) => (/[a-z]/.test(t) ? t : t.charAt(0) + t.slice(1).toLowerCase(
 // Lowercase without accents, so "poulet haché" matches "hache".
 const fold = (t) => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 
-function HeroCard({ hero, on, onToggle, big }) {
+function HeroCard({ hero, on, onToggle, big = false }) {
   const d = hero.deal
   const pct = Math.round(hero.pct * 100)
   return (
@@ -85,45 +85,37 @@ function Ingredients({ meal }) {
   )
 }
 
-function OptionCard({ meal, added, onAdd, onSwap, label, shared = 0 }) {
+function OptionCard({ meal, added, onAdd, label, shared = 0 }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className="rounded-2xl border border-stone-200 bg-white p-3">
-      {label && <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-amber-700">{label}</p>}
-      {shared > 0 && (
-        <p className="mb-1.5 inline-block rounded-full bg-sky-50 px-2 py-0.5 text-[11px] font-medium text-sky-800">
-          🛒 Uses {shared} thing{shared > 1 ? 's' : ''} already on your list
-        </p>
-      )}
-      <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex w-full items-start gap-2.5 text-left">
-        <span className="text-2xl" aria-hidden>
-          {meal.emoji}
-        </span>
-        <span className="min-w-0 flex-1">
-          <span className="block text-sm font-semibold leading-snug">{meal.name}</span>
-          <span className="block text-xs text-stone-500">
-            {meal.minutes} min · {money(meal.cost / meal.servings)}/serving ·{' '}
-            <span className="text-green-700">
-              {meal.onSale}/{meal.lines.length} on sale
+    <div className="rounded-2xl border border-stone-200 bg-white p-2.5">
+      <div className="flex items-center gap-2.5">
+        <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex min-w-0 flex-1 items-center gap-2.5 text-left">
+          <span className="text-xl" aria-hidden>
+            {meal.emoji}
+          </span>
+          <span className="min-w-0 flex-1">
+            {label && <span className="block text-[10px] font-semibold uppercase tracking-wide text-amber-700">{label}</span>}
+            <span className="block text-sm font-semibold leading-snug">{meal.name}</span>
+            <span className="block text-xs text-stone-500">
+              {meal.minutes} min · {money(meal.cost / meal.servings)}/serving ·{' '}
+              <span className="text-green-700">
+                {meal.onSale}/{meal.lines.length} on sale
+              </span>
+              {shared > 0 && <span className="text-sky-700"> · 🛒 {shared} on your list</span>}
             </span>
           </span>
-        </span>
-      </button>
-      {open && <Ingredients meal={meal} />}
-      <div className="mt-2 flex gap-2">
+        </button>
         <button
           onClick={onAdd}
           disabled={added}
-          className={`flex-1 rounded-xl py-1.5 text-xs font-semibold ${added ? 'bg-green-100 text-green-800' : 'bg-green-700 text-white'}`}
+          aria-label={added ? `${meal.name} is in your meals` : `Add ${meal.name} to my meals`}
+          className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold ${added ? 'bg-green-100 text-green-800' : 'bg-green-700 text-white'}`}
         >
-          {added ? '✓ In your meals' : '+ Add to my meals'}
+          {added ? '✓ Added' : '+ Add'}
         </button>
-        {onSwap && (
-          <button onClick={onSwap} className="rounded-xl border border-stone-300 px-3 py-1.5 text-xs font-medium text-stone-700">
-            🔄 Swap
-          </button>
-        )}
       </div>
+      {open && <Ingredients meal={meal} />}
     </div>
   )
 }
@@ -182,6 +174,7 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
   const [showAll, setShowAll] = useState(false) // every breakfast / lunch, not just the top few
   const [all, setAll] = useState({}) // proteins showing every dinner, not just two
   const [q, setQ] = useState('') // search box over this tab's sale items
+  const [poolOpen, setPoolOpen] = useState(false) // the picked meals, folded away while browsing
   // This tab's sale items to plan around: proteins for dinner, cereal, yogurt... for breakfast.
   const heroes = useMemo(() => heroDeals(deals, prefs, tab), [deals, prefs, tab, recipesVersion])
   // Chosen items are saved per meal ("eggs" for dinner, "breakfast|eggs" for breakfast).
@@ -227,10 +220,9 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
       ) : null
     const shown = opts.slice(0, 2)
     const quick = quickMeal(opts)
-    const h = heroOf(item)
     return (
       <section key={item} className="ml-3 border-l-2 border-green-700/30 pl-3">
-        <p className="mb-2 text-xs text-stone-500">{cap(noun)} with {h ? calm(dealName(h.deal.name)) : item}, built from the other things on sale.</p>
+        <p className="mb-2 text-xs text-stone-500">{cap(noun)} built around it, using other things on sale.</p>
         <div className="space-y-2">
           {shown.map((m) => (
             <OptionCard key={m.template.id} meal={m} shared={sharedCount(m, have)} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />
@@ -261,7 +253,45 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
+      <section data-tour="pool">
+        <button
+          onClick={() => setPoolOpen(!poolOpen)}
+          aria-expanded={poolOpen}
+          disabled={!pool.length}
+          className="flex w-full items-center gap-2 rounded-2xl border border-stone-200 bg-white px-3 py-2.5 text-left"
+        >
+          <span className="text-sm font-semibold">Your meals</span>
+          <span className="min-w-0 flex-1 truncate text-xs text-stone-500">
+            {pool.length ? `${counts.dinner} of ${TARGET} dinners${pool.length > counts.dinner ? ` · ${pool.length - counts.dinner} more` : ''}` : 'Pick a deal below, then add meals'}
+          </span>
+          {pool.length > 0 && (
+            <span aria-hidden className={`inline-block text-green-700 transition ${poolOpen ? 'rotate-180' : ''}`}>
+              ▾
+            </span>
+          )}
+        </button>
+        {!poolOpen || pool.length === 0 ? null : (
+          <ul className="mt-2 space-y-2">
+            {sortedPool.map((m, i) => (
+              <PoolCard
+                key={m.key}
+                meal={m}
+                n={i + 1}
+                leftovers={m.meal === 'dinner'}
+                onRemove={() => onRemove(m.pick)}
+                onSwap={() => {
+                  const next = nextFor(m)
+                  if (next) onReplace(m.pick, next)
+                }}
+                onLeftovers={(on) => onLeftovers(m.pick, on)}
+                deals={deals}
+                onJar={onJar && ((on) => onJar(m.pick, on))}
+              />
+            ))}
+          </ul>
+        )}
+      </section>
       <div className="space-y-3">
         <div className="grid grid-cols-3 gap-1 rounded-2xl bg-stone-100 p-1 text-sm font-medium" role="tablist" aria-label="Meal">
           {MEALS.map(([id, label]) => (
@@ -298,11 +328,10 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
         </div>
       </div>
 
+
       <section data-tour="heroes">
         <h2 className="text-lg font-semibold">What's on sale?</h2>
-        <p className="mb-3 text-sm text-stone-500">
-          {tab === 'dinner' ? "This week's best protein deals." : `This week's ${tab} deals.`} Tap one or two to see {noun} built around them.
-        </p>
+        <p className="mb-2 text-sm text-stone-500">Tap a deal to see {noun} built around it.</p>
         {heroes.length > 0 && (
           <input
             type="search"
@@ -347,7 +376,7 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
                   <div className="space-y-2">
                     {shown.map((h, i) => (
                       <div key={h.deal.dealId ?? h.deal.name} className="space-y-2">
-                        <HeroCard hero={h} big={i === 0} on={isOn(h)} onToggle={() => toggle(h)} />
+                        <HeroCard hero={h} on={isOn(h)} onToggle={() => toggle(h)} />
                         {isOn(h) && dinnersFor(h.item)}
                       </div>
                     ))}
@@ -380,45 +409,11 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
         </section>
       )}
 
-      <section data-tour="pool">
-        <div className="flex items-baseline justify-between">
-          <h2 className="text-lg font-semibold">Your meals</h2>
-          <span className="text-sm text-stone-500">
-            {counts.dinner} of {TARGET} dinners
-          </span>
-        </div>
-        <p className="mb-3 text-xs text-stone-500">
-          No days to stick to. Most households cook 3–4 dinners a week and fill the rest with leftovers and quick basics.
-          Breakfasts and lunches are optional.
-        </p>
-        {pool.length === 0 ? (
-          <p className="rounded-2xl border border-dashed border-stone-300 p-4 text-sm text-stone-500">Tap something on sale above, then add the meals you like.</p>
-        ) : (
-          <ul className="space-y-2">
-            {sortedPool.map((m, i) => (
-              <PoolCard
-                key={m.key}
-                meal={m}
-                n={i + 1}
-                leftovers={m.meal === 'dinner'}
-                onRemove={() => onRemove(m.pick)}
-                onSwap={() => {
-                  const next = nextFor(m)
-                  if (next) onReplace(m.pick, next)
-                }}
-                onLeftovers={(on) => onLeftovers(m.pick, on)}
-                deals={deals}
-                onJar={onJar && ((on) => onJar(m.pick, on))}
-              />
-            ))}
-          </ul>
-        )}
-      </section>
 
       {pool.length > 0 && (
-        <div className="sticky bottom-4 z-10">
-          <button onClick={onShop} className="w-full rounded-2xl bg-green-700 py-3.5 text-base font-semibold text-white shadow-lg">
-            Generate my list · {itemCount} items
+        <div className="pointer-events-none sticky bottom-4 z-10 flex justify-end">
+          <button onClick={onShop} className="pointer-events-auto rounded-full bg-green-700 px-5 py-3 text-sm font-semibold text-white shadow-lg">
+            🛒 See my list · {itemCount}
           </button>
         </div>
       )}

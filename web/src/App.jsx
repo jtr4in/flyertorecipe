@@ -344,15 +344,11 @@ export default function App() {
           <button
             data-tour="plan"
             onClick={() => setSheet('needs')}
-            className="flex w-full items-center gap-3 rounded-2xl border border-stone-200 bg-white px-4 py-3 text-left shadow-sm"
+            className="mb-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-stone-300 bg-white px-4 py-2.5 text-sm font-semibold text-green-700"
           >
-            <span className="text-xl" aria-hidden>
-              📝
-            </span>
-            <span className="min-w-0 flex-1 text-sm font-semibold">Add other</span>
-            <span className="text-stone-400">›</span>
+            + Add other items
           </button>
-          <div className="mt-4">{listView}</div>
+          {listView}
         </>
       ) : loading ? (
         <p className="text-stone-500">Loading deals…</p>
