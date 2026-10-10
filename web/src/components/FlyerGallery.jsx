@@ -1,9 +1,9 @@
-// Every flyer deal on the list as a tiled wall, to hand the cashier when price matching.
+// Every flyer ad on the list as a tiled wall, to hand the cashier when price matching.
 // Tap an ad to blow it up; the store chips open each store's full flyer.
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import FlyerClip from './FlyerClip'
-import { adUrl, dealName, flyerUrl, shortDay, storeTint } from '../lib/stores'
+import { dealName, flyerUrl, shortDay, storeTint } from '../lib/stores'
 
 export default function FlyerGallery({ open, flyers, stores = [], store, onClose }) {
   const [zoom, setZoom] = useState(null)
@@ -45,7 +45,7 @@ export default function FlyerGallery({ open, flyers, stores = [], store, onClose
               onClick={() => setZoom({ item, deal })}
               className="mb-2 block w-full break-inside-avoid overflow-hidden rounded-xl bg-white text-left shadow-sm"
             >
-              <FlyerClip deal={deal} maxHeight="12rem" className="p-2" />
+              <FlyerClip deal={deal} sharp={480} />
               <span className="flex items-baseline justify-between gap-1 border-t border-stone-100 px-2 py-1.5">
                 <span className="min-w-0 truncate text-[11px] font-semibold">{deal.merchant}</span>
                 <span className="shrink-0 text-sm font-bold text-green-700">{deal.priceLabel || deal.priceText}</span>
@@ -65,13 +65,8 @@ export default function FlyerGallery({ open, flyers, stores = [], store, onClose
                   <span className="block truncate text-sm text-stone-600">{dealName(zoom.deal.name)}</span>
                   {zoom.deal.page && <span className="block text-xs font-semibold text-amber-800">Page {zoom.deal.page} of the flyer</span>}
                   {zoom.deal.validTo && <span className="block text-xs text-stone-400">Valid until {shortDay(zoom.deal.validTo)}</span>}
-                  <a
-                    href={adUrl(zoom.deal) || flyerUrl(zoom.deal.merchant)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-2 inline-block rounded-lg bg-green-700 px-3 py-1.5 text-xs font-semibold text-white"
-                  >
-                    {adUrl(zoom.deal) ? 'Show the ad' : `See ${zoom.deal.merchant}'s flyer`} ↗
+                  <a href={flyerUrl(zoom.deal.merchant)} target="_blank" rel="noreferrer" className="text-xs font-medium text-green-700 underline">
+                    Full flyer ↗
                   </a>
                 </span>
                 <span className="shrink-0 text-right">
