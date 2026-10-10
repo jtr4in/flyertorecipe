@@ -1,11 +1,17 @@
-// Plan by dinners: pick 1–2 of the week's best protein deals, choose dinners built around
-// them, and keep 3–4 in a pool (no days). Then "Generate my list" moves on to shopping.
+// Plan the week's meals with no days attached. Dinners: pick 1–2 of the week's best protein deals
+// and choose dinners built around them. Breakfasts and lunches: pick from recipes that lean on
+// what's on sale and what's already on the list. Then "Generate my list" moves on to shopping.
 import { useMemo, useState } from 'react'
 import FlyerClip from './FlyerClip'
-import { anchorMeals, quickMeal } from '../lib/anchors'
+import { anchorMeals, FILTERS, mealOptions, passesFilters, quickMeal, sharedCount } from '../lib/anchors'
 import { dealName, money, storeTint } from '../lib/stores'
 
 const TARGET = 4
+const MEALS = [
+  ['breakfast', '🍳 Breakfast'],
+  ['lunch', '🥪 Lunch'],
+  ['dinner', '🍽️ Dinner'],
+]
 
 // Some flyers shout every name ("CHICKEN DRUMSTICKS"); show those in sentence case.
 const calm = (t) => (/[a-z]/.test(t) ? t : t.charAt(0) + t.slice(1).toLowerCase())
@@ -83,11 +89,16 @@ function Ingredients({ meal }) {
   )
 }
 
-function OptionCard({ meal, added, onAdd, onSwap, label }) {
+function OptionCard({ meal, added, onAdd, onSwap, label, shared = 0 }) {
   const [open, setOpen] = useState(false)
   return (
     <div className="rounded-2xl border border-stone-200 bg-white p-3">
       {label && <p className="mb-1 text-[11px] font-semibold uppercase tracking-wide text-amber-700">{label}</p>}
+      {shared > 0 && (
+        <p className="mb-1.5 inline-block rounded-full bg-sky-50 px-2 py-0.5 text-[11px] font-medium text-sky-800">
+          🛒 Uses {shared} thing{shared > 1 ? 's' : ''} already on your list
+        </p>
+      )}
       <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex w-full items-start gap-2.5 text-left">
         <span className="text-2xl" aria-hidden>
           {meal.emoji}
@@ -109,7 +120,7 @@ function OptionCard({ meal, added, onAdd, onSwap, label }) {
           disabled={added}
           className={`flex-1 rounded-xl py-1.5 text-xs font-semibold ${added ? 'bg-green-100 text-green-800' : 'bg-green-700 text-white'}`}
         >
-          {added ? '✓ In your dinners' : '+ Add to my dinners'}
+          {added ? '✓ In your meals' : '+ Add to my meals'}
         </button>
         {onSwap && (
           <button onClick={onSwap} className="rounded-xl border border-stone-300 px-3 py-1.5 text-xs font-medium text-stone-700">
@@ -121,7 +132,7 @@ function OptionCard({ meal, added, onAdd, onSwap, label }) {
   )
 }
 
-function PoolCard({ meal, n, onRemove, onSwap, onLeftovers }) {
+function PoolCard({ meal, n, onRemove, onSwap, onLeftovers, leftovers = true }) {
   const [open, setOpen] = useState(false)
   return (
     <li className="rounded-2xl border border-stone-200 bg-white p-3">
@@ -132,6 +143,7 @@ function PoolCard({ meal, n, onRemove, onSwap, onLeftovers }) {
             <span aria-hidden>{meal.emoji}</span> {meal.name}
           </span>
           <span className="block text-xs text-stone-500">
+            {meal.meal !== 'dinner' && `${meal.meal === 'breakfast' ? 'Breakfast' : 'Lunch'} · `}
             {meal.minutes} min · {money((meal.cost * (meal.batches || 1)) / meal.servings / (meal.batches || 1))}/serving
             {meal.batches > 1 && ' · cooking double'}
           </span>
@@ -145,17 +157,22 @@ function PoolCard({ meal, n, onRemove, onSwap, onLeftovers }) {
         <button onClick={onSwap} className="font-medium text-green-700">
           🔄 Swap
         </button>
-        <label className="flex items-center gap-1.5 text-stone-600">
-          <input type="checkbox" className="size-3.5 accent-green-700" checked={meal.batches > 1} onChange={(e) => onLeftovers(e.target.checked)} />
-          Make extra for lunch
-        </label>
+        {leftovers && (
+          <label className="flex items-center gap-1.5 text-stone-600">
+            <input type="checkbox" className="size-3.5 accent-green-700" checked={meal.batches > 1} onChange={(e) => onLeftovers(e.target.checked)} />
+            Make extra for lunch
+          </label>
+        )}
       </div>
     </li>
   )
 }
 
-export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals = {}, pool, onAnchors, onAdd, onRemove, onReplace, onLeftovers, onShop, itemCount }) {
+export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals = {}, have = new Set(), pool, onAnchors, onAdd, onRemove, onReplace, onLeftovers, onShop, itemCount }) {
   const [openGroups, setOpenGroups] = useState([]) // protein types showing every deal
+  const [tab, setTab] = useState('dinner')
+  const [filters, setFilters] = useState([])
+  const [showAll, setShowAll] = useState(false) // every breakfast / lunch, not just the top few
   const [shift, setShift] = useState({}) // how far each protein's options have been swapped along
   const [all, setAll] = useState({}) // proteins showing every dinner, not just two
   // Which deal was tapped for each chosen protein (several stores can have chicken breasts).
@@ -165,6 +182,14 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals 
     [anchors, anchorDeals, deals, prefs, heroes],
   )
   const inPool = new Set(pool.map((m) => m.name))
+  const counts = Object.fromEntries(MEALS.map(([id]) => [id, pool.filter((m) => m.meal === id).length]))
+  const order = MEALS.map(([id]) => id)
+  const sortedPool = [...pool].sort((a, b) => order.indexOf(a.meal) - order.indexOf(b.meal))
+  const picks = useMemo(
+    () => (tab === 'dinner' ? [] : mealOptions(tab, deals, prefs, { have, filters })),
+    // `have` is rebuilt each render; its contents are what matter.
+    [tab, deals, prefs, filters, [...have].sort().join()],
+  )
   const isOn = (h) => anchors.includes(h.item) && heroOf(h.item) === h
   const toggle = (h) => {
     const { [h.item]: _, ...rest } = anchorDeals
@@ -175,8 +200,13 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals 
   const groups = [...heroes.reduce((m, h) => m.set(h.group, [...(m.get(h.group) || []), h]), new Map())]
   // A tapped protein's dinners, shown right under its card.
   const dinnersFor = (item) => {
-    const opts = options[item] || []
-    if (!opts.length) return null
+    const opts = (options[item] || [])
+      .filter((m) => passesFilters(m.template, filters))
+      .sort((a, b) => sharedCount(b, have) - sharedCount(a, have))
+    if (!opts.length)
+      return (options[item] || []).length ? (
+        <p className="ml-3 border-l-2 border-green-700/30 pl-3 text-xs text-stone-500">No dinners with this one match your filters.</p>
+      ) : null
     const k = shift[item] || 0
     const shown = [opts[k % opts.length], opts[(k + 1) % opts.length]].filter((m, i, a) => m && a.indexOf(m) === i)
     const quick = quickMeal(opts)
@@ -195,12 +225,12 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals 
             />
           ))}
           {quick && !shown.includes(quick) && !all[item] && (
-            <OptionCard meal={quick} label="⚡ Quick, low-effort" added={inPool.has(quick.name)} onAdd={() => onAdd(quick)} />
+            <OptionCard meal={quick} shared={sharedCount(quick, have)} label="⚡ Quick, low-effort" added={inPool.has(quick.name)} onAdd={() => onAdd(quick)} />
           )}
           {all[item] &&
             opts
               .filter((m) => !shown.includes(m))
-              .map((m) => <OptionCard key={m.template.id} meal={m} label={m === quick ? '⚡ Quick, low-effort' : null} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />)}
+              .map((m) => <OptionCard key={m.template.id} meal={m} shared={sharedCount(m, have)} label={m === quick ? '⚡ Quick, low-effort' : null} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />)}
           {opts.length > shown.length + (quick && !shown.includes(quick) ? 1 : 0) && (
             <button onClick={() => setAll({ ...all, [item]: !all[item] })} className="text-sm font-medium text-green-700">
               {all[item] ? 'Show fewer' : `See all ${opts.length} dinners`}
@@ -213,13 +243,70 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals 
 
   // A pooled dinner's swap: the next dish around the same protein that isn't already picked.
   const nextFor = (m) => {
-    const opts = m.anchor ? anchorMeals(m.anchor, deals, prefs, heroOf(m.anchor)?.deal) : []
+    const opts = m.anchor ? anchorMeals(m.anchor, deals, prefs, heroOf(m.anchor)?.deal) : mealOptions(m.template.meal, deals, prefs, { have })
     const i = opts.findIndex((o) => o.template.id === m.template.id)
     return [...opts.slice(i + 1), ...opts.slice(0, Math.max(0, i))].find((o) => !inPool.has(o.name)) || null
   }
 
   return (
     <div className="space-y-6">
+      <div className="space-y-3">
+        <div className="grid grid-cols-3 gap-1 rounded-2xl bg-stone-100 p-1 text-sm font-medium" role="tablist" aria-label="Meal">
+          {MEALS.map(([id, label]) => (
+            <button
+              key={id}
+              role="tab"
+              aria-selected={tab === id}
+              onClick={() => {
+                setTab(id)
+                setShowAll(false)
+              }}
+              className={`rounded-xl py-2 ${tab === id ? 'bg-white text-green-800 shadow-sm' : 'text-stone-600'}`}
+            >
+              {label}
+              {counts[id] > 0 && <span className="ml-1 text-xs text-green-700">· {counts[id]}</span>}
+            </button>
+          ))}
+        </div>
+        <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1" aria-label="Filters">
+          {FILTERS.map(([id, label]) => {
+            const on = filters.includes(id)
+            return (
+              <button
+                key={id}
+                aria-pressed={on}
+                onClick={() => setFilters(on ? filters.filter((f) => f !== id) : [...filters, id])}
+                className={`shrink-0 rounded-full border px-3 py-1 text-sm ${on ? 'border-green-700 bg-green-700 text-white' : 'border-stone-300 bg-white text-stone-700'}`}
+              >
+                {label}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      {tab !== 'dinner' && (
+        <section>
+          <h2 className="text-lg font-semibold">{tab === 'breakfast' ? 'Breakfasts' : 'Lunches'} for the week</h2>
+          <p className="mb-3 text-sm text-stone-500">Built from what's on sale. Ones that reuse what's already on your list come first.</p>
+          {picks.length === 0 ? (
+            <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">Nothing matches your filters. Try turning one off.</p>
+          ) : (
+            <div className="space-y-2">
+              {(showAll ? picks : picks.slice(0, 6)).map((m) => (
+                <OptionCard key={m.template.id} meal={m} shared={m.shared} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />
+              ))}
+              {picks.length > 6 && (
+                <button onClick={() => setShowAll(!showAll)} className="text-sm font-medium text-green-700">
+                  {showAll ? 'Show fewer' : `See all ${picks.length}`}
+                </button>
+              )}
+            </div>
+          )}
+        </section>
+      )}
+
+      {tab === 'dinner' && (
       <section data-tour="heroes">
         <h2 className="text-lg font-semibold">What's on sale?</h2>
         <p className="mb-3 text-sm text-stone-500">This week's best protein deals. Tap one or two to see dinners built around them.</p>
@@ -263,26 +350,29 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals 
           </div>
         )}
       </section>
+      )}
 
       <section data-tour="pool">
         <div className="flex items-baseline justify-between">
-          <h2 className="text-lg font-semibold">Your dinners</h2>
+          <h2 className="text-lg font-semibold">Your meals</h2>
           <span className="text-sm text-stone-500">
-            {pool.length} of {TARGET}
+            {counts.dinner} of {TARGET} dinners
           </span>
         </div>
         <p className="mb-3 text-xs text-stone-500">
           No days to stick to. Most households cook 3–4 dinners a week and fill the rest with leftovers and quick basics.
+          Breakfasts and lunches are optional.
         </p>
         {pool.length === 0 ? (
           <p className="rounded-2xl border border-dashed border-stone-300 p-4 text-sm text-stone-500">Pick a protein above, then add the dinners you like.</p>
         ) : (
           <ul className="space-y-2">
-            {pool.map((m, i) => (
+            {sortedPool.map((m, i) => (
               <PoolCard
                 key={m.key}
                 meal={m}
                 n={i + 1}
+                leftovers={m.meal === 'dinner'}
                 onRemove={() => onRemove(m.pick)}
                 onSwap={() => {
                   const next = nextFor(m)

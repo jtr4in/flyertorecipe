@@ -185,6 +185,8 @@ export default function App() {
     [week.needs, baseList, listMode, allDeals, deals],
   )
   const list = useMemo(() => withNeeds(baseList, needs.group), [baseList, needs.group])
+  // Catalog items already on the grocery list, so recipes that reuse them can say so.
+  const have = useMemo(() => new Set((baseList?.groups || []).flatMap((g) => g.items.map((i) => i.key))), [baseList])
   const listStores = useMemo(() => [...new Set(allDeals.map((d) => d.merchant).filter(Boolean))].sort(), [allDeals])
 
   const updatePrefs = (picked) => {
@@ -341,6 +343,7 @@ export default function App() {
             prefs={prefs}
             anchors={week.anchors || []}
             anchorDeals={week.anchorDeals || {}}
+            have={have}
             pool={pool}
             itemCount={list.itemCount}
             onAnchors={(anchors, anchorDeals) => editWeek((w) => ({ ...w, anchors, anchorDeals }))}

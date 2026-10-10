@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { activeDeals, buildShoppingList } from './planner'
 import { sampleDeals } from '../data/sampleDeals'
-import { anchorMeals, heroDeals, poolMeals, poolPlan, quickMeal, toPick } from './anchors'
+import { anchorMeals, FILTERS, heroDeals, mealOptions, passesFilters, poolMeals, poolPlan, quickMeal, toPick } from './anchors'
 
 const today = new Date('2026-10-09T12:00:00Z')
 const deals = activeDeals(sampleDeals(today), { today })
@@ -57,5 +57,28 @@ describe('several deals per protein', () => {
     const tapped = shelf.find((d) => d.dealId === 'b')
     const meal = anchorMeals('chicken breasts', shelf, prefs, tapped)[0]
     expect(meal.lines.find((l) => l.ing.item === 'chicken breasts').deal.dealId).toBe('b')
+  })
+})
+
+describe('breakfasts, lunches and filters', () => {
+  it('offers breakfasts and lunches, reusing what is already on the list first', () => {
+    const plain = mealOptions('breakfast', deals, prefs)
+    expect(plain.length).toBeGreaterThan(3)
+    expect(plain.every((m) => m.template.meal === 'breakfast')).toBe(true)
+    const have = new Set([plain.at(-1).lines[0].ing.item])
+    const withList = mealOptions('breakfast', deals, prefs, { have })
+    expect(withList[0].shared).toBeGreaterThan(0)
+  })
+  it('filters narrow the choices', () => {
+    const quick = mealOptions('lunch', deals, prefs, { filters: ['quick'] })
+    expect(quick.length).toBeGreaterThan(0)
+    expect(quick.every((m) => passesFilters(m.template, ['quick']))).toBe(true)
+    expect(FILTERS.map((f) => f[0])).toEqual(expect.arrayContaining(['quick', 'healthy', 'fun']))
+  })
+  it('keeps each pick as its own meal type on the list', () => {
+    const b = mealOptions('breakfast', deals, prefs)[0]
+    const [m] = poolMeals([toPick(b)], deals, prefs)
+    expect(m.meal).toBe('breakfast')
+    expect(buildShoppingList(poolPlan([m]), deals, prefs).itemCount).toBeGreaterThan(0)
   })
 })

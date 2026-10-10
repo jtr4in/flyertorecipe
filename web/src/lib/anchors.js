@@ -85,7 +85,7 @@ export function poolMeals(picks = [], deals, prefs = {}) {
       const template = TEMPLATES.find((t) => t.id === p.template)
       const m = template && fillTemplate(template, { deals, diet, servings, priced, fills: p.fills || {} })
       if (!m) return null
-      Object.assign(m, { key: `pool|${i}`, meal: 'dinner', day: null, fills: fillsOf(m), anchor: p.anchor, pick: i })
+      Object.assign(m, { key: `pool|${i}`, meal: template.meal, day: null, fills: fillsOf(m), anchor: p.anchor, pick: i })
       if (p.leftovers) m.batches = 2
       return m
     })
@@ -94,7 +94,48 @@ export function poolMeals(picks = [], deals, prefs = {}) {
 
 /** The pool as a plan, so the grocery list and everything else that reads a plan just works. */
 export function poolPlan(meals) {
-  return meals.map((m, i) => ({ key: m.key, short: `Dinner ${i + 1}`, dayNum: i + 1, date: null, meals: { dinner: m } }))
+  return meals.map((m, i) => ({ key: m.key, short: `Meal ${i + 1}`, dayNum: i + 1, date: null, meals: { [m.meal]: m } }))
 }
 
 export const toPick = (m) => ({ template: m.template.id, fills: m.fills, anchor: m.anchor })
+
+// ---------- Filters and breakfast / lunch picks ----------
+
+/** Recipe filters: [id, label, test(template)]. Several chosen means a recipe must match all. */
+export const FILTERS = [
+  ['quick', '⚡ Quick', (t) => t.tags?.includes('quick') || t.minutes <= 20],
+  ['healthy', '🥗 Healthy', (t) => t.vibes?.some((v) => v === 'healthy' || v === 'light')],
+  ['comfort', '🍲 Comfort', (t) => t.vibes?.includes('comfort')],
+  ['fun', '🎉 Fun', (t) => t.vibes?.some((v) => v === 'treat' || v === 'sweet')],
+  ['kids', '🧒 Kid-friendly', (t) => t.tags?.includes('kid-approved')],
+  ['batch', '📦 Big batch', (t) => t.tags?.includes('big-batch')],
+]
+
+export const passesFilters = (template, filters = []) =>
+  filters.every((id) => FILTERS.find((f) => f[0] === id)?.[2](template) ?? true)
+
+/** How many of a meal's ingredients are already on the grocery list. */
+export const sharedCount = (meal, have) => meal.lines.filter((l) => have.has(l.ing.item)).length
+
+/**
+ * Breakfasts or lunches for the week, best first: ones that reuse what's already on the list
+ * (`have`), then the most on sale. Each is a filled recipe ready to add to the pool.
+ */
+export function mealOptions(meal, deals, prefs = {}, { have = new Set(), filters = [] } = {}) {
+  const diet = prefs.diet || []
+  const servings = prefs.householdSize || 2
+  const avoid = [...dislikedItems(prefs.likes)]
+  const priced = new Map()
+  const usage = Object.fromEntries([...have].map((i) => [i, 1]))
+  const out = []
+  for (const template of TEMPLATES) {
+    if (template.meal !== meal || !passesFilters(template, filters)) continue
+    const m = fillTemplate(template, { deals, diet, servings, priced, avoid, usage })
+    if (!m) continue
+    m.fills = fillsOf(m)
+    m.shared = sharedCount(m, have)
+    m.rank = m.shared * 15 + (m.lines.length ? (m.onSale / m.lines.length) * 100 : 0) + Math.min(m.savings, 10)
+    out.push(m)
+  }
+  return out.sort((a, b) => b.rank - a.rank)
+}
