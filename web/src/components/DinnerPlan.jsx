@@ -5,6 +5,8 @@ import { useMemo, useState } from 'react'
 import FlyerClip from './FlyerClip'
 import { anchorMeals, FILTERS, heroDeals, mealOptions, passesFilters, quickMeal, sharedCount } from '../lib/anchors'
 import { cap } from '../data/templates'
+import { SAUCES, sauceIngredient } from '../data/sauces'
+import { matchDeal } from '../lib/planner'
 import { dealName, money, storeTint } from '../lib/stores'
 
 const TARGET = 4
@@ -124,8 +126,10 @@ function OptionCard({ meal, added, onAdd, onSwap, label, shared = 0 }) {
   )
 }
 
-function PoolCard({ meal, n, onRemove, onSwap, onLeftovers, leftovers = true }) {
+function PoolCard({ meal, n, deals, onRemove, onSwap, onLeftovers, onJar, leftovers = true }) {
   const [open, setOpen] = useState(false)
+  const sauce = SAUCES[meal.template.id]
+  const jarDeal = sauce && (meal.jar ? meal.lines.find((l) => l.slot === 'jar')?.deal : matchDeal(sauceIngredient(meal.template.id), deals))
   return (
     <li className="rounded-2xl border border-stone-200 bg-white p-3">
       <div className="flex items-start gap-2.5">
@@ -145,7 +149,7 @@ function PoolCard({ meal, n, onRemove, onSwap, onLeftovers, leftovers = true }) 
         </button>
       </div>
       {open && <Ingredients meal={meal} />}
-      <div className="mt-2 flex items-center gap-3 pl-8 text-xs">
+      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 pl-8 text-xs">
         <button onClick={onSwap} className="font-medium text-green-700">
           🔄 Swap
         </button>
@@ -155,12 +159,21 @@ function PoolCard({ meal, n, onRemove, onSwap, onLeftovers, leftovers = true }) 
             Make extra for lunch
           </label>
         )}
+        {sauce && onJar && (
+          <label className="flex items-center gap-1.5 text-stone-600">
+            <input type="checkbox" className="size-3.5 accent-green-700" checked={!!meal.jar} onChange={(e) => onJar(e.target.checked)} />
+            <span>
+              Use store-bought {sauce.sauce}
+              {jarDeal && <span className="text-green-700"> · {jarDeal.priceLabel || jarDeal.priceText} at {jarDeal.merchant}</span>}
+            </span>
+          </label>
+        )}
       </div>
     </li>
   )
 }
 
-export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, anchorDeals = {}, have = new Set(), pool, onAnchors, onAdd, onRemove, onReplace, onLeftovers, onShop, itemCount }) {
+export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, anchorDeals = {}, have = new Set(), pool, onAnchors, onAdd, onRemove, onReplace, onLeftovers, onJar, onShop, itemCount }) {
   const [openGroups, setOpenGroups] = useState([]) // protein types showing every deal
   const [tab, setTab] = useState('dinner')
   const [filters, setFilters] = useState([])
@@ -375,6 +388,8 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
                   if (next) onReplace(m.pick, next)
                 }}
                 onLeftovers={(on) => onLeftovers(m.pick, on)}
+                deals={deals}
+                onJar={onJar && ((on) => onJar(m.pick, on))}
               />
             ))}
           </ul>

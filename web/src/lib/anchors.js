@@ -2,7 +2,7 @@
 // built around each one from the other things on sale, and a pool of 3–4 dinners (no days).
 import { CATALOG } from '../data/ingredients'
 import { TEMPLATES } from '../data/templates'
-import { allowedByDiet, fillTemplate, matchAll, PER_LB, slotCandidates } from './planner'
+import { allowedByDiet, fillTemplate, matchAll, PER_LB, slotCandidates, withJar } from './planner'
 import { dislikedItems } from './likes'
 
 const MAX_PER_ITEM = 8 // deals shown per protein (chicken breasts at up to 8 stores)
@@ -118,9 +118,11 @@ export function poolMeals(picks = [], deals, prefs = {}) {
   return picks
     .map((p, i) => {
       const template = TEMPLATES.find((t) => t.id === p.template)
-      const m = template && fillTemplate(template, { deals, diet, servings, priced, fills: p.fills || {} })
-      if (!m) return null
-      Object.assign(m, { key: `pool|${i}`, meal: template.meal, day: null, fills: fillsOf(m), anchor: p.anchor, pick: i })
+      const filled = template && fillTemplate(template, { deals, diet, servings, priced, fills: p.fills || {} })
+      if (!filled) return null
+      const fills = fillsOf(filled)
+      const m = p.jar ? withJar(filled, deals) : filled
+      Object.assign(m, { key: `pool|${i}`, meal: template.meal, day: null, fills, anchor: p.anchor, pick: i })
       if (p.leftovers) m.batches = 2
       return m
     })

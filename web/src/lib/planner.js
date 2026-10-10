@@ -6,6 +6,7 @@ import { AISLES } from './aisles'
 import { PANTRY_AISLES, pantryInfo } from '../data/pantry'
 import { CATALOG } from '../data/ingredients'
 import { fillText, MEALS, TEMPLATES } from '../data/templates'
+import { SAUCES, sauceIngredient } from '../data/sauces'
 
 // ---------- Deals ----------
 
@@ -284,6 +285,33 @@ export function fillTemplate(template, ctx) {
 }
 
 const round2 = (n) => Math.round(n * 100) / 100
+
+/**
+ * The meal made with a store-bought sauce instead of from scratch: the jar goes on the list (on
+ * sale if a flyer has one), and the pantry items and slots that only made the sauce come off.
+ */
+export function withJar(meal, deals) {
+  const s = SAUCES[meal.template.id]
+  if (!s) return meal
+  const ing = sauceIngredient(meal.template.id)
+  const deal = matchDeal(ing, deals)
+  const qty = ing.qty * meal.servings
+  const jar = { slot: 'jar', ing, deal, qty, onSale: !!deal, ...portionCost(ing, qty, deal), alternatives: [], slotDef: { key: 'jar' } }
+  const lines = [...meal.lines.filter((l) => !s.slots?.includes(l.slot)), jar]
+  const skip = new Set(s.replaces.map((p) => p.toLowerCase()))
+  const onSale = lines.filter((l) => l.onSale).length
+  return {
+    ...meal,
+    lines,
+    pantry: meal.pantry.filter((p) => !skip.has(p.toLowerCase())),
+    steps: [`Shortcut: use a jar of store-bought ${s.sauce} wherever the recipe makes its sauce.`, ...meal.steps],
+    cost: round2(lines.reduce((a, l) => a + l.cost, 0)),
+    savings: round2(lines.reduce((a, l) => a + l.savings, 0)),
+    onSale,
+    regular: lines.length - onSale,
+    jar: s.sauce,
+  }
+}
 
 // Same template again this week: dinners should almost never repeat, breakfasts often do.
 const REPEAT_PENALTY = { dinner: 25, lunch: 10, breakfast: 4, snack: 5 }

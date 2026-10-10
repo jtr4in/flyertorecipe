@@ -8,7 +8,7 @@ import { flyerUrl } from '../lib/stores'
 const fmtDate = (d) =>
   d ? new Date(d.length === 10 ? `${d}T12:00:00` : d).toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric' }) : null
 
-export default function FlyerProof({ deal, onClose }) {
+export default function FlyerProof({ deal, onClose, action }) {
   useEffect(() => {
     if (!deal) return
     const onKey = (e) => e.key === 'Escape' && onClose()
@@ -48,14 +48,21 @@ export default function FlyerProof({ deal, onClose }) {
               {to && <>to {to}</>}
             </p>
           )}
-          <a
-            href={flyerUrl(deal.merchant)}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-5 rounded-xl bg-green-700 px-4 py-2 text-sm font-semibold text-white"
-          >
-            See {deal.merchant}'s full flyer ↗
-          </a>
+          <div className="mt-5 flex flex-wrap justify-center gap-2">
+            {action && (
+              <button onClick={action.onClick} className="rounded-xl border border-green-700 px-4 py-2 text-sm font-semibold text-green-700">
+                {action.label}
+              </button>
+            )}
+            <a
+              href={flyerUrl(deal.merchant)}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-xl bg-green-700 px-4 py-2 text-sm font-semibold text-white"
+            >
+              See {deal.merchant}'s full flyer ↗
+            </a>
+          </div>
         </div>
       </div>
     </div>,

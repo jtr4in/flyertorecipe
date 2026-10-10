@@ -33,6 +33,7 @@ export default function App() {
   const [swapAll, setSwapAll] = useState(true) // from a meal card: swap it in the other meals too
   const [listMode, setListMode] = useState('match')
   const [proof, setProof] = useState(null)
+  const [proofItem, setProofItem] = useState(null) // the list item a flyer was opened from
   const [welcome, setWelcome] = useState(false)
   const [touring, setTouring] = useState(false)
   const [toast, setToast] = useState(null)
@@ -262,7 +263,10 @@ export default function App() {
       onShareLink={firebaseEnabled ? shareLink : null}
       shared={!!hid}
       postalCode={prefs.postalCode}
-      onProof={setProof}
+      onProof={(d, item) => {
+        setProof(d)
+        setProofItem(item || null)
+      }}
       onSwap={(item) => setSwapping(item.uses)}
       onOptions={setChoosing}
       onRemoveExtra={(item) =>
@@ -361,6 +365,7 @@ export default function App() {
             onRemove={(i) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).filter((_, j) => j !== i) }))}
             onReplace={(i, m) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).map((p, j) => (j === i ? { ...toPick(m), leftovers: p.leftovers } : p)) }))}
             onLeftovers={(i, on) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).map((p, j) => (j === i ? { ...p, leftovers: on } : p)) }))}
+            onJar={(i, on) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).map((p, j) => (j === i ? { ...p, jar: on } : p)) }))}
             onShop={() => {
               setTab('shop')
               window.scrollTo(0, 0)
@@ -483,7 +488,19 @@ export default function App() {
           </ul>
         )}
       </Sheet>
-      <FlyerProof deal={proof} onClose={() => setProof(null)} />
+      <FlyerProof
+        deal={proof}
+        onClose={() => setProof(null)}
+        action={
+          proofItem && {
+            label: 'Other options',
+            onClick: () => {
+              setProof(null)
+              setChoosing(proofItem)
+            },
+          }
+        }
+      />
       {welcome && <Welcome prefs={prefs} merchants={merchants} needsPostal={firebaseEnabled} onChange={updatePrefs} onDone={finishWelcome} />}
       <Tour open={touring && !welcome && !loading} onClose={endTour} />
       {toast && (

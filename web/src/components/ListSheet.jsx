@@ -214,7 +214,7 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                   />
                   <FlyerPeek
                     deal={i.deal}
-                    onOpen={onProof}
+                    onOpen={(d) => onProof(d, (i.ing || i.need) && onOptions ? i : null)}
                     action={(i.ing || i.need) && onOptions ? { label: 'Other options', onClick: () => onOptions(i) } : null}
                     className="flex min-w-0 flex-1 items-center gap-2"
                   >

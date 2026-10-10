@@ -110,3 +110,27 @@ describe('breakfast and lunch sale items', () => {
     expect(anchorMeals('bacon', shelf, prefs, null, 'lunch').some((m) => m.template.id === 'blt')).toBe(true)
   })
 })
+
+describe('store-bought sauce', () => {
+  const deals = [
+    { dealId: 'c', name: 'Chicken breasts', merchant: 'Metro', price: 3.99, unit: '/lb' },
+    { dealId: 't', name: 'Hunts crushed tomatoes 796 mL', merchant: 'Metro', price: 1.5 },
+    { dealId: 'p', name: 'Classico pasta sauce 650 mL', merchant: 'Metro', price: 2.99 },
+    { dealId: 'x', name: 'Frozen chicken teriyaki bowl', merchant: 'Metro', price: 4 },
+    { dealId: 'v', name: 'VH cooking or dipping sauce, selected varieties', merchant: 'Metro', price: 3 },
+  ]
+  it('puts the jar on the list and drops what only made the sauce', () => {
+    const [scratch] = poolMeals([{ template: 'baked-ziti' }], deals, {})
+    const [jar] = poolMeals([{ template: 'baked-ziti', jar: true }], deals, {})
+    expect(scratch.lines.some((l) => l.slot === 'tomatoes')).toBe(true)
+    expect(jar.lines.some((l) => l.slot === 'tomatoes')).toBe(false)
+    expect(jar.lines.find((l) => l.slot === 'jar').deal.dealId).toBe('p')
+    expect(jar.pantry).not.toContain('Italian seasoning')
+    expect(jar.jar).toBe('pasta sauce')
+  })
+  it('finds brand-family sauce deals, not meals made with the sauce', () => {
+    const [m] = poolMeals([{ template: 'teriyaki', jar: true }], deals, {})
+    expect(m.lines.find((l) => l.slot === 'jar').deal.dealId).toBe('v')
+    expect(m.pantry).not.toContain('honey')
+  })
+})
