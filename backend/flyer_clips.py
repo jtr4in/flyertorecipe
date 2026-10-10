@@ -120,10 +120,10 @@ def _price(v) -> str | None:
     return m.group(0).replace(",", ".") if m else None
 
 
-# The flyer's item list has name and price only; each item's own page adds "/lb", "2/",
-# "SAVE $2" and the regular price.
-SAMPLE: list[dict] = []  # one raw item page, for the run notes
-DETAIL_KEYS = ("pre_price_text", "post_price_text", "sale_story", "original_price", "current_price")
+# The flyer's item list has name and price only; each item's own page adds "/lb" (price_text),
+# "2/" (pre_price_text), "SAVE $2", the regular price and the size ("1KG" in description).
+DETAIL_KEYS = ("pre_price_text", "price_text", "post_price_text", "sale_story", "original_price",
+               "current_price", "percent_off", "description")
 
 
 def add_item_details(flyers: list[tuple[dict, dict]], workers: int = 8) -> int:
@@ -136,8 +136,6 @@ def add_item_details(flyers: list[tuple[dict, dict]], workers: int = 8) -> int:
         except Exception:
             return False
         got = got.get("item", got) if isinstance(got, dict) else {}
-        if "chicken" in str(it.get("name", "")).lower() and not SAMPLE:
-            SAMPLE.append({k: v for k, v in got.items() if not isinstance(v, (list, dict))})
         for k in DETAIL_KEYS:
             if got.get(k) not in (None, ""):
                 it[k] = got[k]
@@ -145,6 +143,17 @@ def add_item_details(flyers: list[tuple[dict, dict]], workers: int = 8) -> int:
 
     with ThreadPoolExecutor(workers) as pool:
         return sum(pool.map(one, items))
+
+
+def _name(it: dict) -> str:
+    """'Natrel' + 'Milk' + '4 L' -> 'Natrel Milk, 4 L': brand and size only when the name lacks them."""
+    name = str(it["name"]).strip()
+    brand, size = str(it.get("brand") or "").strip(), str(it.get("description") or "").strip()
+    if brand and brand.lower() not in name.lower():
+        name = f"{brand} {name}"
+    if size and len(size) <= 30 and size.lower() not in name.lower():
+        name = f"{name}, {size}"
+    return name
 
 
 def flyer_rows(flyers: list[tuple[dict, dict]]) -> list[dict]:
@@ -157,16 +166,16 @@ def flyer_rows(flyers: list[tuple[dict, dict]]) -> list[dict]:
             if not it.get("name") or price in (None, ""):
                 continue
             story = _text(it.get("sale_story"))
-            pct = it.get("discount")
+            pct = it.get("percent_off") or it.get("discount")
             if not story and isinstance(pct, (int, float)) and 0 < pct < 90:
                 story = f"SAVE {int(pct)}%"
             rows.append({
                 "dealId": f"f{it.get('id')}",
-                "name": _text(it.get("brand") if it.get("brand") and str(it["brand"]).lower() not in str(it["name"]).lower() else None, it["name"]),
+                "name": _name(it),
                 "merchant": f.get("merchant"),
                 "currentPrice": _price(price),
                 "originalPrice": it.get("original_price"),
-                "priceText": _text(it.get("pre_price_text"), it.get("post_price_text")),
+                "priceText": _text(it.get("pre_price_text"), it.get("price_text"), it.get("post_price_text")),
                 "saleStory": story or None,
                 "imageUrl": it.get("cutout_image_url"),
                 "validFrom": it.get("valid_from") or f.get("valid_from"),

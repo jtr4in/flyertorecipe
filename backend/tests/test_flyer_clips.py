@@ -42,15 +42,15 @@ def test_flyer_rows_read_like_actor_rows():
 
     flyer = {"id": 5, "merchant": "No Frills", "valid_from": "2026-10-09", "valid_to": "2026-10-15"}
     items = [
-        {"id": 1, "name": "Chicken Drumsticks", "price": "1.99", "pre_price_text": "", "post_price_text": "/lb", "sale_story": "SAVE $1.50"},
-        {"id": 2, "name": "Cheerios Cereal", "brand": "General Mills", "price": "$7.00", "pre_price_text": "2/", "discount": 30},
+        {"id": 1, "name": "Chicken Drumsticks", "price": "1.99", "pre_price_text": "", "price_text": "/lb", "original_price": "3.49"},
+        {"id": 2, "name": "Cheerios Cereal", "brand": "General Mills", "description": "400 g", "price": "$7.00", "pre_price_text": "2/", "percent_off": 30.0},
         {"id": 3, "name": "Banner: Weekly Specials", "price": ""},
     ]
     rows = flyer_rows([(flyer, {"items": items})])
     assert [r["dealId"] for r in rows] == ["f1", "f2"]
     a, b = (normalize(r) for r in rows)
     assert a["priceLabel"] == "$1.99/lb" and a["savings"] == 1.5 and a["validTo"] == "2026-10-15"
-    assert b["name"] == "General Mills Cheerios Cereal" and b["bundleQty"] == 2 and b["price"] == 3.5
+    assert b["name"] == "General Mills Cheerios Cereal, 400 g" and b["bundleQty"] == 2 and b["price"] == 3.5
     assert b["saleStory"] == "SAVE 30%" and b["regularPrice"] == 5.0
 
 
