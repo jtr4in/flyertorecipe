@@ -15,7 +15,7 @@ import { followMatch, matchableDeals, tidyMatch } from './lib/priceMatch'
 import { needItems, pantryDeal, placeNeeds, searchDeals, withNeeds, withoutItems } from './lib/needs'
 import NeedsSheet from './components/NeedsSheet'
 import OptionsSheet from './components/OptionsSheet'
-import DinnerPlan from './components/DinnerPlan'
+import DinnerPlan, { MealsCard } from './components/DinnerPlan'
 import { poolMeals, poolPlan, toPick } from './lib/anchors'
 import {
   createHousehold, currentHousehold, householdLink, leaveHousehold, saveHousehold, saveHouseholdWeek, setHouseholdCheck, sharedPrefs, watchHousehold,
@@ -365,6 +365,7 @@ export default function App() {
           >
             + Add other items
           </button>
+          <MealsCard pool={pool} />
           {listView}
         </>
       ) : loading ? (

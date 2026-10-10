@@ -58,9 +58,19 @@ function HeroCard({ hero, on, onToggle, big = false }) {
   )
 }
 
-function Ingredients({ meal }) {
+const youtube = (name) => `https://www.youtube.com/results?search_query=${encodeURIComponent(`How to Make ${name}`)}`
+
+export function Ingredients({ meal }) {
   return (
     <div className="mt-2 border-t border-stone-100 pt-2 text-xs text-stone-600">
+      <a
+        href={youtube(meal.name)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-red-700"
+      >
+        <span aria-hidden>▶</span> Watch how to make it
+      </a>
       <ul className="space-y-0.5">
         {meal.lines.map((l) => (
           <li key={l.slot}>
@@ -418,5 +428,45 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
         </div>
       )}
     </div>
+  )
+}
+
+/** The week's picked meals on the Shop tab: folded away, each opens to its recipe. */
+export function MealsCard({ pool }) {
+  const [open, setOpen] = useState(false)
+  const [shown, setShown] = useState(null)
+  if (!pool.length) return null
+  return (
+    <section className="mb-3 rounded-2xl border border-stone-200 bg-white">
+      <button onClick={() => setOpen(!open)} aria-expanded={open} className="flex w-full items-center gap-2 px-4 py-2.5 text-left">
+        <span className="flex-1 text-sm font-semibold">
+          🍽️ Your meals · {pool.length}
+          {!open && <span className="block truncate text-xs font-normal text-stone-500">{pool.map((m) => m.name).join(', ')}</span>}
+        </span>
+        <span aria-hidden className={`text-green-700 transition ${open ? 'rotate-180' : ''}`}>
+          ▾
+        </span>
+      </button>
+      {open && (
+        <ul className="divide-y divide-stone-100 border-t border-stone-100">
+          {pool.map((m, i) => (
+            <li key={i} className="px-4 py-2">
+              <button onClick={() => setShown(shown === i ? null : i)} aria-expanded={shown === i} className="flex w-full items-center gap-2 text-left">
+                <span aria-hidden>{m.emoji}</span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-medium leading-snug">{m.name}</span>
+                  <span className="block text-xs text-stone-500">
+                    {m.meal !== 'dinner' && `${m.meal === 'breakfast' ? 'Breakfast' : 'Lunch'} · `}
+                    {m.minutes} min
+                  </span>
+                </span>
+                <span className="text-xs text-green-700">{shown === i ? 'Hide' : 'Recipe'}</span>
+              </button>
+              {shown === i && <Ingredients meal={m} />}
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   )
 }
