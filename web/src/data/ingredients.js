@@ -113,6 +113,8 @@ export const CATALOG = {
   dip: [x('hummus', 'tub', 0.2, 'Dairy & Eggs', ['hummus'], {})],
   crackers: [x('crackers', 'box', 0.15, 'Pantry', ['cracker', 'triscuit', 'wheat thins', 'ritz'], { allow: ['cracker'], exclude: ['barrel', 'cheese'], has: GLUTEN })],
   nuts: [x('nuts', 'bag', 0.1, 'Pantry', ['almonds', 'cashews', 'peanuts', 'mixed nuts', 'trail mix', 'walnuts'], { exclude: ['butter', 'milk', 'beverage', 'chocolate'] })],
+  cereal: [x('cereal', 'box', 0.1, 'Pantry', ['cereal', 'céréales', 'cheerios', 'corn flakes', 'frosted flakes', 'shreddies', 'mini-wheats', 'special k', 'rice krispies', 'raisin bran', 'honey nut'], { has: GLUTEN, exclude: ['bar', 'baby', 'hot cereal'] })],
+  breakfastMeat: [x('bacon', 'pack', 0.15, 'Meat & Seafood', ['bacon'], { lb: 0.8, has: MEAT, exclude: ['bits', 'wrapped', 'bacon-wrapped', 'jam', 'mayo', 'dip'] })],
   lunchProtein: [
     x('deli turkey or ham', 'pack', 0.2, 'Meat & Seafood', ['sliced turkey', 'deli turkey', 'sliced ham', 'deli ham', 'shaved ham', 'shaved turkey'], { lb: 0.4, as: 'turkey & ham', has: MEAT }),
     x('canned tuna', 'can', 0.5, 'Pantry', ['tuna'], { as: 'tuna', has: FISH, exclude: ['steak', 'fillet', 'sushi'] }),

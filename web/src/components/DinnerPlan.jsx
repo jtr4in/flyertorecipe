@@ -3,7 +3,8 @@
 // what's on sale and what's already on the list. Then "Generate my list" moves on to shopping.
 import { useMemo, useState } from 'react'
 import FlyerClip from './FlyerClip'
-import { anchorMeals, FILTERS, mealOptions, passesFilters, quickMeal, sharedCount } from '../lib/anchors'
+import { anchorMeals, FILTERS, heroDeals, mealOptions, passesFilters, quickMeal, sharedCount } from '../lib/anchors'
+import { cap } from '../data/templates'
 import { dealName, money, storeTint } from '../lib/stores'
 
 const TARGET = 4
@@ -15,15 +16,6 @@ const MEALS = [
 
 // Some flyers shout every name ("CHICKEN DRUMSTICKS"); show those in sentence case.
 const calm = (t) => (/[a-z]/.test(t) ? t : t.charAt(0) + t.slice(1).toLowerCase())
-
-const GROUP_LABELS = {
-  poultry: ['🐔', 'Chicken & turkey'],
-  pork: ['🐖', 'Pork'],
-  ground: ['🍔', 'Ground meat'],
-  fish: ['🐟', 'Fish & seafood'],
-  plantProtein: ['🌱', 'Beans, lentils & tofu'],
-  eggs: ['🥚', 'Eggs'],
-}
 
 function HeroCard({ hero, on, onToggle, big }) {
   const d = hero.deal
@@ -168,18 +160,24 @@ function PoolCard({ meal, n, onRemove, onSwap, onLeftovers, leftovers = true }) 
   )
 }
 
-export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals = {}, have = new Set(), pool, onAnchors, onAdd, onRemove, onReplace, onLeftovers, onShop, itemCount }) {
+export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, anchorDeals = {}, have = new Set(), pool, onAnchors, onAdd, onRemove, onReplace, onLeftovers, onShop, itemCount }) {
   const [openGroups, setOpenGroups] = useState([]) // protein types showing every deal
   const [tab, setTab] = useState('dinner')
   const [filters, setFilters] = useState([])
   const [showAll, setShowAll] = useState(false) // every breakfast / lunch, not just the top few
   const [shift, setShift] = useState({}) // how far each protein's options have been swapped along
   const [all, setAll] = useState({}) // proteins showing every dinner, not just two
-  // Which deal was tapped for each chosen protein (several stores can have chicken breasts).
-  const heroOf = (item) => heroes.find((h) => h.item === item && h.deal.dealId === anchorDeals[item]) || heroes.find((h) => h.item === item)
+  // This tab's sale items to plan around: proteins for dinner, cereal, yogurt... for breakfast.
+  const heroes = useMemo(() => heroDeals(deals, prefs, tab), [deals, prefs, tab, recipesVersion])
+  // Chosen items are saved per meal ("eggs" for dinner, "breakfast|eggs" for breakfast).
+  const keyOf = (item) => (tab === 'dinner' ? item : `${tab}|${item}`)
+  // Which deal was tapped for each chosen item (several stores can have chicken breasts).
+  const heroOf = (item) =>
+    heroes.find((h) => h.item === item && h.deal.dealId === anchorDeals[keyOf(item)]) || heroes.find((h) => h.item === item)
+  const chosen = heroes.filter((h, i, a) => anchors.includes(keyOf(h.item)) && a.findIndex((x) => x.item === h.item) === i).map((h) => h.item)
   const options = useMemo(
-    () => Object.fromEntries(anchors.map((item) => [item, anchorMeals(item, deals, prefs, heroOf(item)?.deal)])),
-    [anchors, anchorDeals, deals, prefs, heroes],
+    () => Object.fromEntries(chosen.map((item) => [item, anchorMeals(item, deals, prefs, heroOf(item)?.deal, tab)])),
+    [chosen.join(), anchorDeals, deals, prefs, heroes, tab],
   )
   const inPool = new Set(pool.map((m) => m.name))
   const counts = Object.fromEntries(MEALS.map(([id]) => [id, pool.filter((m) => m.meal === id).length]))
@@ -190,13 +188,15 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals 
     // `have` is rebuilt each render; its contents are what matter.
     [tab, deals, prefs, filters, [...have].sort().join()],
   )
-  const isOn = (h) => anchors.includes(h.item) && heroOf(h.item) === h
+  const isOn = (h) => anchors.includes(keyOf(h.item)) && heroOf(h.item) === h
   const toggle = (h) => {
-    const { [h.item]: _, ...rest } = anchorDeals
-    if (isOn(h)) onAnchors(anchors.filter((x) => x !== h.item), rest)
-    else onAnchors(anchors.includes(h.item) ? anchors : [...anchors, h.item], { ...rest, [h.item]: h.deal.dealId })
+    const k = keyOf(h.item)
+    const { [k]: _, ...rest } = anchorDeals
+    if (isOn(h)) onAnchors(anchors.filter((x) => x !== k), rest)
+    else onAnchors(anchors.includes(k) ? anchors : [...anchors, k], { ...rest, [k]: h.deal.dealId })
   }
-  // One section per kind of protein, in the order of its best deal (heroes come sorted).
+  const noun = tab === 'dinner' ? 'dinners' : tab === 'breakfast' ? 'breakfasts' : 'lunches'
+  // One section per kind of item, in the order of its best deal (heroes come sorted).
   const groups = [...heroes.reduce((m, h) => m.set(h.group, [...(m.get(h.group) || []), h]), new Map())]
   // A tapped protein's dinners, shown right under its card.
   const dinnersFor = (item) => {
@@ -205,7 +205,7 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals 
       .sort((a, b) => sharedCount(b, have) - sharedCount(a, have))
     if (!opts.length)
       return (options[item] || []).length ? (
-        <p className="ml-3 border-l-2 border-green-700/30 pl-3 text-xs text-stone-500">No dinners with this one match your filters.</p>
+        <p className="ml-3 border-l-2 border-green-700/30 pl-3 text-xs text-stone-500">No {noun} with this one match your filters.</p>
       ) : null
     const k = shift[item] || 0
     const shown = [opts[k % opts.length], opts[(k + 1) % opts.length]].filter((m, i, a) => m && a.indexOf(m) === i)
@@ -213,12 +213,13 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals 
     const h = heroOf(item)
     return (
       <section key={item} className="ml-3 border-l-2 border-green-700/30 pl-3">
-        <p className="mb-2 text-xs text-stone-500">Dinners with {h ? calm(dealName(h.deal.name)) : item}, built from the other things on sale.</p>
+        <p className="mb-2 text-xs text-stone-500">{cap(noun)} with {h ? calm(dealName(h.deal.name)) : item}, built from the other things on sale.</p>
         <div className="space-y-2">
           {shown.map((m, i) => (
             <OptionCard
               key={m.template.id}
               meal={m}
+              shared={sharedCount(m, have)}
               added={inPool.has(m.name)}
               onAdd={() => onAdd(m)}
               onSwap={opts.length > 2 ? () => setShift({ ...shift, [item]: k + (i === 0 ? 2 : 1) }) : null}
@@ -233,7 +234,7 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals 
               .map((m) => <OptionCard key={m.template.id} meal={m} shared={sharedCount(m, have)} label={m === quick ? '⚡ Quick, low-effort' : null} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />)}
           {opts.length > shown.length + (quick && !shown.includes(quick) ? 1 : 0) && (
             <button onClick={() => setAll({ ...all, [item]: !all[item] })} className="text-sm font-medium text-green-700">
-              {all[item] ? 'Show fewer' : `See all ${opts.length} dinners`}
+              {all[item] ? 'Show fewer' : `See all ${opts.length} ${noun}`}
             </button>
           )}
         </div>
@@ -243,7 +244,8 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals 
 
   // A pooled dinner's swap: the next dish around the same protein that isn't already picked.
   const nextFor = (m) => {
-    const opts = m.anchor ? anchorMeals(m.anchor, deals, prefs, heroOf(m.anchor)?.deal) : mealOptions(m.template.meal, deals, prefs, { have })
+    const meal = m.template.meal
+    const opts = m.anchor ? anchorMeals(m.anchor, deals, prefs, meal === tab ? heroOf(m.anchor)?.deal : null, meal) : mealOptions(meal, deals, prefs, { have })
     const i = opts.findIndex((o) => o.template.id === m.template.id)
     return [...opts.slice(i + 1), ...opts.slice(0, Math.max(0, i))].find((o) => !inPool.has(o.name)) || null
   }
@@ -285,40 +287,20 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals 
         </div>
       </div>
 
-      {tab !== 'dinner' && (
-        <section>
-          <h2 className="text-lg font-semibold">{tab === 'breakfast' ? 'Breakfasts' : 'Lunches'} for the week</h2>
-          <p className="mb-3 text-sm text-stone-500">Built from what's on sale. Ones that reuse what's already on your list come first.</p>
-          {picks.length === 0 ? (
-            <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">Nothing matches your filters. Try turning one off.</p>
-          ) : (
-            <div className="space-y-2">
-              {(showAll ? picks : picks.slice(0, 6)).map((m) => (
-                <OptionCard key={m.template.id} meal={m} shared={m.shared} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />
-              ))}
-              {picks.length > 6 && (
-                <button onClick={() => setShowAll(!showAll)} className="text-sm font-medium text-green-700">
-                  {showAll ? 'Show fewer' : `See all ${picks.length}`}
-                </button>
-              )}
-            </div>
-          )}
-        </section>
-      )}
-
-      {tab === 'dinner' && (
       <section data-tour="heroes">
         <h2 className="text-lg font-semibold">What's on sale?</h2>
-        <p className="mb-3 text-sm text-stone-500">This week's best protein deals. Tap one or two to see dinners built around them.</p>
+        <p className="mb-3 text-sm text-stone-500">
+          {tab === 'dinner' ? "This week's best protein deals." : `This week's ${tab} deals.`} Tap one or two to see {noun} built around them.
+        </p>
         {heroes.length === 0 ? (
-          <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">No protein deals in your flyers yet this week.</p>
+          <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">Nothing for {tab} in your flyers yet this week.</p>
         ) : (
           <div className="space-y-5">
             {groups.map(([group, list]) => {
               const isOpen = openGroups.includes(group)
               const shown = isOpen ? list : list.filter((h, i) => i === 0 || isOn(h))
               const hidden = list.length - shown.length
-              const [emoji, label] = GROUP_LABELS[group] || ['🍽️', group]
+              const { emoji, label } = list[0]
               return (
                 <div key={group}>
                   <h3 className="mb-1.5 text-sm font-semibold text-stone-700">
@@ -350,6 +332,26 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals 
           </div>
         )}
       </section>
+
+      {tab !== 'dinner' && (
+        <section>
+          <button onClick={() => setShowAll(!showAll)} aria-expanded={showAll} className="flex items-center gap-1 text-sm font-medium text-green-700">
+            {showAll ? `Hide all ${noun}` : `Browse all ${noun} (${picks.length})`}
+            <span aria-hidden className={`inline-block transition ${showAll ? 'rotate-180' : ''}`}>
+              ▾
+            </span>
+          </button>
+          {!showAll ? null : picks.length === 0 ? (
+            <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">Nothing matches your filters. Try turning one off.</p>
+          ) : (
+            <div className="mt-2 space-y-2">
+              <p className="text-xs text-stone-500">Ones that reuse what's already on your list come first.</p>
+              {picks.map((m) => (
+                <OptionCard key={m.template.id} meal={m} shared={m.shared} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />
+              ))}
+            </div>
+          )}
+        </section>
       )}
 
       <section data-tour="pool">

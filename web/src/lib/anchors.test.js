@@ -93,3 +93,20 @@ describe('other options for a list item', () => {
     expect(picked.deal.dealId).toBe(other.dealId)
   })
 })
+
+describe('breakfast and lunch sale items', () => {
+  const shelf = [...deals, { dealId: 'c1', name: 'Cheerios Cereal, 400 g', price: 3.99, merchant: 'Metro' }, { dealId: 'b1', name: 'Maple Leaf Bacon, 375 g', price: 4.99, merchant: 'Metro' }]
+  it('plans breakfast around cereal, bacon, yogurt and the like', () => {
+    const items = new Set(heroDeals(shelf, prefs, 'breakfast').map((h) => h.item))
+    expect(items.has('cereal')).toBe(true)
+    expect(items.has('bacon')).toBe(true)
+    const meals = anchorMeals('cereal', shelf, prefs, null, 'breakfast')
+    expect(meals.length).toBeGreaterThan(0)
+    expect(meals.every((m) => m.template.meal === 'breakfast' && m.lines.some((l) => l.ing.item === 'cereal'))).toBe(true)
+  })
+  it('plans lunch around sandwich staples', () => {
+    const heroes = heroDeals(shelf, prefs, 'lunch')
+    expect(heroes.some((h) => h.label === 'Sandwich meat')).toBe(true)
+    expect(anchorMeals('bacon', shelf, prefs, null, 'lunch').some((m) => m.template.id === 'blt')).toBe(true)
+  })
+})

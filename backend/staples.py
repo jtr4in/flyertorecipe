@@ -13,7 +13,7 @@ QUERY_LIMITS = {
         "frozen meals", "cereal", "chips", "cookies", "coffee", "juice",
     ],
     30: [
-        "salmon", "shrimp", "sausage", "eggs", "butter", "deli meat",
+        "salmon", "shrimp", "sausage", "bacon", "eggs", "butter", "deli meat",
         "potatoes", "peppers", "tomatoes", "apples", "berries",
         "pasta", "rice", "frozen vegetables", "ice cream", "chocolate", "frozen pizza",
         "toilet paper", "paper towels", "laundry detergent", "diapers", "pet food",

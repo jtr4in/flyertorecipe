@@ -13083,5 +13083,150 @@
       "Pile on {cheese} and bake 8-10 minutes until melted and golden at the edges.",
       "Cut into strips and dunk in warm marinara."
     ]
+  },
+  {
+    "id": "cereal-bowl",
+    "meal": "breakfast",
+    "name": "{cereal} with milk[ & {fruit}]",
+    "emoji": "🥣",
+    "minutes": 2,
+    "slots": [
+      {
+        "key": "cereal",
+        "from": [
+          "cereal"
+        ],
+        "main": true
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ]
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit"
+        ],
+        "only": [
+          "bananas",
+          "strawberries",
+          "blueberries"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet"
+    ],
+    "steps": [
+      "Pour the {cereal} into bowls and add cold milk.",
+      "Top with sliced {fruit} if you have it."
+    ]
+  },
+  {
+    "id": "bacon-eggs",
+    "meal": "breakfast",
+    "name": "Bacon & eggs with {bread}",
+    "emoji": "🥓",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "bacon",
+        "from": [
+          "breakfastMeat"
+        ],
+        "main": true
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ]
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ]
+      }
+    ],
+    "pantry": [
+      "butter"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Cook the bacon in a skillet over medium heat until crisp, then drain on paper towel.",
+      "Fry or scramble the eggs in a little of the bacon fat.",
+      "Toast the {bread} and serve together."
+    ]
+  },
+  {
+    "id": "blt",
+    "meal": "lunch",
+    "name": "BLT sandwiches on {bread}",
+    "emoji": "🥪",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "bacon",
+        "from": [
+          "breakfastMeat"
+        ],
+        "main": true
+      },
+      {
+        "key": "lettuce",
+        "from": [
+          "greens"
+        ],
+        "only": [
+          "lettuce"
+        ]
+      },
+      {
+        "key": "tomato",
+        "from": [
+          "saladVeg"
+        ],
+        "only": [
+          "tomatoes"
+        ]
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ]
+      }
+    ],
+    "pantry": [
+      "mayonnaise"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Cook the bacon until crisp.",
+      "Toast the {bread} and spread with mayonnaise.",
+      "Layer lettuce, sliced tomato and bacon, then close and cut in half."
+    ]
   }
 ]

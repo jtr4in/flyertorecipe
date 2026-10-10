@@ -16,7 +16,7 @@ import { placeNeeds, withNeeds } from './lib/needs'
 import NeedsSheet from './components/NeedsSheet'
 import OptionsSheet from './components/OptionsSheet'
 import DinnerPlan from './components/DinnerPlan'
-import { heroDeals, poolMeals, poolPlan, toPick } from './lib/anchors'
+import { poolMeals, poolPlan, toPick } from './lib/anchors'
 import {
   createHousehold, currentHousehold, householdLink, leaveHousehold, saveHousehold, saveHouseholdWeek, setHouseholdCheck, sharedPrefs, watchHousehold,
 } from './lib/household'
@@ -174,7 +174,6 @@ export default function App() {
     [allDeals, prefs?.matchAt, prefs?.matchExtras],
   )
   // This week's protein deals, the household's picked dinners, and those dinners as the plan.
-  const heroes = useMemo(() => (prefs ? heroDeals(deals, prefs) : []), [prefs, deals, recipesVersion])
   const pool = useMemo(() => (prefs ? poolMeals(week.dinners || [], deals, prefs) : []), [prefs, week.dinners, deals, recipesVersion])
   const plan = useMemo(() => poolPlan(pool), [pool])
   const baseList = useMemo(
@@ -341,10 +340,10 @@ export default function App() {
       ) : (
         <>
           <DinnerPlan
-            heroes={heroes}
             deals={deals}
             prefs={prefs}
             anchors={week.anchors || []}
+            recipesVersion={recipesVersion}
             anchorDeals={week.anchorDeals || {}}
             have={have}
             pool={pool}
