@@ -17887,5 +17887,1341 @@
       "Lay out slices of {protein}, add a dab of mustard and a cheese stick, then roll up.",
       "Serve with pickles and {veg} sticks."
     ]
+  },
+  {
+    "id": "pb-chocolate-english-muffins",
+    "meal": "breakfast",
+    "name": "Peanut butter, {fruit} & chocolate chip {bread}",
+    "emoji": "🍫",
+    "minutes": 5,
+    "slots": [
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "English muffins"
+      },
+      {
+        "key": "spread",
+        "from": [
+          "spread"
+        ],
+        "prefer": "peanut butter",
+        "only": [
+          "peanut butter"
+        ]
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "bananas",
+        "only": [
+          "bananas",
+          "strawberries",
+          "apples",
+          "pears"
+        ]
+      },
+      {
+        "key": "chocolate",
+        "from": [
+          "treats"
+        ],
+        "prefer": "chocolate",
+        "only": [
+          "chocolate"
+        ],
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "honey"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Toast the {bread}.",
+      "Spread thickly with peanut butter while still warm.",
+      "Top with sliced {fruit}.",
+      "Scatter chocolate chips on top and drizzle with honey."
+    ]
+  },
+  {
+    "id": "hot-dog-scramble",
+    "meal": "breakfast",
+    "name": "Cheesy scrambled eggs with sliced {meat} on {bread}",
+    "emoji": "🌭",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "only": [
+          "eggs"
+        ]
+      },
+      {
+        "key": "meat",
+        "from": [
+          "hotDogs",
+          "breakfastMeat"
+        ],
+        "prefer": "hot dogs",
+        "qty": 0.5,
+        "main": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "bread"
+      }
+    ],
+    "pantry": [
+      "butter",
+      "salt",
+      "pepper",
+      "ketchup"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Slice the {meat} into coins and brown in a buttered pan.",
+      "Beat the eggs with salt and pepper, pour over and scramble gently.",
+      "Stir in grated {cheese} until melty.",
+      "Pile onto toasted {bread} and add ketchup if you like."
+    ]
+  },
+  {
+    "id": "frozen-breakfast-pizza",
+    "meal": "breakfast",
+    "name": "Frozen breakfast pizza with cracked eggs[ & {protein}]",
+    "emoji": "🍕",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "pizza",
+        "from": [
+          "freezerMeals"
+        ],
+        "prefer": "frozen pizza",
+        "only": [
+          "frozen pizza"
+        ],
+        "main": true
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "only": [
+          "eggs"
+        ]
+      },
+      {
+        "key": "protein",
+        "from": [
+          "breakfastMeat"
+        ],
+        "prefer": "bacon",
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "salt",
+      "pepper",
+      "hot sauce"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Heat the oven per the pizza box; cook [{protein} in a pan until crisp and crumble it].",
+      "Bake the pizza for half the box time.",
+      "Crack the eggs onto the pizza[, scatter the {protein}] and season.",
+      "Bake until the whites are set, then slice and serve with hot sauce."
+    ]
+  },
+  {
+    "id": "bagel-melts",
+    "meal": "breakfast",
+    "name": "{protein} & {cheese} melts on {bread}",
+    "emoji": "🥯",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "breakfastMeat",
+          "lunchProtein"
+        ],
+        "prefer": "bacon",
+        "only": [
+          "bacon",
+          "deli turkey or ham"
+        ],
+        "qty": 0.5,
+        "main": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "bagels"
+      }
+    ],
+    "pantry": [
+      "butter",
+      "ketchup"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Cook the {protein} in a pan or microwave until done.",
+      "Split and lightly butter the {bread}, then layer on {protein} and {cheese}.",
+      "Broil 2-3 minutes until bubbly and golden.",
+      "Serve hot with a squirt of ketchup."
+    ]
+  },
+  {
+    "id": "chip-sandwich",
+    "meal": "lunch",
+    "name": "Crunchy chip sandwiches on {bread}[ with {protein}]",
+    "emoji": "🥪",
+    "minutes": 5,
+    "slots": [
+      {
+        "key": "bread",
+        "from": [
+          "bread",
+          "buns"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread",
+          "buns"
+        ]
+      },
+      {
+        "key": "chips",
+        "from": [
+          "treats"
+        ],
+        "prefer": "chips",
+        "only": [
+          "chips"
+        ],
+        "qty": 0.5,
+        "main": true
+      },
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein"
+        ],
+        "prefer": "deli turkey or ham",
+        "only": [
+          "deli turkey or ham"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "butter",
+      "ketchup"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Butter the {bread} generously.",
+      "[Layer on the {protein}.]",
+      "Pile on a big handful of chips and add a squirt of ketchup.",
+      "Press down to crunch, cut and eat right away."
+    ]
+  },
+  {
+    "id": "kd-grilled-cheese",
+    "meal": "lunch",
+    "name": "Kraft Dinner grilled cheese on {bread}",
+    "emoji": "🧀",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "mac",
+        "from": [
+          "boxedMeals"
+        ],
+        "prefer": "boxed mac & cheese",
+        "only": [
+          "boxed mac & cheese"
+        ],
+        "qty": 0.5,
+        "main": true
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "only": [
+          "milk"
+        ],
+        "qty": 0.25
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ],
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "butter"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "treat"
+    ],
+    "steps": [
+      "Make the Kraft Dinner per the box with milk and butter.",
+      "Butter the outside of the {bread} slices.",
+      "Layer {cheese}, a big scoop of KD, then more {cheese} between slices.",
+      "Grill in a pan over medium-low until golden and melty on both sides."
+    ]
+  },
+  {
+    "id": "hot-dog-quesadillas",
+    "meal": "lunch",
+    "name": "Hot dog & {cheese} quesadillas[ with {veg}]",
+    "emoji": "🌭",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "hotdogs",
+        "from": [
+          "hotDogs"
+        ],
+        "prefer": "hot dogs",
+        "main": true
+      },
+      {
+        "key": "wraps",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "tortillas",
+        "only": [
+          "tortillas"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "saladVeg"
+        ],
+        "prefer": "bell peppers",
+        "only": [
+          "bell peppers",
+          "tomatoes",
+          "mushrooms"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "ketchup",
+      "mustard",
+      "cooking oil"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Slice the hot dogs into thin coins[ and chop the {veg}].",
+      "Sprinkle {cheese} over half of each tortilla, add hot dogs[ and {veg}], then fold.",
+      "Cook in a lightly oiled pan until crisp and the cheese melts.",
+      "Cut into wedges and dip in ketchup and mustard."
+    ]
+  },
+  {
+    "id": "fish-stick-sandwiches",
+    "meal": "lunch",
+    "name": "Fish stick sandwiches with {cheese}[ & {veg}]",
+    "emoji": "🐟",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "fish",
+        "from": [
+          "freezerMeals"
+        ],
+        "prefer": "fish sticks",
+        "only": [
+          "fish sticks"
+        ],
+        "main": true
+      },
+      {
+        "key": "buns",
+        "from": [
+          "buns"
+        ],
+        "prefer": "buns"
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "veg",
+        "from": [
+          "greens"
+        ],
+        "prefer": "lettuce",
+        "only": [
+          "lettuce",
+          "salad greens"
+        ],
+        "qty": 0.25,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "tartar sauce",
+      "lemon juice"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Bake the fish sticks per the box.",
+      "Lay {cheese} over the hot fish sticks for the last minute so it melts.",
+      "Spread tartar sauce on the buns.",
+      "Stack in the fish sticks[ with {veg}] and add a squeeze of lemon."
+    ]
+  },
+  {
+    "id": "beans-wieners",
+    "meal": "lunch",
+    "name": "Beans & wieners with buttered {bread}",
+    "emoji": "🫘",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "hotdogs",
+        "from": [
+          "hotDogs"
+        ],
+        "prefer": "hot dogs",
+        "main": true
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "bread"
+      }
+    ],
+    "pantry": [
+      "canned baked beans",
+      "ketchup",
+      "mustard",
+      "butter"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Slice the hot dogs into coins.",
+      "Warm the baked beans in a pot with the hot dogs, a squirt of ketchup and a little mustard.",
+      "Simmer 5 minutes until hot through.",
+      "Serve with toasted, buttered {bread} for dunking."
+    ]
+  },
+  {
+    "id": "nugget-mashed-bowls",
+    "meal": "dinner",
+    "name": "Crispy nugget bowls with mashed {starch}, {veg}[, {cheese}] & gravy",
+    "emoji": "🍗",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "nuggets",
+        "from": [
+          "freezerMeals"
+        ],
+        "prefer": "chicken nuggets",
+        "only": [
+          "chicken nuggets"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes",
+          "sweet potatoes"
+        ]
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "only": [
+          "milk"
+        ],
+        "qty": 0.25
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "frozen mixed vegetables",
+        "only": [
+          "frozen mixed vegetables",
+          "green beans",
+          "broccoli"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "butter",
+      "gravy mix",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "treat"
+    ],
+    "steps": [
+      "Bake the nuggets per the bag and boil the {starch} until tender.",
+      "Mash the {starch} with butter, milk, salt and pepper.",
+      "Cook the {veg} in the microwave and whisk up the gravy mix.",
+      "Build bowls: mash, {veg}, chopped nuggets[, {cheese}] and lots of gravy."
+    ]
+  },
+  {
+    "id": "spaghetti-tacos",
+    "meal": "dinner",
+    "name": "Spaghetti tacos with {protein} meat sauce",
+    "emoji": "🌮",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "pasta",
+        "from": [
+          "starch"
+        ],
+        "prefer": "pasta",
+        "only": [
+          "pasta"
+        ],
+        "qty": 0.75
+      },
+      {
+        "key": "sauce",
+        "from": [
+          "pastaSauce"
+        ],
+        "prefer": "pasta sauce"
+      },
+      {
+        "key": "wraps",
+        "from": [
+          "wraps"
+        ],
+        "prefer": "tortillas",
+        "only": [
+          "tortillas"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "mozzarella",
+        "only": [
+          "mozzarella",
+          "cheddar"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "garlic powder",
+      "Italian seasoning",
+      "parmesan"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "treat"
+    ],
+    "steps": [
+      "Boil the spaghetti, breaking it in half so it fits in a taco.",
+      "Brown the {protein}, then stir in the pasta sauce and seasoning.",
+      "Toss the drained spaghetti in the meat sauce.",
+      "Warm the tortillas, fold and stuff with saucy spaghetti[ and {cheese}]."
+    ]
+  },
+  {
+    "id": "pizza-burgers",
+    "meal": "dinner",
+    "name": "Pizza burgers with {protein} & {cheese}[ with {side}]",
+    "emoji": "🍔",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "buns",
+        "from": [
+          "buns"
+        ],
+        "prefer": "buns"
+      },
+      {
+        "key": "sauce",
+        "from": [
+          "pastaSauce"
+        ],
+        "prefer": "pasta sauce",
+        "qty": 0.5
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "mozzarella",
+        "only": [
+          "mozzarella",
+          "cheddar"
+        ],
+        "qty": 0.75
+      },
+      {
+        "key": "side",
+        "from": [
+          "treats",
+          "saladVeg"
+        ],
+        "prefer": "chips",
+        "only": [
+          "chips",
+          "cucumber",
+          "carrots"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "Italian seasoning",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Season the {protein} with Italian seasoning, salt and pepper and shape into patties.",
+      "Fry or grill until cooked through.",
+      "Spoon pasta sauce on each patty, top with {cheese} and cover until melted.",
+      "Serve on toasted buns[ with {side} on the side]."
+    ]
+  },
+  {
+    "id": "tuna-mac",
+    "meal": "dinner",
+    "name": "{protein} mac & cheese with {veg}",
+    "emoji": "🧀",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "mac",
+        "from": [
+          "boxedMeals"
+        ],
+        "prefer": "boxed mac & cheese",
+        "only": [
+          "boxed mac & cheese"
+        ]
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "only": [
+          "milk"
+        ],
+        "qty": 0.25
+      },
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein"
+        ],
+        "prefer": "canned tuna",
+        "only": [
+          "canned tuna",
+          "rotisserie chicken"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "frozen mixed vegetables",
+        "only": [
+          "frozen mixed vegetables",
+          "broccoli",
+          "green beans"
+        ],
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "butter",
+      "pepper"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Boil the macaroni, adding the {veg} for the last 3 minutes.",
+      "Drain and stir in the cheese packet, butter and milk.",
+      "Fold in the drained or shredded {protein}.",
+      "Season with pepper and serve hot."
+    ]
+  },
+  {
+    "id": "chicken-a-la-king",
+    "meal": "dinner",
+    "name": "{protein} à la king with {veg} over {base}",
+    "emoji": "🍲",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein",
+          "poultry"
+        ],
+        "prefer": "rotisserie chicken",
+        "only": [
+          "rotisserie chicken",
+          "chicken breasts",
+          "chicken thighs"
+        ],
+        "main": true
+      },
+      {
+        "key": "soup",
+        "from": [
+          "cannedSoup"
+        ],
+        "prefer": "canned soup"
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "only": [
+          "milk"
+        ],
+        "qty": 0.25
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "frozen mixed vegetables",
+        "only": [
+          "frozen mixed vegetables",
+          "mushrooms",
+          "bell peppers"
+        ]
+      },
+      {
+        "key": "base",
+        "from": [
+          "starch",
+          "bread"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice",
+          "egg noodles",
+          "bread",
+          "English muffins"
+        ]
+      }
+    ],
+    "pantry": [
+      "butter",
+      "pepper",
+      "paprika"
+    ],
+    "tags": [
+      "quick",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Cook the {base} (or toast it if it's bread).",
+      "Shred the {protein}; if raw, dice and brown it in butter first.",
+      "Stir in the cream soup, milk and {veg} and simmer 5-8 minutes.",
+      "Season with pepper and paprika and spoon over the {base}."
+    ]
+  },
+  {
+    "id": "loaded-taco-fries",
+    "meal": "dinner",
+    "name": "Loaded taco fries with {protein} & {cheese}[ and {veg}]",
+    "emoji": "🍟",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes",
+          "sweet potatoes"
+        ],
+        "qty": 1.25
+      },
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ],
+        "qty": 0.75
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg",
+          "greens"
+        ],
+        "prefer": "tomatoes",
+        "only": [
+          "tomatoes",
+          "lettuce"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "taco seasoning",
+      "cooking oil",
+      "salsa",
+      "sour cream"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort",
+      "treat"
+    ],
+    "steps": [
+      "Cut the {starch} into wedges, toss with oil and bake at 425°F for 25-30 minutes.",
+      "Brown the {protein} with taco seasoning and a splash of water.",
+      "Pile the taco meat and {cheese} on the fries and bake 3 more minutes to melt.",
+      "Top with salsa, sour cream[ and chopped {veg}]."
+    ]
+  },
+  {
+    "id": "perogy-nachos",
+    "meal": "dinner",
+    "name": "Sheet-pan perogy nachos with {protein} & {cheese}[ and {veg}]",
+    "emoji": "🥟",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "perogies",
+        "from": [
+          "freezerMeals"
+        ],
+        "prefer": "perogies",
+        "only": [
+          "perogies"
+        ]
+      },
+      {
+        "key": "protein",
+        "from": [
+          "breakfastMeat",
+          "pork"
+        ],
+        "prefer": "bacon",
+        "only": [
+          "bacon",
+          "sausages"
+        ],
+        "qty": 0.5,
+        "main": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ],
+        "qty": 0.75
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "tomatoes",
+        "only": [
+          "tomatoes",
+          "bell peppers"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "cooking oil",
+      "sour cream",
+      "green onions"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "treat"
+    ],
+    "steps": [
+      "Toss frozen perogies with oil and roast at 425°F for 20 minutes, flipping once.",
+      "Meanwhile cook and crumble the {protein}.",
+      "Scatter {protein} and {cheese} over the perogies and bake until melted.",
+      "Finish with sour cream, green onions[ and diced {veg}]."
+    ]
+  },
+  {
+    "id": "dirt-cups",
+    "meal": "snack",
+    "name": "Dirt pudding cups with crushed {cookies}",
+    "emoji": "🪱",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "only": [
+          "milk"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "cookies",
+        "from": [
+          "treats"
+        ],
+        "prefer": "cookies",
+        "only": [
+          "cookies"
+        ],
+        "qty": 0.5,
+        "main": true
+      }
+    ],
+    "pantry": [
+      "instant chocolate pudding mix",
+      "gummy worms"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Whisk the pudding mix with cold milk for 2 minutes and let it set 5 minutes.",
+      "Crush the cookies in a zip-top bag.",
+      "Layer pudding and cookie crumbs in cups, ending with 'dirt' on top.",
+      "Poke in gummy worms and serve."
+    ]
+  },
+  {
+    "id": "cracker-pizzas",
+    "meal": "snack",
+    "name": "Pizza crackers with {cheese}[ & {protein}]",
+    "emoji": "🍕",
+    "minutes": 5,
+    "slots": [
+      {
+        "key": "crackers",
+        "from": [
+          "crackers"
+        ],
+        "prefer": "crackers"
+      },
+      {
+        "key": "sauce",
+        "from": [
+          "pastaSauce"
+        ],
+        "prefer": "pasta sauce",
+        "qty": 0.25
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "mozzarella",
+        "only": [
+          "mozzarella",
+          "cheddar"
+        ],
+        "qty": 0.5,
+        "main": true
+      },
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein"
+        ],
+        "prefer": "deli turkey or ham",
+        "only": [
+          "deli turkey or ham"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "Italian seasoning"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Lay crackers on a microwave-safe plate.",
+      "Dab each with a little pasta sauce[ and a piece of {protein}].",
+      "Top with {cheese} and a pinch of Italian seasoning.",
+      "Microwave 20-30 seconds until melted and eat right away."
+    ]
+  },
+  {
+    "id": "meatball-dippers",
+    "meal": "snack",
+    "name": "Saucy meatball dippers[ with melted {cheese}]",
+    "emoji": "🍡",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "meatballs",
+        "from": [
+          "freezerMeals"
+        ],
+        "prefer": "frozen meatballs",
+        "only": [
+          "frozen meatballs"
+        ],
+        "qty": 0.5,
+        "main": true
+      },
+      {
+        "key": "sauce",
+        "from": [
+          "pastaSauce"
+        ],
+        "prefer": "pasta sauce",
+        "qty": 0.5
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "mozzarella",
+        "only": [
+          "mozzarella"
+        ],
+        "qty": 0.25,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "parmesan",
+      "toothpicks"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Heat the frozen meatballs in the microwave or oven per the bag.",
+      "Warm the pasta sauce in a small pot or bowl.",
+      "Toss the meatballs in some sauce[, top with {cheese} and microwave to melt].",
+      "Stick with toothpicks and serve with extra sauce for dipping."
+    ]
+  },
+  {
+    "id": "crunchy-ramen-snack",
+    "meal": "snack",
+    "name": "Crunchy seasoned instant noodle snack",
+    "emoji": "🍜",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "noodles",
+        "from": [
+          "boxedMeals"
+        ],
+        "prefer": "instant noodles",
+        "only": [
+          "instant noodles"
+        ],
+        "main": true
+      }
+    ],
+    "pantry": [
+      "sugar",
+      "chili flakes"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Crush the uncooked noodle block into bite-size pieces in the bag.",
+      "Toast in a dry pan over medium heat, stirring, until golden and fragrant.",
+      "Sprinkle with the seasoning packet, a pinch of sugar and chili flakes if you like.",
+      "Shake together in the bag and munch."
+    ]
   }
 ]
