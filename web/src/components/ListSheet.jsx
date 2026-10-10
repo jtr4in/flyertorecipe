@@ -230,7 +230,8 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                       )}
                     </span>
                   </FlyerPeek>
-                  {onOptions && (i.ing || i.need) && (
+                  {/* With a flyer deal, Other options lives in the popup; without one there's no popup, so show it here. */}
+                  {onOptions && !i.deal && (i.ing || i.need) && (
                     <button
                       onClick={() => onOptions(i)}
                       aria-label={`Other options for ${i.item}`}
