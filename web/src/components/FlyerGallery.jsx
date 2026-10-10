@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import FlyerClip from './FlyerClip'
-import { dealName, flyerUrl, shortDay, storeTint } from '../lib/stores'
+import { adUrl, dealName, flyerUrl, shortDay, storeTint } from '../lib/stores'
 
 export default function FlyerGallery({ open, flyers, stores = [], store, onClose }) {
   const [zoom, setZoom] = useState(null)
@@ -65,12 +65,12 @@ export default function FlyerGallery({ open, flyers, stores = [], store, onClose
                   <span className="block truncate text-sm text-stone-600">{dealName(zoom.deal.name)}</span>
                   {zoom.deal.validTo && <span className="block text-xs text-stone-400">Valid until {shortDay(zoom.deal.validTo)}</span>}
                   <a
-                    href={flyerUrl(zoom.deal.merchant)}
+                    href={adUrl(zoom.deal) || flyerUrl(zoom.deal.merchant)}
                     target="_blank"
                     rel="noreferrer"
                     className="mt-2 inline-block rounded-lg bg-green-700 px-3 py-1.5 text-xs font-semibold text-white"
                   >
-                    See it in {zoom.deal.merchant}'s flyer ↗
+                    {adUrl(zoom.deal) ? 'Show the ad' : `See ${zoom.deal.merchant}'s flyer`} ↗
                   </a>
                 </span>
                 <span className="shrink-0 text-right">

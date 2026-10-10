@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import FlyerClip from './FlyerClip'
-import { flyerUrl } from '../lib/stores'
+import { adUrl, flyerUrl } from '../lib/stores'
 
 // Date-only strings parse as UTC midnight, which shows as the previous day in Canada.
 const fmtDate = (d) =>
@@ -55,12 +55,12 @@ export default function FlyerProof({ deal, onClose, action }) {
               </button>
             )}
             <a
-              href={flyerUrl(deal.merchant)}
+              href={adUrl(deal) || flyerUrl(deal.merchant)}
               target="_blank"
               rel="noreferrer"
               className="rounded-xl bg-green-700 px-4 py-2 text-sm font-semibold text-white"
             >
-              See it in {deal.merchant}'s flyer ↗
+              {adUrl(deal) ? `Show the ad at ${deal.merchant}` : `See ${deal.merchant}'s flyer`} ↗
             </a>
           </div>
         </div>

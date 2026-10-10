@@ -58,3 +58,15 @@ export function flyerUrl(merchant) {
   const key = Object.keys(FLYER_PAGES).find((k) => m.startsWith(k))
   return key ? FLYER_PAGES[key] : `https://www.google.com/search?q=${encodeURIComponent(`${merchant} weekly flyer`)}`
 }
+
+// Grocer sites that open a flyer deal straight from its flyer item id (checked on a phone).
+const ITEM_PAGES = {
+  walmart: (id) => `https://www.walmart.ca/en/flyer?flyer_item_id=${id}`,
+}
+/** The deal's ad on the grocer's own site, or null when we only know the store's flyer page. */
+export function adUrl(deal) {
+  const id = /^f(\d+)$/.exec(deal?.dealId || '')?.[1]
+  const m = (deal?.merchant || '').toLowerCase()
+  const key = id && Object.keys(ITEM_PAGES).find((k) => m.startsWith(k))
+  return key ? ITEM_PAGES[key](id) : null
+}
