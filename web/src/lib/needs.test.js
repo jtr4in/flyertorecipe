@@ -88,5 +88,15 @@ describe('grocery search', () => {
     ]
     expect(needDeal('milk', shelf).name).toMatch(/Natrel/)
     expect(needDeal('chocolate milk', shelf).name).toMatch(/Neilson/)
+    const quebec = [
+      { name: 'LAIT ÉVAPORÉ SANS NOM, 354 mL', price: 1.33 },
+      { name: 'REHAUSSEUR OU CRÉMEUR À CAFÉ COFFEE MATE', price: 2.49 },
+      { name: 'CRÈME À CAFÉ 10 % 1 L', price: 3.0 },
+      { name: 'Nuti milk Nutimilk cream, 380 g', price: 1.49 },
+      { name: 'Lait 2 %, 4 L', price: 5.99 },
+      { name: 'Maxwell House Coffee, 920 g', price: 9.99 },
+    ]
+    expect(needDeal('milk', quebec.map((d) => ({ ...d, name: d.name.replace('Lait 2', 'Milk 2') }))).name).toMatch(/Milk 2/)
+    expect(needDeal('coffee', quebec).name).toMatch(/Maxwell/)
   })
 })

@@ -26,13 +26,8 @@ export const TOUR_STEPS = [
   },
   {
     target: 'plan',
-    title: 'What do you need?',
-    body: `Add anything else you're out of, like "milk, bread, coffee". It goes on your list with this week's best flyer price.`,
-  },
-  {
-    target: 'deals',
-    title: 'Other deals',
-    body: 'Frozen meals, paper towels, coffee, diapers and more from the flyers. Add any to your list, or watch the things you always buy.',
+    title: 'Add other',
+    body: `Anything else you need, like "milk, bread, coffee". Search this week's flyers and it goes on your list with the best price.`,
   },
   {
     target: 'list',

@@ -24,7 +24,7 @@ export function needItems(need) {
 
 // Words that make a flyer item a variety of what was typed: "milk" means plain milk, not
 // chocolate or oat milk, unless the person typed that word too.
-const VARIETY = /\b(chocolate|choco|almond|oat|soy|coconut|rice|lactose|flavou?red|strawberry|vanilla|caramel|spiced|candy|cookies?|bars?|chips?|snacks?|drink|beverage|sauce|soup|dog|cat|pet)\b/g
+const VARIETY = /\b(chocolate|chocolat|choco|almond|amande|oat|avoine|soy|soya|coconut|coco|rice|lactose|flavou?red|strawberry|vanilla|caramel|spiced|candy|cookies?|bars?|chips?|snacks?|drink|beverage|sauce|soup|dog|cat|pet|evaporated|evapore|condensed|condense|creamer|cremeur|rehausseur|whitener|powder|poudre|pods?|filters?|cream|creme|whipping|tea|the)\b/g
 
 /** The flyer deal for a need: the exact item if one was picked, else the best plain search match. */
 export function needDeal(need, deals) {

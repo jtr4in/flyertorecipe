@@ -10,8 +10,7 @@ import ListSheet, { ListBar } from './components/ListSheet'
 import FlyerProof from './components/FlyerProof'
 import Welcome from './components/Welcome'
 import Tour from './components/Tour'
-import DealsSheet from './components/DealsSheet'
-import { extraDeals, watchMatches, withExtras } from './lib/extras'
+import { withExtras } from './lib/extras'
 import { followMatch, matchableDeals, tidyMatch } from './lib/priceMatch'
 import { placeNeeds, withNeeds } from './lib/needs'
 import NeedsSheet from './components/NeedsSheet'
@@ -186,8 +185,6 @@ export default function App() {
     [week.needs, baseList, listMode, allDeals, deals],
   )
   const list = useMemo(() => withNeeds(baseList, needs.group), [baseList, needs.group])
-  const otherDeals = useMemo(() => extraDeals(allDeals), [allDeals])
-  const watchOnSale = useMemo(() => watchMatches(allDeals, prefs?.watch || []).filter((w) => w.deals.length), [allDeals, prefs?.watch])
   const listStores = useMemo(() => [...new Set(allDeals.map((d) => d.merchant).filter(Boolean))].sort(), [allDeals])
 
   const updatePrefs = (picked) => {
@@ -329,44 +326,9 @@ export default function App() {
             <span className="text-xl" aria-hidden>
               📝
             </span>
-            <span className="min-w-0 flex-1">
-              {(week.needs || []).length ? (
-                <>
-                  <span className="block text-sm font-semibold">We need: {week.needs.join(', ')}</span>
-                  <span className="block text-xs text-stone-500">On your list below. Tap to change.</span>
-                </>
-              ) : (
-                <>
-                  <span className="block text-sm font-semibold">Add what you need</span>
-                  <span className="block text-xs text-stone-500">e.g. milk, bread, coffee</span>
-                </>
-              )}
-            </span>
+            <span className="min-w-0 flex-1 text-sm font-semibold">Add other</span>
             <span className="text-stone-400">›</span>
           </button>
-          {!loading && (otherDeals.length > 0 || watchOnSale.length > 0) && (
-            <button
-              data-tour="deals"
-              onClick={() => setSheet('deals')}
-              className="mt-4 flex w-full items-center gap-3 rounded-2xl border border-stone-200 bg-white p-4 text-left shadow-sm"
-            >
-              <span className="text-2xl" aria-hidden>
-                🏷️
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block text-sm font-semibold">Other deals this week</span>
-                <span className="block truncate text-xs text-stone-500">
-                  {watchOnSale.length > 0
-                    ? `On sale from your list: ${watchOnSale.map((w) => w.term).join(', ')}`
-                    : `${otherDeals.length} on frozen meals, paper towels, coffee, personal care…`}
-                </span>
-              </span>
-              {(week.extras || []).length > 0 && (
-                <span className="shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-[11px] font-semibold text-green-800">{week.extras.length} added</span>
-              )}
-              <span className="text-stone-400">›</span>
-            </button>
-          )}
           <div className="mt-4">{listView}</div>
         </>
       ) : loading ? (
@@ -402,21 +364,6 @@ export default function App() {
         status={needs.status}
         deals={listMode === 'single' && baseList?.store ? allDeals.filter((d) => d.merchant === baseList.store) : deals}
         onChange={(next) => editWeek((w) => ({ ...w, needs: next }))}
-      />
-      <DealsSheet
-        open={sheet === 'deals'}
-        onClose={() => setSheet(null)}
-        deals={allDeals}
-        extras={week.extras || []}
-        onToggle={(deal, category) =>
-          editWeek((w) => {
-            const ex = w.extras || []
-            return { ...w, extras: ex.some((x) => x.deal.dealId === deal.dealId) ? ex.filter((x) => x.deal.dealId !== deal.dealId) : [...ex, { deal, category }] }
-          })
-        }
-        watch={prefs.watch || []}
-        onWatch={(watch) => updatePrefs({ ...prefs, watch })}
-        onProof={setProof}
       />
       <Sheet open={sheet === 'settings'} onClose={() => setSheet(null)} title="Household">
         <Preferences prefs={prefs} merchants={merchants} onChange={updatePrefs} />

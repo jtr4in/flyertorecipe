@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Sheet from './Sheet'
 import FlyerPeek from './FlyerPeek'
 import FlyerGallery from './FlyerGallery'
-import { MATCH_STORES, PRICE_MATCH } from '../lib/priceMatch'
+import { MATCH_STORES } from '../lib/priceMatch'
 import { flyerUrl, mapsUrl, money, storeTint } from '../lib/stores'
 
 /** Collapsed bar pinned to the bottom of the page. */
@@ -128,7 +128,7 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
       </div>
 
       {mode === 'match' && (
-        <div className="mb-2 rounded-2xl bg-stone-100 p-3">
+        <div className="mb-3 rounded-2xl bg-stone-100 p-3">
           <label className="flex items-center gap-2 text-sm">
             <span className="font-medium">Price match at</span>
             <select
@@ -144,28 +144,6 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
               ))}
             </select>
           </label>
-          {PRICE_MATCH[matchAt] ? (
-            <>
-              <p className="mt-1.5 text-xs text-stone-600">
-                {PRICE_MATCH[matchAt].note} Using flyers from {matchAt}, {PRICE_MATCH[matchAt].accepts.join(', ')}.
-              </p>
-              {PRICE_MATCH[matchAt].optional.map((s) => (
-                <label key={s} className="mt-1.5 flex items-center gap-2 text-xs text-stone-600">
-                  <input
-                    type="checkbox"
-                    className="size-4 accent-green-700"
-                    checked={matchExtras.includes(s)}
-                    onChange={(e) => onMatch(matchAt, e.target.checked ? [...matchExtras, s] : matchExtras.filter((x) => x !== s))}
-                  />
-                  Also use {s} (some cashiers accept it)
-                </label>
-              ))}
-            </>
-          ) : (
-            <p className="mt-1.5 text-xs text-stone-500">
-              Pick the store you shop at and we'll only use flyers its cashiers accept.
-            </p>
-          )}
         </div>
       )}
       {mode === 'match' ? (
