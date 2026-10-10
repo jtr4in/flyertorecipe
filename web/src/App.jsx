@@ -12,7 +12,7 @@ import Welcome from './components/Welcome'
 import Tour from './components/Tour'
 import { withExtras } from './lib/extras'
 import { followMatch, matchableDeals, tidyMatch } from './lib/priceMatch'
-import { pantryDeal, placeNeeds, searchDeals, withNeeds } from './lib/needs'
+import { needItems, pantryDeal, placeNeeds, searchDeals, withNeeds, withoutItems } from './lib/needs'
 import NeedsSheet from './components/NeedsSheet'
 import OptionsSheet from './components/OptionsSheet'
 import DinnerPlan from './components/DinnerPlan'
@@ -186,7 +186,13 @@ export default function App() {
     () => placeNeeds(week.needs || [], baseList, listMode === 'single' && baseList?.store ? allDeals.filter((d) => d.merchant === baseList.store) : deals, week.dealPicks || {}),
     [week.needs, baseList, listMode, allDeals, deals, week.dealPicks],
   )
-  const list = useMemo(() => withNeeds(baseList, needs.group), [baseList, needs.group])
+  const list = useMemo(() => withoutItems(withNeeds(baseList, needs.group), week.removed), [baseList, needs.group, week.removed])
+  // The grocery list line behind a "what we need" entry: its own line, or the meal ingredient it matched.
+  const needListItem = (n) => {
+    const items = (list?.groups || []).flatMap((g) => g.items)
+    const keys = needItems(n)
+    return items.find((i) => i.key === `need:${n}`) || items.find((i) => keys.includes(i.key)) || { key: `need:${n}`, item: n, need: true }
+  }
   // "Other options" for a list item: every deal on the same thing (catalog match, or a search for a typed need).
   const optionsFor = (item) => {
     if (!item) return []
@@ -276,6 +282,17 @@ export default function App() {
       onSwap={(item) => setSwapping(item.uses)}
       onOptions={setChoosing}
       pantryDeals={pantryDeals}
+      onRemoveItem={(item) =>
+        editWeek((w) =>
+          item.need
+            ? { ...w, needs: (w.needs || []).filter((n) => `need:${n}` !== item.key) }
+            : item.extra
+              ? { ...w, extras: (w.extras || []).filter((x) => `extra:${x.deal.dealId}` !== item.key) }
+              : { ...w, removed: [...new Set([...(w.removed || []), item.key])] },
+        )
+      }
+      removed={(week.removed || []).length}
+      onRestore={() => editWeek((w) => ({ ...w, removed: [] }))}
       onRemoveExtra={(item) =>
         editWeek((w) =>
           item.need
@@ -386,6 +403,11 @@ export default function App() {
         status={needs.status}
         deals={listMode === 'single' && baseList?.store ? allDeals.filter((d) => d.merchant === baseList.store) : deals}
         onChange={(next) => editWeek((w) => ({ ...w, needs: next }))}
+        onOptions={(n) => setChoosing(needListItem(n))}
+        onProof={(d, n) => {
+          setProof(d)
+          setProofItem(needListItem(n))
+        }}
       />
       <Sheet open={sheet === 'settings'} onClose={() => setSheet(null)} title="Household">
         <Preferences prefs={prefs} merchants={merchants} onChange={updatePrefs} />
@@ -496,7 +518,7 @@ export default function App() {
         onClose={() => setProof(null)}
         action={
           proofItem && {
-            label: 'Other options',
+            label: 'Options',
             onClick: () => {
               setProof(null)
               setChoosing(proofItem)

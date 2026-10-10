@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { activeDeals, buildShoppingList, cookedMeals, planWeek, weekDays } from './planner'
 import { sampleDeals } from '../data/sampleDeals'
-import { needDeal, needItems, pantryDeal, parseNeeds, placeNeeds, searchDeals, suggestNeeds, wantedItems, withNeeds } from './needs'
+import { needDeal, needItems, pantryDeal, withoutItems, parseNeeds, placeNeeds, searchDeals, suggestNeeds, wantedItems, withNeeds } from './needs'
 
 const today = new Date('2026-10-09T12:00:00Z')
 const deals = activeDeals(sampleDeals(today), { today })
@@ -141,5 +141,23 @@ describe('pantry deals match whole words', () => {
     const deals = [{ dealId: 'g', name: "Dillon's gin cocktails 12 x 355 mL", price: 27 }, { dealId: 'h', name: 'Fresh dill bunch', price: 1.5 }]
     expect(pantryDeal('dill', deals).dealId).toBe('h')
     expect(pantryDeal('dill', deals.slice(0, 1))).toBe(null)
+  })
+})
+
+describe('taking items off the list', () => {
+  it('drops the item and its cost from the totals', () => {
+    const list = buildShoppingList(planWeek(deals, prefs, { days }), deals, prefs)
+    const first = list.groups[0].items[0]
+    const out = withoutItems(list, [first.key])
+    expect(out.itemCount).toBe(list.itemCount - 1)
+    expect(out.groups.flatMap((g) => g.items).some((i) => i.key === first.key)).toBe(false)
+    expect(out.totalCost).toBeCloseTo(list.totalCost - first.cost, 2)
+  })
+})
+
+describe('French flyer words', () => {
+  it('reads lait as milk but not laitue', () => {
+    const deals = [{ dealId: 'l', name: 'Laitue romaine | Romaine lettuce', price: 1.77 }, { dealId: 'm', name: 'Lait 2 % Québon 4 L', price: 5.99 }]
+    expect(searchDeals('milk', deals).map((d) => d.dealId)).toEqual(['m'])
   })
 })

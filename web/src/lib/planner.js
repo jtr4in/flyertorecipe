@@ -111,6 +111,20 @@ export const ASSUMED_OFF = 0.23
 export const hasSavings = (deal) => deal?.savings > 0
 export const assumedSavings = (cost) => (cost * ASSUMED_OFF) / (1 - ASSUMED_OFF)
 
+// A deal's regular price: printed on the flyer, or assumed from the usual ~23% off.
+const regularOf = (d) => (hasSavings(d) ? d.price + d.savings : d.price / (1 - ASSUMED_OFF))
+
+/**
+ * What the item would cost at regular price, the same whichever store you shop: the regular
+ * price of the cheapest flyer deal on it anywhere (what price matching buys). Savings are
+ * measured from this, so the cheapest price always saves the
+ * most and a pricier store's sale doesn't look like a bigger saving.
+ */
+function regularCost(ing, qty, deals, deal) {
+  const best = matchDeal(ing, deals) || deal
+  return buyCost(ing, qty, { ...best, price: regularOf(best), savings: 0 }).cost
+}
+
 function unitEconomics(ing, deal) {
   if (!deal) {
     const price = FALLBACK_PRICE[ing.aisle] ?? 4
@@ -617,7 +631,7 @@ export function buildShoppingList(plan, deals, prefs, { mode = 'match', picks = 
     const deal = (picks[row.ing.item] && pool.find((d) => d.dealId === picks[row.ing.item])) || matchDeal(row.ing, pool)
     const b = buyCost(row.ing, row.qty, deal)
     const estimated = !!deal && !hasSavings(deal)
-    if (estimated) b.savings = assumedSavings(b.cost)
+    if (deal) b.savings = Math.max(0, regularCost(row.ing, row.qty, deals, deal) - b.cost)
     totalCost += b.cost
     totalSavings += b.savings
     if (deal) {

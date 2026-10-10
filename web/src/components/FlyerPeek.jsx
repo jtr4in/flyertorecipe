@@ -11,7 +11,7 @@ const W = 300
  * Tapping the card itself opens the full-screen flyer (onOpen). `action` ({ label, onClick })
  * adds a button to the card, e.g. "Substitute" for when the store is out of it.
  */
-export default function FlyerPeek({ deal, onOpen, action, children, className = '' }) {
+export default function FlyerPeek({ deal, onOpen, action, onRemove, children, className = '' }) {
   const ref = useRef(null)
   const pop = useRef(null)
   const timer = useRef(null)
@@ -58,7 +58,7 @@ export default function FlyerPeek({ deal, onOpen, action, children, className = 
       {pos &&
         createPortal(
           <div
-            className={`fixed z-[60] ${hoverable && !action ? 'pointer-events-none' : ''} overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-2xl`}
+            className={`fixed z-[60] ${hoverable && !action && !onRemove ? 'pointer-events-none' : ''} overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-2xl`}
             style={{ left: pos.left, top: pos.top, bottom: pos.bottom, width: W }}
             ref={pop}
             onMouseEnter={hoverable ? stay : undefined}
@@ -70,8 +70,22 @@ export default function FlyerPeek({ deal, onOpen, action, children, className = 
             }}
             role="tooltip"
           >
-            <div className="bg-stone-50">
+            <div className="relative bg-stone-50">
               <FlyerClip deal={deal} maxHeight="14rem" />
+              {onRemove && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    hide()
+                    onRemove()
+                  }}
+                  aria-label="Remove from list"
+                  title="Remove from list"
+                  className="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full bg-white/90 text-sm text-stone-600 shadow hover:text-red-600"
+                >
+                  ✕
+                </button>
+              )}
             </div>
             <div className="border-t border-stone-100 px-3 py-2 text-xs">
               <p className="font-semibold">{deal.merchant}</p>

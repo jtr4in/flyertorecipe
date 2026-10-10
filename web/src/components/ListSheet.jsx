@@ -47,7 +47,7 @@ function InlinePanel({ title, footer, children }) {
   )
 }
 
-export default function ListSheet({ inline = false, open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof, onSwap, onOptions, onRemoveExtra, onShareLink, shared, matchAt, matchExtras, onMatch, pantryDeals = {} }) {
+export default function ListSheet({ inline = false, open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof, onSwap, onOptions, onRemoveExtra, onShareLink, shared, matchAt, matchExtras, onMatch, pantryDeals = {}, onRemoveItem, removed = 0, onRestore }) {
   const [gallery, setGallery] = useState(false)
   if (!list) return null
   const items = list.groups.flatMap((g) => g.items)
@@ -205,7 +205,8 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                   <FlyerPeek
                     deal={i.deal}
                     onOpen={(d) => onProof(d, (i.ing || i.need) && onOptions ? i : null)}
-                    action={(i.ing || i.need) && onOptions ? { label: 'Other options', onClick: () => onOptions(i) } : null}
+                    onRemove={onRemoveItem ? () => onRemoveItem(i) : null}
+                    action={(i.ing || i.need) && onOptions ? { label: 'Options', onClick: () => onOptions(i) } : null}
                     className="flex min-w-0 flex-1 items-center gap-2"
                   >
                     <span className={`min-w-0 flex-1 ${checked[i.key] ? 'text-stone-400 line-through' : ''}`}>
@@ -234,7 +235,7 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                   {onOptions && !i.deal && (i.ing || i.need) && (
                     <button
                       onClick={() => onOptions(i)}
-                      aria-label={`Other options for ${i.item}`}
+                      aria-label={`Options for ${i.item}`}
                       className="shrink-0 rounded-lg px-1.5 py-1 text-xs font-medium text-green-700 hover:bg-green-50"
                     >
                       Options
@@ -293,6 +294,14 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                 })}
             </ul>
           </section>
+        )}
+        {removed > 0 && onRestore && (
+          <p className="text-xs text-stone-500">
+            {removed} item{removed === 1 ? '' : 's'} taken off because you have {removed === 1 ? 'it' : 'them'}.{' '}
+            <button onClick={onRestore} className="font-medium text-green-700 underline">
+              Put back
+            </button>
+          </p>
         )}
         {list.pantry.length > 0 && (
           <p className="text-xs text-stone-500">

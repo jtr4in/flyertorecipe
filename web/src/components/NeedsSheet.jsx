@@ -29,7 +29,7 @@ function StatusLine({ s }) {
 // One-tap restocks for the empty search box: the things households run out of every week.
 const COMMON = ['milk', 'eggs', 'bread', 'butter', 'cheese', 'yogurt', 'coffee', 'cereal', 'bananas', 'toilet paper']
 
-export default function NeedsSheet({ open, onClose, needs, status, onChange, deals = [] }) {
+export default function NeedsSheet({ open, onClose, needs, status, onChange, deals = [], onOptions, onProof }) {
   const [text, setText] = useState('')
   const input = useRef(null)
   const picks = useMemo(() => suggestNeeds(text, deals, needs), [text, deals, needs])
@@ -128,11 +128,29 @@ export default function NeedsSheet({ open, onClose, needs, status, onChange, dea
         <>
           <ul className="space-y-2">
             {needs.map((n) => (
-              <li key={n} className="flex items-start gap-2 rounded-xl border border-stone-200 px-3 py-2">
+              <li key={n} className="flex items-center gap-2 rounded-xl border border-stone-200 px-3 py-2">
+                {byNeed.get(n)?.deal && onProof && (
+                  <button
+                    onClick={() => onProof(byNeed.get(n).deal, n)}
+                    aria-label={`See the flyer for ${n}`}
+                    className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-stone-50"
+                  >
+                    {byNeed.get(n).deal.imageUrl ? (
+                      <img src={byNeed.get(n).deal.imageUrl} alt="" className="max-h-10 max-w-10 object-contain" />
+                    ) : (
+                      <FlyerClip deal={byNeed.get(n).deal} sharp={120} maxHeight="2.5rem" />
+                    )}
+                  </button>
+                )}
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium capitalize">{n}</p>
                   <StatusLine s={byNeed.get(n)} />
                 </div>
+                {onOptions && (
+                  <button onClick={() => onOptions(n)} className="shrink-0 rounded-lg px-1.5 py-1 text-xs font-medium text-green-700 hover:bg-green-50">
+                    Options
+                  </button>
+                )}
                 <button onClick={() => onChange(needs.filter((x) => x !== n))} className="px-1 text-stone-400" aria-label={`Remove ${n}`}>
                   ✕
                 </button>

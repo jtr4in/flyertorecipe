@@ -24,7 +24,7 @@ export function needItems(need) {
 
 // Words that make a flyer item a variety of what was typed: "milk" means plain milk, not
 // chocolate or oat milk, unless the person typed that word too.
-const VARIETY = /\b(chocolate|chocolat|choco|almond|amande|oat|avoine|soy|soya|coconut|coco|rice|lactose|flavou?red|strawberry|vanilla|caramel|spiced|candy|cookies?|bars?|chips?|snacks?|drink|beverage|sauce|soup|dog|cat|pet|evaporated|evapore|condensed|condense|creamer|cremeur|rehausseur|whitener|powder|poudre|pods?|filters?|cream|creme|whipping|tea|the)\b/g
+const VARIETY = /\b(chocolate|chocolat|choco|almond|amande|oat|avoine|soy|soya|coconut|coco|rice|lactose|flavou?red|strawberry|vanilla|caramel|spiced|candy|cookies?|bars?|chips?|snacks?|drink|beverage|sauce|soup|dog|cat|pet|evaporated|evapore|condensed|condense|creamer|cremeur|2 ?go|single serve|rehausseur|whitener|powder|poudre|pods?|filters?|cream|creme|whipping|tea|the)\b/g
 
 /** The flyer deal for a need: the exact item if one was picked, else the best plain search match. */
 export function needDeal(need, deals) {
@@ -82,6 +82,8 @@ const SAY = {
 // Quebec flyers write 3,25 %; fold that to 3.25% too.
 const fold = (t) => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/(\d),(\d)/g, '$1.$2')
 const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+// Whole word, plural allowed.
+const wholeWord = (w) => new RegExp(/^[\p{L}]/u.test(w) ? `(^|[^\\p{L}])${esc(w)}(s|es|x)?($|[^\\p{L}])` : esc(w), 'iu')
 // A typed word matches the start of a word ("mil" → milk); "3.25%"-style words match anywhere.
 const wordStart = (w) => new RegExp(/^[\p{L}]/u.test(w) ? `(^|[^\\p{L}])${esc(w)}` : esc(w), 'iu')
 
@@ -94,8 +96,11 @@ function termGroups(term) {
   const words = [...phrases, ...rest.split(' ').filter(Boolean)]
   return words.map((w) => {
     const plain = w.replace(/(es|s)$/, '')
-    const alts = [w, ...(SAY[w] || []), ...(plain.length > 2 && plain !== w ? [plain, ...(SAY[plain] || [])] : [])]
-    return [...new Set(alts.map(fold))].map(wordStart)
+    const typed = [w, ...(plain.length > 2 && plain !== w ? [plain] : [])]
+    // What people say is matched as whole words ("lait" is milk, "laitue" is lettuce); what's typed
+    // can be the start of a word, so the list updates as you type.
+    const said = [...(SAY[w] || []), ...(plain !== w ? SAY[plain] || [] : [])].filter((a) => !typed.includes(a))
+    return [...new Set(typed.map(fold))].map(wordStart).concat([...new Set(said.map(fold))].map(wholeWord))
   })
 }
 
@@ -238,4 +243,24 @@ export function pantryDeal(item, deals) {
     if (plain || hits[0]) return plain || hits[0]
   }
   return null
+}
+
+/** The list without the items the household already has (taken off with the ✕), totals included. */
+export function withoutItems(list, keys = []) {
+  if (!list || !keys.length) return list
+  const gone = new Set(keys)
+  const dropped = list.groups.flatMap((g) => g.items).filter((i) => gone.has(i.key))
+  if (!dropped.length) return list
+  const sum = (f) => dropped.reduce((a, i) => a + (f(i) || 0), 0)
+  const flyers = list.flyers.filter((f) => !gone.has(f.item))
+  return {
+    ...list,
+    groups: list.groups.map((g) => ({ ...g, items: g.items.filter((i) => !gone.has(i.key)) })).filter((g) => g.items.length),
+    flyers,
+    matchStores: [...new Set(flyers.map((f) => f.deal.merchant))].sort(),
+    totalCost: Math.round((list.totalCost - sum((i) => i.cost)) * 100) / 100,
+    totalSavings: Math.round((list.totalSavings - sum((i) => i.savings)) * 100) / 100,
+    onSale: list.onSale - dropped.filter((i) => i.deal).length,
+    itemCount: list.itemCount - dropped.length,
+  }
 }

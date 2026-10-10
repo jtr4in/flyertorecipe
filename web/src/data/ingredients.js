@@ -70,8 +70,8 @@ export const CATALOG = {
     x('celery', 'bunch', 0.15, 'Produce', ['celery'], { lb: 1.5 }),
   ],
   starch: [
-    x('rice', 'cup', 0.33, 'Pantry', ['rice'], {exclude: ['cake', 'krispies', 'crispy', 'vinegar', 'noodle', 'pudding', 'precooked', 'minute', 'instant', 'ready', 'masala', 'curry', 'pilaf', 'bowl', 'meal'], pkg: 10 }),
-    x('pasta', 'lb', 0.2, 'Pantry', ['pasta', 'spaghetti', 'penne', 'rotini', 'fusilli', 'linguine', 'macaroni'], {has: GLUTEN, exclude: ['sauce', 'salad', 'dinner', 'kit'], pkg: 2 }),
+    x('rice', 'cup', 0.33, 'Pantry', ['rice'], {exclude: ['cake', 'krispies', 'crispy', 'vinegar', 'noodle', 'pudding', 'precooked', 'minute', 'instant', 'ready', 'masala', 'curry', 'pilaf', 'bowl', 'meal', 'snack', 'snacks', 'cracker', 'crackers', 'chips', 'riz soufflé'], pkg: 10 }),
+    x('pasta', 'lb', 0.2, 'Pantry', ['pasta', 'spaghetti', 'penne', 'rotini', 'fusilli', 'linguine', 'macaroni'], {has: GLUTEN, exclude: ['sauce', 'salad', 'dinner', 'kit', 'cheese', 'fromage', 'kd', 'kraft dinner'], pkg: 2 }),
     x('potatoes', 'lb', 0.4, 'Produce', ['potato'], {exclude: ['sweet', 'chips', 'fries', 'salad', 'mashed', 'instant', 'hash brown', 'tots', 'skins', 'scalloped', 'perogies'], pkg: 5 }),
     x('sweet potatoes', 'lb', 0.4, 'Produce', ['sweet potato', 'yam'], {exclude: ['fries', 'chips'], pkg: 3 }),
     x('quinoa', 'cup', 0.25, 'Pantry', ['quinoa'], {pkg: 5 }),
