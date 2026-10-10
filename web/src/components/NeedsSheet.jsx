@@ -36,11 +36,19 @@ export default function NeedsSheet({ open, onClose, needs, status, onChange, dea
   const quick = COMMON.filter((q) => !needs.includes(q))
   const byNeed = new Map(status.map((s) => [s.need, s]))
 
-  const add = (e) => {
-    e.preventDefault()
+  const commit = () => {
     const more = parseNeeds(text).filter((n) => !needs.includes(n))
     if (more.length) onChange([...needs, ...more])
     setText('')
+  }
+  const add = (e) => {
+    e.preventDefault()
+    commit()
+  }
+  // Closing keeps what was typed but not added yet: phones often have no obvious "Add" step.
+  const close = () => {
+    commit()
+    onClose()
   }
 
   // Tapping a suggestion adds it, plus anything typed before the last comma.
@@ -52,7 +60,7 @@ export default function NeedsSheet({ open, onClose, needs, status, onChange, dea
   }
 
   return (
-    <Sheet open={open} onClose={onClose} title="What do you need?" tall>
+    <Sheet open={open} onClose={close} title="What do you need?" tall>
       <p className="mb-3 text-sm text-stone-600">
         Add anything else you're out of. It goes on your list with this week's best flyer price, and anything your dinners
         already use won't be added twice.

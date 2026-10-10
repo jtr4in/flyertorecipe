@@ -24,16 +24,48 @@ export function needItems(need) {
 
 // Words that make a flyer item a variety of what was typed: "milk" means plain milk, not
 // chocolate or oat milk, unless the person typed that word too.
-const VARIETY = /\b(chocolate|chocolat|choco|almond|amande|oat|avoine|soy|soya|coconut|coco|rice|lactose|flavou?red|strawberry|vanilla|caramel|spiced|candy|cookies?|bars?|chips?|snacks?|drink|beverage|sauce|soup|dog|cat|pet|evaporated|evapore|condensed|condense|creamer|cremeur|2 ?go|single serve|rehausseur|whitener|powder|poudre|pods?|filters?|cream|creme|whipping|tea|the)\b/g
+const VARIETY = /\b(chocolate|chocolat|choco|almond|amande|oat|avoine|soy|soya|coconut|coco|rice|lactose|flavou?red|strawberry|vanilla|caramel|spiced|candy|cookies?|bars?|chips?|snacks?|drink|beverage|sauce|soup|dog|cat|pet|evaporated|evapore|condensed|condense|creamer|cremeur|2 ?go|single serve|rehausseur|whitener|powder|poudre|pods?|filters?|cream|creme|whipping|tea|the|noodles?|nouilles|peanut|arachide|macaroni|lettuce|laitue|nog|custard|crackers?|quail|caille|boisson|energy|energetique|waffles?)\b/g
 
 /** The flyer deal for a need: the exact item if one was picked, else the best plain search match. */
 export function needDeal(need, deals) {
   const n = need.toLowerCase()
   const exact = deals.find((d) => dealName(d.name).toLowerCase() === n)
   if (exact) return exact
-  const hits = searchDeals(n, deals)
-  const plain = hits.find((d) => !(fold(dealName(d.name)).match(VARIETY) || []).some((w) => !n.includes(w)))
+  const hits = byFit(n, searchDeals(n, deals))
+  const plain = hits.find((d) => isPlain(n, d))
   return plain || hits[0] || null
+}
+
+// A variety of what was typed ("chocolate milk" for "milk"), unless the person typed that word too.
+const isPlain = (n, d) => !(fold(dealName(d.name)).match(VARIETY) || []).some((w) => !n.includes(w))
+// The typed word is only the start of a longer word in the name: "egg" in "eggplant".
+const partOfWord = (n, d) => {
+  const name = fold(dealName(d.name))
+  return fold(n)
+    .split(/\s+/)
+    .flatMap((w) => [w, w.replace(/(es|s)$/, '')])
+    .some((w) => w.length > 2 && wordStart(w).test(name) && !wholeWord(w).test(name))
+}
+// The typed word only describes something else: "egg" in "No Yolks Egg Noodles", "butter" in
+// "Butter Lettuce". Flyer names lead (French) or end (English) with what the item is.
+const describesOther = (n, d) => {
+  const parts = fold(dealName(d.name))
+    .split(/[|/,(]| or | ou /)
+    .map((p) => p.replace(/[^\p{L}' ]+/gu, ' ').trim().split(/\s+/).filter(Boolean))
+  return fold(n)
+    .split(/\s+/)
+    .some((w) => {
+      const re = wholeWord(w)
+      const at = parts.filter((p) => p.some((x) => re.test(x)))
+      return at.length > 0 && at.every((p) => !re.test(p[0]) && !re.test(p.at(-1)))
+    })
+}
+/** Whole-word, plain matches first ("coffee" → coffee before creamer, "eggs" → eggs before eggplant). */
+const byFit = (n, hits) => {
+  const groups = termGroups(n)
+  const mentions = (d) => groups.every((alts) => alts.some((re) => re.test(fold(d.name || ''))))
+  const rank = (d) => (mentions(d) ? 0 : 8) + (partOfWord(n, d) ? 4 : 0) + (describesOther(n, d) ? 2 : 0) + (isPlain(n, d) ? 0 : 1)
+  return hits.map((d, i) => [d, rank(d), i]).sort((a, b) => a[1] - b[1] || a[2] - b[2]).map(([d]) => d)
 }
 
 // What people type vs. what flyers print. Each typed word also matches these (English and
@@ -142,8 +174,13 @@ export function suggestNeeds(text, deals, taken = [], limit = 40) {
     .sort((a, b) => a.length - b.length)
     .slice(0, 3)
     .map((need) => ({ need, deal: null }))
+  // What was typed, as is, when it isn't one of the catalog words ("coffee", "dish soap").
+  const flyerHits = byFit(term, searchDeals(term, deals))
+  const said = wholeWord(fold(term))
+  if (term.length > 3 && !words.some((w) => w.need === term || w.need === `${term}s`) && (!words.length || flyerHits.some((d) => said.test(fold(d.name)))))
+    words.unshift({ need: term, deal: null })
   const seen = new Set()
-  const fromFlyers = searchDeals(term, deals)
+  const fromFlyers = flyerHits
     .map((deal) => ({ need: dealName(deal.name).toLowerCase(), deal }))
     .filter((x) => !seen.has(x.need) && seen.add(x.need))
   return [...words, ...fromFlyers].filter((x) => !taken.includes(x.need)).slice(0, limit)

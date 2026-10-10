@@ -46,13 +46,24 @@ describe('suggestions while typing', () => {
     const flyer = picks.filter((p) => p.deal)
     expect(flyer.length).toBeGreaterThan(2)
     expect(flyer.every((p) => /milk/i.test(p.deal.name) || p.deal.queries.includes('milk'))).toBe(true)
-    const named = flyer.filter((p) => /milk/i.test(p.deal.name)).map((p) => p.deal.price)
+    // Plain milk first (chocolate or oat milk after), each cheapest first.
+    const named = flyer.filter((p) => /milk/i.test(p.deal.name) && !/chocolate|oat|almond|soy|lactose/i.test(p.deal.name)).map((p) => p.deal.price)
     expect(named).toEqual([...named].sort((a, b) => a - b))
     expect(flyer.at(-1).deal.name).toBe('Natrel 3.25%, 4 L') // says milk only in the flyer search
   })
   it('skips what is already on the list and short input', () => {
     expect(suggestNeeds('milk', deals, ['milk']).some((p) => p.need === 'milk')).toBe(false)
     expect(suggestNeeds('m', deals)).toEqual([])
+  })
+  it('offers what was typed when it is not a catalog word, and plain matches before varieties', () => {
+    const d = (dealId, name, price) => ({ dealId, name, price, merchant: 'Metro', queries: [] })
+    const shelf = [d('a', 'Silex Coffee Creamer 473 mL', 3), d('b', 'Nabob Coffee 900 g', 9), d('c', 'Long Eggplant', 2), d('e', 'Large Eggs, 12', 4)]
+    const picks = suggestNeeds('coffee', shelf)
+    expect(picks[0]).toEqual({ need: 'coffee', deal: null })
+    expect(picks[1].deal.dealId).toBe('b')
+    expect(needDeal('coffee', shelf).dealId).toBe('b')
+    expect(needDeal('eggs', shelf).dealId).toBe('e')
+    expect(needDeal('egg', shelf).dealId).toBe('e')
   })
   it('a picked flyer item still steers meals and finds its deal', () => {
     const need = suggestNeeds('2% mil', deals).find((p) => p.deal).need
