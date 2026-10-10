@@ -18,6 +18,8 @@ const MEALS = [
 
 // Some flyers shout every name ("CHICKEN DRUMSTICKS"); show those in sentence case.
 const calm = (t) => (/[a-z]/.test(t) ? t : t.charAt(0) + t.slice(1).toLowerCase())
+// Lowercase without accents, so "poulet haché" matches "hache".
+const fold = (t) => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 
 function HeroCard({ hero, on, onToggle, big }) {
   const d = hero.deal
@@ -179,6 +181,7 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
   const [filters, setFilters] = useState([])
   const [showAll, setShowAll] = useState(false) // every breakfast / lunch, not just the top few
   const [all, setAll] = useState({}) // proteins showing every dinner, not just two
+  const [q, setQ] = useState('') // search box over this tab's sale items
   // This tab's sale items to plan around: proteins for dinner, cereal, yogurt... for breakfast.
   const heroes = useMemo(() => heroDeals(deals, prefs, tab), [deals, prefs, tab, recipesVersion])
   // Chosen items are saved per meal ("eggs" for dinner, "breakfast|eggs" for breakfast).
@@ -209,7 +212,10 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
   }
   const noun = tab === 'dinner' ? 'dinners' : tab === 'breakfast' ? 'breakfasts' : 'lunches'
   // One section per kind of item, in the order of its best deal (heroes come sorted).
-  const groups = [...heroes.reduce((m, h) => m.set(h.group, [...(m.get(h.group) || []), h]), new Map())]
+  // Every typed word has to appear in the item, its group or the flyer name ("breasts", "ground").
+  const words = fold(q).split(/[\s,]+/).filter(Boolean).map((w) => (w.length > 3 ? w.replace(/e?s$/, '') : w))
+  const found = words.length ? heroes.filter((h) => words.every((w) => fold(`${h.item} ${h.label} ${h.deal.name}`).includes(w))) : heroes
+  const groups = [...found.reduce((m, h) => m.set(h.group, [...(m.get(h.group) || []), h]), new Map())]
   // A tapped protein's dinners, shown right under its card.
   const dinnersFor = (item) => {
     const opts = (options[item] || [])
@@ -266,6 +272,7 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
               onClick={() => {
                 setTab(id)
                 setShowAll(false)
+                setQ('')
               }}
               className={`rounded-xl py-2 ${tab === id ? 'bg-white text-green-800 shadow-sm' : 'text-stone-600'}`}
             >
@@ -296,12 +303,24 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
         <p className="mb-3 text-sm text-stone-500">
           {tab === 'dinner' ? "This week's best protein deals." : `This week's ${tab} deals.`} Tap one or two to see {noun} built around them.
         </p>
+        {heroes.length > 0 && (
+          <input
+            type="search"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder={tab === 'dinner' ? 'Search: breasts, ground, salmon…' : tab === 'breakfast' ? 'Search: bacon, yogurt, cereal…' : 'Search: ham, bread, soup…'}
+            aria-label="Search sale items"
+            className="mb-3 w-full rounded-xl border border-stone-300 bg-white px-3 py-2 text-sm"
+          />
+        )}
         {heroes.length === 0 ? (
           <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">Nothing for {tab} in your flyers yet this week.</p>
+        ) : found.length === 0 ? (
+          <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">No {tab === 'dinner' ? 'protein' : tab} deals match "{q}" this week.</p>
         ) : (
           <div className="space-y-5">
             {groups.map(([group, list]) => {
-              const isOpen = openGroups.includes(group)
+              const isOpen = words.length > 0 || openGroups.includes(group)
               const shown = isOpen ? list : list.filter((h, i) => i === 0 || isOn(h))
               const { emoji, label } = list[0]
               return (
