@@ -122,6 +122,7 @@ def _price(v) -> str | None:
 
 # The flyer's item list has name and price only; each item's own page adds "/lb", "2/",
 # "SAVE $2" and the regular price.
+SAMPLE: list[dict] = []  # one raw item page, for the run notes
 DETAIL_KEYS = ("pre_price_text", "post_price_text", "sale_story", "original_price", "current_price")
 
 
@@ -135,6 +136,8 @@ def add_item_details(flyers: list[tuple[dict, dict]], workers: int = 8) -> int:
         except Exception:
             return False
         got = got.get("item", got) if isinstance(got, dict) else {}
+        if "chicken" in str(it.get("name", "")).lower() and not SAMPLE:
+            SAMPLE.append({k: v for k, v in got.items() if not isinstance(v, (list, dict))})
         for k in DETAIL_KEYS:
             if got.get(k) not in (None, ""):
                 it[k] = got[k]

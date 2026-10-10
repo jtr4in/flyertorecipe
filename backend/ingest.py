@@ -30,7 +30,7 @@ from decimal import Decimal
 
 from dotenv import load_dotenv
 
-from flyer_clips import add_item_details, attach_clips, clip_index, flyer_rows, grocery_flyers
+from flyer_clips import SAMPLE, add_item_details, attach_clips, clip_index, flyer_rows, grocery_flyers
 from normalize import dedupe, fsa, normalize
 from staples import QUERY_LIMITS, SEARCH_BUDGET
 
@@ -211,6 +211,7 @@ def main() -> None:
                 detailed = add_item_details(flyers)
                 rows = flyer_rows(flyers)
                 notice(f"{code}: item details for {detailed} of {len(rows)}", sample_detail(flyers))
+                notice(f"{code}: one item page", json.dumps(SAMPLE[:1], ensure_ascii=False)[:1500])
             except Exception as e:
                 print(f"{code}: Flipp flyer feed failed ({e})")
                 rows = []
