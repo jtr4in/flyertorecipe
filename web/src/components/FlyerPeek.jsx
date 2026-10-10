@@ -8,11 +8,13 @@ const W = 300
 
 /**
  * Wraps a row. Mouse users get the flyer on hover; touch users tap the row to toggle it.
- * Tapping the card itself opens the full-screen flyer (onOpen).
+ * Tapping the card itself opens the full-screen flyer (onOpen). `action` ({ label, onClick })
+ * adds a button to the card, e.g. "Substitute" for when the store is out of it.
  */
-export default function FlyerPeek({ deal, onOpen, children, className = '' }) {
+export default function FlyerPeek({ deal, onOpen, action, children, className = '' }) {
   const ref = useRef(null)
   const pop = useRef(null)
+  const timer = useRef(null)
   const [pos, setPos] = useState(null)
   const hoverable = typeof window !== 'undefined' && window.matchMedia?.('(hover: hover)').matches
 
@@ -25,6 +27,9 @@ export default function FlyerPeek({ deal, onOpen, children, className = '' }) {
     setPos({ left, top: up ? undefined : below, bottom: up ? window.innerHeight - r.top + 6 : undefined })
   }
   const hide = () => setPos(null)
+  // Hover cards close a moment after the pointer leaves, so it can move onto the card's button.
+  const leave = () => (timer.current = setTimeout(hide, 250))
+  const stay = () => clearTimeout(timer.current)
 
   // Close on scroll or a tap elsewhere.
   useEffect(() => {
@@ -45,17 +50,19 @@ export default function FlyerPeek({ deal, onOpen, children, className = '' }) {
     <div
       ref={ref}
       className={`cursor-pointer ${className}`}
-      onMouseEnter={hoverable ? show : undefined}
-      onMouseLeave={hoverable ? hide : undefined}
+      onMouseEnter={hoverable ? () => (stay(), show()) : undefined}
+      onMouseLeave={hoverable ? leave : undefined}
       onClick={() => (hoverable ? onOpen?.(deal) : pos ? hide() : show())}
     >
       {children}
       {pos &&
         createPortal(
           <div
-            className={`fixed z-[60] ${hoverable ? 'pointer-events-none' : ''} overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-2xl`}
+            className={`fixed z-[60] ${hoverable && !action ? 'pointer-events-none' : ''} overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-2xl`}
             style={{ left: pos.left, top: pos.top, bottom: pos.bottom, width: W }}
             ref={pop}
+            onMouseEnter={hoverable ? stay : undefined}
+            onMouseLeave={hoverable ? leave : undefined}
             onClick={(e) => {
               e.stopPropagation()
               hide()
@@ -69,9 +76,25 @@ export default function FlyerPeek({ deal, onOpen, children, className = '' }) {
             <div className="border-t border-stone-100 px-3 py-2 text-xs">
               <p className="font-semibold">{deal.merchant}</p>
               <p className="line-clamp-2 text-stone-600">{dealName(deal.name)}</p>
-              <p className="mt-1 text-base font-bold text-green-700">{deal.priceLabel || deal.priceText}</p>
-              {deal.saleStory && <p className="text-stone-500">{deal.saleStory}</p>}
-              {deal.validTo && <p className="mt-1 text-stone-400">Until {shortDay(deal.validTo)}</p>}
+              <div className="flex items-end gap-2">
+                <div className="min-w-0 flex-1">
+                  <p className="mt-1 text-base font-bold text-green-700">{deal.priceLabel || deal.priceText}</p>
+                  {deal.saleStory && <p className="text-stone-500">{deal.saleStory}</p>}
+                  {deal.validTo && <p className="mt-1 text-stone-400">Until {shortDay(deal.validTo)}</p>}
+                </div>
+                {action && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      hide()
+                      action.onClick()
+                    }}
+                    className="shrink-0 rounded-xl border border-stone-300 px-2.5 py-1.5 text-xs font-semibold text-stone-700 hover:bg-stone-50"
+                  >
+                    {action.label}
+                  </button>
+                )}
+              </div>
             </div>
           </div>,
           document.body,

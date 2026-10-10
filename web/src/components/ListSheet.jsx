@@ -211,7 +211,12 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                     onChange={() => onCheck(i.key)}
                     className="size-5 shrink-0 accent-green-700"
                   />
-                  <FlyerPeek deal={i.deal} onOpen={onProof} className="flex min-w-0 flex-1 items-center gap-2">
+                  <FlyerPeek
+                    deal={i.deal}
+                    onOpen={onProof}
+                    action={i.uses?.length ? { label: '🔄 Substitute', onClick: () => onSwap(i) } : null}
+                    className="flex min-w-0 flex-1 items-center gap-2"
+                  >
                     <span className={`min-w-0 flex-1 ${checked[i.key] ? 'text-stone-400 line-through' : ''}`}>
                       <span className="block truncate text-sm font-medium">
                         {i.item} <span className="font-normal text-stone-500">· {i.buy}</span>
@@ -241,7 +246,7 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                     >
                       ✕
                     </button>
-                  ) : inline ? null : (
+                  ) : inline && i.deal ? null : (
                     <button
                       onClick={() => onSwap(i)}
                       aria-label={`Swap ${i.item}`}
