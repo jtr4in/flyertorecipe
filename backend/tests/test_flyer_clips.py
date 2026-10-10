@@ -34,3 +34,27 @@ def test_attach_clips():
     deals = [{"imageUrl": "https://f.wishabi.net/page_items/7/1/extra_large.jpg"}, {"imageUrl": None}]
     assert attach_clips(deals, {"7": {"flyerId": 9, "clip": {"box": [0, 0, 1, 1]}}}) == 1
     assert deals[0]["flyerId"] == 9 and "clip" not in deals[1]
+
+
+def test_flyer_rows_read_like_actor_rows():
+    from flyer_clips import flyer_rows
+    from normalize import normalize
+
+    flyer = {"id": 5, "merchant": "No Frills", "valid_from": "2026-10-09", "valid_to": "2026-10-15"}
+    items = [
+        {"id": 1, "name": "Chicken Drumsticks", "price": "1.99", "pre_price_text": "", "post_price_text": "/lb", "sale_story": "SAVE $1.50"},
+        {"id": 2, "name": "Cheerios Cereal", "brand": "General Mills", "price": "$7.00", "pre_price_text": "2/", "discount": 30},
+        {"id": 3, "name": "Banner: Weekly Specials", "price": ""},
+    ]
+    rows = flyer_rows([(flyer, {"items": items})])
+    assert [r["dealId"] for r in rows] == ["f1", "f2"]
+    a, b = (normalize(r) for r in rows)
+    assert a["priceLabel"] == "$1.99/lb" and a["savings"] == 1.5 and a["validTo"] == "2026-10-15"
+    assert b["name"] == "General Mills Cheerios Cereal" and b["bundleQty"] == 2 and b["price"] == 3.5
+    assert b["saleStory"] == "SAVE 30%" and b["regularPrice"] == 5.0
+
+
+def test_price_text_cleanup():
+    from flyer_clips import _price
+
+    assert _price("4,99") == "4.99" and _price("2.99/lb") == "2.99" and _price("") is None

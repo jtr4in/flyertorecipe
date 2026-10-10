@@ -104,6 +104,11 @@ python ingest.py                        # write to Firestore
 
 ## Cost
 
+Weekly deals are every item on the area's grocery flyers, read straight from Flipp's flyer feed:
+no charge, and packed a few thousand deals to a Firestore document, so a phone loading the week
+costs a handful of reads. The paid Apify search actor below only runs if that feed comes back
+nearly empty.
+
 The actor bills per deal returned ($0.002/deal from 2026-10-08, plus $0.0005 per run).
 81 search terms in three tiers (`backend/staples.py`): broad staples like chicken and milk fetch up to 60 deals, mid items 30, narrow items 15. That caps a run at 2130 deals, about $4.26 per postal area per week, under the $4.50 `MAX_CHARGE_USD` cap (narrow searches often return fewer).
 `MAX_CHARGE_USD` sets a hard cap per run.

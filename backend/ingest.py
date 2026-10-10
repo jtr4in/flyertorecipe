@@ -9,9 +9,14 @@
 Flyers are the same across neighbouring postal areas, so one fetch can serve several.
 List extra FSAs after a colon:  POSTAL_CODES="K1E 0A1:K1C,K1W,K4A"  (all of Orleans, one fetch)
 
+Deals come from every item on the area's grocery flyers, read straight from Flipp (free).
+If that comes back nearly empty, the paid Apify search actor fills in (see staples.py).
+
 Firestore layout:
-    regions/{FSA}                 {fsa, postalCode, dealCount, merchants, ingestedAt}
-    regions/{FSA}/deals/{dealId}  normalized deal (see normalize.py)
+    regions/{FSA}                  {fsa, postalCode, dealCount, chunks, merchants, ingestedAt, source}
+    regions/{FSA}/deals/chunk-NN   {deals: [normalized deal, ...]}  (see normalize.py)
+A full week is thousands of deals, so they're packed a few thousand to a document: the app
+reads the whole region in a handful of reads instead of one per deal.
 """
 
 from __future__ import annotations
@@ -25,11 +30,15 @@ from decimal import Decimal
 
 from dotenv import load_dotenv
 
-from flyer_clips import attach_clips, flyer_index
+from flyer_clips import attach_clips, clip_index, flyer_rows, grocery_flyers
 from normalize import dedupe, fsa, normalize
 from staples import QUERY_LIMITS, SEARCH_BUDGET
 
 ACTOR_ID = "gratifying_graph/canada-grocery-deals"
+# Fewer flyer items than this means Flipp's flyer feed failed or changed; use the search actor.
+MIN_FLYER_ROWS = 300
+# Firestore caps a document at 1 MiB; leave room for its own overhead.
+CHUNK_BYTES = 700_000
 
 
 def fetch_raw(postal_code: str, reuse_last_run: bool = False) -> list[dict]:
@@ -71,6 +80,11 @@ def build_deals(rows: list[dict]) -> list[dict]:
     return dedupe([d for d in (normalize(r, now) for r in rows) if d])
 
 
+def slim(deal: dict) -> dict:
+    """What the app reads: empty fields and bookkeeping dropped to keep the region small."""
+    return {k: v for k, v in deal.items() if v not in (None, "", []) and k not in ("fetchedAt", "flippItemId")}
+
+
 def parse_targets(spec: str) -> tuple[str, list[str]]:
     """'K1E 0A1:K1C,K1W,K4A' -> ('K1E 0A1', ['K1E', 'K1C', 'K1W', 'K4A'])"""
     code, _, extra = spec.partition(":")
@@ -85,7 +99,21 @@ def parse_targets(spec: str) -> tuple[str, list[str]]:
     return code, fsas
 
 
-def write_firestore(postal_code: str, region_fsa: str, deals: list[dict]) -> None:
+def chunk_deals(deals: list[dict], limit: int = CHUNK_BYTES) -> list[list[dict]]:
+    """Split deals into groups whose JSON stays under `limit` bytes."""
+    chunks: list[list[dict]] = [[]]
+    size = 0
+    for d in deals:
+        n = len(json.dumps(d, ensure_ascii=False).encode()) + 1
+        if chunks[-1] and size + n > limit:
+            chunks.append([])
+            size = 0
+        chunks[-1].append(d)
+        size += n
+    return [c for c in chunks if c]
+
+
+def write_firestore(postal_code: str, region_fsa: str, deals: list[dict], source: str = "flyers") -> None:
     import firebase_admin
     from firebase_admin import firestore
 
@@ -95,25 +123,50 @@ def write_firestore(postal_code: str, region_fsa: str, deals: list[dict]) -> Non
     region = db.collection("regions").document(region_fsa)
     deals_ref = region.collection("deals")
 
-    keep = {d["dealId"] for d in deals}
-    stale = [doc.reference for doc in deals_ref.stream() if doc.id not in keep]
-
-    ops = [("set", deals_ref.document(d["dealId"]), d) for d in deals]
-    ops += [("delete", ref, None) for ref in stale]
-    for i in range(0, len(ops), 450):  # Firestore batch limit is 500
-        batch = db.batch()
-        for kind, ref, data in ops[i : i + 450]:
-            batch.set(ref, data) if kind == "set" else batch.delete(ref)
-        batch.commit()
+    chunks = chunk_deals([slim(d) for d in deals])
+    ids = [f"chunk-{i:02d}" for i in range(len(chunks))]
+    for i, c in zip(ids, chunks):  # one write each: a batch caps out at 10 MiB
+        deals_ref.document(i).set({"deals": c})
 
     region.set({
         "fsa": region_fsa,
         "postalCode": postal_code,
         "dealCount": len(deals),
+        "chunks": len(chunks),
+        "source": source,
         "merchants": sorted({d["merchant"] for d in deals if d["merchant"]}),
         "ingestedAt": datetime.now(timezone.utc).isoformat(),
     })
-    print(f"{region_fsa}: wrote {len(deals)} deals, removed {len(stale)} stale")
+    # Old documents (one per deal, or extra chunks from a bigger week) go last, so a failed
+    # cleanup (say, the daily read quota is spent) still leaves this week's deals in place.
+    removed = 0
+    try:
+        stale = [ref for ref in deals_ref.list_documents() if ref.id not in ids]
+        for i in range(0, len(stale), 450):  # Firestore batch limit is 500
+            batch = db.batch()
+            for ref in stale[i : i + 450]:
+                batch.delete(ref)
+            batch.commit()
+        removed = len(stale)
+    except Exception as e:
+        print(f"{region_fsa}: old documents not cleaned up ({e})")
+    print(f"{region_fsa}: wrote {len(deals)} deals in {len(chunks)} documents, removed {removed} old")
+
+
+def sample_keys(flyers) -> str:
+    """The raw fields on one flyer item, so a changed feed is easy to spot in the run summary."""
+    for _, detail in flyers:
+        for it in detail.get("items", []):
+            if it.get("name"):
+                keep = ("name", "brand", "price", "pre_price_text", "post_price_text", "sale_story", "discount", "original_price")
+                return json.dumps({"keys": sorted(it), **{k: it.get(k) for k in keep}}, ensure_ascii=False)[:900]
+    return "no items"
+
+
+def notice(title: str, message: str) -> None:
+    """A GitHub Actions annotation (shown on the run page); plain output elsewhere."""
+    msg = message.replace("%", "%25").replace("\r", "").replace("\n", " ")
+    print(f"::notice title={title.replace(':', ' -').replace(',', ';')}::{msg}")
 
 
 def main() -> None:
@@ -137,19 +190,34 @@ def main() -> None:
 
     out = {}
     for code, fsas in targets:
-        rows = json.load(open(a.from_file)) if a.from_file else fetch_raw(code, a.reuse_last_run)
+        flyers, source = [], "flyers"
+        if a.from_file or a.reuse_last_run:
+            rows, source = (json.load(open(a.from_file)) if a.from_file else fetch_raw(code, True)), "search"
+        else:
+            try:
+                flyers = grocery_flyers(code, locale=os.environ.get("LOCALE", "en-ca"))
+                rows = flyer_rows(flyers)
+            except Exception as e:
+                print(f"{code}: Flipp flyer feed failed ({e})")
+                rows = []
+            notice(f"{code}: {len(flyers)} flyers, {len(rows)} items", sample_keys(flyers))
+            if len(rows) < MIN_FLYER_ROWS:
+                print(f"{code}: only {len(rows)} flyer items, falling back to the search actor")
+                rows, source = fetch_raw(code), "search"
         deals = build_deals(rows)
-        print(f"{code}: {len(rows)} rows -> {len(deals)} deals for {', '.join(fsas)}")
+        print(f"{code}: {len(rows)} rows -> {len(deals)} deals from {source} for {', '.join(fsas)}")
         try:
-            matched = attach_clips(deals, flyer_index(code, {d['merchant'] for d in deals}))
+            index = clip_index(flyers or grocery_flyers(code, {d["merchant"] for d in deals}))
+            matched = attach_clips(deals, index)
             print(f"{code}: flyer clippings for {matched} of {len(deals)} deals")
         except Exception as e:  # clippings are a nice-to-have; keep the deals either way
             print(f"{code}: no flyer clippings ({e})")
+        notice(f"{code}: {len(deals)} deals from {source}", json.dumps(deals[:2], ensure_ascii=False)[:900])
         for f in fsas:
             if a.dry_run:
                 out[f] = deals
             else:
-                write_firestore(code, f, deals)
+                write_firestore(code, f, deals, source)
     if a.dry_run:
         json.dump(out, open(a.dry_run, "w"), indent=2)
 

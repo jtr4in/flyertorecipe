@@ -96,3 +96,14 @@ def test_implausible_regular_price_ignored():
 
 def test_restaurants_dropped():
     assert normalize({"dealId": 1, "name": "Crispy Chicken", "currentPrice": 5, "merchant": "Harvey's"}) is None
+
+
+def test_chunk_deals_stays_under_the_size_limit():
+    import json
+
+    from ingest import chunk_deals
+
+    deals = [{"dealId": str(i), "name": "x" * 90} for i in range(100)]
+    chunks = chunk_deals(deals, limit=1000)
+    assert sum(len(c) for c in chunks) == 100 and len(chunks) > 1
+    assert all(len(json.dumps(c)) < 1100 for c in chunks)

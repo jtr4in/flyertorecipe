@@ -53,8 +53,8 @@ export async function savePrefs(prefs) {
   }
 }
 
-// Firestore's free tier allows 50,000 reads a day, and a region has ~1,000 deals, so each phone
-// keeps the last copy and re-reads only when it's stale.
+// Firestore's free tier allows 50,000 reads a day; a region is a handful of documents, and each
+// phone keeps the last copy and re-reads only when it's stale.
 const cacheGet = (key) => {
   try {
     return JSON.parse(localStorage.getItem(key))
@@ -64,7 +64,10 @@ const cacheGet = (key) => {
 }
 const cacheSet = (key, value) => {
   try {
-    localStorage.setItem(key, JSON.stringify(value))
+    const text = JSON.stringify(value)
+    // Phones allow about 5 MB per site; leave room for the household's plan and settings.
+    if (text.length > 2_500_000) return localStorage.removeItem(key)
+    localStorage.setItem(key, text)
   } catch {
     /* full or private mode: just read again next time */
   }
@@ -99,7 +102,9 @@ export async function loadDeals(postalCode) {
   const region = regionSnap.exists() ? regionSnap.data() : null
   if (cached?.key === key && region && cached.region?.ingestedAt === region.ingestedAt) return { deals: cached.deals, region }
   const dealSnap = await getDocs(collection(db, 'regions', key, 'deals'))
-  const deals = dealSnap.docs.map((d) => d.data())
+  // Deals are packed a few thousand to a document ({deals: [...]}); older fetches stored one per document.
+  const docs = dealSnap.docs.map((d) => d.data())
+  const deals = docs.some((d) => d.deals) ? docs.flatMap((d) => d.deals || []) : docs
   if (region) cacheSet('f2r.deals', { key, region, deals })
   return { deals, region }
 }

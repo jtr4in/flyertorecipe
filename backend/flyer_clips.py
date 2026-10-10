@@ -68,21 +68,27 @@ def clip_boxes(items: list[dict], pages: list[dict]) -> dict[str, tuple[float, f
     return out
 
 
-def flyer_index(postal_code: str, merchants: set[str] | None = None, locale: str = "en-ca") -> dict[str, dict]:
-    """page_item id -> {clip, flyerId, flippItemId} for the area's grocery flyers, plus any
-    other flyer from `merchants` (pharmacies carry groceries too)."""
+def grocery_flyers(postal_code: str, merchants: set[str] | None = None, locale: str = "en-ca") -> list[tuple[dict, dict]]:
+    """(flyer, detail) for the area's grocery flyers, plus any other flyer from `merchants`
+    (pharmacies carry groceries too). The detail lists every item on the flyer."""
     pc = postal_code.replace(" ", "").upper()
     flyers = _get(f"{API}/data?locale={locale}&postal_code={pc}").get("flyers", [])
-    index: dict[str, dict] = {}
+    out = []
     for f in flyers:
         wanted = "Groceries" in (f.get("categories") or []) or f.get("merchant") in (merchants or set())
         if not wanted or not f.get("path"):
             continue
         try:
-            detail = _get(f"{API}/flyers/{f['id']}")
+            out.append((f, _get(f"{API}/flyers/{f['id']}")))
         except Exception as e:  # one broken flyer shouldn't stop the run
             print(f"  flyer {f['id']} ({f.get('merchant')}): {e}")
-            continue
+    return out
+
+
+def clip_index(flyers: list[tuple[dict, dict]]) -> dict[str, dict]:
+    """page_item id -> {clip, flyerId, flippItemId} for the given flyers."""
+    index: dict[str, dict] = {}
+    for f, detail in flyers:
         boxes = clip_boxes(detail.get("items", []), detail.get("pages", []))
         by_pid = {page_item_id(i.get("cutout_image_url")): i for i in detail.get("items", [])}
         for pid, box in boxes.items():
@@ -97,6 +103,49 @@ def flyer_index(postal_code: str, merchants: set[str] | None = None, locale: str
                 },
             }
     return index
+
+
+def flyer_index(postal_code: str, merchants: set[str] | None = None, locale: str = "en-ca") -> dict[str, dict]:
+    return clip_index(grocery_flyers(postal_code, merchants, locale))
+
+
+def _text(*parts) -> str:
+    return " ".join(str(p).strip() for p in parts if p not in (None, "") and str(p).strip())
+
+
+def _price(v) -> str | None:
+    """'4.99', '$4.99', '4,99', '2.99/lb' -> '4.99'-style string; None when there's no number."""
+    m = re.search(r"\d+(?:[.,]\d{1,2})?", str(v))
+    return m.group(0).replace(",", ".") if m else None
+
+
+def flyer_rows(flyers: list[tuple[dict, dict]]) -> list[dict]:
+    """Every priced item on the flyers, shaped like the search actor's rows so normalize()
+    reads both: "2/" + "5.00" + "ea." becomes currentPrice 5.00, priceText "2/ ea."."""
+    rows = []
+    for f, detail in flyers:
+        for it in detail.get("items", []):
+            price = it.get("price") if it.get("price") not in (None, "") else it.get("current_price")
+            if not it.get("name") or price in (None, ""):
+                continue
+            story = _text(it.get("sale_story"))
+            pct = it.get("discount")
+            if not story and isinstance(pct, (int, float)) and 0 < pct < 90:
+                story = f"SAVE {int(pct)}%"
+            rows.append({
+                "dealId": f"f{it.get('id')}",
+                "name": _text(it.get("brand") if it.get("brand") and str(it["brand"]).lower() not in str(it["name"]).lower() else None, it["name"]),
+                "merchant": f.get("merchant"),
+                "currentPrice": _price(price),
+                "originalPrice": it.get("original_price"),
+                "priceText": _text(it.get("pre_price_text"), it.get("post_price_text")),
+                "saleStory": story or None,
+                "imageUrl": it.get("cutout_image_url"),
+                "validFrom": it.get("valid_from") or f.get("valid_from"),
+                "validTo": it.get("valid_to") or f.get("valid_to"),
+                "flyerId": f.get("id"),
+            })
+    return rows
 
 
 def attach_clips(deals: list[dict], index: dict[str, dict]) -> int:

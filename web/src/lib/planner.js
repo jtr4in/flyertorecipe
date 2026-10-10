@@ -41,9 +41,20 @@ function isHeadline(name, include) {
   )
 }
 
+// A full week is thousands of flyer items and planning asks for the same ingredient many
+// times, so each answer is remembered for that deals array (and dropped along with it).
+const matchMemo = new WeakMap()
+
 /** Cheapest matching deal, preferring ones where the ingredient is the headline product. */
 export function matchDeal(ingredient, deals) {
   if (ingredient.pantry || !ingredient.match?.length) return null
+  let memo = matchMemo.get(deals)
+  if (!memo) matchMemo.set(deals, (memo = new WeakMap()))
+  if (!memo.has(ingredient)) memo.set(ingredient, findDeal(ingredient, deals))
+  return memo.get(ingredient)
+}
+
+function findDeal(ingredient, deals) {
   const include = ingredient.match.map(wordRe)
   const global = GLOBAL_EXCLUDE.filter((w) => !ingredient.allow?.includes(w))
   const exclude = [...global, ...(ingredient.exclude || [])].map(wordRe)
