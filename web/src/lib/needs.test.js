@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { activeDeals, buildShoppingList, cookedMeals, planWeek, weekDays } from './planner'
 import { sampleDeals } from '../data/sampleDeals'
-import { needDeal, needItems, parseNeeds, placeNeeds, searchDeals, suggestNeeds, wantedItems, withNeeds } from './needs'
+import { needDeal, needItems, pantryDeal, parseNeeds, placeNeeds, searchDeals, suggestNeeds, wantedItems, withNeeds } from './needs'
 
 const today = new Date('2026-10-09T12:00:00Z')
 const deals = activeDeals(sampleDeals(today), { today })
@@ -117,5 +117,21 @@ describe('savings on deals that print no regular price', () => {
     const deals = [milk(), milk({ dealId: 'm2', price: 5 })]
     const { group } = placeNeeds(['milk'], null, deals, { 'need:milk': 'm2' })
     expect(group.items[0].deal.dealId).toBe('m2')
+  })
+})
+
+describe('pantry deals', () => {
+  const deals = [
+    { dealId: 'a', name: 'Sesame seed bagels', price: 3 },
+    { dealId: 'b', name: 'Gay Lea sour cream 500 mL', price: 2.49 },
+    { dealId: 'c', name: 'Campbell chicken broth 900 mL', price: 1.99 },
+    { dealId: 'd', name: 'Beef bologna', price: 1.5, queries: ['beef broth'] },
+  ]
+  it('needs every word in the deal name', () => {
+    expect(pantryDeal('sour cream', deals).dealId).toBe('b')
+    expect(pantryDeal('sesame seeds', deals)).toBe(null)
+  })
+  it('reads "beef or chicken broth" as two broths', () => {
+    expect(pantryDeal('beef or chicken broth', deals).dealId).toBe('c')
   })
 })

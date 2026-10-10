@@ -197,3 +197,44 @@ export function withNeeds(list, group) {
     itemCount: list.itemCount + group.items.length,
   }
 }
+
+/**
+ * "curry paste or powder" → ["curry paste", "curry powder"]; "beef or chicken broth" → ["beef
+ * broth", "chicken broth"]. A lone word borrows the rest of the phrase from its neighbour.
+ */
+function pantryAlternatives(item) {
+  const alts = item.toLowerCase().split(/\s+or\s+/).map((a) => a.trim()).filter(Boolean)
+  if (alts.length < 2) return alts
+  const first = alts[0].split(' ')
+  const last = alts[alts.length - 1].split(' ')
+  return alts.map((a, i) => {
+    if (a.includes(' ')) return a
+    if (i < alts.length - 1 && last.length > 1) return [a, ...last.slice(1)].join(' ')
+    if (i > 0 && first.length > 1) return [...first.slice(0, -1), a].join(' ')
+    return a
+  })
+}
+
+/**
+ * A flyer deal for a "check your pantry" item. Stricter than the grocery search: every word has
+ * to be in the deal's own name (the flyer search behind it found "cereal" for crackers), and plain
+ * products beat varieties, then the cheapest.
+ */
+// Snacks and baked goods that name a pantry flavour ("sesame seed bagels", "black pepper crackers").
+const MADE_WITH = /\b(bagels?|crackers?|chips|bread|muffins?|cookies?|bars?|pretzels?)\b/
+
+export function pantryDeal(item, deals) {
+  for (const alt of pantryAlternatives(item)) {
+    const groups = termGroups(alt)
+    if (!groups.length) continue
+    const hits = deals
+      .filter((d) => {
+        const name = fold(d.name || '')
+        return groups.every((alts) => alts.some((re) => re.test(name))) && (!MADE_WITH.test(name) || MADE_WITH.test(alt))
+      })
+      .sort((a, b) => (a.price ?? 1e9) - (b.price ?? 1e9))
+    const plain = hits.find((d) => !(fold(dealName(d.name)).match(VARIETY) || []).some((w) => !alt.includes(w)))
+    if (plain || hits[0]) return plain || hits[0]
+  }
+  return null
+}

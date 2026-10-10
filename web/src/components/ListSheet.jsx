@@ -47,7 +47,7 @@ function InlinePanel({ title, footer, children }) {
   )
 }
 
-export default function ListSheet({ inline = false, open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof, onSwap, onOptions, onRemoveExtra, onShareLink, shared, matchAt, matchExtras, onMatch }) {
+export default function ListSheet({ inline = false, open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof, onSwap, onOptions, onRemoveExtra, onShareLink, shared, matchAt, matchExtras, onMatch, pantryDeals = {} }) {
   const [gallery, setGallery] = useState(false)
   if (!list) return null
   const items = list.groups.flatMap((g) => g.items)
@@ -273,7 +273,7 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
         {list.pantryCheck.length > 0 && (
           <section className="rounded-2xl bg-amber-50 p-3">
             <h3 className="text-sm font-semibold text-amber-900">Check your pantry for these</h3>
-            <p className="mb-2 text-xs text-amber-800">Less common items this week's recipes need. Tick off what you have; buy the rest.</p>
+            <p className="mb-2 text-xs text-amber-800">Less common items this week's recipes need. Tick off what you have; buy the rest. Prices show where a flyer has it on sale.</p>
             <div className="space-y-3">
               {list.pantryCheck.map((g) => (
                 <div key={g.title}>
@@ -281,6 +281,7 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                   <ul>
                     {g.items.map((p) => {
                       const k = `pantry:${p.item.toLowerCase()}`
+                      const deal = pantryDeals[p.item]
                       return (
                         <li key={k} className="flex items-center gap-3 py-1">
                           <input
@@ -294,6 +295,12 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                             <span className="block text-sm font-medium">{p.item}</span>
                             <span className="block truncate text-[11px] text-stone-500">{p.meals.join(', ')}</span>
                           </span>
+                          {deal && (
+                            <FlyerPeek deal={deal} onOpen={(d) => onProof(d, null)} className="shrink-0 text-right">
+                              <span className="block text-sm font-semibold text-green-700">{deal.priceLabel || deal.priceText}</span>
+                              <span className={`inline-block rounded-full px-1.5 text-[10px] font-medium ${storeTint(deal.merchant)}`}>{deal.merchant}</span>
+                            </FlyerPeek>
+                          )}
                         </li>
                       )
                     })}

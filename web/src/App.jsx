@@ -12,7 +12,7 @@ import Welcome from './components/Welcome'
 import Tour from './components/Tour'
 import { withExtras } from './lib/extras'
 import { followMatch, matchableDeals, tidyMatch } from './lib/priceMatch'
-import { placeNeeds, searchDeals, withNeeds } from './lib/needs'
+import { pantryDeal, placeNeeds, searchDeals, withNeeds } from './lib/needs'
 import NeedsSheet from './components/NeedsSheet'
 import OptionsSheet from './components/OptionsSheet'
 import DinnerPlan from './components/DinnerPlan'
@@ -195,6 +195,12 @@ export default function App() {
     if (item.need) return searchDeals(item.item, pool)
     return []
   }
+  // Flyer deals for the "check your pantry" items, in case the cupboard is bare.
+  const pantryDeals = useMemo(() => {
+    if (!list) return {}
+    const pool = listMode === 'single' && list.store ? allDeals.filter((d) => d.merchant === list.store) : deals
+    return Object.fromEntries(list.pantryCheck.flatMap((g) => g.items).map((p) => [p.item, pantryDeal(p.item, pool)]).filter(([, d]) => d))
+  }, [list, listMode, allDeals, deals])
   // Catalog items already on the grocery list, so recipes that reuse them can say so.
   const have = useMemo(() => new Set((baseList?.groups || []).flatMap((g) => g.items.map((i) => i.key))), [baseList])
   const listStores = useMemo(() => [...new Set(allDeals.map((d) => d.merchant).filter(Boolean))].sort(), [allDeals])
@@ -269,6 +275,7 @@ export default function App() {
       }}
       onSwap={(item) => setSwapping(item.uses)}
       onOptions={setChoosing}
+      pantryDeals={pantryDeals}
       onRemoveExtra={(item) =>
         editWeek((w) =>
           item.need
