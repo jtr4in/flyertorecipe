@@ -544,7 +544,7 @@ function pantryList(rows) {
   }
 }
 
-export function buildShoppingList(plan, deals, prefs, { mode = 'match' } = {}) {
+export function buildShoppingList(plan, deals, prefs, { mode = 'match', picks = {} } = {}) {
   const totals = new Map()
   const pantry = new Map() // item -> dish names
   for (const meal of cookedMeals(plan)) {
@@ -577,7 +577,8 @@ export function buildShoppingList(plan, deals, prefs, { mode = 'match' } = {}) {
   const byAisle = {}
   const flyers = []
   for (const row of rows) {
-    const deal = matchDeal(row.ing, pool)
+    // A deal the household picked from "Other options" wins while it's still in the flyers.
+    const deal = (picks[row.ing.item] && pool.find((d) => d.dealId === picks[row.ing.item])) || matchDeal(row.ing, pool)
     const b = buyCost(row.ing, row.qty, deal)
     totalCost += b.cost
     totalSavings += b.savings
@@ -588,6 +589,7 @@ export function buildShoppingList(plan, deals, prefs, { mode = 'match' } = {}) {
     const item = {
       key: row.ing.item,
       item: row.ing.item,
+      ing: row.ing,
       unit: row.ing.unit,
       aisle: row.ing.aisle,
       buy: b.perWeight ? `${b.units} lb` : b.single ? `${b.units}` : `${b.units} ${b.units === 1 ? 'pkg' : 'pkgs'}`,

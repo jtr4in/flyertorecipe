@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { firebaseEnabled } from './lib/firebase'
 import { DEFAULT_PREFS, EMPTY_WEEK, fsa, loadDeals, loadPrefs, loadRecipes, loadWeek, savePrefs, saveWeek } from './lib/data'
-import { activeDeals, buildShoppingList, listSwapOptions, swapOptions, weekDays } from './lib/planner'
+import { activeDeals, buildShoppingList, listSwapOptions, matchAll, swapOptions, weekDays } from './lib/planner'
 import { dealName, money, storeTint } from './lib/stores'
 import { cap, MEALS, setRecipes } from './data/templates'
 import Preferences from './components/Preferences'
@@ -14,6 +14,7 @@ import { withExtras } from './lib/extras'
 import { followMatch, matchableDeals, tidyMatch } from './lib/priceMatch'
 import { placeNeeds, withNeeds } from './lib/needs'
 import NeedsSheet from './components/NeedsSheet'
+import OptionsSheet from './components/OptionsSheet'
 import DinnerPlan from './components/DinnerPlan'
 import { heroDeals, poolMeals, poolPlan, toPick } from './lib/anchors'
 import {
@@ -28,6 +29,7 @@ export default function App() {
   const [chips, setChips] = useState([])
   const [sheet, setSheet] = useState(null) // 'settings' | 'list'
   const [swapping, setSwapping] = useState(null) // [{ meal, line }]: every meal the swap applies to
+  const [choosing, setChoosing] = useState(null) // list item whose other deals are showing
   const [swapAll, setSwapAll] = useState(true) // from a meal card: swap it in the other meals too
   const [listMode, setListMode] = useState('match')
   const [proof, setProof] = useState(null)
@@ -176,8 +178,8 @@ export default function App() {
   const pool = useMemo(() => (prefs ? poolMeals(week.dinners || [], deals, prefs) : []), [prefs, week.dinners, deals, recipesVersion])
   const plan = useMemo(() => poolPlan(pool), [pool])
   const baseList = useMemo(
-    () => (prefs ? withExtras(buildShoppingList(plan, listMode === 'single' ? allDeals : deals, prefs, { mode: listMode }), week.extras) : null),
-    [plan, deals, allDeals, prefs, listMode, week.extras],
+    () => (prefs ? withExtras(buildShoppingList(plan, listMode === 'single' ? allDeals : deals, prefs, { mode: listMode, picks: week.dealPicks || {} }), week.extras) : null),
+    [plan, deals, allDeals, prefs, listMode, week.extras, week.dealPicks],
   )
   // The "we need" list: what meals didn't use goes on the list as its own lines.
   const needs = useMemo(
@@ -255,6 +257,7 @@ export default function App() {
       postalCode={prefs.postalCode}
       onProof={setProof}
       onSwap={(item) => setSwapping(item.uses)}
+      onOptions={setChoosing}
       onRemoveExtra={(item) =>
         editWeek((w) =>
           item.need
@@ -400,6 +403,19 @@ export default function App() {
           </section>
         )}
       </Sheet>
+      <OptionsSheet
+        item={choosing}
+        options={choosing?.ing ? matchAll(choosing.ing, listMode === 'single' && list.store ? allDeals.filter((d) => d.merchant === list.store) : deals) : []}
+        onPick={(d) => {
+          editWeek((w) => ({ ...w, dealPicks: { ...(w.dealPicks || {}), [choosing.key]: d.dealId } }))
+          setChoosing(null)
+        }}
+        onSwap={() => {
+          setSwapping(choosing.uses)
+          setChoosing(null)
+        }}
+        onClose={() => setChoosing(null)}
+      />
       <Sheet open={!!swapping} onClose={() => setSwapping(null)} title={swapping ? `Swap ${swapping[0].line.ing.item}` : ''}>
         {otherUses.length > 0 && (
           <label className="mb-3 flex items-start gap-3 rounded-2xl bg-amber-50 p-3">

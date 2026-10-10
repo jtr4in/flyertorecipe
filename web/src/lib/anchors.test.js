@@ -82,3 +82,14 @@ describe('breakfasts, lunches and filters', () => {
     expect(buildShoppingList(poolPlan([m]), deals, prefs).itemCount).toBeGreaterThan(0)
   })
 })
+
+describe('other options for a list item', () => {
+  it('uses the deal the household picked instead of the cheapest', () => {
+    const b = mealOptions('breakfast', deals, prefs)[0]
+    const plan = poolPlan(poolMeals([toPick(b)], deals, prefs))
+    const item = buildShoppingList(plan, deals, prefs).groups.flatMap((g) => g.items).find((i) => i.deal)
+    const other = deals.find((d) => d.dealId !== item.deal.dealId)
+    const picked = buildShoppingList(plan, deals, prefs, { picks: { [item.key]: other.dealId } }).groups.flatMap((g) => g.items).find((i) => i.key === item.key)
+    expect(picked.deal.dealId).toBe(other.dealId)
+  })
+})

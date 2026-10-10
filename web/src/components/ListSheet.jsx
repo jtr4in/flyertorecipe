@@ -47,7 +47,7 @@ function InlinePanel({ title, footer, children }) {
   )
 }
 
-export default function ListSheet({ inline = false, open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof, onSwap, onRemoveExtra, onShareLink, shared, matchAt, matchExtras, onMatch }) {
+export default function ListSheet({ inline = false, open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof, onSwap, onOptions, onRemoveExtra, onShareLink, shared, matchAt, matchExtras, onMatch }) {
   const [gallery, setGallery] = useState(false)
   if (!list) return null
   const items = list.groups.flatMap((g) => g.items)
@@ -219,7 +219,7 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                   <FlyerPeek
                     deal={i.deal}
                     onOpen={onProof}
-                    action={i.uses?.length ? { label: '🔄 Substitute', onClick: () => onSwap(i) } : null}
+                    action={i.ing && onOptions ? { label: 'Other options', onClick: () => onOptions(i) } : null}
                     className="flex min-w-0 flex-1 items-center gap-2"
                   >
                     <span className={`min-w-0 flex-1 ${checked[i.key] ? 'text-stone-400 line-through' : ''}`}>
