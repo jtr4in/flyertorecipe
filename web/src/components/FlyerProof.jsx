@@ -60,7 +60,7 @@ export default function FlyerProof({ deal, onClose, action }) {
               rel="noreferrer"
               className="rounded-xl bg-green-700 px-4 py-2 text-sm font-semibold text-white"
             >
-              See {deal.merchant}'s full flyer ↗
+              See it in {deal.merchant}'s flyer ↗
             </a>
           </div>
         </div>
