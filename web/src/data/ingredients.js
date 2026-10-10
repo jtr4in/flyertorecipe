@@ -16,25 +16,25 @@ const GLUTEN = ['gluten']
 
 export const CATALOG = {
   poultry: [
-    x('chicken breasts', 'lb', 0.33, 'Meat & Seafood', ['chicken breast'], {as: 'chicken', has: MEAT, exclude: ['breaded', 'nugget', 'strips', 'deli', 'sliced'], pkg: 2 }),
-    x('chicken thighs', 'lb', 0.35, 'Meat & Seafood', ['chicken thigh', 'chicken drumstick', 'chicken leg'], {as: 'chicken thigh', has: MEAT, exclude: ['breaded', 'wings'], pkg: 2 }),
-    x('whole chicken', 'lb', 0.6, 'Meat & Seafood', ['whole chicken', 'roasting chicken', 'poulet entier'], {has: MEAT, pkg: 4 }),
+    x('chicken breasts', 'lb', 0.33, 'Meat & Seafood', ['chicken breast', 'poitrine de poulet', 'poitrines de poulet'], {as: 'chicken', has: MEAT, exclude: ['breaded', 'nugget', 'strips', 'deli', 'sliced'], pkg: 2 }),
+    x('chicken thighs', 'lb', 0.35, 'Meat & Seafood', ['chicken thigh', 'chicken drumstick', 'chicken leg', 'cuisse de poulet', 'cuisses de poulet', 'pilons de poulet', 'haut de cuisse'], {as: 'chicken thigh', has: MEAT, exclude: ['breaded', 'wings'], pkg: 2 }),
+    x('whole chicken', 'lb', 0.6, 'Meat & Seafood', ['whole chicken', 'roasting chicken', 'poulet entier'], {has: MEAT, exclude: ['wing', 'wings', 'aile'], pkg: 4 }),
   ],
   pork: [
-    x('pork chops', 'lb', 0.33, 'Meat & Seafood', ['pork chop', 'pork loin', 'loin chop', 'rib chop'], {as: 'pork', has: MEAT, exclude: ['roast'], pkg: 1.5 }),
-    x('pork tenderloin', 'lb', 0.33, 'Meat & Seafood', ['pork tenderloin'], {as: 'pork tenderloin', has: MEAT, pkg: 1 }),
-    x('sausages', 'lb', 0.3, 'Meat & Seafood', ['sausage'], {as: 'sausage', has: MEAT, exclude: ['breakfast', 'roll', 'pizza'], pkg: 1 }),
+    x('pork chops', 'lb', 0.33, 'Meat & Seafood', ['pork chop', 'pork loin', 'loin chop', 'rib chop', 'côtelette de porc', 'côtelettes de porc', 'longe de porc'], {as: 'pork', has: MEAT, exclude: ['roast'], pkg: 1.5 }),
+    x('pork tenderloin', 'lb', 0.33, 'Meat & Seafood', ['pork tenderloin', 'filet de porc', 'filets de porc'], {as: 'pork tenderloin', has: MEAT, pkg: 1 }),
+    x('sausages', 'lb', 0.3, 'Meat & Seafood', ['sausage', 'saucisse'], {as: 'sausage', has: MEAT, exclude: ['breakfast', 'roll', 'pizza', 'cocktail', 'hot dog', 'wiener', 'sausage roll'], pkg: 1 }),
   ],
   ground: [
     x('ground beef', 'lb', 0.25, 'Meat & Seafood', ['ground beef', 'boeuf haché'], {has: MEAT, exclude: ['pork', 'porc', 'turkey', 'chicken'], pkg: 1 }),
-    x('ground turkey', 'lb', 0.25, 'Meat & Seafood', ['ground turkey'], {has: MEAT, pkg: 1 }),
-    x('ground pork', 'lb', 0.25, 'Meat & Seafood', ['ground pork'], {has: MEAT, pkg: 1 }),
-    x('ground chicken', 'lb', 0.25, 'Meat & Seafood', ['ground chicken'], {has: MEAT, pkg: 1 }),
+    x('ground turkey', 'lb', 0.25, 'Meat & Seafood', ['ground turkey', 'dinde hachée'], {has: MEAT, pkg: 1 }),
+    x('ground pork', 'lb', 0.25, 'Meat & Seafood', ['ground pork', 'porc haché'], {has: MEAT, pkg: 1 }),
+    x('ground chicken', 'lb', 0.25, 'Meat & Seafood', ['ground chicken', 'poulet haché'], {has: MEAT, pkg: 1 }),
   ],
   fish: [
-    x('salmon', 'lb', 0.33, 'Meat & Seafood', ['salmon'], {has: FISH, exclude: ['smoked', 'canned', 'roast', 'clover leaf', 'gold seal', 'saumon rose', 'pink'], pkg: 1 }),
+    x('salmon', 'lb', 0.33, 'Meat & Seafood', ['salmon', 'saumon'], {has: FISH, exclude: ['smoked', 'canned', 'roast', 'clover leaf', 'gold seal', 'saumon rose', 'pink'], pkg: 1 }),
     x('white fish', 'lb', 0.33, 'Meat & Seafood', ['tilapia', 'basa', 'haddock', 'cod fillet', 'pollock', 'sole fillet'], {as: 'white fish', has: FISH, exclude: ['breaded', 'battered', 'pasta'], pkg: 1 }),
-    x('shrimp', 'lb', 0.25, 'Meat & Seafood', ['shrimp', 'prawn'], {has: FISH, exclude: ['ring', 'surimi', 'pasta', 'cooked', 'tempura'], pkg: 0.75 }),
+    x('shrimp', 'lb', 0.25, 'Meat & Seafood', ['shrimp', 'prawn', 'crevette'], {has: FISH, exclude: ['ring', 'surimi', 'pasta', 'cooked', 'tempura'], pkg: 0.75 }),
   ],
   plantProtein: [
     x('firm tofu', 'block', 0.33, 'Plant Protein', ['tofu'], { lb: 1, as: 'tofu', exclude: ['dessert', 'pudding'] }),

@@ -42,3 +42,20 @@ describe('protein-first planning', () => {
     for (const i of ['chicken thighs', 'ground beef', 'shrimp']) expect(items).toContain(i)
   })
 })
+
+describe('several deals per protein', () => {
+  const shelf = [
+    ...deals,
+    { dealId: 'a', name: 'Boneless Chicken Breast', price: 3.99, unit: '/lb', merchant: 'Metro' },
+    { dealId: 'b', name: 'Poitrines de poulet désossées', price: 4.49, unit: '/lb', merchant: 'Maxi' },
+  ]
+  it('lists every store with the protein, French names included', () => {
+    const breasts = heroDeals(shelf, prefs).filter((h) => h.item === 'chicken breasts').map((h) => h.deal.dealId)
+    expect(breasts).toEqual(expect.arrayContaining(['a', 'b']))
+  })
+  it("plans dinners with the deal that was tapped", () => {
+    const tapped = shelf.find((d) => d.dealId === 'b')
+    const meal = anchorMeals('chicken breasts', shelf, prefs, tapped)[0]
+    expect(meal.lines.find((l) => l.ing.item === 'chicken breasts').deal.dealId).toBe('b')
+  })
+})

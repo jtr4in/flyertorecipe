@@ -2,16 +2,18 @@
 // built around each one from the other things on sale, and a pool of 3–4 dinners (no days).
 import { CATALOG } from '../data/ingredients'
 import { TEMPLATES } from '../data/templates'
-import { allowedByDiet, fillTemplate, matchDeal, PER_LB, slotCandidates } from './planner'
+import { allowedByDiet, fillTemplate, matchAll, PER_LB, slotCandidates } from './planner'
 import { dislikedItems } from './likes'
 
 const PROTEIN_GROUPS = ['poultry', 'pork', 'ground', 'fish', 'plantProtein', 'eggs']
+const MAX_PER_ITEM = 8 // deals shown per protein (chicken breasts at up to 8 stores)
 
 const pctOff = (d) => (d.savings && d.price ? d.savings / (d.price + d.savings) : 0)
 // Big discounts on big-ticket proteins first: $5/lb off chicken beats 44% off a can of beans.
 const heroScore = (d) => pctOff(d) * 100 + Math.min((d.savings || 0) * (PER_LB[d.unit] ?? 1), 6) * 4
 
-/** Every protein on sale this week, best deal first: [{ item, deal, pct, score }]. */
+/** Every protein deal this week, best first: [{ item, deal, pct, score }]. Several deals can
+ * share one item (chicken breasts at three stores); each one can anchor dinners. */
 export function heroDeals(deals, prefs = {}) {
   const diet = prefs.diet || []
   const dislike = dislikedItems(prefs.likes)
@@ -20,13 +22,14 @@ export function heroDeals(deals, prefs = {}) {
   for (const group of PROTEIN_GROUPS) {
     for (const ing of CATALOG[group]) {
       if (dislike.has(ing.item) || !allowedByDiet(ing, diet)) continue
-      const deal = matchDeal(ing, deals)
-      if (!deal || seen.has(deal.dealId ?? deal.name)) continue
-      if (!anchorMeals(ing.item, deals, prefs).length) continue
-      seen.add(deal.dealId ?? deal.name)
+      const found = matchAll(ing, deals).filter((d) => !seen.has(d.dealId ?? d.name))
+      if (!found.length || !anchorMeals(ing.item, deals, prefs).length) continue
       // Meat and fish lead (that's what most people plan dinner around), unless they don't eat it.
       const lead = ['plantProtein', 'eggs'].includes(group) ? -30 : 0
-      out.push({ item: ing.item, group, deal, pct: pctOff(deal), score: heroScore(deal) + lead })
+      for (const deal of found.slice(0, MAX_PER_ITEM)) {
+        seen.add(deal.dealId ?? deal.name)
+        out.push({ item: ing.item, group, deal, pct: pctOff(deal), score: heroScore(deal) + lead })
+      }
     }
   }
   // Meat and fish always come first: most flyers give no regular price for meat, so a 39%-off
@@ -45,12 +48,14 @@ const fillsOf = (m) => Object.fromEntries(m.lines.map((l) => [l.slot, l.ing.item
  * Dinners built around one protein, best first: the rest of each dish leans on what's on sale.
  * Each is a filled recipe with `fills` and `anchor` set, ready to drop into the pool.
  */
-export function anchorMeals(item, deals, prefs = {}) {
+export function anchorMeals(item, deals, prefs = {}, deal = null) {
   const diet = prefs.diet || []
   const servings = prefs.householdSize || 2
   const dislike = dislikedItems(prefs.likes)
   const avoid = [...dislike].filter((i) => i !== item)
   const priced = new Map()
+  // The deal the household tapped stands in for the protein's cheapest one.
+  if (deal) for (const g of PROTEIN_GROUPS) if (CATALOG[g].some((i) => i.item === item)) priced.set(`${g}:${item}`, deal)
   const out = []
   for (const template of TEMPLATES) {
     if (template.meal !== 'dinner') continue

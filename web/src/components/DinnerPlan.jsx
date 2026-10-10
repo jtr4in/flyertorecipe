@@ -154,17 +154,23 @@ function PoolCard({ meal, n, onRemove, onSwap, onLeftovers }) {
   )
 }
 
-export default function DinnerPlan({ heroes, deals, prefs, anchors, pool, onAnchors, onAdd, onRemove, onReplace, onLeftovers, onShop, itemCount }) {
+export default function DinnerPlan({ heroes, deals, prefs, anchors, anchorDeals = {}, pool, onAnchors, onAdd, onRemove, onReplace, onLeftovers, onShop, itemCount }) {
   const [openGroups, setOpenGroups] = useState([]) // protein types showing every deal
   const [shift, setShift] = useState({}) // how far each protein's options have been swapped along
   const [all, setAll] = useState({}) // proteins showing every dinner, not just two
+  // Which deal was tapped for each chosen protein (several stores can have chicken breasts).
+  const heroOf = (item) => heroes.find((h) => h.item === item && h.deal.dealId === anchorDeals[item]) || heroes.find((h) => h.item === item)
   const options = useMemo(
-    () => Object.fromEntries(anchors.map((item) => [item, anchorMeals(item, deals, prefs)])),
-    [anchors, deals, prefs],
+    () => Object.fromEntries(anchors.map((item) => [item, anchorMeals(item, deals, prefs, heroOf(item)?.deal)])),
+    [anchors, anchorDeals, deals, prefs, heroes],
   )
   const inPool = new Set(pool.map((m) => m.name))
-  const toggle = (item) => onAnchors(anchors.includes(item) ? anchors.filter((x) => x !== item) : [...anchors, item])
-  const heroOf = (item) => heroes.find((h) => h.item === item)
+  const isOn = (h) => anchors.includes(h.item) && heroOf(h.item) === h
+  const toggle = (h) => {
+    const { [h.item]: _, ...rest } = anchorDeals
+    if (isOn(h)) onAnchors(anchors.filter((x) => x !== h.item), rest)
+    else onAnchors(anchors.includes(h.item) ? anchors : [...anchors, h.item], { ...rest, [h.item]: h.deal.dealId })
+  }
   // One section per kind of protein, in the order of its best deal (heroes come sorted).
   const groups = [...heroes.reduce((m, h) => m.set(h.group, [...(m.get(h.group) || []), h]), new Map())]
   // A tapped protein's dinners, shown right under its card.
@@ -207,7 +213,7 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, pool, onAnch
 
   // A pooled dinner's swap: the next dish around the same protein that isn't already picked.
   const nextFor = (m) => {
-    const opts = m.anchor ? anchorMeals(m.anchor, deals, prefs) : []
+    const opts = m.anchor ? anchorMeals(m.anchor, deals, prefs, heroOf(m.anchor)?.deal) : []
     const i = opts.findIndex((o) => o.template.id === m.template.id)
     return [...opts.slice(i + 1), ...opts.slice(0, Math.max(0, i))].find((o) => !inPool.has(o.name)) || null
   }
@@ -223,7 +229,7 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, pool, onAnch
           <div className="space-y-5">
             {groups.map(([group, list]) => {
               const isOpen = openGroups.includes(group)
-              const shown = isOpen ? list : list.filter((h, i) => i === 0 || anchors.includes(h.item))
+              const shown = isOpen ? list : list.filter((h, i) => i === 0 || isOn(h))
               const hidden = list.length - shown.length
               const [emoji, label] = GROUP_LABELS[group] || ['🍽️', group]
               return (
@@ -233,9 +239,9 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, pool, onAnch
                   </h3>
                   <div className="space-y-2">
                     {shown.map((h, i) => (
-                      <div key={h.item} className="space-y-2">
-                        <HeroCard hero={h} big={i === 0} on={anchors.includes(h.item)} onToggle={() => toggle(h.item)} />
-                        {anchors.includes(h.item) && dinnersFor(h.item)}
+                      <div key={h.deal.dealId ?? h.deal.name} className="space-y-2">
+                        <HeroCard hero={h} big={i === 0} on={isOn(h)} onToggle={() => toggle(h)} />
+                        {isOn(h) && dinnersFor(h.item)}
                       </div>
                     ))}
                     {(hidden > 0 || (isOpen && list.length > 1)) && (

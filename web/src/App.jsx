@@ -340,9 +340,10 @@ export default function App() {
             deals={deals}
             prefs={prefs}
             anchors={week.anchors || []}
+            anchorDeals={week.anchorDeals || {}}
             pool={pool}
             itemCount={list.itemCount}
-            onAnchors={(anchors) => editWeek((w) => ({ ...w, anchors }))}
+            onAnchors={(anchors, anchorDeals) => editWeek((w) => ({ ...w, anchors, anchorDeals }))}
             onAdd={(m) => editWeek((w) => ({ ...w, dinners: [...(w.dinners || []), toPick(m)] }))}
             onRemove={(i) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).filter((_, j) => j !== i) }))}
             onReplace={(i, m) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).map((p, j) => (j === i ? { ...toPick(m), leftovers: p.leftovers } : p)) }))}

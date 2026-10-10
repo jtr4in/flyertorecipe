@@ -14,8 +14,9 @@ const GLOBAL_EXCLUDE = ['seasoning', 'flavour', 'flavor', 'flavoured', 'flavored
   // Full flyers carry prepared foods that name a protein: "black bean sauce", "shrimp pastry roll".
   'sauce', 'paste', 'pastry', 'dumpling', 'spring roll', 'marinade', 'dressing', 'cracker']
 
-// Whole words, plurals allowed: "bun" matches "buns" but not "bunch".
-const wordRe = (w) => new RegExp(`\\b${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:s|es)?\\b`, 'i')
+// Whole words, plurals allowed: "bun" matches "buns" but not "bunch". Letter-aware, so French
+// words ending in an accent ("boeuf haché") still match.
+const wordRe = (w) => new RegExp(`(?<![\\p{L}\\p{N}])${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:s|es)?(?![\\p{L}\\p{N}])`, 'iu')
 
 export function activeDeals(deals, { stores = [], today = new Date() } = {}) {
   const day = today.toISOString().slice(0, 10)
@@ -54,6 +55,19 @@ export function matchDeal(ingredient, deals) {
   if (!memo) matchMemo.set(deals, (memo = new WeakMap()))
   if (!memo.has(ingredient)) memo.set(ingredient, findDeal(ingredient, deals))
   return memo.get(ingredient)
+}
+
+/** Every deal for the ingredient, best first (headline product, then cheapest). */
+export function matchAll(ingredient, deals) {
+  if (ingredient.pantry || !ingredient.match?.length) return []
+  const include = ingredient.match.map(wordRe)
+  const global = GLOBAL_EXCLUDE.filter((w) => !ingredient.allow?.includes(w))
+  const exclude = [...global, ...(ingredient.exclude || [])].map(wordRe)
+  return deals
+    .filter((d) => include.some((r) => r.test(d.name)) && !exclude.some((r) => r.test(d.name)))
+    .map((d) => ({ d, rank: [isHeadline(d.name, include) ? 0 : 1, comparable(d)] }))
+    .sort((a, b) => a.rank[0] - b.rank[0] || a.rank[1] - b.rank[1])
+    .map((x) => x.d)
 }
 
 function findDeal(ingredient, deals) {
