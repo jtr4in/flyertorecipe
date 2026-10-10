@@ -27,7 +27,7 @@ from dotenv import load_dotenv
 
 from flyer_clips import attach_clips, flyer_index
 from normalize import dedupe, fsa, normalize
-from staples import STAPLE_QUERIES
+from staples import QUERY_LIMITS, SEARCH_BUDGET
 
 ACTOR_ID = "gratifying_graph/canada-grocery-deals"
 
@@ -41,22 +41,29 @@ def fetch_raw(postal_code: str, reuse_last_run: bool = False) -> list[dict]:
     client = ApifyClient(token)
     if reuse_last_run:
         # Re-read the last successful run's results: no new run, no per-deal charge.
-        # Only meaningful with a single postal code, since it ignores postal_code.
+        # Only meaningful with a single postal code, since it ignores postal_code; covers
+        # the last limit tier only.
         return list(client.actor(ACTOR_ID).last_run(status="SUCCEEDED").dataset().iterate_items())
-    run = client.actor(ACTOR_ID).call(
-        run_input={
-            "postalCode": postal_code,
-            "queries": STAPLE_QUERIES,
-            "maxItemsPerQuery": int(os.environ.get("MAX_ITEMS_PER_QUERY", 40)),
-            "onlyWithPrice": True,
-            "locale": os.environ.get("LOCALE", "en-ca"),
-        },
-        max_total_charge_usd=Decimal(os.environ.get("MAX_CHARGE_USD", "4.50")),
-    )
-    if run is None:
-        sys.exit("Actor run did not return")
-    dataset_id = getattr(run, "default_dataset_id", None) or run["defaultDatasetId"]
-    return list(client.dataset(dataset_id).iterate_items())
+    # One run per limit tier (the actor takes a single per-term limit), sharing the charge cap.
+    cap = Decimal(os.environ.get("MAX_CHARGE_USD", "4.50"))
+    rows: list[dict] = []
+    for limit, terms in QUERY_LIMITS.items():
+        share = (cap * limit * len(terms) / SEARCH_BUDGET).quantize(Decimal("0.01"))
+        run = client.actor(ACTOR_ID).call(
+            run_input={
+                "postalCode": postal_code,
+                "queries": terms,
+                "maxItemsPerQuery": limit,
+                "onlyWithPrice": True,
+                "locale": os.environ.get("LOCALE", "en-ca"),
+            },
+            max_total_charge_usd=share,
+        )
+        if run is None:
+            sys.exit("Actor run did not return")
+        dataset_id = getattr(run, "default_dataset_id", None) or run["defaultDatasetId"]
+        rows.extend(client.dataset(dataset_id).iterate_items())
+    return rows
 
 
 def build_deals(rows: list[dict]) -> list[dict]:

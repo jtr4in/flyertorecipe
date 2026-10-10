@@ -105,7 +105,7 @@ python ingest.py                        # write to Firestore
 ## Cost
 
 The actor bills per deal returned ($0.002/deal from 2026-10-08, plus $0.0005 per run).
-49 terms x `MAX_ITEMS_PER_QUERY=40` caps a run at 1960 deals, about $3.92 per postal area per week (searches for common items often return fewer).
+81 search terms in three tiers (`backend/staples.py`): broad staples like chicken and milk fetch up to 60 deals, mid items 30, narrow items 15. That caps a run at 2130 deals, about $4.26 per postal area per week, under the $4.50 `MAX_CHARGE_USD` cap (narrow searches often return fewer).
 `MAX_CHARGE_USD` sets a hard cap per run.
 
 ## Known limits / next steps
