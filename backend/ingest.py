@@ -226,7 +226,13 @@ def main() -> None:
             print(f"{code}: flyer clippings for {matched} of {len(deals)} deals")
         except Exception as e:  # clippings are a nice-to-have; keep the deals either way
             print(f"{code}: no flyer clippings ({e})")
-        notice(f"{code}: {len(deals)} deals from {source}", json.dumps(deals[:2], ensure_ascii=False)[:900])
+        notice(f"{code}: {len(deals)} deals from {source}", json.dumps({
+            "perWeight": sum(1 for d in deals if d["unit"]),
+            "multiBuy": sum(1 for d in deals if d["bundleQty"] > 1),
+            "withSavings": sum(1 for d in deals if d["savings"]),
+            "withClip": sum(1 for d in deals if d.get("clip")),
+            "merchants": sorted({d["merchant"] for d in deals}),
+        }, ensure_ascii=False)[:900])
         for f in fsas:
             if a.dry_run:
                 out[f] = deals
