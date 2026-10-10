@@ -13228,5 +13228,1540 @@
       "Toast the {bread} and spread with mayonnaise.",
       "Layer lettuce, sliced tomato and bacon, then close and cut in half."
     ]
+  },
+  {
+    "id": "salisbury-steak",
+    "meal": "dinner",
+    "name": "Salisbury {protein} steaks in onion gravy with mashed {starch}[ & {veg}]",
+    "emoji": "🥩",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "only": [
+          "eggs"
+        ],
+        "qty": 0.25
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes",
+          "sweet potatoes"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "green beans",
+        "exclude": [
+          "squash",
+          "cauliflower"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "onion",
+      "breadcrumbs",
+      "beef broth",
+      "flour",
+      "butter",
+      "worcestershire sauce",
+      "ketchup",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Boil the {starch} until tender, then mash with butter, salt and pepper.",
+      "Mix {protein} with egg, breadcrumbs, ketchup and worcestershire; shape into oval patties.",
+      "Brown the patties in a hot skillet and set aside.",
+      "Soften sliced onion in the pan, stir in flour, then whisk in beef broth to make a gravy.",
+      "Return the patties and simmer 10 minutes until cooked through; steam the {veg} if using.",
+      "Serve the steaks and gravy over the mash."
+    ]
+  },
+  {
+    "id": "spaghetti-carbonara",
+    "meal": "dinner",
+    "name": "Spaghetti carbonara with {protein}[ & {veg}]",
+    "emoji": "🍝",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "breakfastMeat",
+          "pork"
+        ],
+        "prefer": "bacon",
+        "only": [
+          "bacon",
+          "sausages"
+        ],
+        "main": true
+      },
+      {
+        "key": "pasta",
+        "from": [
+          "starch"
+        ],
+        "prefer": "pasta",
+        "only": [
+          "pasta"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "only": [
+          "eggs"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "mushrooms",
+        "only": [
+          "mushrooms",
+          "asparagus",
+          "broccoli",
+          "zucchini"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "parmesan",
+      "garlic",
+      "black pepper",
+      "salt"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Cook the spaghetti in salted water; save a cup of the pasta water.",
+      "Crisp the chopped {protein} in a large skillet with garlic, adding the {veg} if using.",
+      "Whisk eggs with lots of parmesan and black pepper.",
+      "Off the heat, toss the hot pasta with the {protein}, then quickly stir in the egg mixture.",
+      "Loosen with pasta water until silky and serve right away."
+    ]
+  },
+  {
+    "id": "macaroni-goulash",
+    "meal": "dinner",
+    "name": "Old-fashioned macaroni goulash with {protein}[ & {veg}]",
+    "emoji": "🥘",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "pasta",
+        "from": [
+          "starch"
+        ],
+        "prefer": "pasta",
+        "only": [
+          "pasta"
+        ]
+      },
+      {
+        "key": "tomato",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes",
+        "only": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "bell peppers",
+        "only": [
+          "bell peppers",
+          "mushrooms",
+          "zucchini",
+          "frozen mixed vegetables"
+        ],
+        "optional": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "onion",
+      "garlic",
+      "paprika",
+      "italian seasoning",
+      "beef broth",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Brown the {protein} with onion and garlic in a big pot; drain any fat.",
+      "Add the {veg} if using and cook 3 minutes.",
+      "Stir in the canned tomatoes, broth, paprika and Italian seasoning.",
+      "Add the dry macaroni, cover and simmer 12-15 minutes, stirring, until tender.",
+      "Top with {cheese} if you have it and let it melt before serving."
+    ]
+  },
+  {
+    "id": "chicken-dumplings",
+    "meal": "dinner",
+    "name": "Old-fashioned {protein} & dumplings with {veg}",
+    "emoji": "🍲",
+    "minutes": 50,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "lunchProtein"
+        ],
+        "prefer": "chicken thighs",
+        "only": [
+          "chicken thighs",
+          "chicken breasts",
+          "rotisserie chicken"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "saladVeg"
+        ],
+        "prefer": "carrots",
+        "only": [
+          "carrots",
+          "celery",
+          "frozen mixed vegetables",
+          "mushrooms",
+          "green beans"
+        ]
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "only": [
+          "milk"
+        ],
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "chicken broth",
+      "onion",
+      "butter",
+      "flour",
+      "baking powder",
+      "thyme",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Soften onion and the {veg} in butter in a large pot, then stir in a little flour.",
+      "Add chicken broth, thyme and the {protein}; simmer 20 minutes, then shred the meat.",
+      "Mix flour, baking powder, salt, melted butter and milk into a soft dough.",
+      "Drop spoonfuls of dough onto the simmering stew.",
+      "Cover and cook 15 minutes without lifting the lid until the dumplings are fluffy."
+    ]
+  },
+  {
+    "id": "turkey-tetrazzini",
+    "meal": "dinner",
+    "name": "Creamy {protein} tetrazzini with {veg}",
+    "emoji": "🧀",
+    "minutes": 45,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "lunchProtein",
+          "ground"
+        ],
+        "prefer": "rotisserie chicken",
+        "only": [
+          "rotisserie chicken",
+          "chicken breasts",
+          "chicken thighs",
+          "ground turkey"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "pasta",
+        "only": [
+          "pasta",
+          "egg noodles"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "mushrooms",
+        "only": [
+          "mushrooms",
+          "frozen mixed vegetables",
+          "broccoli",
+          "asparagus"
+        ]
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "only": [
+          "milk"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "mozzarella",
+        "only": [
+          "mozzarella",
+          "cheddar"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "butter",
+      "flour",
+      "chicken broth",
+      "parmesan",
+      "garlic",
+      "onion",
+      "breadcrumbs",
+      "thyme"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 375°F and cook the {starch} until just shy of tender.",
+      "Cook the {protein} if raw (or shred leftover turkey or chicken) and set aside.",
+      "Soften onion, garlic and the {veg} in butter, stir in flour, then whisk in broth and milk until thick.",
+      "Fold in the pasta, {protein} and parmesan; spread in a baking dish.",
+      "Top with breadcrumbs and {cheese} if using; bake 20 minutes until bubbly."
+    ]
+  },
+  {
+    "id": "honey-garlic-chicken",
+    "meal": "dinner",
+    "name": "Sticky honey garlic {protein} with {veg} & {starch}",
+    "emoji": "🍯",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "pork"
+        ],
+        "prefer": "chicken thighs",
+        "only": [
+          "chicken thighs",
+          "chicken breasts",
+          "pork chops",
+          "pork tenderloin"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "broccoli",
+        "exclude": [
+          "squash"
+        ]
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice",
+          "potatoes",
+          "quinoa"
+        ]
+      }
+    ],
+    "pantry": [
+      "honey",
+      "garlic",
+      "soy sauce",
+      "cornstarch",
+      "cooking oil",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "comfort"
+    ],
+    "steps": [
+      "Start the {starch} cooking.",
+      "Season the {protein} and sear in oil until golden and cooked through.",
+      "Whisk honey, lots of minced garlic, soy sauce and a spoon of cornstarch with a splash of water.",
+      "Pour the sauce into the pan and bubble until sticky, turning the {protein} to coat.",
+      "Steam or roast the {veg} and serve everything together, spooning extra sauce on top."
+    ]
+  },
+  {
+    "id": "bangers-mash",
+    "meal": "dinner",
+    "name": "Bangers & mash with onion gravy[ and {veg}]",
+    "emoji": "🌭",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "pork"
+        ],
+        "prefer": "sausages",
+        "only": [
+          "sausages"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes",
+          "sweet potatoes"
+        ]
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "only": [
+          "milk"
+        ],
+        "qty": 0.25
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "frozen mixed vegetables",
+        "only": [
+          "frozen mixed vegetables",
+          "green beans",
+          "carrots",
+          "broccoli",
+          "brussels sprouts"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "onion",
+      "butter",
+      "flour",
+      "beef broth",
+      "worcestershire sauce",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Boil the {starch}, then mash with butter, warm milk, salt and pepper.",
+      "Brown the sausages slowly in a skillet until cooked through; set aside.",
+      "Cook sliced onions in the same pan until soft and golden, stir in flour, then add broth and worcestershire.",
+      "Simmer the gravy until thick and return the sausages to warm through.",
+      "Cook the {veg} if using and serve with the mash and plenty of gravy."
+    ]
+  },
+  {
+    "id": "fish-chips",
+    "meal": "dinner",
+    "name": "Oven-baked {protein} & chips[ with {veg}]",
+    "emoji": "🐟",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "fish"
+        ],
+        "prefer": "white fish",
+        "only": [
+          "white fish",
+          "salmon"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes",
+          "sweet potatoes"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "only": [
+          "eggs"
+        ],
+        "qty": 0.25
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "frozen mixed vegetables",
+        "only": [
+          "frozen mixed vegetables",
+          "green beans",
+          "carrots",
+          "broccoli"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "flour",
+      "breadcrumbs",
+      "paprika",
+      "cooking oil",
+      "lemon",
+      "tartar sauce",
+      "malt vinegar",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 425°F. Cut the {starch} into thick chips, toss with oil and salt, and roast 20 minutes.",
+      "Dip the {protein} in flour, then beaten egg, then breadcrumbs mixed with paprika.",
+      "Add the fish to the oven on an oiled tray and bake 12-15 minutes with the chips until crisp.",
+      "Cook the {veg} if using.",
+      "Serve with lemon wedges, tartar sauce and a splash of malt vinegar."
+    ]
+  },
+  {
+    "id": "porcupine-meatballs",
+    "meal": "dinner",
+    "name": "Porcupine {protein} meatballs in tomato sauce[ with {veg}]",
+    "emoji": "🦔",
+    "minutes": 50,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "rice",
+        "from": [
+          "starch"
+        ],
+        "prefer": "rice",
+        "only": [
+          "rice"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "tomato",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes",
+        "only": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "only": [
+          "eggs"
+        ],
+        "qty": 0.25
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "green beans",
+        "exclude": [
+          "squash"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "onion",
+      "garlic",
+      "worcestershire sauce",
+      "brown sugar",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Mix the {protein} with uncooked rice, egg, grated onion, salt and pepper; roll into balls.",
+      "Blend the canned tomatoes with garlic, worcestershire, brown sugar and a cup of water.",
+      "Pour the sauce into a deep skillet, add the meatballs and bring to a simmer.",
+      "Cover and cook 35 minutes, turning once, until the rice pokes out like quills.",
+      "Serve with steamed {veg} if using."
+    ]
+  },
+  {
+    "id": "clubhouse-sandwich",
+    "meal": "lunch",
+    "name": "Clubhouse sandwiches with {protein} & bacon[ and {side}]",
+    "emoji": "🥪",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread"
+        ],
+        "qty": 1.5
+      },
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein"
+        ],
+        "prefer": "deli turkey or ham",
+        "only": [
+          "deli turkey or ham",
+          "rotisserie chicken"
+        ],
+        "main": true
+      },
+      {
+        "key": "bacon",
+        "from": [
+          "breakfastMeat"
+        ],
+        "prefer": "bacon",
+        "only": [
+          "bacon"
+        ]
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "prefer": "lettuce",
+        "only": [
+          "lettuce",
+          "salad greens",
+          "spinach"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "tomato",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "tomatoes",
+        "only": [
+          "tomatoes"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "side",
+        "from": [
+          "treats",
+          "saladVeg"
+        ],
+        "prefer": "chips",
+        "only": [
+          "chips",
+          "cucumber",
+          "carrots",
+          "celery"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "mayonnaise",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury"
+    ],
+    "steps": [
+      "Cook the bacon until crisp and drain on paper towel.",
+      "Toast three slices of bread per sandwich and spread with mayonnaise.",
+      "Layer {protein} and lettuce on the first slice, add the middle slice, then bacon and sliced tomato.",
+      "Top with the last slice, secure with toothpicks and cut into quarters.",
+      "Serve with {side} if you have it."
+    ]
+  },
+  {
+    "id": "hamburger-soup",
+    "meal": "lunch",
+    "name": "Hearty hamburger soup with {protein} & {veg}",
+    "emoji": "🥣",
+    "minutes": 45,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "saladVeg"
+        ],
+        "prefer": "carrots",
+        "only": [
+          "carrots",
+          "celery",
+          "frozen mixed vegetables",
+          "green beans",
+          "zucchini",
+          "bell peppers"
+        ]
+      },
+      {
+        "key": "tomato",
+        "from": [
+          "cannedTomato"
+        ],
+        "prefer": "canned tomatoes",
+        "only": [
+          "canned tomatoes"
+        ]
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "pasta",
+        "only": [
+          "pasta",
+          "potatoes",
+          "rice"
+        ],
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "onion",
+      "garlic",
+      "beef broth",
+      "italian seasoning",
+      "bay leaf",
+      "worcestershire sauce",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury",
+      "healthy"
+    ],
+    "steps": [
+      "Brown the {protein} with onion and garlic in a large pot.",
+      "Add the {veg}, canned tomatoes, beef broth, Italian seasoning, bay leaf and worcestershire.",
+      "Simmer 20 minutes until the vegetables are tender.",
+      "Stir in the {starch} and cook until done, 10-15 minutes.",
+      "Season to taste; it tastes even better the next day."
+    ]
+  },
+  {
+    "id": "potato-bacon-chowder",
+    "meal": "lunch",
+    "name": "Potato & {protein} chowder[ with {cheese}]",
+    "emoji": "🥔",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "breakfastMeat",
+          "pork"
+        ],
+        "prefer": "bacon",
+        "only": [
+          "bacon",
+          "sausages"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes"
+        ],
+        "qty": 1.5
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "only": [
+          "milk"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "prefer": "celery",
+        "only": [
+          "celery",
+          "carrots"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "prefer": "cheddar",
+        "only": [
+          "cheddar"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "onion",
+      "butter",
+      "flour",
+      "chicken broth",
+      "thyme",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Cook the chopped {protein} in a pot until crisp; scoop out and leave the drippings.",
+      "Soften onion and the {veg} in the drippings with a little butter, then stir in flour.",
+      "Add diced potatoes, chicken broth and thyme; simmer 15 minutes until tender.",
+      "Pour in the milk, mash some potatoes against the pot to thicken, and heat gently without boiling.",
+      "Top bowls with the {protein} and {cheese} if using."
+    ]
+  },
+  {
+    "id": "western-sandwich",
+    "meal": "lunch",
+    "name": "Toasted western sandwiches with {protein} & {veg}",
+    "emoji": "🍳",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "only": [
+          "eggs"
+        ]
+      },
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein",
+          "breakfastMeat"
+        ],
+        "prefer": "deli turkey or ham",
+        "only": [
+          "deli turkey or ham",
+          "bacon"
+        ],
+        "qty": 0.5,
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "prefer": "bell peppers",
+        "only": [
+          "bell peppers",
+          "mushrooms",
+          "zucchini"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "prefer": "bread",
+        "only": [
+          "bread",
+          "English muffins",
+          "bagels"
+        ]
+      }
+    ],
+    "pantry": [
+      "onion",
+      "butter",
+      "ketchup",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury"
+    ],
+    "steps": [
+      "Finely chop the {protein}, {veg} and a little onion; soften in butter in a small skillet.",
+      "Pour in beaten eggs seasoned with salt and pepper and cook like a flat omelette, flipping once.",
+      "Toast and butter the {bread}.",
+      "Fold the omelette to fit and sandwich it between the toast, with ketchup if you like."
+    ]
+  },
+  {
+    "id": "toad-in-the-hole",
+    "meal": "breakfast",
+    "name": "Toad in the hole with {protein}",
+    "emoji": "🐸",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "pork",
+          "breakfastMeat"
+        ],
+        "prefer": "sausages",
+        "only": [
+          "sausages",
+          "bacon"
+        ],
+        "main": true
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "only": [
+          "eggs"
+        ]
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "only": [
+          "milk"
+        ],
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "flour",
+      "cooking oil",
+      "salt",
+      "maple syrup"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 425°F. Whisk eggs, milk, flour and a pinch of salt into a smooth batter and let it rest.",
+      "Brown the {protein} in an oiled baking dish in the oven for 10 minutes.",
+      "Pour the batter around the hot {protein} and return to the oven straight away.",
+      "Bake 20-25 minutes until puffed and golden; don't open the door early.",
+      "Slice and serve with a drizzle of maple syrup."
+    ]
+  },
+  {
+    "id": "maple-granola",
+    "meal": "breakfast",
+    "name": "Homemade maple granola with {nuts}[ & {fruit}]",
+    "emoji": "🍁",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "oats",
+        "from": [
+          "oats"
+        ],
+        "prefer": "oats",
+        "only": [
+          "oats"
+        ]
+      },
+      {
+        "key": "nuts",
+        "from": [
+          "nuts"
+        ],
+        "prefer": "nuts",
+        "only": [
+          "nuts"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "base",
+        "from": [
+          "yogurt",
+          "milk"
+        ],
+        "prefer": "yogurt"
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit",
+          "frozenFruit"
+        ],
+        "prefer": "blueberries",
+        "only": [
+          "blueberries",
+          "strawberries",
+          "bananas",
+          "frozen fruit"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "maple syrup",
+      "cooking oil",
+      "cinnamon",
+      "vanilla",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved",
+      "big-batch"
+    ],
+    "vibes": [
+      "healthy",
+      "sweet"
+    ],
+    "steps": [
+      "Heat the oven to 325°F.",
+      "Stir oats and chopped {nuts} with maple syrup, oil, cinnamon, vanilla and a pinch of salt.",
+      "Spread on a lined tray and bake 25 minutes, stirring halfway, until golden.",
+      "Cool completely so it crisps up, then store in a jar.",
+      "Serve over {base} with {fruit} if you have it."
+    ]
+  },
+  {
+    "id": "potato-latkes",
+    "meal": "breakfast",
+    "name": "Crispy {starch} pancakes with warm stewed {fruit}",
+    "emoji": "🥞",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "prefer": "potatoes",
+        "only": [
+          "potatoes",
+          "sweet potatoes"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "only": [
+          "eggs"
+        ],
+        "qty": 0.5
+      },
+      {
+        "key": "fruit",
+        "from": [
+          "fruit"
+        ],
+        "prefer": "apples",
+        "only": [
+          "apples",
+          "pears"
+        ]
+      },
+      {
+        "key": "yogurt",
+        "from": [
+          "yogurt"
+        ],
+        "prefer": "yogurt",
+        "only": [
+          "yogurt"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "flour",
+      "onion",
+      "cooking oil",
+      "cinnamon",
+      "sugar",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Simmer chopped {fruit} with a splash of water, sugar and cinnamon until soft; mash lightly.",
+      "Grate the {starch} and a little onion, then squeeze out as much liquid as you can.",
+      "Mix with egg, a few spoons of flour and salt.",
+      "Fry spoonfuls in hot oil, flattening them, until crisp and golden on both sides.",
+      "Serve hot with the stewed {fruit} and a dollop of yogurt if using."
+    ]
+  },
+  {
+    "id": "rice-krispie-squares",
+    "meal": "snack",
+    "name": "Classic crispy rice squares[ with {chocolate} drizzle]",
+    "emoji": "🟨",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "cereal",
+        "from": [
+          "cereal"
+        ],
+        "prefer": "cereal",
+        "only": [
+          "cereal"
+        ]
+      },
+      {
+        "key": "chocolate",
+        "from": [
+          "treats"
+        ],
+        "prefer": "chocolate",
+        "only": [
+          "chocolate"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "marshmallows",
+      "butter",
+      "vanilla",
+      "salt"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Melt butter in a large pot over low heat, then stir in the marshmallows until smooth.",
+      "Take off the heat and add vanilla and a pinch of salt.",
+      "Fold in the crispy rice cereal until evenly coated.",
+      "Press into a buttered pan with a greased spatula.",
+      "Drizzle with melted {chocolate} if using, cool and cut into squares."
+    ]
+  },
+  {
+    "id": "peanut-butter-cookies",
+    "meal": "snack",
+    "name": "Classic peanut butter cookies[ with {chocolate} chunks]",
+    "emoji": "🍪",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "spread",
+        "from": [
+          "spread"
+        ],
+        "prefer": "peanut butter",
+        "only": [
+          "peanut butter"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "only": [
+          "eggs"
+        ],
+        "qty": 0.25
+      },
+      {
+        "key": "chocolate",
+        "from": [
+          "treats"
+        ],
+        "prefer": "chocolate",
+        "only": [
+          "chocolate"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "flour",
+      "sugar",
+      "brown sugar",
+      "butter",
+      "baking soda",
+      "vanilla",
+      "salt"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Heat the oven to 350°F.",
+      "Cream butter, peanut butter and both sugars, then beat in the egg and vanilla.",
+      "Stir in flour, baking soda and salt, plus chopped {chocolate} if using.",
+      "Roll into balls, place on a tray and press a criss-cross with a fork.",
+      "Bake 10-12 minutes until just set at the edges; cool on the tray."
+    ]
+  },
+  {
+    "id": "nanaimo-bars",
+    "meal": "snack",
+    "name": "Nanaimo bars[ with {nuts}]",
+    "emoji": "🍫",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "chocolate",
+        "from": [
+          "treats"
+        ],
+        "prefer": "chocolate",
+        "only": [
+          "chocolate"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "prefer": "eggs",
+        "only": [
+          "eggs"
+        ],
+        "qty": 0.25
+      },
+      {
+        "key": "nuts",
+        "from": [
+          "nuts"
+        ],
+        "prefer": "nuts",
+        "only": [
+          "nuts"
+        ],
+        "qty": 0.5,
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "graham cracker crumbs",
+      "shredded coconut",
+      "butter",
+      "cocoa powder",
+      "sugar",
+      "custard powder",
+      "icing sugar",
+      "cream"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Melt butter, sugar and cocoa, whisk in the egg and cook until thick; stir in graham crumbs, coconut and chopped {nuts} if using.",
+      "Press into a lined square pan and chill.",
+      "Beat butter, custard powder, cream and icing sugar into a fluffy yellow layer; spread over the base and chill.",
+      "Melt the {chocolate} with a little butter and spread over the top.",
+      "Chill until set, then cut with a hot knife."
+    ]
+  },
+  {
+    "id": "strawberry-shortcake",
+    "meal": "snack",
+    "name": "{fruit} shortcake with whipped cream",
+    "emoji": "🍓",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "fruit",
+        "from": [
+          "fruit",
+          "frozenFruit"
+        ],
+        "prefer": "strawberries",
+        "only": [
+          "strawberries",
+          "blueberries",
+          "frozen fruit",
+          "pears"
+        ]
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ],
+        "prefer": "milk",
+        "only": [
+          "milk"
+        ],
+        "qty": 0.5
+      }
+    ],
+    "pantry": [
+      "flour",
+      "baking powder",
+      "sugar",
+      "butter",
+      "whipping cream",
+      "vanilla",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "sweet",
+      "treat"
+    ],
+    "steps": [
+      "Slice the {fruit}, toss with a spoon of sugar and let it get juicy.",
+      "Heat the oven to 425°F. Rub cold butter into flour, baking powder, sugar and salt, then stir in milk.",
+      "Pat out the dough, cut into rounds and bake 12-15 minutes until golden.",
+      "Whip the cream with a little sugar and vanilla.",
+      "Split the warm biscuits and fill with {fruit} and whipped cream."
+    ]
   }
 ]
