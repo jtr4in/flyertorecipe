@@ -147,6 +147,7 @@ function PoolCard({ meal, n, onRemove, onSwap, onLeftovers }) {
 export default function DinnerPlan({ heroes, deals, prefs, anchors, pool, onAnchors, onAdd, onRemove, onReplace, onLeftovers, onShop, itemCount }) {
   const [more, setMore] = useState(false)
   const [shift, setShift] = useState({}) // how far each protein's options have been swapped along
+  const [all, setAll] = useState({}) // proteins showing every dinner, not just two
   const options = useMemo(
     () => Object.fromEntries(anchors.map((item) => [item, anchorMeals(item, deals, prefs)])),
     [anchors, deals, prefs],
@@ -208,8 +209,17 @@ export default function DinnerPlan({ heroes, deals, prefs, anchors, pool, onAnch
                   onSwap={opts.length > 2 ? () => setShift({ ...shift, [item]: k + (i === 0 ? 2 : 1) }) : null}
                 />
               ))}
-              {quick && !shown.includes(quick) && (
+              {quick && !shown.includes(quick) && !all[item] && (
                 <OptionCard meal={quick} label="⚡ Quick, low-effort" added={inPool.has(quick.name)} onAdd={() => onAdd(quick)} />
+              )}
+              {all[item] &&
+                opts
+                  .filter((m) => !shown.includes(m))
+                  .map((m) => <OptionCard key={m.template.id} meal={m} label={m === quick ? '⚡ Quick, low-effort' : null} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />)}
+              {opts.length > shown.length + (quick && !shown.includes(quick) ? 1 : 0) && (
+                <button onClick={() => setAll({ ...all, [item]: !all[item] })} className="text-sm font-medium text-green-700">
+                  {all[item] ? 'Show fewer' : `See all ${opts.length} dinners`}
+                </button>
               )}
             </div>
           </section>

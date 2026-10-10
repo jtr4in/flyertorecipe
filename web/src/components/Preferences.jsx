@@ -1,6 +1,5 @@
 import { DIET_TAGS } from '../lib/aisles'
 import { fsa } from '../lib/data'
-import { fullSchedule, ScheduleGrid, withSchedule } from './PlanSteps'
 import { MATCH_STORES, PRICE_MATCH } from '../lib/priceMatch'
 
 const Chip = ({ on, children, ...props }) => (
@@ -102,24 +101,6 @@ export default function Preferences({ prefs, merchants, onChange }) {
         </div>
       </fieldset>
 
-      <fieldset>
-        <legend className="text-sm font-medium">Meals to plan</legend>
-        <p className="text-xs text-stone-500">Tick the meals for each day. Tap a meal at the top for the whole week.</p>
-        <ScheduleGrid schedule={fullSchedule(prefs)} onChange={(schedule) => onChange(withSchedule(prefs, schedule))} />
-      </fieldset>
-
-      <label className="flex items-start gap-3">
-        <input
-          type="checkbox"
-          className="mt-1 size-4 accent-green-700"
-          checked={prefs.lunchLeftovers !== false}
-          onChange={(e) => set({ lunchLeftovers: e.target.checked })}
-        />
-        <span>
-          <span className="text-sm font-medium">Lunch is last night's leftovers</span>
-          <span className="block text-xs text-stone-500">Dinner cooks double so tomorrow's lunch is covered.</span>
-        </span>
-      </label>
     </form>
   )
 }

@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { DIET_TAGS } from '../lib/aisles'
 import { fsa } from '../lib/data'
-import { fullSchedule, planScreens, withSchedule } from './PlanSteps'
 import { MATCH_STORES, PRICE_MATCH } from '../lib/priceMatch'
 
 const toggle = (list, v) => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v])
@@ -32,7 +31,7 @@ export default function Welcome({ prefs, merchants, needsPostal, onChange, onDon
       body: (
         <ul className="space-y-3 text-sm text-stone-700">
           <li className="flex gap-3"><span className="text-2xl">🗞️</span>Every week we read the grocery flyers near you.</li>
-          <li className="flex gap-3"><span className="text-2xl">🍽️</span>Then we plan breakfasts, lunches, dinners and snacks around what's on sale.</li>
+          <li className="flex gap-3"><span className="text-2xl">🍽️</span>You pick a few dinners built around the best meat and protein deals.</li>
           <li className="flex gap-3"><span className="text-2xl">🛒</span>You get one grocery list with the flyer ads to show the cashier.</li>
         </ul>
       ),
@@ -67,7 +66,6 @@ export default function Welcome({ prefs, merchants, needsPostal, onChange, onDon
         </div>
       ),
     },
-    ...planScreens({ schedule: fullSchedule(prefs), likes: prefs.likes || {} }, (d) => onChange(withSchedule({ ...prefs, likes: d.likes }, d.schedule))),
     {
       title: 'Anything you avoid?',
       hint: 'Skip this if you eat everything.',

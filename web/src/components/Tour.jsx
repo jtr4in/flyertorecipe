@@ -30,46 +30,6 @@ export const TOUR_STEPS = [
     body: 'Add things you need this week, like "salami, cheese, cereal". Meals get planned around them, and the rest go straight on the grocery list.',
   },
   {
-    target: 'filters',
-    title: 'One-tap filters',
-    body: 'Make the week quicker, higher in protein or vegetarian, or add some treats.',
-  },
-  {
-    target: 'build',
-    title: 'Build your week',
-    body: 'Pick which meals you need on which days, and the meats, carbs and veg you like. We plan the week from your answers.',
-  },
-  {
-    target: 'recipes',
-    title: 'Browse recipes',
-    body: 'Look through every dish made with this week\'s deals, and add the ones you want to any day.',
-  },
-  {
-    target: 'week',
-    title: 'Your next 7 days',
-    body: 'Tap a day to see its meals. A green dot means everything that day is on sale.',
-  },
-  {
-    target: 'meal',
-    title: 'Every meal is built from sales',
-    body: 'Each dish is made from what\'s on sale in your local flyers this week, so groceries cost less.',
-  },
-  {
-    target: 'ingredients',
-    title: 'What to buy, and where',
-    body: 'Each ingredient shows the sale price and the store. Tap one to see the actual flyer ad. ⇄ swaps it for something else on sale.',
-  },
-  {
-    target: 'another',
-    title: 'Not feeling it?',
-    body: '"Change meal" shows other dishes: healthier, quicker, or a treat. "Skip" takes the meal off the plan.',
-  },
-  {
-    target: 'print',
-    title: 'For the fridge',
-    body: 'Prints the week\'s meals and the grocery list on one page.',
-  },
-  {
     target: 'deals',
     title: 'Other deals',
     body: 'Frozen meals, paper towels, coffee, diapers and more from the flyers. Add any to your list, or watch the things you always buy.',

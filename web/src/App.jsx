@@ -1,29 +1,22 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { firebaseEnabled } from './lib/firebase'
 import { DEFAULT_PREFS, EMPTY_WEEK, fsa, loadDeals, loadPrefs, loadRecipes, loadWeek, savePrefs, saveWeek } from './lib/data'
-import { activeDeals, buildShoppingList, FILTERS, listSwapOptions, planWeek, swapOptions, weekDays } from './lib/planner'
+import { activeDeals, buildShoppingList, listSwapOptions, swapOptions, weekDays } from './lib/planner'
 import { dealName, money, storeTint } from './lib/stores'
 import { cap, MEALS, setRecipes } from './data/templates'
 import Preferences from './components/Preferences'
 import Sheet from './components/Sheet'
-import WeekStrip from './components/WeekStrip'
-import MealCard from './components/MealCard'
 import ListSheet, { ListBar } from './components/ListSheet'
 import FlyerProof from './components/FlyerProof'
-import IdeaSheet from './components/IdeaSheet'
-import PrintWeek from './components/PrintWeek'
 import Welcome from './components/Welcome'
 import Tour from './components/Tour'
 import DealsSheet from './components/DealsSheet'
 import { extraDeals, watchMatches, withExtras } from './lib/extras'
 import { followMatch, matchableDeals, tidyMatch } from './lib/priceMatch'
-import { placeNeeds, wantedItems, withNeeds } from './lib/needs'
+import { placeNeeds, withNeeds } from './lib/needs'
 import NeedsSheet from './components/NeedsSheet'
-import PlanBuilder from './components/PlanBuilder'
-import RecipesSheet from './components/RecipesSheet'
 import DinnerPlan from './components/DinnerPlan'
 import { heroDeals, poolMeals, poolPlan, toPick } from './lib/anchors'
-import { withSchedule } from './components/PlanSteps'
 import {
   createHousehold, currentHousehold, householdLink, leaveHousehold, saveHousehold, saveHouseholdWeek, setHouseholdCheck, sharedPrefs, watchHousehold,
 } from './lib/household'
@@ -35,8 +28,6 @@ export default function App() {
   const [error, setError] = useState(null)
   const [chips, setChips] = useState([])
   const [sheet, setSheet] = useState(null) // 'settings' | 'list'
-  const [ideaFor, setIdeaFor] = useState(null) // the meal entry "Change meal" was tapped on
-  const [printing, setPrinting] = useState(false)
   const [swapping, setSwapping] = useState(null) // [{ meal, line }]: every meal the swap applies to
   const [swapAll, setSwapAll] = useState(true) // from a meal card: swap it in the other meals too
   const [listMode, setListMode] = useState('match')
@@ -44,7 +35,6 @@ export default function App() {
   const [welcome, setWelcome] = useState(false)
   const [touring, setTouring] = useState(false)
   const [toast, setToast] = useState(null)
-  const [building, setBuilding] = useState(false)
   const [tab, setTab] = useState('plan')
   const flash = useCallback((msg) => {
     setToast(msg)
@@ -59,7 +49,6 @@ export default function App() {
   const fail = useCallback((e) => setError(e.message), [])
 
   const days = useMemo(() => weekDays(), [])
-  const [selected, setSelected] = useState(days[0].key)
   const [week, setWeek] = useState(() => loadWeek(days[0].key))
   const editWeek = useCallback((fn) => setWeek((w) => {
     const next = fn(w)
@@ -176,7 +165,6 @@ export default function App() {
   }, [prefs ? fsa(prefs.postalCode) || 'none' : null])
 
   const merchants = useMemo(() => [...new Set(data.deals.map((d) => d.merchant).filter(Boolean))].sort(), [data.deals])
-  const filters = chips
 
   const allDeals = useMemo(() => (prefs ? activeDeals(data.deals, { stores: prefs.stores }) : []), [prefs, data.deals])
   // Price matching at one store: plan only from the flyers that store's cashiers accept.
@@ -184,16 +172,10 @@ export default function App() {
     () => (prefs?.matchAt ? matchableDeals(allDeals, prefs.matchAt, prefs.matchExtras) : allDeals),
     [allDeals, prefs?.matchAt, prefs?.matchExtras],
   )
-  const want = useMemo(() => wantedItems(week.needs), [week.needs])
-  const byDinners = prefs?.planBy !== 'week'
-  // Plan by dinners: this week's protein deals and the household's pool of picked dinners.
-  const heroes = useMemo(() => (prefs && byDinners ? heroDeals(deals, prefs) : []), [prefs, byDinners, deals, recipesVersion])
-  const pool = useMemo(() => (prefs && byDinners ? poolMeals(week.dinners || [], deals, prefs) : []), [prefs, byDinners, week.dinners, deals, recipesVersion])
-  const plan = useMemo(
-    () =>
-      !prefs ? [] : byDinners ? poolPlan(pool) : planWeek(deals, prefs, { days, filters, overrides: week.overrides, avoid: week.avoid, want }),
-    [prefs, byDinners, pool, deals, days, filters, week.overrides, week.avoid, want, recipesVersion],
-  )
+  // This week's protein deals, the household's picked dinners, and those dinners as the plan.
+  const heroes = useMemo(() => (prefs ? heroDeals(deals, prefs) : []), [prefs, deals, recipesVersion])
+  const pool = useMemo(() => (prefs ? poolMeals(week.dinners || [], deals, prefs) : []), [prefs, week.dinners, deals, recipesVersion])
+  const plan = useMemo(() => poolPlan(pool), [pool])
   const baseList = useMemo(
     () => (prefs ? withExtras(buildShoppingList(plan, listMode === 'single' ? allDeals : deals, prefs, { mode: listMode }), week.extras) : null),
     [plan, deals, allDeals, prefs, listMode, week.extras],
@@ -228,7 +210,6 @@ export default function App() {
   }
 
   const area = data.region?.fsa || fsa(prefs.postalCode) || (data.region?.demo ? 'Demo' : 'Set area')
-  const day = plan.find((d) => d.key === selected) || plan[0]
 
   // Edits to one meal of one day
   const override = (key, fn) =>
@@ -248,39 +229,12 @@ export default function App() {
       }
       return { ...w, overrides, avoid, dinners }
     })
-  const pickIdea = (meal, idea, alsoKeys = []) =>
-    editWeek((w) => {
-      const overrides = { ...w.overrides }
-      for (const key of [meal.key, ...alsoKeys]) {
-        overrides[key] = { ...overrides[key], skip: false, template: idea.template.id, fills: idea.fills }
-      }
-      return { ...w, overrides }
-    })
-  const resetWeek = () => editWeek((w) => ({ ...w, overrides: {}, avoid: [] }))
-  // The Build my week quiz: new schedule and likes, and a fresh plan from them.
-  const buildWeek = ({ schedule, likes }) => {
-    updatePrefs(withSchedule({ ...prefs, likes }, schedule))
-    resetWeek()
-    setBuilding(false)
-    flash('Your new week is ready')
-  }
-  const addRecipe = (idea, day) => {
-    const meal = idea.template.meal
-    override(`${day.key}|${meal}`, (o) => ({ ...o, skip: false, on: true, template: idea.template.id, fills: idea.fills }))
-    flash(`Added to ${day.short === 'Today' ? 'today' : day.short}'s ${meal}`)
-  }
-  const toggleChip = (id) => setChips((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]))
 
   // A card's swap covers one meal; with "swap it everywhere" on, every meal using that item.
   const otherUses = swapping?.length === 1
     ? (list.groups.flatMap((g) => g.items).find((i) => i.key === swapping[0].line.ing.item)?.uses || []).filter((u) => u.meal.key !== swapping[0].meal.key)
     : []
   const swapUses = swapping && otherUses.length && swapAll ? [swapping[0], ...otherUses] : swapping
-
-  const enabled = prefs.meals || DEFAULT_PREFS.meals
-  const dayMeals = day ? Object.values(day.meals).filter((m) => m.lines) : []
-  const dayLines = dayMeals.flatMap((m) => m.lines)
-  const dayCost = dayMeals.reduce((a, m) => a + m.cost * (m.batches || 1), 0)
 
   const listView = (
     <ListSheet
@@ -379,12 +333,12 @@ export default function App() {
               {(week.needs || []).length ? (
                 <>
                   <span className="block text-sm font-semibold">We need: {week.needs.join(', ')}</span>
-                  <span className="block text-xs text-stone-500">{byDinners ? 'On your list below. Tap to change.' : 'Meals use these where they can. Tap to change.'}</span>
+                  <span className="block text-xs text-stone-500">On your list below. Tap to change.</span>
                 </>
               ) : (
                 <>
                   <span className="block text-sm font-semibold">Add what you need</span>
-                  <span className="block text-xs text-stone-500">{byDinners ? 'e.g. salami, cheese, cereal' : "e.g. salami, cheese, cereal. We'll plan meals around them."}</span>
+                  <span className="block text-xs text-stone-500">e.g. salami, cheese, cereal</span>
                 </>
               )}
             </span>
@@ -415,144 +369,6 @@ export default function App() {
           )}
           <div className="mt-4">{listView}</div>
         </>
-      ) : prefs.planBy === 'week' ? (
-        <>
-          <button
-            data-tour="plan"
-            onClick={() => setSheet('needs')}
-            className="flex w-full items-center gap-3 rounded-2xl border border-stone-200 bg-white px-4 py-3 text-left shadow-sm"
-          >
-            <span className="text-xl" aria-hidden>
-              📝
-            </span>
-            <span className="min-w-0 flex-1">
-              {(week.needs || []).length ? (
-                <>
-                  <span className="block text-sm font-semibold">We need: {week.needs.join(', ')}</span>
-                  <span className="block text-xs text-stone-500">Meals use these where they can. Tap to change.</span>
-                </>
-              ) : (
-                <>
-                  <span className="block text-sm font-semibold">Add what you need</span>
-                  <span className="block text-xs text-stone-500">e.g. salami, cheese, cereal. We'll plan meals around them.</span>
-                </>
-              )}
-            </span>
-            <span className="text-stone-400">›</span>
-          </button>
-
-          <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none]" data-tour="filters">
-            {FILTERS.map((f) => {
-              const on = filters.includes(f.id)
-              return (
-                <button
-                  key={f.id}
-                  onClick={() => toggleChip(f.id)}
-                  aria-pressed={on}
-                  className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium ${
-                    on ? 'border-green-700 bg-green-700 text-white' : 'border-stone-200 bg-white text-stone-700'
-                  }`}
-                >
-                  {f.emoji} {f.label}
-                </button>
-              )
-            })}
-          </div>
-
-          <div className="mt-5 mb-2 flex items-baseline justify-between">
-            <h2 className="text-lg font-semibold">
-              Your week{' '}
-              <button data-tour="print" onClick={() => setPrinting(true)} className="ml-1 align-middle text-xs font-medium text-green-700">
-                🖨 Print for the fridge
-              </button>
-            </h2>
-            {(Object.keys(week.overrides).length > 0 || week.avoid?.length > 0) && (
-              <button onClick={resetWeek} className="text-xs font-medium text-stone-500">
-                Reset changes
-              </button>
-            )}
-          </div>
-          {loading ? (
-            <p className="text-stone-500">Loading deals…</p>
-          ) : (
-            <>
-              <div className="mb-3 grid grid-cols-2 gap-2">
-                <button
-                  data-tour="build"
-                  onClick={() => setBuilding(true)}
-                  className="rounded-2xl border border-stone-200 bg-white px-3 py-2.5 text-left text-sm font-semibold shadow-sm"
-                >
-                  🧩 Build my week
-                  <span className="block text-xs font-normal text-stone-500">Pick days, meats, carbs, veg</span>
-                </button>
-                <button
-                  data-tour="recipes"
-                  onClick={() => setSheet('recipes')}
-                  className="rounded-2xl border border-stone-200 bg-white px-3 py-2.5 text-left text-sm font-semibold shadow-sm"
-                >
-                  📖 Browse recipes
-                  <span className="block text-xs font-normal text-stone-500">Add dishes to any day</span>
-                </button>
-              </div>
-              <WeekStrip plan={plan} selected={day?.key} onPick={setSelected} />
-              {day && (
-                <section className="mt-4" aria-label={day.date.toLocaleDateString('en-CA', { weekday: 'long' })}>
-                  <div className="mb-3 flex items-baseline justify-between">
-                    <h3 className="text-base font-semibold">
-                      {day.short === 'Today' ? 'Today' : day.date.toLocaleDateString('en-CA', { weekday: 'long' })}
-                      <span className="ml-1.5 text-sm font-normal text-stone-500">
-                        {day.date.toLocaleDateString('en-CA', { month: 'short', day: 'numeric' })}
-                      </span>
-                    </h3>
-                    {dayLines.length > 0 && (
-                      <p className="text-xs text-stone-500">
-                        {money(dayCost)} ·{' '}
-                        <span className="text-green-700">
-                          {dayLines.filter((l) => l.onSale).length}/{dayLines.length} from flyers
-                        </span>
-                      </p>
-                    )}
-                  </div>
-                  <div className="space-y-3">
-                    {!Object.values(day.meals).some((m) => !m.off) && (
-                      <p className="rounded-2xl border border-dashed border-stone-300 px-4 py-3 text-sm text-stone-500">
-                        No meals on your schedule this day.{' '}
-                        <button onClick={() => setSheet('recipes')} className="font-medium text-green-700">
-                          Browse recipes
-                        </button>{' '}
-                        to add one.
-                      </p>
-                    )}
-                    {MEALS.filter((m) => day.meals[m.id] && !day.meals[m.id].off).map((m) => {
-                      const entry = day.meals[m.id]
-                      const key = `${day.key}|${m.id}`
-                      return (
-                        <MealCard
-                          key={key}
-                          label={m.label}
-                          emoji={m.emoji}
-                          entry={entry}
-                          onSwapLine={(line) => {
-                            setSwapAll(true)
-                            setSwapping([{ meal: entry, line }])
-                          }}
-                          onAnother={() => setIdeaFor({ entry, label: m.label })}
-                          onSkip={() => override(key, (o) => ({ ...o, skip: true }))}
-                          onRestore={() => override(key, (o) => ({ ...o, skip: false, on: true }))}
-                          onCook={() => override(key, (o) => ({ ...o, cook: true }))}
-                          onProof={setProof}
-                        />
-                      )
-                    })}
-                  </div>
-                </section>
-              )}
-            </>
-          )}
-          <button onClick={() => updatePrefs({ ...prefs, planBy: 'dinners' })} className="mt-6 block w-full text-center text-sm font-medium text-green-700">
-            Just pick a few dinners instead
-          </button>
-        </>
       ) : loading ? (
         <p className="text-stone-500">Loading deals…</p>
       ) : (
@@ -574,13 +390,9 @@ export default function App() {
               window.scrollTo(0, 0)
             }}
           />
-          <button onClick={() => updatePrefs({ ...prefs, planBy: 'week' })} className="mt-6 block w-full text-center text-sm font-medium text-green-700">
-            Plan every meal by day instead
-          </button>
         </>
       )}
 
-      {tab === 'plan' && prefs.planBy === 'week' && <ListBar list={list} onOpen={() => setSheet('list')} />}
       {tab !== 'shop' && listView}
 
       <NeedsSheet
@@ -697,20 +509,6 @@ export default function App() {
           </ul>
         )}
       </Sheet>
-      <IdeaSheet
-        current={ideaFor?.entry}
-        deals={deals}
-        prefs={prefs}
-        plan={plan}
-        onPick={(idea, alsoKeys) => {
-          pickIdea(ideaFor.entry, idea, alsoKeys)
-          setIdeaFor(null)
-        }}
-        onClose={() => setIdeaFor(null)}
-      />
-      <RecipesSheet open={sheet === 'recipes'} onClose={() => setSheet(null)} deals={deals} prefs={prefs} plan={plan} onAdd={addRecipe} />
-      {building && <PlanBuilder prefs={prefs} onDone={buildWeek} onClose={() => setBuilding(false)} />}
-      {printing && <PrintWeek plan={plan} list={list} meals={MEALS.filter((m) => enabled.includes(m.id))} prefs={prefs} onClose={() => setPrinting(false)} />}
       <FlyerProof deal={proof} onClose={() => setProof(null)} />
       {welcome && <Welcome prefs={prefs} merchants={merchants} needsPostal={firebaseEnabled} onChange={updatePrefs} onDone={finishWelcome} />}
       <Tour open={touring && !welcome && !loading} onClose={endTour} />
