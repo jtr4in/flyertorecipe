@@ -52,7 +52,6 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
   if (!list) return null
   const items = list.groups.flatMap((g) => g.items)
   const done = items.filter((i) => checked[i.key]).length
-  const guessed = items.filter((i) => i.estimated).length
 
   const shareText = async () => {
     const text = [
@@ -97,11 +96,6 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
             <p className="text-xs text-green-700">
               Saves about {money(list.totalSavings)} · {done} checked off
             </p>
-            {guessed > 0 && (
-              <p className="text-[11px] text-stone-500">
-                Assumes 23% off for the {guessed} {guessed === 1 ? 'item' : 'items'} whose flyer shows no regular price
-              </p>
-            )}
             {shared && <p className="text-[11px] text-stone-500">🔗 Shared · checkmarks update live</p>}
           </div>
           <div className="flex shrink-0 flex-col items-end gap-1">

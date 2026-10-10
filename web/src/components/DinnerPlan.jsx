@@ -165,7 +165,6 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
   const [tab, setTab] = useState('dinner')
   const [filters, setFilters] = useState([])
   const [showAll, setShowAll] = useState(false) // every breakfast / lunch, not just the top few
-  const [shift, setShift] = useState({}) // how far each protein's options have been swapped along
   const [all, setAll] = useState({}) // proteins showing every dinner, not just two
   // This tab's sale items to plan around: proteins for dinner, cereal, yogurt... for breakfast.
   const heroes = useMemo(() => heroDeals(deals, prefs, tab), [deals, prefs, tab, recipesVersion])
@@ -207,23 +206,15 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
       return (options[item] || []).length ? (
         <p className="ml-3 border-l-2 border-green-700/30 pl-3 text-xs text-stone-500">No {noun} with this one match your filters.</p>
       ) : null
-    const k = shift[item] || 0
-    const shown = [opts[k % opts.length], opts[(k + 1) % opts.length]].filter((m, i, a) => m && a.indexOf(m) === i)
+    const shown = opts.slice(0, 2)
     const quick = quickMeal(opts)
     const h = heroOf(item)
     return (
       <section key={item} className="ml-3 border-l-2 border-green-700/30 pl-3">
         <p className="mb-2 text-xs text-stone-500">{cap(noun)} with {h ? calm(dealName(h.deal.name)) : item}, built from the other things on sale.</p>
         <div className="space-y-2">
-          {shown.map((m, i) => (
-            <OptionCard
-              key={m.template.id}
-              meal={m}
-              shared={sharedCount(m, have)}
-              added={inPool.has(m.name)}
-              onAdd={() => onAdd(m)}
-              onSwap={opts.length > 2 ? () => setShift({ ...shift, [item]: k + (i === 0 ? 2 : 1) }) : null}
-            />
+          {shown.map((m) => (
+            <OptionCard key={m.template.id} meal={m} shared={sharedCount(m, have)} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />
           ))}
           {quick && !shown.includes(quick) && !all[item] && (
             <OptionCard meal={quick} shared={sharedCount(quick, have)} label="⚡ Quick, low-effort" added={inPool.has(quick.name)} onAdd={() => onAdd(quick)} />
@@ -299,12 +290,27 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
             {groups.map(([group, list]) => {
               const isOpen = openGroups.includes(group)
               const shown = isOpen ? list : list.filter((h, i) => i === 0 || isOn(h))
-              const hidden = list.length - shown.length
               const { emoji, label } = list[0]
               return (
                 <div key={group}>
                   <h3 className="mb-1.5 text-sm font-semibold text-stone-700">
-                    <span aria-hidden>{emoji}</span> {label}
+                    {list.length > 1 ? (
+                      <button
+                        onClick={() => setOpenGroups(isOpen ? openGroups.filter((g) => g !== group) : [...openGroups, group])}
+                        aria-expanded={isOpen}
+                        className="flex w-full items-center gap-1.5 text-left"
+                      >
+                        <span aria-hidden>{emoji}</span> {label}
+                        <span className="text-xs font-normal text-stone-500">({list.length})</span>
+                        <span aria-hidden className={`ml-auto inline-block text-green-700 transition ${isOpen ? 'rotate-180' : ''}`}>
+                          ▾
+                        </span>
+                      </button>
+                    ) : (
+                      <>
+                        <span aria-hidden>{emoji}</span> {label}
+                      </>
+                    )}
                   </h3>
                   <div className="space-y-2">
                     {shown.map((h, i) => (
@@ -313,18 +319,6 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
                         {isOn(h) && dinnersFor(h.item)}
                       </div>
                     ))}
-                    {(hidden > 0 || (isOpen && list.length > 1)) && (
-                      <button
-                        onClick={() => setOpenGroups(isOpen ? openGroups.filter((g) => g !== group) : [...openGroups, group])}
-                        aria-expanded={isOpen}
-                        className="flex items-center gap-1 text-sm font-medium text-green-700"
-                      >
-                        {isOpen ? `Fewer ${label.toLowerCase()}` : `More ${label.toLowerCase()} (${hidden})`}
-                        <span aria-hidden className={`inline-block transition ${isOpen ? 'rotate-180' : ''}`}>
-                          ▾
-                        </span>
-                      </button>
-                    )}
                   </div>
                 </div>
               )
