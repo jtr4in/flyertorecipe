@@ -3,7 +3,7 @@
 // flyer deal when there is one.
 import { CATALOG } from '../data/ingredients'
 import { dealName } from './stores'
-import { matchDeal } from './planner'
+import { assumedSavings, hasSavings, matchDeal } from './planner'
 
 const ALL_INGREDIENTS = Object.values(CATALOG).flat()
 const wordRe = (w) => new RegExp(`(^|[^\\p{L}])${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(s|es)?($|[^\\p{L}])`, 'iu')
@@ -153,7 +153,7 @@ export function wantedItems(needs = []) {
  * Where each need ended up: in this week's meals, or as its own grocery list line.
  * Returns { status: [{ need, meals, deal }], group } where group is the list's "From your list".
  */
-export function placeNeeds(needs = [], list, deals) {
+export function placeNeeds(needs = [], list, deals, picks = {}) {
   const onList = new Map((list?.groups || []).flatMap((g) => g.items).map((i) => [i.key, i]))
   const status = []
   const items = []
@@ -163,7 +163,8 @@ export function placeNeeds(needs = [], list, deals) {
       status.push({ need, meals: [...new Set(hits.flatMap((h) => h.meals))], deal: hits.find((h) => h.deal)?.deal || null })
       continue
     }
-    const deal = needDeal(need, deals)
+    // A deal picked from "Other options" wins while it's still in the flyers.
+    const deal = (picks[`need:${need}`] && deals.find((d) => d.dealId === picks[`need:${need}`])) || needDeal(need, deals)
     status.push({ need, meals: [], deal })
     items.push({
       key: `need:${need}`,
@@ -172,7 +173,8 @@ export function placeNeeds(needs = [], list, deals) {
       deal,
       meals: [deal ? dealName(deal.name) : 'Not in this week\'s flyers'],
       cost: deal?.price || 0,
-      savings: deal?.savings || 0,
+      savings: !deal ? 0 : hasSavings(deal) ? deal.savings : assumedSavings(deal.price || 0),
+      estimated: !!deal && !hasSavings(deal),
       need: true,
     })
   }

@@ -102,6 +102,14 @@ const LB_PER_ITEM = 0.4 // when a per-lb deal meets a recipe that counts items (
  * ingredient's unit that covers. Flyers rarely say package size, so `pkg` in the catalog
  * is our best guess; per-item deals under $2 (peppers at $0.99 ea) are treated as singles.
  */
+/**
+ * Most flyers don't print a regular price, so the list can't know what a deal saves. Where it
+ * doesn't say, assume the typical flyer discount (~23% off), i.e. the sale price is 77% of regular.
+ */
+export const ASSUMED_OFF = 0.23
+export const hasSavings = (deal) => deal?.savings > 0
+export const assumedSavings = (cost) => (cost * ASSUMED_OFF) / (1 - ASSUMED_OFF)
+
 function unitEconomics(ing, deal) {
   if (!deal) {
     const price = FALLBACK_PRICE[ing.aisle] ?? 4
@@ -580,6 +588,8 @@ export function buildShoppingList(plan, deals, prefs, { mode = 'match', picks = 
     // A deal the household picked from "Other options" wins while it's still in the flyers.
     const deal = (picks[row.ing.item] && pool.find((d) => d.dealId === picks[row.ing.item])) || matchDeal(row.ing, pool)
     const b = buyCost(row.ing, row.qty, deal)
+    const estimated = !!deal && !hasSavings(deal)
+    if (estimated) b.savings = assumedSavings(b.cost)
     totalCost += b.cost
     totalSavings += b.savings
     if (deal) {
@@ -598,6 +608,7 @@ export function buildShoppingList(plan, deals, prefs, { mode = 'match', picks = 
       uses: row.uses,
       cost: round2(b.cost),
       savings: round2(b.savings),
+      estimated,
     }
     ;(byAisle[item.aisle] ||= []).push(item)
   }

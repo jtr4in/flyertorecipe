@@ -21,7 +21,9 @@ export default function OptionsSheet({ item, options: all, onPick, onSwap, onClo
     <Sheet open={!!item} onClose={onClose} title={item ? `Other ${item.item} on sale` : ''} tall>
       {item && (
         <>
-          {options.length <= 1 ? (
+          {options.length === 0 ? (
+            <p className="mb-3 rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">No {item.item} deals in your flyers this week.</p>
+          ) : options.length === 1 && options[0].dealId === item.deal?.dealId ? (
             <p className="mb-3 rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">This is the only {item.item} deal in your flyers this week.</p>
           ) : (
             <ul className="mb-4 space-y-2">

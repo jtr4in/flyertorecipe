@@ -52,7 +52,7 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
   if (!list) return null
   const items = list.groups.flatMap((g) => g.items)
   const done = items.filter((i) => checked[i.key]).length
-  const priced = items.filter((i) => i.deal?.savings > 0).length
+  const guessed = items.filter((i) => i.estimated).length
 
   const shareText = async () => {
     const text = [
@@ -93,13 +93,15 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
             <p className="text-sm font-semibold">
               {list.itemCount} items · est. {money(list.totalCost)}
             </p>
-            {/* Savings only count flyers that print a regular price or "save $X"; the rest add $0. */}
+            {/* Flyers that print a regular price count exactly; the rest assume the usual ~23% off. */}
             <p className="text-xs text-green-700">
-              Saves at least {money(list.totalSavings)} · {done} checked off
+              Saves about {money(list.totalSavings)} · {done} checked off
             </p>
-            <p className="text-[11px] text-stone-500">
-              Counts the {priced} of {list.itemCount} items whose flyer shows a regular price
-            </p>
+            {guessed > 0 && (
+              <p className="text-[11px] text-stone-500">
+                Assumes 23% off for the {guessed} {guessed === 1 ? 'item' : 'items'} whose flyer shows no regular price
+              </p>
+            )}
             {shared && <p className="text-[11px] text-stone-500">🔗 Shared · checkmarks update live</p>}
           </div>
           <div className="flex shrink-0 flex-col items-end gap-1">
@@ -219,7 +221,7 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                   <FlyerPeek
                     deal={i.deal}
                     onOpen={onProof}
-                    action={i.ing && onOptions ? { label: 'Other options', onClick: () => onOptions(i) } : null}
+                    action={(i.ing || i.need) && onOptions ? { label: 'Other options', onClick: () => onOptions(i) } : null}
                     className="flex min-w-0 flex-1 items-center gap-2"
                   >
                     <span className={`min-w-0 flex-1 ${checked[i.key] ? 'text-stone-400 line-through' : ''}`}>
@@ -243,6 +245,15 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                       )}
                     </span>
                   </FlyerPeek>
+                  {onOptions && (i.ing || i.need) && (
+                    <button
+                      onClick={() => onOptions(i)}
+                      aria-label={`Other options for ${i.item}`}
+                      className="shrink-0 rounded-lg border border-stone-200 px-2 py-1 text-xs font-medium text-stone-600 hover:border-green-600 hover:text-green-700"
+                    >
+                      Options
+                    </button>
+                  )}
                   {i.extra || i.need ? (
                     <button
                       onClick={() => onRemoveExtra(i)}
@@ -251,7 +262,7 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
                     >
                       ✕
                     </button>
-                  ) : inline && i.deal ? null : (
+                  ) : onOptions ? null : (
                     <button
                       onClick={() => onSwap(i)}
                       aria-label={`Swap ${i.item}`}

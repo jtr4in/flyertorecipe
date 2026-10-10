@@ -2,6 +2,7 @@
 // They're sorted into categories by flyer words, can be watched by name, and the ones the
 // household adds go on the grocery list as an "Extras" group.
 import { dealName } from './stores'
+import { assumedSavings, hasSavings } from './planner'
 
 // First category whose words match wins, so "dish soap" lands in cleaning, not personal care.
 export const EXTRA_CATEGORIES = [
@@ -89,7 +90,8 @@ export function withExtras(list, extras = []) {
     deal,
     meals: [EXTRA_CATEGORIES.find((c) => c.id === category)?.label || 'Extra'],
     cost: deal.price || 0,
-    savings: deal.savings || 0,
+    savings: hasSavings(deal) ? deal.savings : assumedSavings(deal.price || 0),
+    estimated: !hasSavings(deal),
     extra: true,
   }))
   const flyers = [...list.flyers, ...items.map((i) => ({ item: i.key, deal: i.deal }))]

@@ -12,7 +12,7 @@ import Welcome from './components/Welcome'
 import Tour from './components/Tour'
 import { withExtras } from './lib/extras'
 import { followMatch, matchableDeals, tidyMatch } from './lib/priceMatch'
-import { placeNeeds, withNeeds } from './lib/needs'
+import { placeNeeds, searchDeals, withNeeds } from './lib/needs'
 import NeedsSheet from './components/NeedsSheet'
 import OptionsSheet from './components/OptionsSheet'
 import DinnerPlan from './components/DinnerPlan'
@@ -182,10 +182,18 @@ export default function App() {
   )
   // The "we need" list: what meals didn't use goes on the list as its own lines.
   const needs = useMemo(
-    () => placeNeeds(week.needs || [], baseList, listMode === 'single' && baseList?.store ? allDeals.filter((d) => d.merchant === baseList.store) : deals),
-    [week.needs, baseList, listMode, allDeals, deals],
+    () => placeNeeds(week.needs || [], baseList, listMode === 'single' && baseList?.store ? allDeals.filter((d) => d.merchant === baseList.store) : deals, week.dealPicks || {}),
+    [week.needs, baseList, listMode, allDeals, deals, week.dealPicks],
   )
   const list = useMemo(() => withNeeds(baseList, needs.group), [baseList, needs.group])
+  // "Other options" for a list item: every deal on the same thing (catalog match, or a search for a typed need).
+  const optionsFor = (item) => {
+    if (!item) return []
+    const pool = listMode === 'single' && list?.store ? allDeals.filter((d) => d.merchant === list.store) : deals
+    if (item.ing) return matchAll(item.ing, pool)
+    if (item.need) return searchDeals(item.item, pool)
+    return []
+  }
   // Catalog items already on the grocery list, so recipes that reuse them can say so.
   const have = useMemo(() => new Set((baseList?.groups || []).flatMap((g) => g.items.map((i) => i.key))), [baseList])
   const listStores = useMemo(() => [...new Set(allDeals.map((d) => d.merchant).filter(Boolean))].sort(), [allDeals])
@@ -274,7 +282,7 @@ export default function App() {
           <h1 className="text-xl font-bold tracking-tight text-green-800">Flyer2Recipes</h1>
           <span className="flex items-center gap-2">
             <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-800">
-              Saving {money(list.totalSavings)}+
+              Saving ~{money(list.totalSavings)}
             </span>
             <button
               onClick={() => setTouring(true)}
@@ -404,7 +412,7 @@ export default function App() {
       </Sheet>
       <OptionsSheet
         item={choosing}
-        options={choosing?.ing ? matchAll(choosing.ing, listMode === 'single' && list.store ? allDeals.filter((d) => d.merchant === list.store) : deals) : []}
+        options={optionsFor(choosing)}
         onPick={(d) => {
           editWeek((w) => ({ ...w, dealPicks: { ...(w.dealPicks || {}), [choosing.key]: d.dealId } }))
           setChoosing(null)

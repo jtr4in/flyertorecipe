@@ -100,3 +100,22 @@ describe('grocery search', () => {
     expect(needDeal('coffee', quebec).name).toMatch(/Maxwell/)
   })
 })
+
+describe('savings on deals that print no regular price', () => {
+  const milk = (extra = {}) => ({ dealId: 'm1', name: 'Natrel milk 4 L', merchant: 'Metro', price: 7.7, ...extra })
+  it('assumes about 23% off', () => {
+    const { group } = placeNeeds(['milk'], null, [milk()])
+    expect(group.items[0].savings).toBeCloseTo(2.3, 2)
+    expect(group.items[0].estimated).toBe(true)
+  })
+  it('uses the flyer saving when it has one', () => {
+    const { group } = placeNeeds(['milk'], null, [milk({ savings: 1 })])
+    expect(group.items[0].savings).toBe(1)
+    expect(group.items[0].estimated).toBe(false)
+  })
+  it('honours a deal picked from other options', () => {
+    const deals = [milk(), milk({ dealId: 'm2', price: 5 })]
+    const { group } = placeNeeds(['milk'], null, deals, { 'need:milk': 'm2' })
+    expect(group.items[0].deal.dealId).toBe('m2')
+  })
+})
