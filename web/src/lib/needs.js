@@ -1,6 +1,6 @@
-// The household's "we need" list ("salami, cheese, cereal"). Items the recipes know (cheese →
-// cheddar) steer the week's meals toward using them; everything else goes straight on the
-// grocery list, with its flyer deal when there is one.
+// The household's "we need" list ("milk, bread, coffee"). Items a dinner already uses (cheese →
+// cheddar) show under that meal; everything else goes straight on the grocery list, with its
+// flyer deal when there is one.
 import { CATALOG } from '../data/ingredients'
 import { dealName } from './stores'
 import { matchDeal } from './planner'
@@ -22,10 +22,18 @@ export function needItems(need) {
   return [...new Set(ALL_INGREDIENTS.filter((i) => re.test(i.item) || matchDeal(i, [{ name: n }])).map((i) => i.item))]
 }
 
-/** The flyer deal for a need: the exact item if one was picked, else the best search match. */
+// Words that make a flyer item a variety of what was typed: "milk" means plain milk, not
+// chocolate or oat milk, unless the person typed that word too.
+const VARIETY = /\b(chocolate|choco|almond|oat|soy|coconut|rice|lactose|flavou?red|strawberry|vanilla|caramel|spiced|candy|cookies?|bars?|chips?|snacks?|drink|beverage|sauce|soup|dog|cat|pet)\b/g
+
+/** The flyer deal for a need: the exact item if one was picked, else the best plain search match. */
 export function needDeal(need, deals) {
   const n = need.toLowerCase()
-  return deals.find((d) => dealName(d.name).toLowerCase() === n) || searchDeals(n, deals)[0] || null
+  const exact = deals.find((d) => dealName(d.name).toLowerCase() === n)
+  if (exact) return exact
+  const hits = searchDeals(n, deals)
+  const plain = hits.find((d) => !(fold(dealName(d.name)).match(VARIETY) || []).some((w) => !n.includes(w)))
+  return plain || hits[0] || null
 }
 
 // What people type vs. what flyers print. Each typed word also matches these (English and

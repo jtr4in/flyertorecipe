@@ -7,6 +7,9 @@ import { dealName, money, storeTint } from '../lib/stores'
 
 const TARGET = 4
 
+// Some flyers shout every name ("CHICKEN DRUMSTICKS"); show those in sentence case.
+const calm = (t) => (/[a-z]/.test(t) ? t : t.charAt(0) + t.slice(1).toLowerCase())
+
 function HeroCard({ hero, on, onToggle, big }) {
   const d = hero.deal
   const pct = Math.round(hero.pct * 100)
@@ -18,21 +21,19 @@ function HeroCard({ hero, on, onToggle, big }) {
         on ? 'border-green-700 ring-2 ring-green-700' : 'border-stone-200'
       }`}
     >
-      {big && (
-        <span className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-stone-50">
-          {d.imageUrl ? (
-            <img src={d.imageUrl} alt="" className="max-h-16 max-w-16 object-contain" />
-          ) : d.clip?.box ? (
-            <FlyerClip deal={d} sharp={200} maxHeight="4rem" />
-          ) : (
-            <span className="text-2xl" aria-hidden>
-              🥩
-            </span>
-          )}
-        </span>
-      )}
+      <span className={`flex shrink-0 items-center justify-center overflow-hidden rounded-xl bg-stone-50 ${big ? 'h-16 w-16' : 'h-12 w-12'}`}>
+        {d.imageUrl ? (
+          <img src={d.imageUrl} alt="" loading="lazy" className={`object-contain ${big ? 'max-h-16 max-w-16' : 'max-h-12 max-w-12'}`} />
+        ) : d.clip?.box ? (
+          <FlyerClip deal={d} sharp={big ? 200 : 160} maxHeight={big ? '4rem' : '3rem'} />
+        ) : (
+          <span className={big ? 'text-2xl' : 'text-xl'} aria-hidden>
+            🥩
+          </span>
+        )}
+      </span>
       <span className="min-w-0 flex-1">
-        <span className="block text-sm font-semibold leading-snug">{dealName(d.name)}</span>
+        <span className="block text-sm font-semibold leading-snug">{calm(dealName(d.name))}</span>
         <span className="mt-0.5 flex flex-wrap items-center gap-1.5 text-xs">
           <span className="font-bold text-green-700">{d.priceLabel || d.priceText}</span>
           <span className={`rounded-full px-1.5 text-[10px] font-medium ${storeTint(d.merchant)}`}>{d.merchant}</span>

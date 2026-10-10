@@ -81,4 +81,12 @@ describe('grocery search', () => {
   it('a typed need finds its flyer deal', () => {
     expect(needDeal('homo milk', deals).name).toMatch(/Homogenized|3\.25%/)
   })
+  it('a plain need skips varieties unless they were typed', () => {
+    const shelf = [
+      { name: 'Neilson Chocolate Milk, 1 L', price: 2.99, merchant: 'No Frills' },
+      { name: 'Natrel 2% Milk, 4 L', price: 6.49, merchant: 'Metro' },
+    ]
+    expect(needDeal('milk', shelf).name).toMatch(/Natrel/)
+    expect(needDeal('chocolate milk', shelf).name).toMatch(/Neilson/)
+  })
 })

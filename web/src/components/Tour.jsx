@@ -27,7 +27,7 @@ export const TOUR_STEPS = [
   {
     target: 'plan',
     title: 'What do you need?',
-    body: 'Add things you need this week, like "salami, cheese, cereal". Meals get planned around them, and the rest go straight on the grocery list.',
+    body: `Add anything else you're out of, like "milk, bread, coffee". It goes on your list with this week's best flyer price.`,
   },
   {
     target: 'deals',

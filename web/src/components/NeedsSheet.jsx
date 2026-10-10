@@ -1,5 +1,5 @@
-// "What we need": the household's own shopping list ("salami, cheese, cereal"). Meals are
-// planned around the items the recipes can use; the rest go straight on the grocery list.
+// "What we need": everyday restocks ("milk, bread, coffee") added to the grocery list beside the
+// dinners. Anything a dinner already uses is shown under that meal instead of twice.
 import { useMemo, useRef, useState } from 'react'
 import Sheet from './Sheet'
 import FlyerClip from './FlyerClip'
@@ -26,10 +26,14 @@ function StatusLine({ s }) {
   return <p className="text-xs text-stone-500">🛒 On your list (not in this week's flyers)</p>
 }
 
+// One-tap restocks for the empty search box: the things households run out of every week.
+const COMMON = ['milk', 'eggs', 'bread', 'butter', 'cheese', 'yogurt', 'coffee', 'cereal', 'bananas', 'toilet paper']
+
 export default function NeedsSheet({ open, onClose, needs, status, onChange, deals = [] }) {
   const [text, setText] = useState('')
   const input = useRef(null)
   const picks = useMemo(() => suggestNeeds(text, deals, needs), [text, deals, needs])
+  const quick = COMMON.filter((q) => !needs.includes(q))
   const byNeed = new Map(status.map((s) => [s.need, s]))
 
   const add = (e) => {
@@ -50,8 +54,8 @@ export default function NeedsSheet({ open, onClose, needs, status, onChange, dea
   return (
     <Sheet open={open} onClose={onClose} title="What do you need?" tall>
       <p className="mb-3 text-sm text-stone-600">
-        Add what's running low. We'll pick meals that use those items when they're on sale, and put the rest on your grocery
-        list.
+        Add anything else you're out of. It goes on your list with this week's best flyer price, and anything your dinners
+        already use won't be added twice.
       </p>
       <form onSubmit={add} className="mb-4 flex gap-2">
         <input
@@ -59,7 +63,7 @@ export default function NeedsSheet({ open, onClose, needs, status, onChange, dea
           autoComplete="off"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="salami, cheese, cereal"
+          placeholder="milk, bread, coffee"
           aria-label="Things you need"
           className="min-w-0 flex-1 rounded-xl border border-stone-300 bg-white px-3 py-2 text-sm focus:border-green-600 focus:outline-none"
         />
@@ -101,8 +105,25 @@ export default function NeedsSheet({ open, onClose, needs, status, onChange, dea
           ))}
         </ul>
       )}
+      {!text.trim() && quick.length > 0 && (
+        <div className="mb-4">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-stone-500">Common</p>
+          <div className="flex flex-wrap gap-2">
+            {quick.map((q) => (
+              <button
+                key={q}
+                type="button"
+                onClick={() => onChange([...needs, q])}
+                className="rounded-full border border-stone-300 bg-white px-3 py-1 text-sm capitalize"
+              >
+                + {q}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
       {needs.length === 0 ? (
-        <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">Nothing yet. Separate items with commas.</p>
+        <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">Nothing yet. Tap a common item or type your own, separated by commas.</p>
       ) : (
         <>
           <ul className="space-y-2">

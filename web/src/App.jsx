@@ -338,7 +338,7 @@ export default function App() {
               ) : (
                 <>
                   <span className="block text-sm font-semibold">Add what you need</span>
-                  <span className="block text-xs text-stone-500">e.g. salami, cheese, cereal</span>
+                  <span className="block text-xs text-stone-500">e.g. milk, bread, coffee</span>
                 </>
               )}
             </span>
