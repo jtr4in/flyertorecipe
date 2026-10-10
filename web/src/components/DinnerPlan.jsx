@@ -185,6 +185,22 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
   const [all, setAll] = useState({}) // proteins showing every dinner, not just two
   const [q, setQ] = useState('') // search box over this tab's sale items
   const [poolOpen, setPoolOpen] = useState(false) // the picked meals, folded away while browsing
+  // Browse the sale items and their meals ("deal"), or the meals themselves grouped by protein ("meal").
+  const [browse, setBrowseState] = useState(() => {
+    try {
+      return localStorage.getItem('f2r.browse') === 'meal' ? 'meal' : 'deal'
+    } catch {
+      return 'deal'
+    }
+  })
+  const setBrowse = (b) => {
+    setBrowseState(b)
+    try {
+      localStorage.setItem('f2r.browse', b)
+    } catch {
+      /* private mode */
+    }
+  }
   // This tab's sale items to plan around: proteins for dinner, cereal, yogurt... for breakfast.
   const heroes = useMemo(() => heroDeals(deals, prefs, tab), [deals, prefs, tab, recipesVersion])
   // Chosen items are saved per meal ("eggs" for dinner, "breakfast|eggs" for breakfast).
@@ -219,6 +235,26 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
   const words = fold(q).split(/[\s,]+/).filter(Boolean).map((w) => (w.length > 3 ? w.replace(/e?s$/, '') : w))
   const found = words.length ? heroes.filter((h) => words.every((w) => fold(`${h.item} ${h.label} ${h.deal.name}`).includes(w))) : heroes
   const groups = [...found.reduce((m, h) => m.set(h.group, [...(m.get(h.group) || []), h]), new Map())]
+  // Meal view: every meal built around each group's sale items, best deal per item, no repeats.
+  const mealGroups = useMemo(() => {
+    if (browse !== 'meal') return []
+    return groups
+      .map(([group, list]) => {
+        const meals = []
+        const items = new Set()
+        for (const h of list) {
+          if (items.has(h.item)) continue
+          items.add(h.item)
+          for (const m of anchorMeals(h.item, deals, prefs, h.deal, tab)) if (!meals.some((x) => x.template.id === m.template.id)) meals.push(m)
+        }
+        const ok = meals
+          .filter((m) => passesFilters(m.template, filters))
+          .sort((a, b) => sharedCount(b, have) - sharedCount(a, have) || a.cost / a.servings - b.cost / b.servings)
+        return [group, list[0], ok]
+      })
+      .filter(([, , meals]) => meals.length)
+    // `have` is rebuilt each render; its contents are what matter.
+  }, [browse, found.map((h) => h.deal.dealId).join(), deals, prefs, tab, filters, [...have].sort().join()])
   // A tapped protein's dinners, shown right under its card.
   const dinnersFor = (item) => {
     const opts = (options[item] || [])
@@ -340,8 +376,27 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
 
 
       <section data-tour="heroes">
-        <h2 className="text-lg font-semibold">What's on sale?</h2>
-        <p className="mb-2 text-sm text-stone-500">Tap a deal to see {noun} built around it.</p>
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="text-lg font-semibold">{browse === 'meal' ? `This week's ${noun}` : "What's on sale?"}</h2>
+          <div className="grid shrink-0 grid-cols-2 gap-0.5 rounded-lg bg-stone-200/70 p-0.5 text-xs font-medium" role="group" aria-label="Browse by">
+            {[
+              ['deal', 'Deals'],
+              ['meal', 'Meals'],
+            ].map(([id, label]) => (
+              <button
+                key={id}
+                aria-pressed={browse === id}
+                onClick={() => setBrowse(id)}
+                className={`rounded-md px-2.5 py-1 ${browse === id ? 'bg-white text-green-800 shadow-sm' : 'text-stone-600'}`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <p className="mb-2 text-sm text-stone-500">
+          {browse === 'meal' ? `Every ${noun.replace(/(es|s)$/, '')} idea, grouped by what's on sale.` : `Tap a deal to see ${noun} built around it.`}
+        </p>
         {heroes.length > 0 && (
           <input
             type="search"
@@ -356,6 +411,48 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
           <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">Nothing for {tab} in your flyers yet this week.</p>
         ) : found.length === 0 ? (
           <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">No {tab === 'dinner' ? 'protein' : tab} deals match "{q}" this week.</p>
+        ) : browse === 'meal' ? (
+          mealGroups.length === 0 ? (
+            <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">No {noun} match your filters. Try turning one off.</p>
+          ) : (
+            <div className="space-y-5">
+              {mealGroups.map(([group, { emoji, label }, meals]) => {
+                const key = `meal:${group}`
+                const isOpen = words.length > 0 || openGroups.includes(key)
+                const shown = isOpen ? meals : meals.slice(0, 3)
+                return (
+                  <div key={group}>
+                    <h3 className="mb-1.5 text-sm font-semibold text-stone-700">
+                      <button
+                        onClick={() => setOpenGroups(isOpen ? openGroups.filter((g) => g !== key) : [...openGroups, key])}
+                        aria-expanded={isOpen}
+                        disabled={meals.length <= 3}
+                        className="flex w-full items-center gap-1.5 text-left"
+                      >
+                        <span aria-hidden>{emoji}</span> {label}
+                        <span className="text-xs font-normal text-stone-500">({meals.length})</span>
+                        {meals.length > 3 && (
+                          <span aria-hidden className={`ml-auto inline-block text-green-700 transition ${isOpen ? 'rotate-180' : ''}`}>
+                            ▾
+                          </span>
+                        )}
+                      </button>
+                    </h3>
+                    <div className="space-y-2">
+                      {shown.map((m) => (
+                        <OptionCard key={m.template.id} meal={m} shared={sharedCount(m, have)} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />
+                      ))}
+                      {meals.length > 3 && (
+                        <button onClick={() => setOpenGroups(isOpen ? openGroups.filter((g) => g !== key) : [...openGroups, key])} className="text-sm font-medium text-green-700">
+                          {isOpen ? 'Show fewer' : `See all ${meals.length}`}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          )
         ) : (
           <div className="space-y-5">
             {groups.map(([group, list]) => {
