@@ -31,8 +31,11 @@ export function heroDeals(deals, prefs = {}) {
   }
   // Meat and fish always come first: most flyers give no regular price for meat, so a 39%-off
   // bag of lentils would otherwise outrank every chicken deal.
-  return out.sort((a, b) => plant(a) - plant(b) || b.score - a.score)
+  return out.sort((a, b) => plant(a) - plant(b) || b.score - a.score || perLb(a) - perLb(b))
 }
+
+// Ties (no regular price on the flyer) go to the cheaper protein per lb.
+const perLb = (h) => h.deal.price * (PER_LB[h.deal.unit] ?? 1)
 
 const plant = (h) => (['plantProtein', 'eggs'].includes(h.group) ? 1 : 0)
 
