@@ -1,0 +1,39 @@
+# Flyer Meal recipe library. Downloads TheMealDB's catalogue into web/public/flyermeal/recipes.json
+# and commits it, so the app reads a stored file and never calls the recipe API per user.
+# Only new recipes are fetched on later runs (26 small calls for the whole catalogue).
+name: Flyer Meal recipes
+on:
+  workflow_dispatch:
+    inputs:
+      refresh:
+        description: Re-download every recipe instead of only new ones
+        type: boolean
+        default: false
+  schedule:
+    - cron: "0 9 1 * *" # monthly: TheMealDB adds recipes slowly
+
+permissions:
+  contents: write
+
+concurrency:
+  group: flyermeal-recipes
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch new recipes
+        run: python backend/flyermeal_recipes.py ${{ inputs.refresh && '--refresh' || '' }}
+      - name: Commit
+        run: |
+          git add web/public/flyermeal/recipes.json
+          if git diff --cached --quiet; then echo "No new recipes."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Flyer Meal: update recipe library"
+          git pull --rebase origin main
+          git push origin HEAD:main
