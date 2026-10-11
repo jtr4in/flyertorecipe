@@ -19290,7 +19290,8 @@
     ],
     "vibes": [
       "comfort",
-      "savoury"
+      "savoury",
+      "treat"
     ],
     "steps": [
       "Slice the {protein} in half horizontally into thin cutlets and season with salt and pepper.",
@@ -19493,7 +19494,8 @@
     ],
     "vibes": [
       "comfort",
-      "savoury"
+      "savoury",
+      "treat"
     ],
     "steps": [
       "Heat the oven to 425°F. Season the {protein} with salt and pepper.",
@@ -19716,7 +19718,9 @@
       "salt",
       "pepper"
     ],
-    "tags": [],
+    "tags": [
+      "kid-approved"
+    ],
     "vibes": [
       "savoury",
       "healthy"
@@ -19782,7 +19786,8 @@
     ],
     "vibes": [
       "comfort",
-      "savoury"
+      "savoury",
+      "treat"
     ],
     "steps": [
       "Boil the {starch}.",
@@ -19941,7 +19946,8 @@
     ],
     "vibes": [
       "comfort",
-      "savoury"
+      "savoury",
+      "treat"
     ],
     "steps": [
       "Cook the {starch}.",
@@ -19998,7 +20004,8 @@
       "cooking oil"
     ],
     "tags": [
-      "quick"
+      "quick",
+      "kid-approved"
     ],
     "vibes": [
       "healthy",
