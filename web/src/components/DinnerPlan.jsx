@@ -263,13 +263,13 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
       .sort((a, b) => sharedCount(b, have) - sharedCount(a, have))
     if (!opts.length)
       return (options[item] || []).length ? (
-        <p className="ml-3 border-l-2 border-green-700/30 pl-3 text-xs text-stone-500">No {noun} with this one match your filters.</p>
+        <p className="px-2 text-xs text-stone-500">No {noun} with this one match your filters.</p>
       ) : null
     const shown = opts.slice(0, 2)
     const quick = quickMeal(opts)
     return (
-      <section key={item} className="ml-3 border-l-2 border-green-700/30 pl-3">
-        <p className="mb-2 text-xs text-stone-500">{cap(noun)} built around it, using other things on sale.</p>
+      <section key={item} className="px-1">
+        <p className="mb-2 px-1 text-xs font-medium text-green-800">↓ {cap(noun)} built around it, using other things on sale</p>
         <div className="space-y-2">
           {shown.map((m) => (
             <OptionCard key={m.template.id} meal={m} shared={sharedCount(m, have)} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />
@@ -494,7 +494,10 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
                   </h3>
                   <div className="space-y-2">
                     {shown.map((h, i) => (
-                      <div key={h.deal.dealId ?? h.deal.name} className="space-y-2">
+                      <div
+                        key={h.deal.dealId ?? h.deal.name}
+                        className={isOn(h) ? 'space-y-3 rounded-3xl border border-green-200 bg-green-50/70 p-2 pb-3 shadow-sm' : 'space-y-2'}
+                      >
                         <HeroCard hero={h} on={isOn(h)} onToggle={() => toggle(h)} />
                         {isOn(h) && dinnersFor(h.item)}
                       </div>
