@@ -3,7 +3,7 @@
 // what's on sale and what's already on the list. Then "Generate my list" moves on to shopping.
 import { useMemo, useState } from 'react'
 import FlyerClip from './FlyerClip'
-import { anchorMeals, FILTERS, heroDeals, mealOptions, passesFilters, quickMeal, sharedCount } from '../lib/anchors'
+import { anchorMeals, FILTERS, SECTIONS, heroDeals, mealOptions, passesFilters, quickMeal, sharedCount } from '../lib/anchors'
 import { cap } from '../data/templates'
 import { SAUCES, sauceIngredient } from '../data/sauces'
 import { matchDeal } from '../lib/planner'
@@ -19,7 +19,11 @@ const MEALS = [
 // Some flyers shout every name ("CHICKEN DRUMSTICKS"); show those in sentence case.
 const calm = (t) => (/[a-z]/.test(t) ? t : t.charAt(0) + t.slice(1).toLowerCase())
 // Lowercase without accents, so "poulet haché" matches "hache".
-const fold = (t) => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+const fold = (t) =>
+  t
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
 
 function HeroCard({ hero, on, onToggle, big = false }) {
   const d = hero.deal
@@ -51,7 +55,9 @@ function HeroCard({ hero, on, onToggle, big = false }) {
           {pct > 0 && <span className="rounded-full bg-amber-100 px-1.5 text-[10px] font-semibold text-amber-900">{pct}% off</span>}
         </span>
       </span>
-      <span className={`flex size-6 shrink-0 items-center justify-center rounded-full border text-sm ${on ? 'border-green-700 bg-green-700 text-white' : 'border-stone-300 text-transparent'}`}>
+      <span
+        className={`flex size-6 shrink-0 items-center justify-center rounded-full border text-sm ${on ? 'border-green-700 bg-green-700 text-white' : 'border-stone-300 text-transparent'}`}
+      >
         ✓
       </span>
     </button>
@@ -168,7 +174,12 @@ function PoolCard({ meal, n, deals, onRemove, onSwap, onLeftovers, onJar, leftov
             <input type="checkbox" className="size-3.5 accent-green-700" checked={!!meal.jar} onChange={(e) => onJar(e.target.checked)} />
             <span>
               Use store-bought {sauce.sauce}
-              {jarDeal && <span className="text-green-700"> · {jarDeal.priceLabel || jarDeal.priceText} at {jarDeal.merchant}</span>}
+              {jarDeal && (
+                <span className="text-green-700">
+                  {' '}
+                  · {jarDeal.priceLabel || jarDeal.priceText} at {jarDeal.merchant}
+                </span>
+              )}
             </span>
           </label>
         )}
@@ -177,7 +188,24 @@ function PoolCard({ meal, n, deals, onRemove, onSwap, onLeftovers, onJar, leftov
   )
 }
 
-export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, anchorDeals = {}, have = new Set(), pool, onAnchors, onAdd, onRemove, onReplace, onLeftovers, onJar, onShop, itemCount, onClearMeals }) {
+export default function DinnerPlan({
+  recipesVersion = 0,
+  deals,
+  prefs,
+  anchors,
+  anchorDeals = {},
+  have = new Set(),
+  pool,
+  onAnchors,
+  onAdd,
+  onRemove,
+  onReplace,
+  onLeftovers,
+  onJar,
+  onShop,
+  itemCount,
+  onClearMeals,
+}) {
   const [openGroups, setOpenGroups] = useState([]) // protein types showing every deal
   const [tab, setTab] = useState('dinner')
   const [filters, setFilters] = useState([])
@@ -207,8 +235,7 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
   // Chosen items are saved per meal ("eggs" for dinner, "breakfast|eggs" for breakfast).
   const keyOf = (item) => (tab === 'dinner' ? item : `${tab}|${item}`)
   // Which deal was tapped for each chosen item (several stores can have chicken breasts).
-  const heroOf = (item) =>
-    heroes.find((h) => h.item === item && h.deal.dealId === anchorDeals[keyOf(item)]) || heroes.find((h) => h.item === item)
+  const heroOf = (item) => heroes.find((h) => h.item === item && h.deal.dealId === anchorDeals[keyOf(item)]) || heroes.find((h) => h.item === item)
   const chosen = heroes.filter((h, i, a) => anchors.includes(keyOf(h.item)) && a.findIndex((x) => x.item === h.item) === i).map((h) => h.item)
   // Meals are priced like the grocery list prices them (each item's best deal), not with the tapped
   // card's deal, so a meal costs the same before and after it's added.
@@ -229,44 +256,50 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
   const toggle = (h) => {
     const k = keyOf(h.item)
     const { [k]: _, ...rest } = anchorDeals
-    if (isOn(h)) onAnchors(anchors.filter((x) => x !== k), rest)
+    if (isOn(h))
+      onAnchors(
+        anchors.filter((x) => x !== k),
+        rest,
+      )
     else onAnchors(anchors.includes(k) ? anchors : [...anchors, k], { ...rest, [k]: h.deal.dealId })
   }
   const noun = tab === 'dinner' ? 'dinners' : tab === 'breakfast' ? 'breakfasts' : 'lunches'
   // One section per kind of item, in the order of its best deal (heroes come sorted).
   // Every typed word has to appear in the item, its group or the flyer name ("breasts", "ground").
-  const words = fold(q).split(/[\s,]+/).filter(Boolean).map((w) => (w.length > 3 ? w.replace(/e?s$/, '') : w))
+  const words = fold(q)
+    .split(/[\s,]+/)
+    .filter(Boolean)
+    .map((w) => (w.length > 3 ? w.replace(/e?s$/, '') : w))
   const found = words.length ? heroes.filter((h) => words.every((w) => fold(`${h.item} ${h.label} ${h.deal.name}`).includes(w))) : heroes
   const groups = [...found.reduce((m, h) => m.set(h.group, [...(m.get(h.group) || []), h]), new Map())]
   // Meal view: every meal built around each group's sale items, best deal per item, no repeats.
   const mealGroups = useMemo(() => {
     if (browse !== 'meal') return []
-    return groups
-      .map(([group, list]) => {
-        const meals = []
-        const items = new Set()
-        for (const h of list) {
-          if (items.has(h.item)) continue
-          items.add(h.item)
-          for (const m of anchorMeals(h.item, deals, prefs, null, tab)) if (!meals.some((x) => x.template.id === m.template.id)) meals.push(m)
-        }
-        const ok = meals
-          .filter((m) => passesFilters(m.template, filters))
-          .sort((a, b) => sharedCount(b, have) - sharedCount(a, have) || a.cost / a.servings - b.cost / b.servings)
-        return [group, list[0], ok]
-      })
-      .filter(([, , meals]) => meals.length)
+    return (
+      groups
+        .map(([group, list]) => {
+          const meals = []
+          const items = new Set()
+          for (const h of list) {
+            if (items.has(h.item)) continue
+            items.add(h.item)
+            for (const m of anchorMeals(h.item, deals, prefs, null, tab)) if (!meals.some((x) => x.template.id === m.template.id)) meals.push(m)
+          }
+          const ok = meals
+            .filter((m) => passesFilters(m.template, filters))
+            .sort((a, b) => sharedCount(b, have) - sharedCount(a, have) || a.cost / a.servings - b.cost / b.servings)
+          return [group, list[0], ok]
+        })
+        .filter(([, , meals]) => meals.length)
+        // A steady order to browse by (chicken, pork, ground, fish, then tofu...), not by this week's deals.
+        .sort(([a], [b]) => SECTIONS[tab].findIndex(([id]) => id === a) - SECTIONS[tab].findIndex(([id]) => id === b))
+    )
     // `have` is rebuilt each render; its contents are what matter.
   }, [browse, found.map((h) => h.deal.dealId).join(), deals, prefs, tab, filters, [...have].sort().join()])
   // A tapped protein's dinners, shown right under its card.
   const dinnersFor = (item) => {
-    const opts = (options[item] || [])
-      .filter((m) => passesFilters(m.template, filters))
-      .sort((a, b) => sharedCount(b, have) - sharedCount(a, have))
-    if (!opts.length)
-      return (options[item] || []).length ? (
-        <p className="px-2 text-xs text-stone-500">No {noun} with this one match your filters.</p>
-      ) : null
+    const opts = (options[item] || []).filter((m) => passesFilters(m.template, filters)).sort((a, b) => sharedCount(b, have) - sharedCount(a, have))
+    if (!opts.length) return (options[item] || []).length ? <p className="px-2 text-xs text-stone-500">No {noun} with this one match your filters.</p> : null
     const shown = opts.slice(0, 2)
     const quick = quickMeal(opts)
     return (
@@ -282,7 +315,16 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
           {all[item] &&
             opts
               .filter((m) => !shown.includes(m))
-              .map((m) => <OptionCard key={m.template.id} meal={m} shared={sharedCount(m, have)} label={m === quick ? '⚡ Quick, low-effort' : null} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />)}
+              .map((m) => (
+                <OptionCard
+                  key={m.template.id}
+                  meal={m}
+                  shared={sharedCount(m, have)}
+                  label={m === quick ? '⚡ Quick, low-effort' : null}
+                  added={inPool.has(m.name)}
+                  onAdd={() => onAdd(m)}
+                />
+              ))}
           {opts.length > shown.length + (quick && !shown.includes(quick) ? 1 : 0) && (
             <button onClick={() => setAll({ ...all, [item]: !all[item] })} className="text-sm font-medium text-green-700">
               {all[item] ? 'Show fewer' : `See all ${opts.length} ${noun}`}
@@ -312,7 +354,9 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
         >
           <span className="text-sm font-semibold">Your meals</span>
           <span className="min-w-0 flex-1 truncate text-xs text-stone-500">
-            {pool.length ? `${counts.dinner} of ${TARGET} dinners${pool.length > counts.dinner ? ` · ${pool.length - counts.dinner} more` : ''}` : 'Pick a deal below, then add meals'}
+            {pool.length
+              ? `${counts.dinner} of ${TARGET} dinners${pool.length > counts.dinner ? ` · ${pool.length - counts.dinner} more` : ''}`
+              : 'Pick a deal below, then add meals'}
           </span>
           {pool.length > 0 && (
             <span aria-hidden className={`inline-block text-green-700 transition ${poolOpen ? 'rotate-180' : ''}`}>
@@ -352,188 +396,184 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
         )}
       </section>
       <div className="min-w-0 space-y-5">
-      <div className="space-y-3">
-        <div className="grid grid-cols-3 gap-1 rounded-2xl bg-stone-100 p-1 text-sm font-medium" role="tablist" aria-label="Meal">
-          {MEALS.map(([id, label]) => (
-            <button
-              key={id}
-              role="tab"
-              aria-selected={tab === id}
-              onClick={() => {
-                setTab(id)
-                setShowAll(false)
-                setQ('')
-              }}
-              className={`rounded-xl py-2 ${tab === id ? 'bg-white text-green-800 shadow-sm' : 'text-stone-600'}`}
-            >
-              {label}
-              {counts[id] > 0 && <span className="ml-1 text-xs text-green-700">· {counts[id]}</span>}
-            </button>
-          ))}
-        </div>
-        <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1" aria-label="Filters">
-          {FILTERS.map(([id, label]) => {
-            const on = filters.includes(id)
-            return (
+        <div className="space-y-3">
+          <div className="grid grid-cols-3 gap-1 rounded-2xl bg-stone-100 p-1 text-sm font-medium" role="tablist" aria-label="Meal">
+            {MEALS.map(([id, label]) => (
               <button
                 key={id}
-                aria-pressed={on}
-                onClick={() => setFilters(on ? filters.filter((f) => f !== id) : [...filters, id])}
-                className={`shrink-0 rounded-full border px-3 py-1 text-sm ${on ? 'border-green-700 bg-green-700 text-white' : 'border-stone-300 bg-white text-stone-700'}`}
+                role="tab"
+                aria-selected={tab === id}
+                onClick={() => {
+                  setTab(id)
+                  setShowAll(false)
+                  setQ('')
+                }}
+                className={`rounded-xl py-2 ${tab === id ? 'bg-white text-green-800 shadow-sm' : 'text-stone-600'}`}
               >
                 {label}
-              </button>
-            )
-          })}
-        </div>
-      </div>
-
-
-      <section data-tour="heroes">
-        <div className="flex items-center justify-between gap-2">
-          <h2 className="text-lg font-semibold">{browse === 'meal' ? `This week's ${noun}` : "What's on sale?"}</h2>
-          <div className="grid shrink-0 grid-cols-2 gap-0.5 rounded-lg bg-stone-200/70 p-0.5 text-xs font-medium" role="group" aria-label="Browse by">
-            {[
-              ['deal', 'Deals'],
-              ['meal', 'Meals'],
-            ].map(([id, label]) => (
-              <button
-                key={id}
-                aria-pressed={browse === id}
-                onClick={() => setBrowse(id)}
-                className={`rounded-md px-2.5 py-1 ${browse === id ? 'bg-white text-green-800 shadow-sm' : 'text-stone-600'}`}
-              >
-                {label}
+                {counts[id] > 0 && <span className="ml-1 text-xs text-green-700">· {counts[id]}</span>}
               </button>
             ))}
           </div>
+          <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1" aria-label="Filters">
+            {FILTERS.map(([id, label]) => {
+              const on = filters.includes(id)
+              return (
+                <button
+                  key={id}
+                  aria-pressed={on}
+                  onClick={() => setFilters(on ? filters.filter((f) => f !== id) : [...filters, id])}
+                  className={`shrink-0 rounded-full border px-3 py-1 text-sm ${on ? 'border-green-700 bg-green-700 text-white' : 'border-stone-300 bg-white text-stone-700'}`}
+                >
+                  {label}
+                </button>
+              )
+            })}
+          </div>
         </div>
-        <p className="mb-2 text-sm text-stone-500">
-          {browse === 'meal' ? `Every ${noun.replace(/(es|s)$/, '')} idea, grouped by what's on sale.` : `Tap a deal to see ${noun} built around it.`}
-        </p>
-        {heroes.length > 0 && (
-          <input
-            type="search"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder={tab === 'dinner' ? 'Search: breasts, ground, salmon…' : tab === 'breakfast' ? 'Search: bacon, yogurt, cereal…' : 'Search: ham, bread, soup…'}
-            aria-label="Search sale items"
-            className="mb-3 w-full rounded-xl border border-stone-300 bg-white px-3 py-2 text-sm"
-          />
-        )}
-        {heroes.length === 0 ? (
-          <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">Nothing for {tab} in your flyers yet this week.</p>
-        ) : found.length === 0 ? (
-          <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">No {tab === 'dinner' ? 'protein' : tab} deals match "{q}" this week.</p>
-        ) : browse === 'meal' ? (
-          mealGroups.length === 0 ? (
-            <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">No {noun} match your filters. Try turning one off.</p>
-          ) : (
-            <div className="space-y-5">
-              {mealGroups.map(([group, { emoji, label }, meals]) => {
-                const key = `meal:${group}`
-                const isOpen = words.length > 0 || openGroups.includes(key)
-                const shown = isOpen ? meals : meals.slice(0, 3)
-                return (
-                  <div key={group}>
-                    <h3 className="mb-1.5 text-sm font-semibold text-stone-700">
-                      <button
-                        onClick={() => setOpenGroups(isOpen ? openGroups.filter((g) => g !== key) : [...openGroups, key])}
-                        aria-expanded={isOpen}
-                        disabled={meals.length <= 3}
-                        className="flex w-full items-center gap-1.5 text-left"
-                      >
-                        <span aria-hidden>{emoji}</span> {label}
-                        <span className="text-xs font-normal text-stone-500">({meals.length})</span>
-                        {meals.length > 3 && (
+
+        <section data-tour="heroes">
+          <div className="flex items-center justify-between gap-2">
+            <h2 className="text-lg font-semibold">{browse === 'meal' ? `This week's ${noun}` : "What's on sale?"}</h2>
+            <div className="grid shrink-0 grid-cols-2 gap-0.5 rounded-lg bg-stone-200/70 p-0.5 text-xs font-medium" role="group" aria-label="Browse by">
+              {[
+                ['deal', 'Deals'],
+                ['meal', 'Meals'],
+              ].map(([id, label]) => (
+                <button
+                  key={id}
+                  aria-pressed={browse === id}
+                  onClick={() => setBrowse(id)}
+                  className={`rounded-md px-2.5 py-1 ${browse === id ? 'bg-white text-green-800 shadow-sm' : 'text-stone-600'}`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <p className="mb-2 text-sm text-stone-500">
+            {browse === 'meal' ? `Every ${noun.replace(/(es|s)$/, '')} idea, grouped by what's on sale.` : `Tap a deal to see ${noun} built around it.`}
+          </p>
+          {heroes.length > 0 && (
+            <input
+              type="search"
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder={
+                tab === 'dinner' ? 'Search: breasts, ground, salmon…' : tab === 'breakfast' ? 'Search: bacon, yogurt, cereal…' : 'Search: ham, bread, soup…'
+              }
+              aria-label="Search sale items"
+              className="mb-3 w-full rounded-xl border border-stone-300 bg-white px-3 py-2 text-sm"
+            />
+          )}
+          {heroes.length === 0 ? (
+            <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">Nothing for {tab} in your flyers yet this week.</p>
+          ) : found.length === 0 ? (
+            <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">
+              No {tab === 'dinner' ? 'protein' : tab} deals match "{q}" this week.
+            </p>
+          ) : browse === 'meal' ? (
+            mealGroups.length === 0 ? (
+              <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">No {noun} match your filters. Try turning one off.</p>
+            ) : (
+              <div className="space-y-2">
+                {mealGroups.map(([group, { emoji, label }, meals]) => {
+                  const key = `meal:${group}`
+                  const isOpen = words.length > 0 || openGroups.includes(key)
+                  const shown = isOpen ? meals : []
+                  return (
+                    <div key={group}>
+                      <h3 className={isOpen ? 'mb-2' : ''}>
+                        <button
+                          onClick={() => setOpenGroups(isOpen ? openGroups.filter((g) => g !== key) : [...openGroups, key])}
+                          aria-expanded={isOpen}
+                          className="flex w-full items-center gap-2 rounded-2xl border border-stone-200 bg-white px-4 py-3 text-left text-base font-semibold text-stone-800"
+                        >
+                          <span aria-hidden className="text-xl">
+                            {emoji}
+                          </span>{' '}
+                          {label}
+                          <span className="text-sm font-normal text-stone-500">({meals.length})</span>
                           <span aria-hidden className={`ml-auto inline-block text-green-700 transition ${isOpen ? 'rotate-180' : ''}`}>
                             ▾
                           </span>
-                        )}
-                      </button>
-                    </h3>
-                    <div className="grid gap-2 lg:grid-cols-2 lg:items-start">
-                      {shown.map((m) => (
-                        <OptionCard key={m.template.id} meal={m} shared={sharedCount(m, have)} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />
-                      ))}
-                      {meals.length > 3 && (
-                        <button onClick={() => setOpenGroups(isOpen ? openGroups.filter((g) => g !== key) : [...openGroups, key])} className="justify-self-start text-sm font-medium text-green-700 lg:col-span-2">
-                          {isOpen ? 'Show fewer' : `See all ${meals.length}`}
                         </button>
+                      </h3>
+                      <div className={isOpen ? 'mb-4 grid gap-2 lg:grid-cols-2 lg:items-start' : 'hidden'}>
+                        {shown.map((m) => (
+                          <OptionCard key={m.template.id} meal={m} shared={sharedCount(m, have)} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />
+                        ))}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )
+          ) : (
+            <div className="space-y-5">
+              {groups.map(([group, list]) => {
+                const isOpen = words.length > 0 || openGroups.includes(group)
+                const shown = isOpen ? list : list.filter((h, i) => i === 0 || isOn(h))
+                const { emoji, label } = list[0]
+                return (
+                  <div key={group}>
+                    <h3 className="mb-1.5 text-sm font-semibold text-stone-700">
+                      {list.length > 1 ? (
+                        <button
+                          onClick={() => setOpenGroups(isOpen ? openGroups.filter((g) => g !== group) : [...openGroups, group])}
+                          aria-expanded={isOpen}
+                          className="flex w-full items-center gap-1.5 text-left"
+                        >
+                          <span aria-hidden>{emoji}</span> {label}
+                          <span className="text-xs font-normal text-stone-500">({list.length})</span>
+                          <span aria-hidden className={`ml-auto inline-block text-green-700 transition ${isOpen ? 'rotate-180' : ''}`}>
+                            ▾
+                          </span>
+                        </button>
+                      ) : (
+                        <>
+                          <span aria-hidden>{emoji}</span> {label}
+                        </>
                       )}
+                    </h3>
+                    <div className="space-y-2">
+                      {shown.map((h, i) => (
+                        <div
+                          key={h.deal.dealId ?? h.deal.name}
+                          className={isOn(h) ? 'space-y-3 rounded-3xl border border-green-200 bg-green-50/70 p-2 pb-3 shadow-sm' : 'space-y-2'}
+                        >
+                          <HeroCard hero={h} on={isOn(h)} onToggle={() => toggle(h)} />
+                          {isOn(h) && dinnersFor(h.item)}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )
               })}
             </div>
-          )
-        ) : (
-          <div className="space-y-5">
-            {groups.map(([group, list]) => {
-              const isOpen = words.length > 0 || openGroups.includes(group)
-              const shown = isOpen ? list : list.filter((h, i) => i === 0 || isOn(h))
-              const { emoji, label } = list[0]
-              return (
-                <div key={group}>
-                  <h3 className="mb-1.5 text-sm font-semibold text-stone-700">
-                    {list.length > 1 ? (
-                      <button
-                        onClick={() => setOpenGroups(isOpen ? openGroups.filter((g) => g !== group) : [...openGroups, group])}
-                        aria-expanded={isOpen}
-                        className="flex w-full items-center gap-1.5 text-left"
-                      >
-                        <span aria-hidden>{emoji}</span> {label}
-                        <span className="text-xs font-normal text-stone-500">({list.length})</span>
-                        <span aria-hidden className={`ml-auto inline-block text-green-700 transition ${isOpen ? 'rotate-180' : ''}`}>
-                          ▾
-                        </span>
-                      </button>
-                    ) : (
-                      <>
-                        <span aria-hidden>{emoji}</span> {label}
-                      </>
-                    )}
-                  </h3>
-                  <div className="space-y-2">
-                    {shown.map((h, i) => (
-                      <div
-                        key={h.deal.dealId ?? h.deal.name}
-                        className={isOn(h) ? 'space-y-3 rounded-3xl border border-green-200 bg-green-50/70 p-2 pb-3 shadow-sm' : 'space-y-2'}
-                      >
-                        <HeroCard hero={h} on={isOn(h)} onToggle={() => toggle(h)} />
-                        {isOn(h) && dinnersFor(h.item)}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        )}
-      </section>
-
-      {tab !== 'dinner' && (
-        <section>
-          <button onClick={() => setShowAll(!showAll)} aria-expanded={showAll} className="flex items-center gap-1 text-sm font-medium text-green-700">
-            {showAll ? `Hide all ${noun}` : `Browse all ${noun} (${picks.length})`}
-            <span aria-hidden className={`inline-block transition ${showAll ? 'rotate-180' : ''}`}>
-              ▾
-            </span>
-          </button>
-          {!showAll ? null : picks.length === 0 ? (
-            <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">Nothing matches your filters. Try turning one off.</p>
-          ) : (
-            <div className="mt-2 grid gap-2 lg:grid-cols-2 lg:items-start">
-              <p className="text-xs text-stone-500 lg:col-span-2">Ones that reuse what's already on your list come first.</p>
-              {picks.map((m) => (
-                <OptionCard key={m.template.id} meal={m} shared={m.shared} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />
-              ))}
-            </div>
           )}
         </section>
-      )}
 
-
+        {tab !== 'dinner' && (
+          <section>
+            <button onClick={() => setShowAll(!showAll)} aria-expanded={showAll} className="flex items-center gap-1 text-sm font-medium text-green-700">
+              {showAll ? `Hide all ${noun}` : `Browse all ${noun} (${picks.length})`}
+              <span aria-hidden className={`inline-block transition ${showAll ? 'rotate-180' : ''}`}>
+                ▾
+              </span>
+            </button>
+            {!showAll ? null : picks.length === 0 ? (
+              <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">Nothing matches your filters. Try turning one off.</p>
+            ) : (
+              <div className="mt-2 grid gap-2 lg:grid-cols-2 lg:items-start">
+                <p className="text-xs text-stone-500 lg:col-span-2">Ones that reuse what's already on your list come first.</p>
+                {picks.map((m) => (
+                  <OptionCard key={m.template.id} meal={m} shared={m.shared} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />
+                ))}
+              </div>
+            )}
+          </section>
+        )}
       </div>
       {pool.length > 0 && (
         <div className="pointer-events-none sticky bottom-4 z-10 flex justify-end lg:col-span-2">
