@@ -19223,5 +19223,1196 @@
       "Sprinkle with the seasoning packet, a pinch of sugar and chili flakes if you like.",
       "Shake together in the bag and munch."
     ]
+  },
+  {
+    "id": "chicken-parmesan",
+    "meal": "dinner",
+    "name": "Chicken parmesan with spaghetti[ & {greens} salad]",
+    "emoji": "🍗",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry"
+        ],
+        "only": [
+          "chicken breasts"
+        ],
+        "main": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "only": [
+          "mozzarella"
+        ]
+      },
+      {
+        "key": "sauce",
+        "from": [
+          "pastaSauce"
+        ]
+      },
+      {
+        "key": "pasta",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "pasta"
+        ]
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "only": [
+          "lettuce",
+          "salad greens"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "breadcrumbs",
+      "flour",
+      "parmesan",
+      "cooking oil",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Slice the {protein} in half horizontally into thin cutlets and season with salt and pepper.",
+      "Dust in flour, dip in beaten egg, then press into breadcrumbs mixed with a handful of parmesan.",
+      "Pan-fry in oil for 3-4 minutes a side until golden, then move to a baking dish.",
+      "Spoon {sauce} over each cutlet, top with {cheese} and bake at 425°F for 10 minutes until bubbly.",
+      "Meanwhile boil the {pasta}, toss with the rest of the sauce and serve with the chicken.[ Serve a {greens} salad on the side.]"
+    ]
+  },
+  {
+    "id": "chicken-cacciatore",
+    "meal": "dinner",
+    "name": "Chicken cacciatore with {veg} over {starch}",
+    "emoji": "🍅",
+    "minutes": 45,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry"
+        ],
+        "only": [
+          "chicken thighs",
+          "chicken breasts"
+        ],
+        "prefer": "chicken thighs",
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "bell peppers",
+          "mushrooms",
+          "zucchini"
+        ],
+        "prefer": "bell peppers"
+      },
+      {
+        "key": "sauce",
+        "from": [
+          "cannedTomato"
+        ]
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "pasta",
+          "rice",
+          "potatoes"
+        ],
+        "prefer": "pasta"
+      }
+    ],
+    "pantry": [
+      "onion",
+      "garlic",
+      "dried oregano",
+      "cooking oil",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "healthy"
+    ],
+    "steps": [
+      "Season the {protein} and brown it in oil in a deep pan, then set aside.",
+      "Soften sliced onion, garlic and the {veg} in the same pan for 5 minutes.",
+      "Add the {sauce}, a pinch of oregano and the chicken with its juices.",
+      "Cover and simmer for 25 minutes until the chicken is tender.",
+      "Serve over the {starch}."
+    ]
+  },
+  {
+    "id": "greek-lemon-chicken",
+    "meal": "dinner",
+    "name": "Greek lemon chicken & potatoes with {veg}",
+    "emoji": "🍋",
+    "minutes": 55,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry"
+        ],
+        "only": [
+          "chicken thighs",
+          "chicken breasts"
+        ],
+        "prefer": "chicken thighs",
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "potatoes"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "green beans",
+          "zucchini",
+          "bell peppers",
+          "asparagus"
+        ]
+      }
+    ],
+    "pantry": [
+      "lemon juice",
+      "garlic",
+      "dried oregano",
+      "olive oil",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "healthy",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 425°F and cut the {starch} into wedges.",
+      "Toss the {protein} and potatoes with olive oil, lots of lemon juice, garlic, oregano, salt and pepper in a roasting pan.",
+      "Roast for 25 minutes, then add the {veg} and roast 15-20 minutes more until the chicken is cooked and the potatoes are crisp at the edges.",
+      "Squeeze over more lemon before serving."
+    ]
+  },
+  {
+    "id": "bbq-chicken",
+    "meal": "dinner",
+    "name": "Oven BBQ chicken with {side}[ & {veg}]",
+    "emoji": "🍗",
+    "minutes": 45,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry"
+        ],
+        "only": [
+          "chicken thighs",
+          "chicken breasts",
+          "whole chicken"
+        ],
+        "prefer": "chicken thighs",
+        "main": true
+      },
+      {
+        "key": "side",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "potatoes",
+          "sweet potatoes",
+          "rice"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "saladVeg"
+        ],
+        "only": [
+          "green beans",
+          "broccoli",
+          "carrots",
+          "cucumber"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "BBQ sauce",
+      "cooking oil",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 425°F. Season the {protein} with salt and pepper.",
+      "Bake on a lined tray for 20 minutes, then brush thickly with BBQ sauce.",
+      "Bake 15-20 minutes more, brushing again halfway, until sticky and cooked through.",
+      "Meanwhile cook the {side}.[ Serve with {veg} on the side.]"
+    ]
+  },
+  {
+    "id": "chicken-noodle-soup",
+    "meal": "lunch",
+    "name": "Classic chicken noodle soup[ with {bread}]",
+    "emoji": "🍜",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "lunchProtein"
+        ],
+        "only": [
+          "chicken thighs",
+          "chicken breasts",
+          "rotisserie chicken"
+        ],
+        "main": true
+      },
+      {
+        "key": "noodles",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "egg noodles",
+          "pasta"
+        ],
+        "prefer": "egg noodles"
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg",
+          "cookingVeg"
+        ],
+        "only": [
+          "carrots"
+        ]
+      },
+      {
+        "key": "veg2",
+        "from": [
+          "saladVeg"
+        ],
+        "only": [
+          "celery"
+        ]
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "only": [
+          "bread"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "chicken broth",
+      "onion",
+      "garlic",
+      "dried thyme",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "healthy"
+    ],
+    "steps": [
+      "Soften diced onion, sliced {veg} and {veg2} in a little oil for 5 minutes.",
+      "Add garlic, thyme and plenty of chicken broth, then the {protein} (whole pieces if raw).",
+      "Simmer for 20 minutes; lift out the chicken, shred it and return it to the pot.",
+      "Add the {noodles} and simmer until tender. Season well.[ Serve with {bread}.]"
+    ]
+  },
+  {
+    "id": "chicken-salad-sandwiches",
+    "meal": "lunch",
+    "name": "Chicken salad sandwiches on {bread}[ with {side}]",
+    "emoji": "🥪",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "lunchProtein",
+          "poultry"
+        ],
+        "only": [
+          "rotisserie chicken",
+          "chicken breasts"
+        ],
+        "prefer": "rotisserie chicken",
+        "main": true
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread",
+          "wraps"
+        ],
+        "only": [
+          "bread",
+          "tortillas"
+        ],
+        "prefer": "bread"
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "only": [
+          "celery"
+        ]
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "only": [
+          "lettuce"
+        ]
+      },
+      {
+        "key": "side",
+        "from": [
+          "fruit"
+        ],
+        "only": [
+          "grapes",
+          "apples"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "mayo",
+      "mustard",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "light"
+    ],
+    "steps": [
+      "Shred or chop the {protein} (cook breasts first if using raw).",
+      "Mix with diced {veg}, mayo, a little mustard, salt and pepper.",
+      "Pile onto {bread} with {greens}.[ Serve with {side}.]"
+    ]
+  },
+  {
+    "id": "maple-pork-tenderloin",
+    "meal": "dinner",
+    "name": "Maple-mustard pork tenderloin with {veg} & {starch}",
+    "emoji": "🍁",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "pork"
+        ],
+        "only": [
+          "pork tenderloin"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "carrots",
+          "brussels sprouts",
+          "green beans",
+          "squash"
+        ]
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "potatoes",
+          "sweet potatoes",
+          "rice"
+        ]
+      }
+    ],
+    "pantry": [
+      "maple syrup",
+      "Dijon mustard",
+      "garlic",
+      "cooking oil",
+      "salt",
+      "pepper"
+    ],
+    "tags": [],
+    "vibes": [
+      "savoury",
+      "healthy"
+    ],
+    "steps": [
+      "Heat the oven to 425°F and start the {starch}.",
+      "Toss the {veg} with oil and salt on a tray and roast for 10 minutes.",
+      "Sear the seasoned {protein} on all sides, then brush with maple syrup, mustard and garlic.",
+      "Put the pork on the tray with the veg and roast 15-18 minutes until just pink inside (145°F).",
+      "Rest 5 minutes, slice and spoon over the pan juices."
+    ]
+  },
+  {
+    "id": "pork-schnitzel",
+    "meal": "dinner",
+    "name": "Crispy pork schnitzel with {starch} & {veg}",
+    "emoji": "🥩",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "pork"
+        ],
+        "only": [
+          "pork chops"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "potatoes",
+          "egg noodles"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg",
+          "greens"
+        ],
+        "only": [
+          "cucumber",
+          "salad greens",
+          "lettuce"
+        ]
+      }
+    ],
+    "pantry": [
+      "breadcrumbs",
+      "flour",
+      "lemon",
+      "cooking oil",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Boil the {starch}.",
+      "Pound the {protein} thin between plastic wrap and season with salt and pepper.",
+      "Dust in flour, dip in beaten egg, then coat in breadcrumbs.",
+      "Shallow-fry in hot oil 2-3 minutes a side until deep golden.",
+      "Serve with lemon wedges, the {starch} and a {veg} salad."
+    ]
+  },
+  {
+    "id": "classic-meatloaf",
+    "meal": "dinner",
+    "name": "Classic meatloaf with mashed {starch} & {veg}",
+    "emoji": "🍖",
+    "minutes": 70,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "only": [
+          "ground beef",
+          "ground turkey",
+          "ground pork"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "potatoes"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "green beans",
+          "carrots",
+          "broccoli",
+          "frozen mixed vegetables"
+        ]
+      }
+    ],
+    "pantry": [
+      "breadcrumbs",
+      "ketchup",
+      "onion",
+      "Worcestershire sauce",
+      "butter",
+      "milk",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 350°F.",
+      "Mix the {protein} with 1 egg, breadcrumbs, grated onion, a splash of Worcestershire, salt and pepper.",
+      "Shape into a loaf in a pan, spread ketchup on top and bake for 55-60 minutes.",
+      "Meanwhile boil the {starch} and mash with butter and milk.",
+      "Steam the {veg}, then rest the meatloaf 10 minutes before slicing."
+    ]
+  },
+  {
+    "id": "beef-bean-burritos",
+    "meal": "dinner",
+    "name": "Beef & bean burritos with {cheese}[ & {veg}]",
+    "emoji": "🌯",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "ground"
+        ],
+        "only": [
+          "ground beef",
+          "ground turkey",
+          "ground chicken"
+        ],
+        "prefer": "ground beef",
+        "main": true
+      },
+      {
+        "key": "beans",
+        "from": [
+          "plantProtein"
+        ],
+        "only": [
+          "black beans"
+        ]
+      },
+      {
+        "key": "wrap",
+        "from": [
+          "wraps"
+        ],
+        "only": [
+          "tortillas"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ]
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "rice"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "greens",
+          "saladVeg"
+        ],
+        "only": [
+          "lettuce",
+          "tomatoes"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "taco seasoning",
+      "salsa",
+      "sour cream"
+    ],
+    "tags": [
+      "kid-approved",
+      "quick"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Cook the {starch}.",
+      "Brown the {protein}, drain, then stir in taco seasoning, a splash of water and the {beans}.",
+      "Fill warm {wrap} with rice, the meat, {cheese}[ and {veg}], plus salsa and sour cream.",
+      "Roll up and toast seam-side down in a dry pan for a minute."
+    ]
+  },
+  {
+    "id": "maple-salmon",
+    "meal": "dinner",
+    "name": "Maple-glazed salmon with {veg} & {starch}",
+    "emoji": "🐟",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "fish"
+        ],
+        "only": [
+          "salmon"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "green beans",
+          "asparagus",
+          "broccoli"
+        ]
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "rice",
+          "quinoa",
+          "potatoes"
+        ],
+        "prefer": "rice"
+      }
+    ],
+    "pantry": [
+      "maple syrup",
+      "soy sauce",
+      "garlic",
+      "cooking oil"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "healthy",
+      "light"
+    ],
+    "steps": [
+      "Start the {starch} and heat the oven to 400°F.",
+      "Whisk maple syrup, soy sauce and grated garlic.",
+      "Put the {protein} and {veg} on a lined tray, toss the veg in oil and brush the fish with the glaze.",
+      "Bake 12-15 minutes until the salmon flakes, brushing on the last of the glaze halfway."
+    ]
+  },
+  {
+    "id": "fish-tacos",
+    "meal": "dinner",
+    "name": "Crispy fish tacos with {greens} slaw[ & {veg}]",
+    "emoji": "🌮",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "fish"
+        ],
+        "only": [
+          "white fish",
+          "shrimp"
+        ],
+        "prefer": "white fish",
+        "main": true
+      },
+      {
+        "key": "wrap",
+        "from": [
+          "wraps"
+        ],
+        "only": [
+          "tortillas"
+        ]
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "only": [
+          "lettuce",
+          "salad greens"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "only": [
+          "tomatoes",
+          "cucumber"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "flour",
+      "chili powder",
+      "lime",
+      "mayo",
+      "hot sauce",
+      "cooking oil",
+      "salt"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "light",
+      "treat"
+    ],
+    "steps": [
+      "Cut the {protein} into strips and toss in flour seasoned with chili powder and salt.",
+      "Pan-fry in oil 2-3 minutes a side until crisp.",
+      "Mix mayo with lime juice and a dash of hot sauce; toss the shredded {greens} with half of it.",
+      "Warm the {wrap} and fill with fish, slaw[, {veg}] and the rest of the sauce."
+    ]
+  },
+  {
+    "id": "garlic-butter-shrimp",
+    "meal": "dinner",
+    "name": "Garlic butter shrimp with {veg} over {starch}",
+    "emoji": "🍤",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "fish"
+        ],
+        "only": [
+          "shrimp"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "broccoli",
+          "asparagus",
+          "zucchini",
+          "green beans"
+        ]
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "rice",
+          "pasta"
+        ],
+        "prefer": "rice"
+      }
+    ],
+    "pantry": [
+      "butter",
+      "garlic",
+      "lemon juice",
+      "chili flakes",
+      "salt"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "savoury",
+      "light"
+    ],
+    "steps": [
+      "Cook the {starch}.",
+      "Sauté the {veg} in a little butter until just tender, then push aside.",
+      "Add more butter, lots of garlic and a pinch of chili flakes, then the {protein}.",
+      "Cook 2 minutes a side until pink, finish with lemon juice and spoon over the {starch}."
+    ]
+  },
+  {
+    "id": "chana-masala",
+    "meal": "dinner",
+    "name": "Chickpea curry (chana masala) with {greens} over {starch}[ & {bread}]",
+    "emoji": "🍛",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "plantProtein"
+        ],
+        "only": [
+          "chickpeas"
+        ],
+        "main": true
+      },
+      {
+        "key": "sauce",
+        "from": [
+          "cannedTomato"
+        ]
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "only": [
+          "spinach",
+          "kale"
+        ]
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "rice",
+          "quinoa"
+        ],
+        "prefer": "rice"
+      },
+      {
+        "key": "bread",
+        "from": [
+          "wraps"
+        ],
+        "only": [
+          "naan"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "onion",
+      "garlic",
+      "ginger",
+      "garam masala",
+      "cumin",
+      "cooking oil",
+      "salt"
+    ],
+    "tags": [
+      "big-batch"
+    ],
+    "vibes": [
+      "healthy",
+      "comfort"
+    ],
+    "steps": [
+      "Start the {starch}.",
+      "Soften diced onion in oil, then add garlic, ginger, garam masala and cumin for a minute.",
+      "Add the {sauce} and drained {protein}; simmer 15 minutes, mashing a few chickpeas to thicken.",
+      "Stir in the {greens} until wilted and season with salt.[ Serve with warm {bread}.]"
+    ]
+  },
+  {
+    "id": "black-bean-burgers",
+    "meal": "dinner",
+    "name": "Black bean burgers with {side}",
+    "emoji": "🍔",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "plantProtein"
+        ],
+        "only": [
+          "black beans"
+        ],
+        "main": true
+      },
+      {
+        "key": "bun",
+        "from": [
+          "buns"
+        ]
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "only": [
+          "lettuce"
+        ]
+      },
+      {
+        "key": "topping",
+        "from": [
+          "saladVeg"
+        ],
+        "only": [
+          "tomatoes"
+        ]
+      },
+      {
+        "key": "side",
+        "from": [
+          "starch",
+          "cookingVeg"
+        ],
+        "only": [
+          "sweet potatoes",
+          "potatoes",
+          "carrots"
+        ]
+      }
+    ],
+    "pantry": [
+      "breadcrumbs",
+      "cumin",
+      "garlic",
+      "ketchup & mustard",
+      "cooking oil"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "healthy",
+      "treat"
+    ],
+    "steps": [
+      "Heat the oven to 425°F and roast the {side} as wedges or fries.",
+      "Mash the drained {protein} roughly with 1 egg, breadcrumbs, garlic and cumin.",
+      "Shape into patties and pan-fry 4 minutes a side until crisp.",
+      "Serve on {bun} with {greens}, {topping}, ketchup and mustard."
+    ]
+  },
+  {
+    "id": "peanut-tofu",
+    "meal": "dinner",
+    "name": "Crispy tofu in peanut sauce with {veg} over {starch}",
+    "emoji": "🥜",
+    "minutes": 30,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "plantProtein"
+        ],
+        "only": [
+          "firm tofu"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "broccoli",
+          "bell peppers",
+          "green beans"
+        ],
+        "prefer": "broccoli"
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "rice",
+          "pasta"
+        ],
+        "prefer": "rice"
+      }
+    ],
+    "pantry": [
+      "peanut butter",
+      "soy sauce",
+      "lime",
+      "cornstarch",
+      "garlic",
+      "cooking oil"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "healthy",
+      "savoury"
+    ],
+    "steps": [
+      "Start the {starch}.",
+      "Press and cube the {protein}, toss in cornstarch and pan-fry until golden on all sides.",
+      "Stir-fry the {veg} until crisp-tender.",
+      "Whisk peanut butter, soy sauce, lime juice, garlic and hot water into a sauce and toss everything together."
+    ]
+  },
+  {
+    "id": "spanish-tortilla",
+    "meal": "dinner",
+    "name": "Spanish potato tortilla with {greens} salad",
+    "emoji": "🥔",
+    "minutes": 40,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "eggs"
+        ],
+        "main": true,
+        "qty": 2
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "potatoes"
+        ]
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "only": [
+          "salad greens",
+          "lettuce"
+        ]
+      }
+    ],
+    "pantry": [
+      "onion",
+      "olive oil",
+      "salt"
+    ],
+    "tags": [],
+    "vibes": [
+      "comfort",
+      "light"
+    ],
+    "steps": [
+      "Thinly slice the {starch} and an onion and cook gently in plenty of olive oil for 15 minutes until soft.",
+      "Drain off most of the oil and fold the potatoes into the beaten {protein} with salt.",
+      "Cook in a non-stick pan over low heat until nearly set, then flip onto a plate and slide back in to finish.",
+      "Serve warm or at room temperature with a {greens} salad."
+    ]
   }
 ]
