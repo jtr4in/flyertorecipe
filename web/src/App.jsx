@@ -15,10 +15,18 @@ import { followMatch, matchableDeals, tidyMatch } from './lib/priceMatch'
 import { needItems, pantryDeal, placeNeeds, searchDeals, withNeeds, withoutItems } from './lib/needs'
 import NeedsSheet from './components/NeedsSheet'
 import OptionsSheet from './components/OptionsSheet'
-import DinnerPlan, { MealsCard } from './components/DinnerPlan'
+import DinnerPlan, { HaveContext, MealsCard } from './components/DinnerPlan'
 import { poolMeals, poolPlan, toPick } from './lib/anchors'
 import {
-  createHousehold, currentHousehold, householdLink, leaveHousehold, saveHousehold, saveHouseholdWeek, setHouseholdCheck, sharedPrefs, watchHousehold,
+  createHousehold,
+  currentHousehold,
+  householdLink,
+  leaveHousehold,
+  saveHousehold,
+  saveHouseholdWeek,
+  setHouseholdCheck,
+  sharedPrefs,
+  watchHousehold,
 } from './lib/household'
 
 export default function App() {
@@ -52,12 +60,16 @@ export default function App() {
 
   const days = useMemo(() => weekDays(), [])
   const [week, setWeek] = useState(() => loadWeek(days[0].key))
-  const editWeek = useCallback((fn) => setWeek((w) => {
-    const next = fn(w)
-    saveWeek(next)
-    if (hidRef.current) saveHouseholdWeek(hidRef.current, next).catch(fail)
-    return next
-  }), [fail])
+  const editWeek = useCallback(
+    (fn) =>
+      setWeek((w) => {
+        const next = fn(w)
+        saveWeek(next)
+        if (hidRef.current) saveHouseholdWeek(hidRef.current, next).catch(fail)
+        return next
+      }),
+    [fail],
+  )
   const toggleCheck = (k) => {
     const value = !week.checked[k]
     setWeek((w) => {
@@ -132,7 +144,6 @@ export default function App() {
     }
   }
 
-
   // Recipes added since this build ship through Firestore; the bundled set works offline.
   const [recipesVersion, setRecipesVersion] = useState(0)
   useEffect(() => {
@@ -178,12 +189,21 @@ export default function App() {
   const pool = useMemo(() => (prefs ? poolMeals(week.dinners || [], deals, prefs) : []), [prefs, week.dinners, deals, recipesVersion])
   const plan = useMemo(() => poolPlan(pool), [pool])
   const baseList = useMemo(
-    () => (prefs ? withExtras(buildShoppingList(plan, listMode === 'single' ? allDeals : deals, prefs, { mode: listMode, picks: week.dealPicks || {} }), week.extras) : null),
+    () =>
+      prefs
+        ? withExtras(buildShoppingList(plan, listMode === 'single' ? allDeals : deals, prefs, { mode: listMode, picks: week.dealPicks || {} }), week.extras)
+        : null,
     [plan, deals, allDeals, prefs, listMode, week.extras, week.dealPicks],
   )
   // The "we need" list: what meals didn't use goes on the list as its own lines.
   const needs = useMemo(
-    () => placeNeeds(week.needs || [], baseList, listMode === 'single' && baseList?.store ? allDeals.filter((d) => d.merchant === baseList.store) : deals, week.dealPicks || {}),
+    () =>
+      placeNeeds(
+        week.needs || [],
+        baseList,
+        listMode === 'single' && baseList?.store ? allDeals.filter((d) => d.merchant === baseList.store) : deals,
+        week.dealPicks || {},
+      ),
     [week.needs, baseList, listMode, allDeals, deals, week.dealPicks],
   )
   const list = useMemo(() => withoutItems(withNeeds(baseList, needs.group), week.removed), [baseList, needs.group, week.removed])
@@ -205,7 +225,12 @@ export default function App() {
   const pantryDeals = useMemo(() => {
     if (!list) return {}
     const pool = listMode === 'single' && list.store ? allDeals.filter((d) => d.merchant === list.store) : deals
-    return Object.fromEntries(list.pantryCheck.flatMap((g) => g.items).map((p) => [p.item, pantryDeal(p.item, pool)]).filter(([, d]) => d))
+    return Object.fromEntries(
+      list.pantryCheck
+        .flatMap((g) => g.items)
+        .map((p) => [p.item, pantryDeal(p.item, pool)])
+        .filter(([, d]) => d),
+    )
   }, [list, listMode, allDeals, deals])
   // Catalog items already on the grocery list, so recipes that reuse them can say so.
   const have = useMemo(() => new Set((baseList?.groups || []).flatMap((g) => g.items.map((i) => i.key))), [baseList])
@@ -233,8 +258,7 @@ export default function App() {
   const area = data.region?.fsa || fsa(prefs.postalCode) || (data.region?.demo ? 'Demo' : 'Set area')
 
   // Edits to one meal of one day
-  const override = (key, fn) =>
-    editWeek((w) => ({ ...w, overrides: { ...w.overrides, [key]: fn(w.overrides[key] || {}) } }))
+  const override = (key, fn) => editWeek((w) => ({ ...w, overrides: { ...w.overrides, [key]: fn(w.overrides[key] || {}) } }))
   // Swap one ingredient in each of these meals (one meal from a card, all of them from the list).
   const swapIn = (uses, item, fromList) =>
     editWeek((w) => {
@@ -252,9 +276,10 @@ export default function App() {
     })
 
   // A card's swap covers one meal; with "swap it everywhere" on, every meal using that item.
-  const otherUses = swapping?.length === 1
-    ? (list.groups.flatMap((g) => g.items).find((i) => i.key === swapping[0].line.ing.item)?.uses || []).filter((u) => u.meal.key !== swapping[0].meal.key)
-    : []
+  const otherUses =
+    swapping?.length === 1
+      ? (list.groups.flatMap((g) => g.items).find((i) => i.key === swapping[0].line.ing.item)?.uses || []).filter((u) => u.meal.key !== swapping[0].meal.key)
+      : []
   const swapUses = swapping && otherUses.length && swapAll ? [swapping[0], ...otherUses] : swapping
 
   const listView = (
@@ -310,241 +335,251 @@ export default function App() {
     />
   )
 
+  // A recipe's ✕ marks an ingredient as already at home: off the grocery list, like the list's ✕.
+  const haveCtx = {
+    have: new Set(week.removed || []),
+    toggle: (k) => editWeek((w) => ({ ...w, removed: (w.removed || []).includes(k) ? w.removed.filter((x) => x !== k) : [...(w.removed || []), k] })),
+  }
+
   return (
-    <div className="mx-auto min-h-dvh max-w-md px-4 pb-32 lg:max-w-6xl lg:px-8">
-      <header className="sticky top-0 z-20 -mx-4 bg-stone-50/90 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 backdrop-blur">
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold tracking-tight text-green-800">Flyer2Recipes</h1>
-          <span className="flex items-center gap-2">
-            <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-800">
-              Saving ~{money(list.totalSavings)}
-            </span>
-            <button
-              onClick={() => setTouring(true)}
-              aria-label="How this works"
-              title="How this works"
-              className="flex size-7 items-center justify-center rounded-full bg-white text-sm font-semibold text-green-700 shadow-sm"
-            >
-              ?
-            </button>
-          </span>
-        </div>
-        <button
-          data-tour="household"
-          onClick={() => setSheet('settings')}
-          className="mt-2 flex w-full flex-wrap items-center gap-1.5 text-left text-xs text-stone-600"
-        >
-          <span className="rounded-full bg-white px-2.5 py-1 shadow-sm">📍 {area}</span>
-          <span className="rounded-full bg-white px-2.5 py-1 shadow-sm">
-            🏪 {prefs.stores.length ? `${prefs.stores.length} stores` : 'All stores'}
-          </span>
-          <span className="rounded-full bg-white px-2.5 py-1 shadow-sm">👥 {prefs.householdSize} people</span>
-          {prefs.diet.length > 0 && <span className="rounded-full bg-white px-2.5 py-1 shadow-sm">🥗 {prefs.diet.join(', ')}</span>}
-          <span className="ml-auto rounded-full px-2 py-1 text-green-700">⚙︎ Edit</span>
-        </button>
-      </header>
-
-      {data.region?.demo && (
-        <p className="mb-3 rounded-xl bg-amber-50 p-3 text-xs text-amber-900">Demo deals: connect Firebase to see your local flyers.</p>
-      )}
-      {error && <p className="mb-3 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
-
-      <div className="mb-4 grid grid-cols-2 gap-1 rounded-2xl bg-stone-200/70 p-1 text-sm font-semibold lg:max-w-md" role="tablist" data-tour="tabs">
-        {[['plan', '🍽️ Plan'], ['shop', `🛒 Shop · ${list.itemCount}`]].map(([id, label]) => (
-          <button
-            key={id}
-            role="tab"
-            aria-selected={tab === id}
-            onClick={() => setTab(id)}
-            className={`rounded-xl py-2 ${tab === id ? 'bg-white text-green-800 shadow-sm' : 'text-stone-600'}`}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-
-      {tab === 'shop' ? (
-        // Desktop: the list on the left, adding items and your meals beside it.
-        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:gap-8">
-          <aside className="lg:sticky lg:top-28 lg:order-2">
-            <button
-              data-tour="plan"
-              onClick={() => setSheet('needs')}
-              className="mb-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-stone-300 bg-white px-4 py-2.5 text-sm font-semibold text-green-700"
-            >
-              + Add other items
-            </button>
-            <MealsCard pool={pool} />
-          </aside>
-          <div className="min-w-0">{listView}</div>
-        </div>
-      ) : loading ? (
-        <p className="text-stone-500">Loading deals…</p>
-      ) : (
-        <>
-          <DinnerPlan
-            deals={deals}
-            prefs={prefs}
-            anchors={week.anchors || []}
-            recipesVersion={recipesVersion}
-            anchorDeals={week.anchorDeals || {}}
-            have={have}
-            pool={pool}
-            itemCount={list.itemCount}
-            onAnchors={(anchors, anchorDeals) => editWeek((w) => ({ ...w, anchors, anchorDeals }))}
-            onAdd={(m) => editWeek((w) => ({ ...w, dinners: [...(w.dinners || []), toPick(m)] }))}
-            onRemove={(i) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).filter((_, j) => j !== i) }))}
-            onReplace={(i, m) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).map((p, j) => (j === i ? { ...toPick(m), leftovers: p.leftovers } : p)) }))}
-            onLeftovers={(i, on) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).map((p, j) => (j === i ? { ...p, leftovers: on } : p)) }))}
-            onClearMeals={() => editWeek((w) => ({ ...w, dinners: [] }))}
-            onJar={(i, on) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).map((p, j) => (j === i ? { ...p, jar: on } : p)) }))}
-            onShop={() => {
-              setTab('shop')
-              window.scrollTo(0, 0)
-            }}
-          />
-        </>
-      )}
-
-      {tab !== 'shop' && listView}
-
-      <NeedsSheet
-        open={sheet === 'needs'}
-        onClose={() => setSheet(null)}
-        needs={week.needs || []}
-        status={needs.status}
-        deals={listMode === 'single' && baseList?.store ? allDeals.filter((d) => d.merchant === baseList.store) : deals}
-        onChange={(next) => editWeek((w) => ({ ...w, needs: next }))}
-        onOptions={(n) => setChoosing(needListItem(n))}
-        onProof={(d, n) => {
-          setProof(d)
-          setProofItem(needListItem(n))
-        }}
-      />
-      <Sheet open={sheet === 'settings'} onClose={() => setSheet(null)} title="Household">
-        <Preferences prefs={prefs} merchants={merchants} onChange={updatePrefs} />
-        {firebaseEnabled && (
-          <section className="mt-6 rounded-2xl bg-stone-100 p-4">
-            <h3 className="text-sm font-medium">Share with your household</h3>
-            <p className="mt-1 text-xs text-stone-600">
-              {hid
-                ? 'This plan is shared. Everyone with the link sees the same meals and list, and checkmarks show up live.'
-                : 'Send a link so your partner sees the same meals and grocery list, and can tick things off while you shop.'}
-            </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <button onClick={shareLink} className="rounded-xl bg-green-700 px-3 py-2 text-sm font-semibold text-white">
-                {hid ? 'Send the link again' : 'Share this plan'}
+    <HaveContext.Provider value={haveCtx}>
+      <div className="mx-auto min-h-dvh max-w-md px-4 pb-32 lg:max-w-6xl lg:px-8">
+        <header className="sticky top-0 z-20 -mx-4 bg-stone-50/90 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 backdrop-blur">
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-bold tracking-tight text-green-800">Flyer2Recipes</h1>
+            <span className="flex items-center gap-2">
+              <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-800">Saving ~{money(list.totalSavings)}</span>
+              <button
+                onClick={() => setTouring(true)}
+                aria-label="How this works"
+                title="How this works"
+                className="flex size-7 items-center justify-center rounded-full bg-white text-sm font-semibold text-green-700 shadow-sm"
+              >
+                ?
               </button>
-              {hid && (
-                <button
-                  onClick={() => {
-                    leaveHousehold()
-                    setHid(null)
-                    remote.current = null
-                    flash('This phone has its own plan again.')
-                  }}
-                  className="rounded-xl border border-stone-300 px-3 py-2 text-sm font-medium text-stone-600"
-                >
-                  Stop sharing on this phone
-                </button>
-              )}
-            </div>
-          </section>
-        )}
-      </Sheet>
-      <OptionsSheet
-        item={choosing}
-        options={optionsFor(choosing)}
-        onPick={(d) => {
-          editWeek((w) => ({ ...w, dealPicks: { ...(w.dealPicks || {}), [choosing.key]: d.dealId } }))
-          setChoosing(null)
-        }}
-        onSwap={() => {
-          setSwapping(choosing.uses)
-          setChoosing(null)
-        }}
-        onClose={() => setChoosing(null)}
-      />
-      <Sheet open={!!swapping} onClose={() => setSwapping(null)} title={swapping ? `Swap ${swapping[0].line.ing.item}` : ''}>
-        {otherUses.length > 0 && (
-          <label className="mb-3 flex items-start gap-3 rounded-2xl bg-amber-50 p-3">
-            <input type="checkbox" className="mt-0.5 size-4 accent-green-700" checked={swapAll} onChange={(e) => setSwapAll(e.target.checked)} />
-            <span className="text-sm">
-              <span className="font-medium">
-                Swap it in all {otherUses.length + 1} meals that use {swapping[0].line.ing.item}
-              </span>
-              <span className="block text-xs text-stone-600">So you don't buy both. Unchecked, only this meal changes.</span>
             </span>
-          </label>
-        )}
-        {swapping && swapping.length > 1 && (
-          <p className="mb-3 text-xs text-stone-500">Swaps it in the {swapping.length} meals that use it and keeps it off this week's list.</p>
-        )}
-        {swapUses && (
-          <ul className="space-y-2">
-            {(swapUses.length === 1 ? swapOptions(swapUses[0].meal, swapUses[0].line, deals, prefs) : listSwapOptions(swapUses, deals, prefs)).map((c) => {
-              const current = c.ing.item === swapping[0].line.ing.item
-              return (
-                <li key={c.ing.item}>
-                  <button
-                    disabled={current}
-                    onClick={() => {
-                      if (swapUses.length > 1) swapIn(c.fits, c.ing.item, true)
-                      else swapIn(swapUses, c.ing.item, false)
-                      setSwapping(null)
-                    }}
-                    className={`flex w-full items-center gap-3 rounded-2xl border p-3 text-left ${
-                      current ? 'border-green-600 bg-green-50' : 'border-stone-200'
-                    }`}
-                  >
-                    <span className="min-w-0 flex-1">
-                      <span className="block text-sm font-medium">
-                        {cap(c.ing.item)} {current && <span className="text-xs font-normal text-green-700">· current</span>}
-                      </span>
-                      <span className="block truncate text-xs text-stone-500">
-                        {c.deal ? dealName(c.deal.name) : 'Not in this week\'s flyers'}
-                      </span>
-                    </span>
-                    <span className="shrink-0 text-right">
-                      {c.deal ? (
-                        <>
-                          <span className="block text-sm font-semibold text-green-700">{c.deal.priceLabel}</span>
-                          <span className={`inline-block rounded-full px-1.5 text-[10px] font-medium ${storeTint(c.deal.merchant)}`}>
-                            {c.deal.merchant}
-                          </span>
-                        </>
-                      ) : (
-                        <span className="text-xs text-stone-400">reg. price</span>
-                      )}
-                      <span className="block text-[11px] text-stone-400">~{money(c.cost)} {swapUses.length > 1 ? (c.fits.length < swapUses.length ? `· ${c.fits.length} of ${swapUses.length} meals` : 'for the week') : 'for this meal'}</span>
-                    </span>
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
-        )}
-      </Sheet>
-      <FlyerProof
-        deal={proof}
-        onClose={() => setProof(null)}
-        action={
-          proofItem && {
-            label: 'Options',
-            onClick: () => {
-              setProof(null)
-              setChoosing(proofItem)
-            },
-          }
-        }
-      />
-      {welcome && <Welcome prefs={prefs} merchants={merchants} needsPostal={firebaseEnabled} onChange={updatePrefs} onDone={finishWelcome} />}
-      <Tour open={touring && !welcome && !loading} onClose={endTour} />
-      {toast && (
-        <div className="fixed inset-x-0 bottom-24 z-[80] flex justify-center px-4" role="status">
-          <p className="rounded-full bg-stone-900 px-4 py-2 text-sm text-white shadow-lg">{toast}</p>
+          </div>
+          <button
+            data-tour="household"
+            onClick={() => setSheet('settings')}
+            className="mt-2 flex w-full flex-wrap items-center gap-1.5 text-left text-xs text-stone-600"
+          >
+            <span className="rounded-full bg-white px-2.5 py-1 shadow-sm">📍 {area}</span>
+            <span className="rounded-full bg-white px-2.5 py-1 shadow-sm">🏪 {prefs.stores.length ? `${prefs.stores.length} stores` : 'All stores'}</span>
+            <span className="rounded-full bg-white px-2.5 py-1 shadow-sm">👥 {prefs.householdSize} people</span>
+            {prefs.diet.length > 0 && <span className="rounded-full bg-white px-2.5 py-1 shadow-sm">🥗 {prefs.diet.join(', ')}</span>}
+            <span className="ml-auto rounded-full px-2 py-1 text-green-700">⚙︎ Edit</span>
+          </button>
+        </header>
+
+        {data.region?.demo && <p className="mb-3 rounded-xl bg-amber-50 p-3 text-xs text-amber-900">Demo deals: connect Firebase to see your local flyers.</p>}
+        {error && <p className="mb-3 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
+
+        <div className="mb-4 grid grid-cols-2 gap-1 rounded-2xl bg-stone-200/70 p-1 text-sm font-semibold lg:max-w-md" role="tablist" data-tour="tabs">
+          {[
+            ['plan', '🍽️ Plan'],
+            ['shop', `🛒 Shop · ${list.itemCount}`],
+          ].map(([id, label]) => (
+            <button
+              key={id}
+              role="tab"
+              aria-selected={tab === id}
+              onClick={() => setTab(id)}
+              className={`rounded-xl py-2 ${tab === id ? 'bg-white text-green-800 shadow-sm' : 'text-stone-600'}`}
+            >
+              {label}
+            </button>
+          ))}
         </div>
-      )}
-    </div>
+
+        {tab === 'shop' ? (
+          // Desktop: the list on the left, adding items and your meals beside it.
+          <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:gap-8">
+            <aside className="lg:sticky lg:top-28 lg:order-2">
+              <button
+                data-tour="plan"
+                onClick={() => setSheet('needs')}
+                className="mb-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-stone-300 bg-white px-4 py-2.5 text-sm font-semibold text-green-700"
+              >
+                + Add other items
+              </button>
+              <MealsCard pool={pool} />
+            </aside>
+            <div className="min-w-0">{listView}</div>
+          </div>
+        ) : loading ? (
+          <p className="text-stone-500">Loading deals…</p>
+        ) : (
+          <>
+            <DinnerPlan
+              deals={deals}
+              prefs={prefs}
+              anchors={week.anchors || []}
+              recipesVersion={recipesVersion}
+              anchorDeals={week.anchorDeals || {}}
+              have={have}
+              pool={pool}
+              itemCount={list.itemCount}
+              onAnchors={(anchors, anchorDeals) => editWeek((w) => ({ ...w, anchors, anchorDeals }))}
+              onAdd={(m) => editWeek((w) => ({ ...w, dinners: [...(w.dinners || []), toPick(m)] }))}
+              onRemove={(i) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).filter((_, j) => j !== i) }))}
+              onReplace={(i, m) =>
+                editWeek((w) => ({ ...w, dinners: (w.dinners || []).map((p, j) => (j === i ? { ...toPick(m), leftovers: p.leftovers } : p)) }))
+              }
+              onLeftovers={(i, on) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).map((p, j) => (j === i ? { ...p, leftovers: on } : p)) }))}
+              onClearMeals={() => editWeek((w) => ({ ...w, dinners: [] }))}
+              onJar={(i, on) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).map((p, j) => (j === i ? { ...p, jar: on } : p)) }))}
+              onShop={() => {
+                setTab('shop')
+                window.scrollTo(0, 0)
+              }}
+            />
+          </>
+        )}
+
+        {tab !== 'shop' && listView}
+
+        <NeedsSheet
+          open={sheet === 'needs'}
+          onClose={() => setSheet(null)}
+          needs={week.needs || []}
+          status={needs.status}
+          deals={listMode === 'single' && baseList?.store ? allDeals.filter((d) => d.merchant === baseList.store) : deals}
+          onChange={(next) => editWeek((w) => ({ ...w, needs: next }))}
+          onOptions={(n) => setChoosing(needListItem(n))}
+          onProof={(d, n) => {
+            setProof(d)
+            setProofItem(needListItem(n))
+          }}
+        />
+        <Sheet open={sheet === 'settings'} onClose={() => setSheet(null)} title="Household">
+          <Preferences prefs={prefs} merchants={merchants} onChange={updatePrefs} />
+          {firebaseEnabled && (
+            <section className="mt-6 rounded-2xl bg-stone-100 p-4">
+              <h3 className="text-sm font-medium">Share with your household</h3>
+              <p className="mt-1 text-xs text-stone-600">
+                {hid
+                  ? 'This plan is shared. Everyone with the link sees the same meals and list, and checkmarks show up live.'
+                  : 'Send a link so your partner sees the same meals and grocery list, and can tick things off while you shop.'}
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button onClick={shareLink} className="rounded-xl bg-green-700 px-3 py-2 text-sm font-semibold text-white">
+                  {hid ? 'Send the link again' : 'Share this plan'}
+                </button>
+                {hid && (
+                  <button
+                    onClick={() => {
+                      leaveHousehold()
+                      setHid(null)
+                      remote.current = null
+                      flash('This phone has its own plan again.')
+                    }}
+                    className="rounded-xl border border-stone-300 px-3 py-2 text-sm font-medium text-stone-600"
+                  >
+                    Stop sharing on this phone
+                  </button>
+                )}
+              </div>
+            </section>
+          )}
+        </Sheet>
+        <OptionsSheet
+          item={choosing}
+          options={optionsFor(choosing)}
+          onPick={(d) => {
+            editWeek((w) => ({ ...w, dealPicks: { ...(w.dealPicks || {}), [choosing.key]: d.dealId } }))
+            setChoosing(null)
+          }}
+          onSwap={() => {
+            setSwapping(choosing.uses)
+            setChoosing(null)
+          }}
+          onClose={() => setChoosing(null)}
+        />
+        <Sheet open={!!swapping} onClose={() => setSwapping(null)} title={swapping ? `Swap ${swapping[0].line.ing.item}` : ''}>
+          {otherUses.length > 0 && (
+            <label className="mb-3 flex items-start gap-3 rounded-2xl bg-amber-50 p-3">
+              <input type="checkbox" className="mt-0.5 size-4 accent-green-700" checked={swapAll} onChange={(e) => setSwapAll(e.target.checked)} />
+              <span className="text-sm">
+                <span className="font-medium">
+                  Swap it in all {otherUses.length + 1} meals that use {swapping[0].line.ing.item}
+                </span>
+                <span className="block text-xs text-stone-600">So you don't buy both. Unchecked, only this meal changes.</span>
+              </span>
+            </label>
+          )}
+          {swapping && swapping.length > 1 && (
+            <p className="mb-3 text-xs text-stone-500">Swaps it in the {swapping.length} meals that use it and keeps it off this week's list.</p>
+          )}
+          {swapUses && (
+            <ul className="space-y-2">
+              {(swapUses.length === 1 ? swapOptions(swapUses[0].meal, swapUses[0].line, deals, prefs) : listSwapOptions(swapUses, deals, prefs)).map((c) => {
+                const current = c.ing.item === swapping[0].line.ing.item
+                return (
+                  <li key={c.ing.item}>
+                    <button
+                      disabled={current}
+                      onClick={() => {
+                        if (swapUses.length > 1) swapIn(c.fits, c.ing.item, true)
+                        else swapIn(swapUses, c.ing.item, false)
+                        setSwapping(null)
+                      }}
+                      className={`flex w-full items-center gap-3 rounded-2xl border p-3 text-left ${
+                        current ? 'border-green-600 bg-green-50' : 'border-stone-200'
+                      }`}
+                    >
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-sm font-medium">
+                          {cap(c.ing.item)} {current && <span className="text-xs font-normal text-green-700">· current</span>}
+                        </span>
+                        <span className="block truncate text-xs text-stone-500">{c.deal ? dealName(c.deal.name) : "Not in this week's flyers"}</span>
+                      </span>
+                      <span className="shrink-0 text-right">
+                        {c.deal ? (
+                          <>
+                            <span className="block text-sm font-semibold text-green-700">{c.deal.priceLabel}</span>
+                            <span className={`inline-block rounded-full px-1.5 text-[10px] font-medium ${storeTint(c.deal.merchant)}`}>{c.deal.merchant}</span>
+                          </>
+                        ) : (
+                          <span className="text-xs text-stone-400">reg. price</span>
+                        )}
+                        <span className="block text-[11px] text-stone-400">
+                          ~{money(c.cost)}{' '}
+                          {swapUses.length > 1
+                            ? c.fits.length < swapUses.length
+                              ? `· ${c.fits.length} of ${swapUses.length} meals`
+                              : 'for the week'
+                            : 'for this meal'}
+                        </span>
+                      </span>
+                    </button>
+                  </li>
+                )
+              })}
+            </ul>
+          )}
+        </Sheet>
+        <FlyerProof
+          deal={proof}
+          onClose={() => setProof(null)}
+          action={
+            proofItem && {
+              label: 'Options',
+              onClick: () => {
+                setProof(null)
+                setChoosing(proofItem)
+              },
+            }
+          }
+        />
+        {welcome && <Welcome prefs={prefs} merchants={merchants} needsPostal={firebaseEnabled} onChange={updatePrefs} onDone={finishWelcome} />}
+        <Tour open={touring && !welcome && !loading} onClose={endTour} />
+        {toast && (
+          <div className="fixed inset-x-0 bottom-24 z-[80] flex justify-center px-4" role="status">
+            <p className="rounded-full bg-stone-900 px-4 py-2 text-sm text-white shadow-lg">{toast}</p>
+          </div>
+        )}
+      </div>
+    </HaveContext.Provider>
   )
 }

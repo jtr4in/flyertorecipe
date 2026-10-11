@@ -1,7 +1,7 @@
 // Plan the week's meals with no days attached. Dinners: pick 1–2 of the week's best protein deals
 // and choose dinners built around them. Breakfasts and lunches: pick from recipes that lean on
 // what's on sale and what's already on the list. Then "Generate my list" moves on to shopping.
-import { useMemo, useState } from 'react'
+import { createContext, useContext, useMemo, useState } from 'react'
 import FlyerClip from './FlyerClip'
 import { anchorMeals, FILTERS, SECTIONS, heroDeals, mealOptions, passesFilters, quickMeal, sharedCount } from '../lib/anchors'
 import { cap } from '../data/templates'
@@ -66,7 +66,11 @@ function HeroCard({ hero, on, onToggle, big = false }) {
 
 const youtube = (name) => `https://www.youtube.com/results?search_query=${encodeURIComponent(`How to Make ${name}`)}`
 
+// Items the household already has (taken off the grocery list), and how to toggle one.
+export const HaveContext = createContext({ have: new Set(), toggle: null })
+
 export function Ingredients({ meal }) {
+  const { have, toggle } = useContext(HaveContext)
   return (
     <div className="mt-2 border-t border-stone-100 pt-2 text-xs text-stone-600">
       <a
@@ -78,19 +82,39 @@ export function Ingredients({ meal }) {
         <span aria-hidden>▶</span> Watch how to make it
       </a>
       <ul className="space-y-0.5">
-        {meal.lines.map((l) => (
-          <li key={l.slot}>
-            {l.ing.item}
-            {l.deal ? (
-              <span className="text-green-700">
-                {' '}
-                · {l.deal.priceLabel || l.deal.priceText} at {l.deal.merchant}
+        {meal.lines.map((l) => {
+          const got = have.has(l.ing.item)
+          return (
+            <li key={l.slot} className="group flex items-start gap-1">
+              <span className={`min-w-0 flex-1 ${got ? 'text-stone-400 line-through' : ''}`}>
+                {l.ing.item}
+                {got ? null : l.deal ? (
+                  <span className="text-green-700">
+                    {' '}
+                    · {l.deal.priceLabel || l.deal.priceText} at {l.deal.merchant}
+                  </span>
+                ) : (
+                  <span className="text-stone-400"> · regular price</span>
+                )}
               </span>
-            ) : (
-              <span className="text-stone-400"> · regular price</span>
-            )}
-          </li>
-        ))}
+              {toggle &&
+                (got ? (
+                  <button onClick={() => toggle(l.ing.item)} className="shrink-0 text-[11px] text-stone-500">
+                    have it · <span className="font-medium text-green-700 underline">undo</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => toggle(l.ing.item)}
+                    aria-label={`I already have ${l.ing.item}`}
+                    title="I already have this"
+                    className="-my-0.5 shrink-0 rounded px-1 text-stone-300 hover:bg-stone-100 hover:text-red-600"
+                  >
+                    ✕
+                  </button>
+                ))}
+            </li>
+          )
+        })}
       </ul>
       <ol className="mt-2 list-decimal space-y-1 pl-4">
         {meal.steps.map((s, i) => (
