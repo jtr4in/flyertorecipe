@@ -272,28 +272,27 @@ export default function DinnerPlan({
     .map((w) => (w.length > 3 ? w.replace(/e?s$/, '') : w))
   const found = words.length ? heroes.filter((h) => words.every((w) => fold(`${h.item} ${h.label} ${h.deal.name}`).includes(w))) : heroes
   const groups = [...found.reduce((m, h) => m.set(h.group, [...(m.get(h.group) || []), h]), new Map())]
+  // A steady order to browse by (chicken, pork, ground, fish, then tofu...), not by this week's deals.
+  const sectionOrder = (group) => SECTIONS[tab].findIndex(([id]) => id === group)
   // Meal view: every meal built around each group's sale items, best deal per item, no repeats.
   const mealGroups = useMemo(() => {
     if (browse !== 'meal') return []
-    return (
-      groups
-        .map(([group, list]) => {
-          const meals = []
-          const items = new Set()
-          for (const h of list) {
-            if (items.has(h.item)) continue
-            items.add(h.item)
-            for (const m of anchorMeals(h.item, deals, prefs, null, tab)) if (!meals.some((x) => x.template.id === m.template.id)) meals.push(m)
-          }
-          const ok = meals
-            .filter((m) => passesFilters(m.template, filters))
-            .sort((a, b) => sharedCount(b, have) - sharedCount(a, have) || a.cost / a.servings - b.cost / b.servings)
-          return [group, list[0], ok]
-        })
-        .filter(([, , meals]) => meals.length)
-        // A steady order to browse by (chicken, pork, ground, fish, then tofu...), not by this week's deals.
-        .sort(([a], [b]) => SECTIONS[tab].findIndex(([id]) => id === a) - SECTIONS[tab].findIndex(([id]) => id === b))
-    )
+    return groups
+      .map(([group, list]) => {
+        const meals = []
+        const items = new Set()
+        for (const h of list) {
+          if (items.has(h.item)) continue
+          items.add(h.item)
+          for (const m of anchorMeals(h.item, deals, prefs, null, tab)) if (!meals.some((x) => x.template.id === m.template.id)) meals.push(m)
+        }
+        const ok = meals
+          .filter((m) => passesFilters(m.template, filters))
+          .sort((a, b) => sharedCount(b, have) - sharedCount(a, have) || a.cost / a.servings - b.cost / b.servings)
+        return [group, list[0], ok]
+      })
+      .filter(([, , meals]) => meals.length)
+      .sort(([a], [b]) => sectionOrder(a) - sectionOrder(b))
     // `have` is rebuilt each render; its contents are what matter.
   }, [browse, found.map((h) => h.deal.dealId).join(), deals, prefs, tab, filters, [...have].sort().join()])
   // A tapped protein's dinners, shown right under its card.
@@ -510,46 +509,46 @@ export default function DinnerPlan({
               </div>
             )
           ) : (
-            <div className="space-y-5">
-              {groups.map(([group, list]) => {
-                const isOpen = words.length > 0 || openGroups.includes(group)
-                const shown = isOpen ? list : list.filter((h, i) => i === 0 || isOn(h))
-                const { emoji, label } = list[0]
-                return (
-                  <div key={group}>
-                    <h3 className="mb-1.5 text-sm font-semibold text-stone-700">
-                      {list.length > 1 ? (
+            <div className="space-y-2">
+              {[...groups]
+                .sort(([a], [b]) => sectionOrder(a) - sectionOrder(b))
+                .map(([group, list]) => {
+                  const isOpen = words.length > 0 || openGroups.includes(group)
+                  // Folded: only the deals you've tapped (and their meals) stay in view.
+                  const shown = isOpen ? list : list.filter(isOn)
+                  const { emoji, label } = list[0]
+                  return (
+                    <div key={group} className={shown.length ? 'pb-2' : ''}>
+                      <h3 className={shown.length ? 'mb-2' : ''}>
                         <button
                           onClick={() => setOpenGroups(isOpen ? openGroups.filter((g) => g !== group) : [...openGroups, group])}
                           aria-expanded={isOpen}
-                          className="flex w-full items-center gap-1.5 text-left"
+                          className="flex w-full items-center gap-2 rounded-2xl border border-stone-200 bg-white px-4 py-3 text-left text-base font-semibold text-stone-800"
                         >
-                          <span aria-hidden>{emoji}</span> {label}
-                          <span className="text-xs font-normal text-stone-500">({list.length})</span>
+                          <span aria-hidden className="text-xl">
+                            {emoji}
+                          </span>{' '}
+                          {label}
+                          <span className="text-sm font-normal text-stone-500">({list.length})</span>
                           <span aria-hidden className={`ml-auto inline-block text-green-700 transition ${isOpen ? 'rotate-180' : ''}`}>
                             ▾
                           </span>
                         </button>
-                      ) : (
-                        <>
-                          <span aria-hidden>{emoji}</span> {label}
-                        </>
-                      )}
-                    </h3>
-                    <div className="space-y-2">
-                      {shown.map((h, i) => (
-                        <div
-                          key={h.deal.dealId ?? h.deal.name}
-                          className={isOn(h) ? 'space-y-3 rounded-3xl border border-green-200 bg-green-50/70 p-2 pb-3 shadow-sm' : 'space-y-2'}
-                        >
-                          <HeroCard hero={h} on={isOn(h)} onToggle={() => toggle(h)} />
-                          {isOn(h) && dinnersFor(h.item)}
-                        </div>
-                      ))}
+                      </h3>
+                      <div className="space-y-2">
+                        {shown.map((h, i) => (
+                          <div
+                            key={h.deal.dealId ?? h.deal.name}
+                            className={isOn(h) ? 'space-y-3 rounded-3xl border border-green-200 bg-green-50/70 p-2 pb-3 shadow-sm' : 'space-y-2'}
+                          >
+                            <HeroCard hero={h} on={isOn(h)} onToggle={() => toggle(h)} />
+                            {isOn(h) && dinnersFor(h.item)}
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )
-              })}
+                  )
+                })}
             </div>
           )}
         </section>
