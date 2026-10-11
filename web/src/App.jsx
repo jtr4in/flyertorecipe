@@ -311,7 +311,7 @@ export default function App() {
   )
 
   return (
-    <div className="mx-auto min-h-dvh max-w-md px-4 pb-32">
+    <div className="mx-auto min-h-dvh max-w-md px-4 pb-32 lg:max-w-6xl lg:px-8">
       <header className="sticky top-0 z-20 -mx-4 bg-stone-50/90 px-4 pt-[max(0.75rem,env(safe-area-inset-top))] pb-3 backdrop-blur">
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold tracking-tight text-green-800">Flyer2Recipes</h1>
@@ -349,7 +349,7 @@ export default function App() {
       )}
       {error && <p className="mb-3 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
 
-      <div className="mb-4 grid grid-cols-2 gap-1 rounded-2xl bg-stone-200/70 p-1 text-sm font-semibold" role="tablist" data-tour="tabs">
+      <div className="mb-4 grid grid-cols-2 gap-1 rounded-2xl bg-stone-200/70 p-1 text-sm font-semibold lg:max-w-md" role="tablist" data-tour="tabs">
         {[['plan', '🍽️ Plan'], ['shop', `🛒 Shop · ${list.itemCount}`]].map(([id, label]) => (
           <button
             key={id}
@@ -364,17 +364,20 @@ export default function App() {
       </div>
 
       {tab === 'shop' ? (
-        <>
-          <button
-            data-tour="plan"
-            onClick={() => setSheet('needs')}
-            className="mb-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-stone-300 bg-white px-4 py-2.5 text-sm font-semibold text-green-700"
-          >
-            + Add other items
-          </button>
-          <MealsCard pool={pool} />
-          {listView}
-        </>
+        // Desktop: the list on the left, adding items and your meals beside it.
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:gap-8">
+          <aside className="lg:sticky lg:top-28 lg:order-2">
+            <button
+              data-tour="plan"
+              onClick={() => setSheet('needs')}
+              className="mb-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-stone-300 bg-white px-4 py-2.5 text-sm font-semibold text-green-700"
+            >
+              + Add other items
+            </button>
+            <MealsCard pool={pool} />
+          </aside>
+          <div className="min-w-0">{listView}</div>
+        </div>
       ) : loading ? (
         <p className="text-stone-500">Loading deals…</p>
       ) : (

@@ -184,7 +184,8 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
   const [showAll, setShowAll] = useState(false) // every breakfast / lunch, not just the top few
   const [all, setAll] = useState({}) // proteins showing every dinner, not just two
   const [q, setQ] = useState('') // search box over this tab's sale items
-  const [poolOpen, setPoolOpen] = useState(false) // the picked meals, folded away while browsing
+  // The picked meals: folded away while browsing on a phone, open beside the browsing on desktop.
+  const [poolOpen, setPoolOpen] = useState(() => !!(typeof window !== 'undefined' && window.matchMedia?.('(min-width: 1024px)').matches))
   // Browse the sale items and their meals ("deal"), or the meals themselves grouped by protein ("meal").
   const [browse, setBrowseState] = useState(() => {
     try {
@@ -299,8 +300,8 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
   }
 
   return (
-    <div className="space-y-5">
-      <section data-tour="pool">
+    <div className="space-y-5 lg:grid lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-start lg:gap-8 lg:space-y-0">
+      <section data-tour="pool" className="lg:sticky lg:top-28 lg:max-h-[calc(100dvh-8rem)] lg:overflow-y-auto">
         <button
           onClick={() => setPoolOpen(!poolOpen)}
           aria-expanded={poolOpen}
@@ -348,6 +349,7 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
           </ul>
         )}
       </section>
+      <div className="min-w-0 space-y-5">
       <div className="space-y-3">
         <div className="grid grid-cols-3 gap-1 rounded-2xl bg-stone-100 p-1 text-sm font-medium" role="tablist" aria-label="Meal">
           {MEALS.map(([id, label]) => (
@@ -448,12 +450,12 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
                         )}
                       </button>
                     </h3>
-                    <div className="space-y-2">
+                    <div className="grid gap-2 lg:grid-cols-2 lg:items-start">
                       {shown.map((m) => (
                         <OptionCard key={m.template.id} meal={m} shared={sharedCount(m, have)} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />
                       ))}
                       {meals.length > 3 && (
-                        <button onClick={() => setOpenGroups(isOpen ? openGroups.filter((g) => g !== key) : [...openGroups, key])} className="text-sm font-medium text-green-700">
+                        <button onClick={() => setOpenGroups(isOpen ? openGroups.filter((g) => g !== key) : [...openGroups, key])} className="justify-self-start text-sm font-medium text-green-700 lg:col-span-2">
                           {isOpen ? 'Show fewer' : `See all ${meals.length}`}
                         </button>
                       )}
@@ -516,8 +518,8 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
           {!showAll ? null : picks.length === 0 ? (
             <p className="rounded-2xl bg-stone-100 p-4 text-sm text-stone-500">Nothing matches your filters. Try turning one off.</p>
           ) : (
-            <div className="mt-2 space-y-2">
-              <p className="text-xs text-stone-500">Ones that reuse what's already on your list come first.</p>
+            <div className="mt-2 grid gap-2 lg:grid-cols-2 lg:items-start">
+              <p className="text-xs text-stone-500 lg:col-span-2">Ones that reuse what's already on your list come first.</p>
               {picks.map((m) => (
                 <OptionCard key={m.template.id} meal={m} shared={m.shared} added={inPool.has(m.name)} onAdd={() => onAdd(m)} />
               ))}
@@ -527,8 +529,9 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
       )}
 
 
+      </div>
       {pool.length > 0 && (
-        <div className="pointer-events-none sticky bottom-4 z-10 flex justify-end">
+        <div className="pointer-events-none sticky bottom-4 z-10 flex justify-end lg:col-span-2">
           <button onClick={onShop} className="pointer-events-auto rounded-full bg-green-700 px-5 py-3 text-sm font-semibold text-white shadow-lg">
             🛒 See my list · {itemCount}
           </button>
