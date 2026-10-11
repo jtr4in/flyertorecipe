@@ -124,3 +124,15 @@ The actor bills per deal returned ($0.002/deal from 2026-10-08, plus $0.0005 per
   exclude. Tune `ingredients.js` as real flyer names come in.
 - **LLM upgrade:** swap `planWeek` for a call that sends the active deals + preferences to an LLM
   (from a Cloud Function, never the browser) to generate recipes beyond the seed set.
+
+## Flyer Meal (experiment)
+
+A second, simpler app at `/flyermeal/` (source in `web/flyermeal/`): write a grocery list, see each
+item's best flyer deal, get suggestions for real everyday things (toilet paper, dish soap, milk)
+on sale, and recipes that use what's on the list plus what most kitchens have.
+
+- Deals come from the same Firestore regions as Flyer2Recipes, matched with its code (`@f2r` alias).
+- Recipes and photos are TheMealDB's catalogue, downloaded once by `.github/workflows/flyermeal-recipes.yml`
+  (`backend/flyermeal_recipes.py`) into `web/public/flyermeal/recipes.json`. The app reads that file
+  and never calls a recipe API, so there's no per-user quota. Later runs only fetch new recipes.
+- The list is stored on the device.
