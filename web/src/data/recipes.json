@@ -20495,7 +20495,7 @@
   {
     "id": "steak-salad",
     "meal": "dinner",
-    "name": "Grilled steak salad with {greens}[ & {veg}][ & {cheese}]",
+    "name": "Grilled steak salad with {greens}[, {veg}][ & {cheese}]",
     "emoji": "🥗",
     "minutes": 20,
     "slots": [
