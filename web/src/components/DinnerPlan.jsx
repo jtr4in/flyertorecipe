@@ -210,9 +210,11 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
   const heroOf = (item) =>
     heroes.find((h) => h.item === item && h.deal.dealId === anchorDeals[keyOf(item)]) || heroes.find((h) => h.item === item)
   const chosen = heroes.filter((h, i, a) => anchors.includes(keyOf(h.item)) && a.findIndex((x) => x.item === h.item) === i).map((h) => h.item)
+  // Meals are priced like the grocery list prices them (each item's best deal), not with the tapped
+  // card's deal, so a meal costs the same before and after it's added.
   const options = useMemo(
-    () => Object.fromEntries(chosen.map((item) => [item, anchorMeals(item, deals, prefs, heroOf(item)?.deal, tab)])),
-    [chosen.join(), anchorDeals, deals, prefs, heroes, tab],
+    () => Object.fromEntries(chosen.map((item) => [item, anchorMeals(item, deals, prefs, null, tab)])),
+    [chosen.join(), deals, prefs, tab],
   )
   const inPool = new Set(pool.map((m) => m.name))
   const counts = Object.fromEntries(MEALS.map(([id]) => [id, pool.filter((m) => m.meal === id).length]))
@@ -246,7 +248,7 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
         for (const h of list) {
           if (items.has(h.item)) continue
           items.add(h.item)
-          for (const m of anchorMeals(h.item, deals, prefs, h.deal, tab)) if (!meals.some((x) => x.template.id === m.template.id)) meals.push(m)
+          for (const m of anchorMeals(h.item, deals, prefs, null, tab)) if (!meals.some((x) => x.template.id === m.template.id)) meals.push(m)
         }
         const ok = meals
           .filter((m) => passesFilters(m.template, filters))
@@ -294,7 +296,7 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
   // A pooled dinner's swap: the next dish around the same protein that isn't already picked.
   const nextFor = (m) => {
     const meal = m.template.meal
-    const opts = m.anchor ? anchorMeals(m.anchor, deals, prefs, meal === tab ? heroOf(m.anchor)?.deal : null, meal) : mealOptions(meal, deals, prefs, { have })
+    const opts = m.anchor ? anchorMeals(m.anchor, deals, prefs, null, meal) : mealOptions(meal, deals, prefs, { have })
     const i = opts.findIndex((o) => o.template.id === m.template.id)
     return [...opts.slice(i + 1), ...opts.slice(0, Math.max(0, i))].find((o) => !inPool.has(o.name)) || null
   }
