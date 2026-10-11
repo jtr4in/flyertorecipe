@@ -1,17 +1,21 @@
 import { CATALOG } from '@f2r/data/ingredients'
 import { needDeal } from '@f2r/lib/needs'
 import { matchDeal } from '@f2r/lib/planner'
+import { HOUSEHOLD, STAPLES, dealsFor } from './recommend'
 
 const CATALOG_ITEMS = Object.values(CATALOG).flat()
 
 /**
- * Best deal for a typed item. Groceries Flyer2Recipes knows ("broccoli", "rice") use its tuned
- * matching, which skips prepared foods (a $12 broccoli side dish); anything else ("dish soap")
- * uses the plain flyer search.
+ * Best deal for a typed item. Everyday things we've listed (coffee, toilet paper) use their own
+ * flyer words, so "coffee" isn't coffee cream. Groceries Flyer2Recipes knows ("broccoli", "rice")
+ * use its tuned matching, which skips prepared foods (a $12 broccoli side dish). Anything else
+ * ("maple syrup") uses the plain flyer search.
  */
 export function bestDeal(name, deals) {
   if (!deals.length) return null
   const n = name.toLowerCase().trim()
+  const everyday = [...STAPLES, ...HOUSEHOLD].find((e) => e.name === n || e.name === `${n}s` || `${e.name}s` === n)
+  if (everyday) return dealsFor(everyday, deals)[0] || null
   const known = CATALOG_ITEMS.find((i) => i.item === n || i.item === `${n}s` || `${i.item}s` === n || i.as === n)
   return (known && matchDeal(known, deals)) || needDeal(name, deals)
 }

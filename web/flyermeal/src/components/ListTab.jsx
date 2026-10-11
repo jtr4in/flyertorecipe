@@ -4,12 +4,14 @@ import { fsa } from '@f2r/lib/data'
 import { searchDeals, suggestNeeds } from '@f2r/lib/needs'
 import { dealName, money, shortDay } from '@f2r/lib/stores'
 import { recommend } from '../lib/recommend'
+import FlyersView from './FlyersView'
 
 const EXAMPLES = ['chicken thighs', 'rice', 'broccoli', 'eggs', 'toilet paper']
 
 export default function ListTab({ postal, setPostal, dealState, deals, lines, add, update, remove, clear, recipeCount, toRecipes }) {
   const [text, setText] = useState('')
   const [open, setOpen] = useState(null) // list line whose other deals are showing
+  const [flyers, setFlyers] = useState(false)
   const names = lines.map((l) => l.name)
   const picks = useMemo(() => (text.trim().length > 1 ? suggestNeeds(text, deals, names.map((n) => n.toLowerCase()), 6) : []), [text, deals, names])
   const recs = useMemo(() => (lines.length ? recommend(names, deals) : null), [names, deals, lines.length])
@@ -74,6 +76,23 @@ export default function ListTab({ postal, setPostal, dealState, deals, lines, ad
           </ul>
         )}
       </form>
+
+      {deals.length > 0 && (
+        <button
+          onClick={() => setFlyers(true)}
+          className="flex w-full items-center justify-between rounded-2xl border border-orange-200 bg-orange-50 px-4 py-3 text-left font-semibold text-orange-800 active:scale-[0.99]"
+        >
+          <span>🗞️ View all flyers</span>
+          <span className="text-sm font-normal text-orange-700">{new Set(deals.map((d) => d.merchant)).size} stores ›</span>
+        </button>
+      )}
+      <FlyersView
+        open={flyers}
+        deals={deals}
+        onClose={() => setFlyers(false)}
+        add={add}
+        onList={(name) => names.some((n) => n.toLowerCase() === name.toLowerCase())}
+      />
 
       {lines.length === 0 ? (
         <div className="rounded-3xl border border-dashed border-stone-300 bg-white p-5 text-center">
