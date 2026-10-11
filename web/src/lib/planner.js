@@ -212,6 +212,7 @@ export function slotCandidates(slot, deals, diet, priced = new Map()) {
   for (const group of slot.from) {
     for (const base of CATALOG[group] || []) {
       if (slot.only && !slot.only.includes(base.item)) continue
+      if (base.explicit && !slot.only) continue
       if (slot.exclude?.includes(base.item)) continue
       if (!allowedByDiet(base, diet)) continue
       const key = `${group}:${base.item}`

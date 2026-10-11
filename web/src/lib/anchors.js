@@ -13,6 +13,7 @@ export const SECTIONS = {
   dinner: [
     ['poultry', '🐔', 'Chicken & turkey', CATALOG.poultry.map((i) => i.item)],
     ['pork', '🐖', 'Pork', CATALOG.pork.map((i) => i.item)],
+    ['beef', '🥩', 'Beef', CATALOG.beef.map((i) => i.item)],
     ['ground', '🍔', 'Ground meat', CATALOG.ground.map((i) => i.item)],
     ['fish', '🐟', 'Fish & seafood', CATALOG.fish.map((i) => i.item)],
     ['plantProtein', '🌱', 'Beans, lentils & tofu', CATALOG.plantProtein.map((i) => i.item)],

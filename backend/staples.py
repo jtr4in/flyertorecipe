@@ -23,7 +23,7 @@ QUERY_LIMITS = {
         "onions", "carrots", "broccoli", "spinach", "lettuce", "bananas", "zucchini",
         "mushrooms", "cauliflower", "green beans", "asparagus", "brussels sprouts", "squash",
         "salad", "kale", "cucumber", "celery", "grapes", "oranges", "pears",
-        "ground turkey", "fish fillets", "canned tuna", "tofu", "canned beans", "chickpeas",
+        "turkey", "beef", "fish fillets", "canned tuna", "tofu", "canned beans", "chickpeas",
         "lentils", "canned tomatoes", "oats", "granola", "peanut butter", "hummus",
         "crackers", "nuts", "quinoa", "egg noodles", "tortillas", "pitas", "naan",
         "bagels", "english muffins", "buns", "frozen fruit",

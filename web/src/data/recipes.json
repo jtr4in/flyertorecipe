@@ -782,7 +782,9 @@
         "main": true,
         "only": [
           "whole chicken",
-          "pork tenderloin"
+          "pork tenderloin",
+          "turkey breast",
+          "pork shoulder"
         ]
       },
       {
@@ -9538,10 +9540,12 @@
         "key": "protein",
         "from": [
           "poultry",
-          "pork"
+          "pork",
+          "beef"
         ],
         "prefer": "chicken thighs",
         "only": [
+          "stewing beef",
           "chicken thighs",
           "pork tenderloin",
           "sausages"
@@ -9772,14 +9776,16 @@
         "from": [
           "ground",
           "poultry",
-          "pork"
+          "pork",
+          "beef"
         ],
         "prefer": "ground beef",
         "only": [
           "ground beef",
           "ground turkey",
           "chicken thighs",
-          "pork tenderloin"
+          "pork tenderloin",
+          "steak"
         ],
         "main": true
       },
@@ -15258,6 +15264,7 @@
         ],
         "prefer": "deli turkey or ham",
         "only": [
+          "ham",
           "deli turkey or ham",
           "sausages",
           "bacon"
@@ -20420,6 +20427,1351 @@
       "Drain off most of the oil and fold the potatoes into the beaten {protein} with salt.",
       "Cook in a non-stick pan over low heat until nearly set, then flip onto a plate and slide back in to finish.",
       "Serve warm or at room temperature with a {greens} salad."
+    ]
+  },
+  {
+    "id": "steak-potatoes",
+    "meal": "dinner",
+    "name": "Steak & {starch} with garlic butter[ & {veg}]",
+    "emoji": "🥩",
+    "minutes": 35,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "beef"
+        ],
+        "only": [
+          "steak"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "potatoes",
+          "sweet potatoes"
+        ],
+        "prefer": "potatoes"
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "green beans",
+          "asparagus",
+          "broccoli",
+          "mushrooms",
+          "brussels sprouts"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "butter",
+      "garlic",
+      "cooking oil",
+      "salt",
+      "pepper"
+    ],
+    "tags": [],
+    "vibes": [
+      "savoury",
+      "comfort",
+      "treat"
+    ],
+    "steps": [
+      "Heat the oven to 425°F. Cut the {starch} into wedges, toss with oil, salt and pepper and roast 30 minutes, turning once.",
+      "Take the {protein} out of the fridge 20 minutes before cooking and pat dry. Season well with salt and pepper.",
+      "Sear in a very hot pan, 3-4 minutes per side for medium-rare. Add butter and crushed garlic for the last minute and spoon it over.",
+      "Rest the steak 5 minutes before slicing.[ Meanwhile sauté or steam the {veg}.]"
+    ]
+  },
+  {
+    "id": "steak-salad",
+    "meal": "dinner",
+    "name": "Grilled steak salad with {greens}[ & {veg}][ & {cheese}]",
+    "emoji": "🥗",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "beef"
+        ],
+        "only": [
+          "steak"
+        ],
+        "main": true
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "only": [
+          "salad greens",
+          "lettuce",
+          "spinach"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "only": [
+          "tomatoes",
+          "cucumber",
+          "bell peppers"
+        ],
+        "optional": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "only": [
+          "feta"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "olive oil",
+      "red wine vinegar",
+      "Dijon mustard",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "healthy",
+      "light",
+      "savoury"
+    ],
+    "steps": [
+      "Season the {protein} and sear in a hot pan 3-4 minutes per side. Rest 5 minutes.",
+      "Whisk 3 parts olive oil to 1 part vinegar with a spoon of Dijon, salt and pepper.",
+      "Toss the {greens}[ and chopped {veg}] with the dressing.",
+      "Slice the steak thinly across the grain and lay it on top.[ Crumble over the {cheese}.]"
+    ]
+  },
+  {
+    "id": "steak-fajitas",
+    "meal": "dinner",
+    "name": "Sizzling steak fajitas with {veg}[ & {cheese}]",
+    "emoji": "🌮",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "beef"
+        ],
+        "only": [
+          "steak"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "saladVeg"
+        ],
+        "only": [
+          "bell peppers"
+        ]
+      },
+      {
+        "key": "wrap",
+        "from": [
+          "wraps"
+        ],
+        "only": [
+          "tortillas"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "only": [
+          "cheddar"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "chili powder",
+      "cumin",
+      "onion",
+      "lime",
+      "cooking oil",
+      "salt"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Slice the {protein} into thin strips and toss with chili powder, cumin, salt and a little oil.",
+      "Sear the steak in a very hot pan for 2 minutes; set aside.",
+      "Cook sliced {veg} and onion until charred at the edges, then return the steak and squeeze over lime.",
+      "Warm the {wrap} and pile everything in.[ Top with grated {cheese}.]"
+    ]
+  },
+  {
+    "id": "beef-broccoli",
+    "meal": "dinner",
+    "name": "Beef & {veg} stir-fry with {starch}",
+    "emoji": "🥡",
+    "minutes": 20,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "beef"
+        ],
+        "only": [
+          "steak"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "broccoli",
+          "bell peppers",
+          "green beans"
+        ],
+        "prefer": "broccoli"
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "rice",
+          "egg noodles"
+        ],
+        "prefer": "rice"
+      }
+    ],
+    "pantry": [
+      "soy sauce",
+      "brown sugar",
+      "cornstarch",
+      "garlic",
+      "ginger",
+      "cooking oil"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "savoury",
+      "healthy"
+    ],
+    "steps": [
+      "Start the {starch}.",
+      "Slice the {protein} very thin and toss with 1 tbsp soy sauce and 1 tsp cornstarch.",
+      "Mix 3 tbsp soy sauce, 1 tbsp brown sugar, 1 tsp cornstarch, garlic, ginger and 1/3 cup water.",
+      "Sear the beef in a hot pan in batches, then stir-fry the {veg} 3 minutes. Add the beef and sauce and toss until glossy. Serve over the {starch}."
+    ]
+  },
+  {
+    "id": "philly-cheesesteak",
+    "meal": "dinner",
+    "name": "Philly cheesesteaks with {veg}[ & {veg2}]",
+    "emoji": "🥖",
+    "minutes": 25,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "beef"
+        ],
+        "only": [
+          "steak"
+        ],
+        "main": true
+      },
+      {
+        "key": "bun",
+        "from": [
+          "buns"
+        ],
+        "only": [
+          "buns"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "saladVeg"
+        ],
+        "only": [
+          "bell peppers"
+        ]
+      },
+      {
+        "key": "veg2",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "mushrooms"
+        ],
+        "optional": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "only": [
+          "mozzarella",
+          "cheddar"
+        ]
+      }
+    ],
+    "pantry": [
+      "onion",
+      "butter",
+      "Worcestershire sauce",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "treat",
+      "savoury"
+    ],
+    "steps": [
+      "Freeze the {protein} for 15 minutes, then slice as thin as you can.",
+      "Cook sliced onion and {veg}[ and {veg2}] in butter until soft and golden.",
+      "Push to the side, sear the beef 1-2 minutes with salt, pepper and a dash of Worcestershire, then mix it all together.",
+      "Lay the {cheese} on top to melt, then scoop into toasted {bun}."
+    ]
+  },
+  {
+    "id": "pot-roast",
+    "meal": "dinner",
+    "name": "Classic pot roast with {starch}, {veg} & gravy",
+    "emoji": "🍲",
+    "minutes": 210,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "beef"
+        ],
+        "only": [
+          "beef roast"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "potatoes"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "saladVeg"
+        ],
+        "only": [
+          "carrots"
+        ]
+      },
+      {
+        "key": "veg2",
+        "from": [
+          "saladVeg"
+        ],
+        "only": [
+          "celery"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "onion",
+      "garlic",
+      "beef broth",
+      "tomato paste",
+      "dried thyme",
+      "flour",
+      "cooking oil",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 300°F. Season the {protein} generously and brown on all sides in a heavy pot.",
+      "Add onion, garlic and a spoon of tomato paste, then 2 cups beef broth and thyme. Cover and braise 2 1/2 hours.",
+      "Add chunks of {starch}, {veg}[ and {veg2}] around the roast and cook 45 minutes more until everything is tender.",
+      "Lift out the meat and veg. Whisk a little flour into the pot juices and simmer into gravy."
+    ]
+  },
+  {
+    "id": "sunday-roast-beef",
+    "meal": "dinner",
+    "name": "Sunday roast beef with Yorkshire pudding, roast {starch} & {veg}",
+    "emoji": "🍖",
+    "minutes": 120,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "beef"
+        ],
+        "only": [
+          "beef roast"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "potatoes"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "green beans",
+          "brussels sprouts",
+          "carrots",
+          "broccoli"
+        ]
+      },
+      {
+        "key": "eggs",
+        "from": [
+          "eggs"
+        ],
+        "only": [
+          "eggs"
+        ]
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ]
+      }
+    ],
+    "pantry": [
+      "flour",
+      "beef broth",
+      "cooking oil",
+      "horseradish",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "big-batch"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Heat the oven to 450°F. Rub the {protein} with oil, salt and pepper and roast 15 minutes, then lower to 325°F and roast about 15 minutes per pound for medium-rare.",
+      "Parboil the {starch} 8 minutes, shake to rough them up, then roast in hot oil alongside the beef.",
+      "For Yorkshire pudding, whisk 3 {eggs}, 1 cup flour and 1 cup {milk}. Rest the beef, turn the oven to 425°F, heat oil in a muffin tin and bake the batter 20 minutes without opening the door.",
+      "Cook the {veg}, make gravy from the pan drippings and broth, and serve with horseradish."
+    ]
+  },
+  {
+    "id": "roast-turkey-dinner",
+    "meal": "dinner",
+    "name": "Roast turkey dinner with stuffing, mashed {starch} & {veg}",
+    "emoji": "🦃",
+    "minutes": 240,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry"
+        ],
+        "only": [
+          "whole turkey",
+          "turkey breast"
+        ],
+        "prefer": "whole turkey",
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "potatoes"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "brussels sprouts",
+          "green beans",
+          "carrots",
+          "squash"
+        ]
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "only": [
+          "bread"
+        ]
+      },
+      {
+        "key": "veg2",
+        "from": [
+          "saladVeg"
+        ],
+        "only": [
+          "celery"
+        ]
+      }
+    ],
+    "pantry": [
+      "butter",
+      "onion",
+      "dried sage",
+      "dried thyme",
+      "chicken broth",
+      "flour",
+      "cranberry sauce",
+      "milk",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Heat the oven to 325°F. Pat the {protein} dry, rub with soft butter, salt, pepper, sage and thyme, and roast about 15 minutes per pound until the thigh reads 165°F. Rest 30 minutes under foil.",
+      "For stuffing, cube and dry the {bread}, soften onion and {veg2} in butter, toss with the bread, herbs and enough broth to moisten, and bake 40 minutes.",
+      "Boil the {starch} and mash with butter and milk. Roast or steam the {veg}.",
+      "Whisk flour into the pan drippings, add broth and simmer into gravy. Serve with cranberry sauce."
+    ]
+  },
+  {
+    "id": "turkey-breast-dinner",
+    "meal": "dinner",
+    "name": "Herb roast turkey breast with {starch} & {veg}",
+    "emoji": "🦃",
+    "minutes": 90,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry"
+        ],
+        "only": [
+          "turkey breast"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "sweet potatoes",
+          "potatoes"
+        ],
+        "prefer": "sweet potatoes"
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "green beans",
+          "brussels sprouts",
+          "carrots",
+          "asparagus"
+        ]
+      }
+    ],
+    "pantry": [
+      "olive oil",
+      "garlic",
+      "dried rosemary",
+      "dried thyme",
+      "cranberry sauce",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "healthy",
+      "comfort"
+    ],
+    "steps": [
+      "Heat the oven to 375°F. Rub the {protein} with olive oil, garlic, herbs, salt and pepper.",
+      "Roast about 20 minutes per pound until it reads 165°F, then rest 10 minutes.",
+      "Roast chunks of {starch} and the {veg} on a tray for the last 35 minutes.",
+      "Slice the turkey and serve with cranberry sauce."
+    ]
+  },
+  {
+    "id": "turkey-pot-pie",
+    "meal": "dinner",
+    "name": "Turkey & vegetable pot pie",
+    "emoji": "🥧",
+    "minutes": 60,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "lunchProtein"
+        ],
+        "only": [
+          "turkey breast",
+          "rotisserie chicken",
+          "chicken breasts"
+        ],
+        "prefer": "turkey breast",
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "frozen mixed vegetables",
+          "carrots"
+        ],
+        "prefer": "frozen mixed vegetables"
+      },
+      {
+        "key": "veg2",
+        "from": [
+          "saladVeg"
+        ],
+        "only": [
+          "celery"
+        ],
+        "optional": true
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ]
+      }
+    ],
+    "pantry": [
+      "pie crust",
+      "butter",
+      "flour",
+      "chicken broth",
+      "onion",
+      "dried thyme",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 400°F. Cook the {protein} (or use leftovers) and cut into bite-size pieces.",
+      "Soften onion[ and {veg2}] in butter, stir in 1/3 cup flour, then whisk in 1 1/2 cups broth and 1/2 cup {milk} until thick.",
+      "Add the turkey, {veg} and thyme; season and pour into a pie dish.",
+      "Top with pie crust, cut a few slits and bake 30 minutes until golden."
+    ]
+  },
+  {
+    "id": "glazed-ham-dinner",
+    "meal": "dinner",
+    "name": "Brown sugar glazed ham with scalloped {starch} & {veg}",
+    "emoji": "🍖",
+    "minutes": 150,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "pork"
+        ],
+        "only": [
+          "ham"
+        ],
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "potatoes"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "green beans",
+          "asparagus",
+          "brussels sprouts",
+          "carrots"
+        ]
+      },
+      {
+        "key": "milk",
+        "from": [
+          "milk"
+        ]
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "only": [
+          "cheddar"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "brown sugar",
+      "Dijon mustard",
+      "butter",
+      "flour",
+      "onion",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "treat",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 325°F. Score the {protein}, cover with foil and bake about 15 minutes per pound.",
+      "Mix 1/2 cup brown sugar with 2 tbsp Dijon; brush over the ham for the last 30 minutes, uncovered.",
+      "For scalloped potatoes, layer thin slices of {starch} and onion in a buttered dish, pour over a sauce of butter, flour and {milk}[, top with {cheese}] and bake 75 minutes alongside the ham.",
+      "Steam or roast the {veg} and carve the ham."
+    ]
+  },
+  {
+    "id": "split-pea-ham-soup",
+    "meal": "lunch",
+    "name": "Split pea & ham soup[ with {bread}]",
+    "emoji": "🍲",
+    "minutes": 120,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "pork",
+          "lunchProtein"
+        ],
+        "only": [
+          "ham",
+          "deli turkey or ham"
+        ],
+        "prefer": "ham",
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "saladVeg"
+        ],
+        "only": [
+          "carrots"
+        ]
+      },
+      {
+        "key": "veg2",
+        "from": [
+          "saladVeg"
+        ],
+        "only": [
+          "celery"
+        ]
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread"
+        ],
+        "only": [
+          "bread"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "dried split peas",
+      "onion",
+      "garlic",
+      "chicken broth",
+      "bay leaf",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "big-batch"
+    ],
+    "vibes": [
+      "healthy",
+      "comfort"
+    ],
+    "steps": [
+      "Soften onion, sliced {veg} and {veg2} in a little oil, then add garlic.",
+      "Add 2 cups rinsed split peas, 8 cups broth or water, a bay leaf and the diced {protein} (or the ham bone).",
+      "Simmer 1 1/2 hours, stirring now and then, until the peas break down.",
+      "Season and serve thick.[ Serve with {bread}.]"
+    ]
+  },
+  {
+    "id": "pulled-pork",
+    "meal": "dinner",
+    "name": "BBQ pulled pork sandwiches with carrot slaw",
+    "emoji": "🥪",
+    "minutes": 240,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "pork"
+        ],
+        "only": [
+          "pork shoulder"
+        ],
+        "main": true
+      },
+      {
+        "key": "bun",
+        "from": [
+          "buns"
+        ],
+        "only": [
+          "buns"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg",
+          "cookingVeg"
+        ],
+        "only": [
+          "carrots"
+        ]
+      }
+    ],
+    "pantry": [
+      "BBQ sauce",
+      "brown sugar",
+      "paprika",
+      "garlic powder",
+      "apple cider vinegar",
+      "mayonnaise",
+      "salt"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "treat",
+      "savoury"
+    ],
+    "steps": [
+      "Rub the {protein} with brown sugar, paprika, garlic powder and salt.",
+      "Braise covered at 300°F for 4 hours with 1/2 cup water and a splash of vinegar (or slow cook on low 8 hours).",
+      "Shred with two forks and stir in plenty of BBQ sauce. Toss grated {veg} with mayo and a splash of vinegar for slaw.",
+      "Pile onto toasted {bun}."
+    ]
+  },
+  {
+    "id": "carnitas-tacos",
+    "meal": "dinner",
+    "name": "Crispy pork carnitas tacos[ with {veg}][ & {cheese}]",
+    "emoji": "🌮",
+    "minutes": 240,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "pork"
+        ],
+        "only": [
+          "pork shoulder"
+        ],
+        "main": true
+      },
+      {
+        "key": "wrap",
+        "from": [
+          "wraps"
+        ],
+        "only": [
+          "tortillas"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "greens",
+          "saladVeg"
+        ],
+        "only": [
+          "lettuce",
+          "tomatoes"
+        ],
+        "optional": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "only": [
+          "feta",
+          "cheddar"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "orange juice",
+      "cumin",
+      "oregano",
+      "garlic",
+      "lime",
+      "onion",
+      "salt"
+    ],
+    "tags": [
+      "big-batch",
+      "kid-approved"
+    ],
+    "vibes": [
+      "treat",
+      "savoury"
+    ],
+    "steps": [
+      "Cut the {protein} into large chunks and season with cumin, oregano and salt.",
+      "Braise covered with garlic, onion and 1 cup orange juice at 325°F for 3 hours until it falls apart.",
+      "Shred, spread on a tray with some of the juices and broil 5 minutes until the edges crisp.",
+      "Serve in warm {wrap} with lime[, {veg}][ and {cheese}]."
+    ]
+  },
+  {
+    "id": "bbq-ribs",
+    "meal": "dinner",
+    "name": "Sticky oven BBQ ribs with {side}[ & {veg}]",
+    "emoji": "🍖",
+    "minutes": 150,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "pork"
+        ],
+        "only": [
+          "pork ribs"
+        ],
+        "main": true
+      },
+      {
+        "key": "side",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "potatoes",
+          "sweet potatoes"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg",
+          "saladVeg"
+        ],
+        "only": [
+          "green beans",
+          "broccoli",
+          "cucumber",
+          "carrots"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "BBQ sauce",
+      "brown sugar",
+      "paprika",
+      "garlic powder",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "treat",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 300°F. Rub the {protein} with brown sugar, paprika, garlic powder, salt and pepper.",
+      "Wrap tightly in foil and bake 2 hours until tender.",
+      "Unwrap, brush thickly with BBQ sauce and broil or bake at 450°F for 10 minutes until sticky. Repeat once.",
+      "Meanwhile roast wedges of {side}.[ Serve with {veg}.]"
+    ]
+  },
+  {
+    "id": "wings-night",
+    "meal": "dinner",
+    "name": "Crispy oven wings with {veg} sticks[ & {veg2}]",
+    "emoji": "🍗",
+    "minutes": 55,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry"
+        ],
+        "only": [
+          "chicken wings"
+        ],
+        "main": true
+      },
+      {
+        "key": "veg",
+        "from": [
+          "saladVeg"
+        ],
+        "only": [
+          "celery"
+        ]
+      },
+      {
+        "key": "veg2",
+        "from": [
+          "saladVeg",
+          "cookingVeg"
+        ],
+        "only": [
+          "carrots"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "baking powder",
+      "hot sauce",
+      "butter",
+      "honey",
+      "garlic powder",
+      "ranch dressing",
+      "salt"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "treat",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 425°F. Pat the {protein} very dry and toss with 1 tbsp baking powder and salt (the secret to crispy skin).",
+      "Bake on a rack over a tray for 45-50 minutes, flipping halfway, until crisp.",
+      "Toss half in melted butter and hot sauce for Buffalo, and half in honey and garlic for the kids.",
+      "Serve with {veg} sticks[, {veg2}] and ranch."
+    ]
+  },
+  {
+    "id": "honey-garlic-drumsticks",
+    "meal": "dinner",
+    "name": "Honey garlic drumsticks with {starch} & {veg}",
+    "emoji": "🍗",
+    "minutes": 45,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry"
+        ],
+        "only": [
+          "chicken thighs",
+          "chicken wings"
+        ],
+        "prefer": "chicken thighs",
+        "main": true
+      },
+      {
+        "key": "starch",
+        "from": [
+          "starch"
+        ],
+        "only": [
+          "rice",
+          "potatoes"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "broccoli",
+          "green beans",
+          "carrots"
+        ]
+      }
+    ],
+    "pantry": [
+      "honey",
+      "soy sauce",
+      "garlic",
+      "cooking oil",
+      "sesame seeds"
+    ],
+    "tags": [
+      "kid-approved"
+    ],
+    "vibes": [
+      "comfort",
+      "sweet",
+      "savoury"
+    ],
+    "steps": [
+      "Heat the oven to 425°F. Mix 1/3 cup honey, 1/4 cup soy sauce and 4 cloves minced garlic.",
+      "Toss the {protein} in half the sauce and bake on a lined tray 35-40 minutes, basting with the rest halfway.",
+      "Cook the {starch} and steam the {veg}.",
+      "Sprinkle with sesame seeds and spoon the sticky pan juices over everything."
+    ]
+  },
+  {
+    "id": "turkey-cranberry-sandwich",
+    "meal": "lunch",
+    "name": "Turkey cranberry sandwiches[ with {greens}][ & {cheese}]",
+    "emoji": "🥪",
+    "minutes": 10,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "poultry",
+          "lunchProtein"
+        ],
+        "only": [
+          "turkey breast",
+          "deli turkey or ham"
+        ],
+        "prefer": "deli turkey or ham",
+        "main": true
+      },
+      {
+        "key": "bread",
+        "from": [
+          "bread",
+          "buns"
+        ],
+        "only": [
+          "bread",
+          "buns"
+        ]
+      },
+      {
+        "key": "greens",
+        "from": [
+          "greens"
+        ],
+        "only": [
+          "lettuce",
+          "spinach"
+        ],
+        "optional": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "only": [
+          "cheddar"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "cranberry sauce",
+      "mayonnaise"
+    ],
+    "tags": [
+      "quick",
+      "kid-approved"
+    ],
+    "vibes": [
+      "light",
+      "savoury"
+    ],
+    "steps": [
+      "Spread the {bread} with mayo on one side and cranberry sauce on the other.",
+      "Layer on sliced {protein}[, {cheese}][ and {greens}].",
+      "Close up, cut in half and pack or serve."
+    ]
+  },
+  {
+    "id": "steak-sandwich",
+    "meal": "lunch",
+    "name": "Leftover steak sandwiches[ with {veg}][ & {cheese}]",
+    "emoji": "🥖",
+    "minutes": 15,
+    "slots": [
+      {
+        "key": "protein",
+        "from": [
+          "beef"
+        ],
+        "only": [
+          "steak"
+        ],
+        "main": true
+      },
+      {
+        "key": "bread",
+        "from": [
+          "buns",
+          "bread"
+        ],
+        "only": [
+          "buns",
+          "bread"
+        ]
+      },
+      {
+        "key": "veg",
+        "from": [
+          "cookingVeg"
+        ],
+        "only": [
+          "mushrooms",
+          "bell peppers"
+        ],
+        "optional": true
+      },
+      {
+        "key": "cheese",
+        "from": [
+          "cheese"
+        ],
+        "only": [
+          "cheddar",
+          "mozzarella"
+        ],
+        "optional": true
+      }
+    ],
+    "pantry": [
+      "onion",
+      "Dijon mustard",
+      "mayonnaise",
+      "butter",
+      "salt",
+      "pepper"
+    ],
+    "tags": [
+      "quick"
+    ],
+    "vibes": [
+      "savoury",
+      "treat"
+    ],
+    "steps": [
+      "Sear the {protein} (or warm leftover steak) and slice thinly.",
+      "Cook sliced onion[ and {veg}] in butter until golden.",
+      "Spread the toasted {bread} with Dijon mayo, pile on the steak and onions[ and top with {cheese}]."
     ]
   }
 ]
