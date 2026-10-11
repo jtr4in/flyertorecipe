@@ -177,7 +177,7 @@ function PoolCard({ meal, n, deals, onRemove, onSwap, onLeftovers, onJar, leftov
   )
 }
 
-export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, anchorDeals = {}, have = new Set(), pool, onAnchors, onAdd, onRemove, onReplace, onLeftovers, onJar, onShop, itemCount }) {
+export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, anchorDeals = {}, have = new Set(), pool, onAnchors, onAdd, onRemove, onReplace, onLeftovers, onJar, onShop, itemCount, onClearMeals }) {
   const [openGroups, setOpenGroups] = useState([]) // protein types showing every deal
   const [tab, setTab] = useState('dinner')
   const [filters, setFilters] = useState([])
@@ -335,6 +335,16 @@ export default function DinnerPlan({ recipesVersion = 0, deals, prefs, anchors, 
                 onJar={onJar && ((on) => onJar(m.pick, on))}
               />
             ))}
+            {onClearMeals && (
+              <li>
+                <button
+                  onClick={() => window.confirm(`Remove all ${pool.length} meals?`) && onClearMeals()}
+                  className="text-sm font-medium text-red-700 underline"
+                >
+                  Clear all meals
+                </button>
+              </li>
+            )}
           </ul>
         )}
       </section>

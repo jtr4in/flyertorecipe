@@ -65,7 +65,7 @@ function InlinePanel({ title, footer, children }) {
   )
 }
 
-export default function ListSheet({ inline = false, open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof, onSwap, onOptions, onRemoveExtra, onShareLink, shared, matchAt, matchExtras, onMatch, pantryDeals = {}, onRemoveItem, removed = 0, onRestore }) {
+export default function ListSheet({ inline = false, open, onClose, list, mode, setMode, stores, onStore, checked, onCheck, postalCode, onProof, onSwap, onOptions, onRemoveExtra, onShareLink, shared, matchAt, matchExtras, onMatch, pantryDeals = {}, onRemoveItem, removed = 0, onRestore, onClearAll }) {
   const [gallery, setGallery] = useState(false)
   const [byMeal, setByMeal] = useState(() => {
     try {
@@ -361,6 +361,14 @@ export default function ListSheet({ inline = false, open, onClose, list, mode, s
           <p className="text-xs text-stone-500">
             <span className="font-medium">Staples you probably have:</span> {list.pantry.join(', ')}
           </p>
+        )}
+        {onClearAll && items.length > 0 && (
+          <button
+            onClick={() => window.confirm('Clear everything and start fresh? This removes your meals, added items and checkmarks.') && onClearAll()}
+            className="text-sm font-medium text-red-700 underline"
+          >
+            Clear all and start over
+          </button>
         )}
       </div>
       <FlyerGallery open={gallery} flyers={list.flyers} stores={list.matchStores} store={list.store} onClose={() => setGallery(false)} />

@@ -293,6 +293,13 @@ export default function App() {
       }
       removed={(week.removed || []).length}
       onRestore={() => editWeek((w) => ({ ...w, removed: [] }))}
+      onClearAll={() => {
+        const fresh = { ...EMPTY_WEEK, started: week.started, removed: [], dealPicks: {}, anchorDeals: {} }
+        setWeek(fresh)
+        saveWeek(fresh)
+        // The whole week at once, checkmarks included, so everyone sharing the plan starts fresh too.
+        if (hid) saveHousehold(hid, { week: fresh }).catch(fail)
+      }}
       onRemoveExtra={(item) =>
         editWeek((w) =>
           item.need
@@ -386,6 +393,7 @@ export default function App() {
             onRemove={(i) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).filter((_, j) => j !== i) }))}
             onReplace={(i, m) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).map((p, j) => (j === i ? { ...toPick(m), leftovers: p.leftovers } : p)) }))}
             onLeftovers={(i, on) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).map((p, j) => (j === i ? { ...p, leftovers: on } : p)) }))}
+            onClearMeals={() => editWeek((w) => ({ ...w, dinners: [] }))}
             onJar={(i, on) => editWeek((w) => ({ ...w, dinners: (w.dinners || []).map((p, j) => (j === i ? { ...p, jar: on } : p)) }))}
             onShop={() => {
               setTab('shop')
