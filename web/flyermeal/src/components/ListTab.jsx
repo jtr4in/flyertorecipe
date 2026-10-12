@@ -6,12 +6,14 @@ import { dealName, money, shortDay } from '@f2r/lib/stores'
 import { recommend } from '../lib/recommend'
 import FlyersView from './FlyersView'
 
+const MORE = 6 // suggestions per section, and how many more each tap adds
 const EXAMPLES = ['chicken thighs', 'rice', 'broccoli', 'eggs', 'toilet paper']
 
 export default function ListTab({ postal, setPostal, dealState, deals, lines, add, update, remove, clear, recipeCount, toRecipes }) {
   const [text, setText] = useState('')
   const [open, setOpen] = useState(null) // list line whose other deals are showing
   const [flyers, setFlyers] = useState(false)
+  const [more, setMore] = useState(MORE) // household and kitchen suggestions showing, per section
   const names = lines.map((l) => l.name)
   const picks = useMemo(() => (text.trim().length > 1 ? suggestNeeds(text, deals, names.map((n) => n.toLowerCase()), 6) : []), [text, deals, names])
   const recs = useMemo(() => (lines.length ? recommend(names, deals) : null), [names, deals, lines.length])
@@ -141,8 +143,13 @@ export default function ListTab({ postal, setPostal, dealState, deals, lines, ad
       {recs && (
         <>
           <Recs title="Goes with your list" rows={recs.pairs} add={add} showBecause />
-          <Recs title="Household basics on sale" rows={recs.household} add={add} />
-          <Recs title="Kitchen staples on sale" rows={recs.staples} add={add} />
+          <Recs title="Household basics on sale" rows={recs.household.slice(0, more)} add={add} />
+          <Recs title="Kitchen staples on sale" rows={recs.staples.slice(0, more)} add={add} />
+          {Math.max(recs.household.length, recs.staples.length) > more && (
+            <button onClick={() => setMore(more + MORE)} className="mx-auto block rounded-full border border-stone-200 bg-white px-5 py-2 text-sm font-medium text-stone-700 shadow-sm">
+              Load more suggestions
+            </button>
+          )}
         </>
       )}
     </div>

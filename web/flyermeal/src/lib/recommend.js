@@ -21,6 +21,19 @@ export const HOUSEHOLD = [
   item('plastic wrap', '🥡', ['plastic wrap', 'cling wrap', 'saran'], []),
   item('sandwich bags', '🥪', ['sandwich bag', 'ziploc', 'freezer bag'], []),
   item('all-purpose cleaner', '🧴', ['all-purpose cleaner', 'all purpose cleaner', 'lysol', 'mr. clean', 'windex', 'vim'], ['wipes']),
+  item('fabric softener', '🧺', ['fabric softener', 'dryer sheets', 'downy', 'bounce', 'snuggle', 'assouplissant'], []),
+  item('bleach', '🧴', ['bleach', 'javel', 'clorox'], ['wipes']),
+  item('disinfecting wipes', '🧻', ['disinfecting wipes', 'lysol wipes', 'clorox wipes', 'lingettes désinfectantes'], []),
+  item('sponges', '🧽', ['sponge', 'scotch-brite', 'éponge'], ['towel', 'sponge towels', 'spongetowels', 'cake']),
+  item('toothbrushes', '🪥', ['toothbrush', 'brosse à dents'], []),
+  item('mouthwash', '🫧', ['mouthwash', 'rince-bouche', 'listerine'], []),
+  item('body wash', '🧼', ['body wash', 'gel douche'], []),
+  item('conditioner', '🧴', ['conditioner', 'revitalisant'], ['air', 'fabric']),
+  item('razors', '🪒', ['razor', 'razors', 'rasoir', 'gillette', 'schick'], []),
+  item('cotton swabs', '🦻', ['cotton swabs', 'q-tips', 'cotons-tiges'], []),
+  item('batteries', '🔋', ['batteries', 'duracell', 'energizer', 'piles'], ['car']),
+  item('napkins', '🧻', ['napkins', 'serviettes de table'], ['sanitary']),
+  item('parchment paper', '🥡', ['parchment paper', 'papier parchemin'], []),
 ]
 
 export const STAPLES = [
@@ -37,6 +50,26 @@ export const STAPLES = [
   item('onions', '🧅', ['onions', 'oignons'], ['green', 'rings', 'soup', 'dip', 'fried', 'pearl', 'verts', 'radis']),
   item('rice', '🍚', ['rice', 'riz'], ['cake', 'krispies', 'vinegar', 'noodle', 'cooker', 'served', 'masala', 'chana', 'pudding', 'crackers', 'chips']),
   item('pasta', '🍝', ['pasta', 'spaghetti', 'penne', 'pâtes'], ['sauce', 'salad', 'squash', 'meal', 'frozen', 'stuffed', 'chicken', 'shrimp', 'beef', 'farcies', 'dinner', 'dîner', 'bake', 'fraîches']),
+  item('cereal', '🥣', ['cereal', 'céréales', 'cheerios', 'corn flakes', 'special k', 'honey nut'], ['bars', 'bar', 'barres', 'baby', 'cerelac']),
+  item('peanut butter', '🥜', ['peanut butter', "beurre d'arachide", 'kraft peanut', 'skippy'], ['cups', 'cookies', 'chocolate', 'bars', 'dog', 'margarine']),
+  item('chicken breasts', '🍗', ['chicken breast', 'poitrines de poulet', 'poitrine de poulet'], ['breaded', 'nuggets', 'stuffed', 'roast', 'rôti', 'deli', 'sliced', 'strips', 'frozen chicken breast, 5kg']),
+  item('ground beef', '🥩', ['ground beef', 'boeuf haché', 'bœuf haché'], ['burgers', 'bites', 'patties']),
+  item('frozen vegetables', '🥦', ['frozen vegetables', 'mixed vegetables', 'légumes surgelés'], ['pizza', 'meal', 'canned', 'ml']),
+  item('canned tomatoes', '🥫', ['canned tomatoes', 'diced tomatoes', 'crushed tomatoes', 'tomates en dés', 'tomates broyées', 'hunts tomatoes', 'unico tomatoes'], ['soup', 'sauce']),
+  item('pasta sauce', '🍅', ['pasta sauce', 'sauce pour pâtes', 'ragu', 'classico', 'prego'], ['meal', 'pasta,']),
+  item('carrots', '🥕', ['carrots', 'carottes'], ['cake', 'juice', 'glazed', 'muffin', 'citron', 'ml']),
+  item('tomatoes', '🍅', ['tomatoes', 'tomates'], ['canned', 'diced', 'crushed', 'sauce', 'paste', 'soup', 'juice', 'sun-dried', 'ketchup', 'ml', 'cocktail', 'strained']),
+  item('lettuce', '🥬', ['lettuce', 'romaine', 'laitue'], ['kit', 'salad kit', 'wraps']),
+  item('cucumbers', '🥒', ['cucumber', 'concombre'], ['pickles', 'kimchi', 'water']),
+  item('strawberries', '🍓', ['strawberries', 'fraises'], ['jam', 'yogurt', 'cake', 'shortcake', 'juice', 'cereal', 'dried', 'frozen']),
+  item('orange juice', '🧃', ['orange juice', "jus d'orange", 'tropicana', 'oasis orange', 'simply orange'], ['drink', 'cocktail', 'punch']),
+  item('sour cream', '🥛', ['sour cream', 'crème sure'], ['chips', 'dip', 'onion']),
+  item('oats', '🥣', ['quaker oats', 'rolled oats', 'quick oats', 'flocons d\'avoine', 'oatmeal'], ['bars', 'cookies', 'instant oatmeal bars', 'milk', 'drink']),
+  item('tortillas', '🌯', ['tortillas', 'wraps'], ['chips', 'croustilles', 'poulet', 'césar', 'aïoli', 'chicken', 'lettuce', 'wiener', 'crescents']),
+  item('cooking oil', '🫒', ['vegetable oil', 'canola oil', 'olive oil', 'huile'], ['spray', 'tuna', 'sardines', 'motor', 'massage', 'essential', 'hair', 'packed']),
+  item('ketchup', '🍅', ['ketchup'], ['chips', 'croustilles']),
+  item('mayonnaise', '🥪', ['mayonnaise', 'mayo', 'hellmann'], ['chipotle mayo dip']),
+  item('granola bars', '🍫', ['granola bars', 'barres tendres', 'nature valley', 'quaker chewy', 'nutri-grain'], []),
 ]
 
 // Things people buy together, by a word on the list → what usually goes with it.
@@ -84,8 +117,8 @@ const onList = (list, name) => list.some((l) => fold(l) === fold(name) || fold(l
 
 /**
  * Suggestions for this list: { pairs, household, staples }, each [{ name, emoji, deal, because }].
- * Household and staples only show what's on sale this week (with no deals at all, the first few),
- * so the panel is about savings, not a checklist of everything a home could need.
+ * Household and staples hold every entry on sale this week (with no deals at all, every entry), so
+ * the panel is about savings, not a checklist; the screen shows a few and loads more on request.
  */
 export function recommend(list, deals, { max = 6 } = {}) {
   const text = list.map(fold)
@@ -102,7 +135,7 @@ export function recommend(list, deals, { max = 6 } = {}) {
   const pick = (entries) => {
     const rows = entries.filter((e) => !onList(list, e.name)).map((e) => ({ name: e.name, emoji: e.emoji, deal: dealsFor(e, deals)[0] || null }))
     const onSale = rows.filter((r) => r.deal)
-    return (onSale.length ? onSale : rows).slice(0, max)
+    return onSale.length ? onSale : rows
   }
   return { pairs: pairs.slice(0, max), household: pick(HOUSEHOLD), staples: pick(STAPLES) }
 }
