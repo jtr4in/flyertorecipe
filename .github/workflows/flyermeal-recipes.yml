@@ -10,6 +10,10 @@ on:
         description: Re-download every recipe instead of only new ones
         type: boolean
         default: false
+      candidates:
+        description: Only list Commons photos for each classic (prints to the log, commits nothing)
+        type: boolean
+        default: false
   push:
     branches: [main]
     paths: ["backend/flyermeal_*", "backend/data/mealdb_all.json"]
@@ -31,9 +35,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: List photo candidates
+        if: inputs.candidates
+        run: python backend/flyermeal_recipes.py --candidates
       - name: Fetch new recipes and photos
+        if: ${{ !inputs.candidates }}
         run: python backend/flyermeal_recipes.py ${{ inputs.refresh && '--refresh' || '' }}
       - name: Commit
+        if: ${{ !inputs.candidates }}
         run: |
           git add web/public/flyermeal/recipes.json backend/data
           if git diff --cached --quiet; then echo "No new recipes."; exit 0; fi

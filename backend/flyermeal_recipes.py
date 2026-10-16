@@ -9,12 +9,14 @@ per-user quota to run out. That file is built from:
   regional (Algerian flatbreads, Norwegian cakes), so only named dishes make it into the app.
 - flyermeal_swaps.json: store-bought sauce shortcuts for TheMealDB dishes that make their own.
 - flyermeal_classics.json: everyday dinners TheMealDB lacks (spaghetti and meatballs, tacos,
-  chili). Their photos come from each dish's Wikipedia article, with the photographer's credit
-  and licence kept next to it, cached in backend/data/flyermeal_photos.json.
+  chili). Each photo is a freely licensed Wikimedia Commons file: the one a classic names in
+  "photo", else the lead image of its Wikipedia article. The photographer's credit and licence
+  are kept with it, cached in backend/data/flyermeal_photos.json.
 
     python backend/flyermeal_recipes.py            # fetch new recipes and photos, rebuild
     python backend/flyermeal_recipes.py --refresh  # re-download TheMealDB's catalogue
     python backend/flyermeal_recipes.py --offline  # rebuild from the caches only
+    python backend/flyermeal_recipes.py --candidates  # list Commons photos to choose from
 """
 
 import argparse
@@ -37,6 +39,7 @@ CLASSICS = HERE / "flyermeal_classics.json"
 SWAPS = HERE / "flyermeal_swaps.json"
 API = "https://www.themealdb.com/api/json/v1/1"
 WIKI = "https://en.wikipedia.org"
+COMMONS = "https://commons.wikimedia.org"
 UA = "FlyerMeal/0.2 (https://github.com/jtr4in/flyertorecipe)"
 
 GROUPS = ["Pasta", "Chicken", "Beef", "Pork", "Seafood", "Vegetarian", "Soups & stews", "Breakfast", "Sides & salads", "Desserts"]
@@ -113,28 +116,24 @@ def strip_tags(text: str) -> str:
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", text or ""))).strip()
 
 
-def wiki_photo(title: str) -> dict | None:
-    """The lead photo of a Wikipedia article, if it's freely licensed, with its credit."""
-    summary = get(f"{WIKI}/api/rest_v1/page/summary/{urllib.parse.quote(title)}")
-    src = (summary.get("originalimage") or summary.get("thumbnail") or {}).get("source")
-    if not src:
-        return None
-    file = urllib.parse.unquote(src.split("/")[-1])
-    if "/thumb/" in src:  # .../thumb/a/ab/Name.jpg/320px-Name.jpg → Name.jpg
-        file = urllib.parse.unquote(src.split("/thumb/")[1].split("/")[2])
+def commons_photo(file: str) -> dict | None:
+    """A freely licensed Wikimedia Commons photo at two sizes, with its credit."""
     q = urllib.parse.urlencode({"action": "query", "titles": f"File:{file}", "prop": "imageinfo", "iiprop": "url|extmetadata",
-                                "iiurlwidth": 640, "format": "json", "formatversion": 2})
-    pages = get(f"{WIKI}/w/api.php?{q}").get("query", {}).get("pages", [])
+                                "iiurlwidth": 960, "format": "json", "formatversion": 2})
+    pages = get(f"{COMMONS}/w/api.php?{q}").get("query", {}).get("pages", [])
     info = (pages[0].get("imageinfo") or [{}])[0] if pages else {}
     meta = info.get("extmetadata") or {}
     licence = strip_tags((meta.get("LicenseShortName") or {}).get("value", ""))
-    # Fair-use images (logos, film stills) can't be reused in an app; skip them.
-    if not info.get("thumburl") or "NonFree" in meta or not licence or "fair use" in licence.lower():
+    nonfree = str((meta.get("NonFree") or {}).get("value", "")).lower() in ("true", "1")
+    if not info.get("thumburl") or nonfree or not licence or "fair use" in licence.lower():
+        print(f"    skip {file}: {'not on Commons' if not info else 'non-free' if nonfree else 'no licence'}")
         return None
-    image = info["thumburl"]
+    # Commons serves thumbnails at set widths (330, 500, 960...), so ask for those exactly.
+    image = info["thumburl"].split("?")[0]
     return {
+        "file": file,
         "image": image,
-        "thumb": re.sub(r"/\d+px-", "/320px-", image),
+        "thumb": re.sub(r"/\d+px-", "/330px-", image),
         "credit": {
             "by": strip_tags((meta.get("Artist") or {}).get("value", "")) or "Unknown",
             "licence": licence,
@@ -143,21 +142,57 @@ def wiki_photo(title: str) -> dict | None:
     }
 
 
+def lead_file(title: str) -> str | None:
+    """The file name of a Wikipedia article's lead image."""
+    q = urllib.parse.urlencode({"action": "query", "titles": title, "prop": "pageimages", "piprop": "name", "redirects": 1,
+                                "format": "json", "formatversion": 2})
+    pages = get(f"{WIKI}/w/api.php?{q}").get("query", {}).get("pages", [])
+    return pages[0].get("pageimage") if pages else None
+
+
+def photo_for(c: dict) -> dict | None:
+    """A classic's photo: the Commons file it names, else its Wikipedia article's lead image."""
+    file = c.get("photo") or (c.get("wiki") and lead_file(c["wiki"]))
+    if not file:
+        print(f"    no lead image for {c.get('wiki')}")
+        return None
+    return commons_photo(file)
+
+
 def photos(classics: list[dict], offline: bool) -> dict:
+    """Photos by classic id. Misses aren't cached, so the next run tries again."""
     cache = read(PHOTOS, {})
     for c in classics:
-        title = c.get("wiki")
-        if not title or title in cache or offline:
+        want = c.get("photo") or c.get("wiki")
+        have = cache.get(c["id"])
+        if not want or offline or (have and have.get("from") == want):
             continue
         try:
-            cache[title] = wiki_photo(title)
+            pic = photo_for(c)
         except Exception as e:  # one missing photo shouldn't stop the build
-            print(f"  no photo for {title}: {e}")
+            print(f"  no photo for {c['name']}: {e}")
             continue
-        print(f"  photo {title}: {(cache[title] or {}).get('image', 'none')}")
-        time.sleep(0.2)
+        if pic:
+            cache[c["id"]] = {**pic, "from": want}
+        print(f"  {c['name']}: {pic['file'] if pic else 'no photo'}")
+        time.sleep(0.3)
     write(PHOTOS, cache)
     return cache
+
+
+def candidates(classics: list[dict]) -> None:
+    """Print freely licensed Commons photos for each classic, to pick a better one by name."""
+    for c in classics:
+        q = urllib.parse.urlencode({"action": "query", "generator": "search", "gsrnamespace": 6, "gsrlimit": 10,
+                                    "gsrsearch": f"{c.get('search', c['name'])} filetype:bitmap", "prop": "imageinfo",
+                                    "iiprop": "extmetadata|size", "format": "json", "formatversion": 2})
+        pages = get(f"{COMMONS}/w/api.php?{q}").get("query", {}).get("pages", [])
+        print(f"## {c['id']} ({c['name']})")
+        for pg in sorted(pages, key=lambda p: p.get("index", 99)):
+            info = (pg.get("imageinfo") or [{}])[0]
+            lic = strip_tags(((info.get("extmetadata") or {}).get("LicenseShortName") or {}).get("value", ""))
+            print(f"   {pg['title'][5:]} | {info.get('width')}x{info.get('height')} | {lic}")
+        time.sleep(0.3)
 
 
 def build(catalogue: list[dict], offline: bool = False) -> dict:
@@ -170,7 +205,7 @@ def build(catalogue: list[dict], offline: bool = False) -> dict:
     # Our classics are the dishes people look for first, so they lead each group; TheMealDB's
     # follow in the order flyermeal_common.json lists them.
     for c in classics:
-        pic = pics.get(c.get("wiki")) or {}
+        pic = pics.get(c["id"]) or {}
         out.append({
             "id": f"f2r:{c['id']}", "name": c["name"], "group": c["group"], "emoji": c.get("emoji", ""),
             "image": pic.get("image", ""), "thumb": pic.get("thumb", ""), "credit": pic.get("credit"),
@@ -212,6 +247,10 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--refresh", action="store_true")
     p.add_argument("--offline", action="store_true")
+    p.add_argument("--candidates", action="store_true", help="list Commons photos for each classic and stop")
     a = p.parse_args()
+    if a.candidates:
+        candidates(read(CLASSICS, {"recipes": []})["recipes"])
+        raise SystemExit
     catalogue = read(CACHE, {"recipes": []}) if a.offline else harvest(a.refresh)
     build(catalogue["recipes"], a.offline)
