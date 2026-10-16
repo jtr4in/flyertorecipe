@@ -53,7 +53,7 @@
       ]
     },
     {
-      "id": "chicken-parmesan", "search": "chicken parmesan", "name": "Chicken Parmesan", "group": "Chicken", "emoji": "🍗", "wiki": "Parmigiana", "minutes": 45, "serves": 4,
+      "id": "chicken-parmesan", "photo": "Chicken parmigiana.jpg", "search": "chicken parmesan", "name": "Chicken Parmesan", "group": "Chicken", "emoji": "🍗", "wiki": "Parmigiana", "minutes": 45, "serves": 4,
       "ingredients": [
         { "name": "chicken breasts", "measure": "2 large, halved into thin cutlets" }, { "name": "flour", "measure": "1/2 cup" }, { "name": "eggs", "measure": "2" },
         { "name": "panko breadcrumbs", "measure": "1 1/2 cups" }, { "name": "parmesan", "measure": "1/2 cup grated" }, { "name": "crushed tomatoes", "measure": "1 can (796 ml / 28 oz)" },
@@ -85,7 +85,7 @@
       "swaps": [{ "label": "Use jarred vodka sauce", "sauce": "vodka sauce", "measure": "1 jar (650 ml)", "replaces": ["butter", "tomato paste", "vodka", "heavy cream", "chili flakes"], "note": "Skip steps 2 and 3: warm the jar of vodka sauce in the pot, then toss with the penne, parmesan and a splash of pasta water." }]
     },
     {
-      "id": "shrimp-scampi", "search": "shrimp scampi", "name": "Shrimp Scampi", "group": "Seafood", "emoji": "🍤", "wiki": "Scampi", "minutes": 20, "serves": 4,
+      "id": "shrimp-scampi", "photo": "Shrimp scampi food.jpg", "search": "shrimp scampi", "name": "Shrimp Scampi", "group": "Seafood", "emoji": "🍤", "wiki": "Scampi", "minutes": 20, "serves": 4,
       "ingredients": [
         { "name": "linguine", "measure": "340 g (12 oz)" }, { "name": "shrimp", "measure": "450 g (1 lb), peeled" }, { "name": "butter", "measure": "4 tbsp" },
         { "name": "olive oil", "measure": "2 tbsp" }, { "name": "garlic", "measure": "5 cloves" }, { "name": "chili flakes", "measure": "a pinch" },
@@ -100,7 +100,7 @@
       ]
     },
     {
-      "id": "pesto-chicken-pasta", "search": "pesto pasta", "name": "Pesto Chicken Pasta", "group": "Pasta", "emoji": "🌿", "wiki": "Pesto", "minutes": 25, "serves": 4,
+      "id": "pesto-chicken-pasta", "photo": "Pesto pasta - Stierch.jpg", "search": "pesto pasta", "name": "Pesto Chicken Pasta", "group": "Pasta", "emoji": "🌿", "wiki": "Pesto", "minutes": 25, "serves": 4,
       "ingredients": [
         { "name": "fusilli", "measure": "450 g (1 lb)" }, { "name": "chicken breasts", "measure": "2" }, { "name": "basil", "measure": "2 cups packed leaves" },
         { "name": "pine nuts", "measure": "1/4 cup" }, { "name": "parmesan", "measure": "1/2 cup grated" }, { "name": "garlic", "measure": "1 clove" },
@@ -166,7 +166,7 @@
       "swaps": [{ "label": "Use a fajita seasoning packet", "sauce": "fajita seasoning", "measure": "1 packet (24 g)", "replaces": ["chili powder", "ground cumin", "paprika", "garlic powder"], "note": "In step 1, toss the chicken with the seasoning packet instead of the spices." }]
     },
     {
-      "id": "chicken-quesadillas", "search": "chicken quesadilla", "name": "Chicken Quesadillas", "group": "Chicken", "emoji": "🧀", "wiki": "Quesadilla", "minutes": 20, "serves": 4,
+      "id": "chicken-quesadillas", "photo": "Chicken quesadilla.jpg", "search": "chicken quesadilla", "name": "Chicken Quesadillas", "group": "Chicken", "emoji": "🧀", "wiki": "Quesadilla", "minutes": 20, "serves": 4,
       "ingredients": [
         { "name": "cooked chicken", "measure": "2 cups shredded (a rotisserie chicken works)" }, { "name": "flour tortillas", "measure": "4 large" },
         { "name": "shredded cheese", "measure": "2 cups (Tex-Mex or cheddar)" }, { "name": "green onions", "measure": "3, sliced" }, { "name": "black beans", "measure": "1 can (540 ml), rinsed" },
@@ -240,7 +240,7 @@
       "swaps": [{ "label": "Use bottled Caesar dressing", "sauce": "caesar dressing", "measure": "1 bottle (350 ml)", "replaces": ["mayonnaise", "lemon", "dijon mustard", "garlic", "anchovy paste", "worcestershire sauce"], "note": "Skip step 2 and toss the romaine with bottled Caesar dressing." }]
     },
     {
-      "id": "chicken-stir-fry", "search": "chicken stir fry vegetables", "name": "Chicken and Vegetable Stir-Fry", "group": "Chicken", "emoji": "🥡", "wiki": "Stir_frying", "minutes": 25, "serves": 4,
+      "id": "chicken-stir-fry", "photo": "Chicken and Vegetable Stir-Fry (15914100572).jpg", "search": "chicken stir fry vegetables", "name": "Chicken and Vegetable Stir-Fry", "group": "Chicken", "emoji": "🥡", "wiki": "Stir_frying", "minutes": 25, "serves": 4,
       "ingredients": [
         { "name": "chicken breasts", "measure": "2, thinly sliced" }, { "name": "broccoli", "measure": "1 head, in florets" }, { "name": "bell pepper", "measure": "1, sliced" },
         { "name": "carrots", "measure": "2, sliced" }, { "name": "snow peas", "measure": "1 cup" }, { "name": "soy sauce", "measure": "1/4 cup" },
@@ -258,7 +258,7 @@
       "swaps": [{ "label": "Use bottled stir-fry sauce", "sauce": "stir-fry sauce", "measure": "1 bottle (350 ml)", "replaces": ["soy sauce", "oyster sauce", "brown sugar", "cornstarch"], "note": "Skip step 2 and pour in about 3/4 cup of bottled stir-fry sauce in step 5." }]
     },
     {
-      "id": "beef-tacos", "search": "ground beef tacos", "name": "Ground Beef Tacos", "group": "Beef", "emoji": "🌮", "wiki": "Taco", "minutes": 25, "serves": 4,
+      "id": "beef-tacos", "photo": "Tacos with ground beef - Massachusetts.jpg", "search": "ground beef tacos", "name": "Ground Beef Tacos", "group": "Beef", "emoji": "🌮", "wiki": "Taco", "minutes": 25, "serves": 4,
       "ingredients": [
         { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "onion", "measure": "1 small" }, { "name": "chili powder", "measure": "1 tbsp" },
         { "name": "ground cumin", "measure": "1 tsp" }, { "name": "paprika", "measure": "1 tsp" }, { "name": "garlic powder", "measure": "1/2 tsp" },
@@ -336,7 +336,7 @@
       "swaps": [{ "label": "Use a gravy mix packet", "sauce": "brown gravy mix", "measure": "1 packet (25 g)", "replaces": ["tomato paste", "worcestershire sauce", "flour", "beef stock"], "note": "In step 3, whisk the gravy mix with 1 cup of water and add it to the beef instead of the stock." }]
     },
     {
-      "id": "beef-stew", "search": "beef stew", "name": "Beef Stew", "group": "Soups & stews", "emoji": "🍲", "wiki": "Beef_stew", "minutes": 150, "serves": 6,
+      "id": "beef-stew", "photo": "Beef stew 2.jpg", "search": "beef stew", "name": "Beef Stew", "group": "Soups & stews", "emoji": "🍲", "wiki": "Beef_stew", "minutes": 150, "serves": 6,
       "ingredients": [
         { "name": "stewing beef", "measure": "900 g (2 lb)" }, { "name": "flour", "measure": "1/4 cup" }, { "name": "onion", "measure": "1" }, { "name": "garlic", "measure": "3 cloves" },
         { "name": "tomato paste", "measure": "2 tbsp" }, { "name": "beef stock", "measure": "4 cups" }, { "name": "potatoes", "measure": "4, in chunks" },
@@ -398,7 +398,7 @@
       "swaps": [{ "label": "Use a taco seasoning packet", "sauce": "taco seasoning", "measure": "1 packet (24 g)", "replaces": ["chili powder", "ground cumin"], "note": "In step 1, stir in the seasoning packet with the water instead of the spices." }]
     },
     {
-      "id": "stuffed-peppers", "search": "stuffed peppers beef rice", "name": "Stuffed Peppers", "group": "Beef", "emoji": "🫑", "wiki": "Stuffed_peppers", "minutes": 60, "serves": 4,
+      "id": "stuffed-peppers", "photo": "Полнети пиперки 01.jpg", "search": "stuffed peppers beef rice", "name": "Stuffed Peppers", "group": "Beef", "emoji": "🫑", "wiki": "Stuffed_peppers", "minutes": 60, "serves": 4,
       "ingredients": [
         { "name": "bell peppers", "measure": "4 large" }, { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "onion", "measure": "1" }, { "name": "garlic", "measure": "2 cloves" },
         { "name": "rice", "measure": "1 cup cooked" }, { "name": "diced tomatoes", "measure": "1 can (796 ml)" }, { "name": "italian seasoning", "measure": "1 tsp" },
@@ -412,7 +412,7 @@
       ]
     },
     {
-      "id": "garlic-butter-steak", "search": "steak dinner", "name": "Steak with Garlic Butter", "group": "Beef", "emoji": "🥩", "wiki": "Steak", "minutes": 25, "serves": 2,
+      "id": "garlic-butter-steak", "photo": "Steak dinner with vegetables.jpg", "search": "steak dinner", "name": "Steak with Garlic Butter", "group": "Beef", "emoji": "🥩", "wiki": "Steak", "minutes": 25, "serves": 2,
       "ingredients": [
         { "name": "steak", "measure": "2 striploins or ribeyes, about 2.5 cm (1 in) thick" }, { "name": "butter", "measure": "3 tbsp" }, { "name": "garlic", "measure": "3 cloves, smashed" },
         { "name": "thyme", "measure": "2 sprigs (or rosemary)" }, { "name": "vegetable oil", "measure": "1 tbsp" }, { "name": "potatoes", "measure": "450 g baby potatoes, to serve" },
@@ -442,7 +442,7 @@
       "swaps": [{ "label": "Use bottled BBQ sauce", "sauce": "bbq sauce", "measure": "1 bottle (455 ml)", "replaces": ["ketchup", "apple cider vinegar", "molasses", "worcestershire sauce"], "note": "Skip step 2: pour half the bottle of BBQ sauce over the pork, and toss the rest with it in step 4." }]
     },
     {
-      "id": "bbq-ribs", "search": "barbecue ribs", "name": "Oven-Baked BBQ Ribs", "group": "Pork", "emoji": "🍖", "wiki": "Pork_ribs", "minutes": 180, "serves": 4,
+      "id": "bbq-ribs", "photo": "Dickey's Barbecue Pit BBQ Ribs (26992922031).jpg", "search": "barbecue ribs", "name": "Oven-Baked BBQ Ribs", "group": "Pork", "emoji": "🍖", "wiki": "Pork_ribs", "minutes": 180, "serves": 4,
       "ingredients": [
         { "name": "pork ribs", "measure": "2 racks back ribs" }, { "name": "brown sugar", "measure": "1/4 cup" }, { "name": "paprika", "measure": "1 tbsp" },
         { "name": "garlic powder", "measure": "1 tsp" }, { "name": "onion powder", "measure": "1 tsp" }, { "name": "ketchup", "measure": "1 cup" },
@@ -487,7 +487,7 @@
       ]
     },
     {
-      "id": "garlic-butter-salmon", "search": "baked salmon fillet", "name": "Garlic Butter Salmon", "group": "Seafood", "emoji": "🐟", "wiki": "Salmon_as_food", "minutes": 20, "serves": 4,
+      "id": "garlic-butter-salmon", "photo": "Liat Portal for Foodie Disorder - Salmon with garlic and herbs, crushed potatoes and peas.jpg", "search": "baked salmon fillet", "name": "Garlic Butter Salmon", "group": "Seafood", "emoji": "🐟", "wiki": "Salmon_as_food", "minutes": 20, "serves": 4,
       "ingredients": [
         { "name": "salmon fillets", "measure": "4 (about 150 g each)" }, { "name": "butter", "measure": "3 tbsp, melted" }, { "name": "garlic", "measure": "3 cloves, minced" },
         { "name": "lemon", "measure": "1" }, { "name": "parsley", "measure": "2 tbsp chopped" }, { "name": "asparagus", "measure": "1 bunch" },
@@ -544,7 +544,7 @@
       ]
     },
     {
-      "id": "broccoli-cheddar-soup", "search": "broccoli cheddar soup", "name": "Broccoli Cheddar Soup", "group": "Soups & stews", "emoji": "🥦", "wiki": "Broccoli_soup", "minutes": 35, "serves": 4,
+      "id": "broccoli-cheddar-soup", "photo": "Broccoli cheddar soup and grilled cheese sandwich.jpg", "search": "broccoli cheddar soup", "name": "Broccoli Cheddar Soup", "group": "Soups & stews", "emoji": "🥦", "wiki": "Broccoli_soup", "minutes": 35, "serves": 4,
       "ingredients": [
         { "name": "broccoli", "measure": "1 large head, chopped" }, { "name": "carrot", "measure": "1, grated" }, { "name": "onion", "measure": "1" }, { "name": "butter", "measure": "1/4 cup" },
         { "name": "flour", "measure": "1/4 cup" }, { "name": "chicken stock", "measure": "3 cups (or vegetable)" }, { "name": "milk", "measure": "2 cups" },
@@ -557,7 +557,7 @@
       ]
     },
     {
-      "id": "potato-soup", "search": "potato soup bacon", "name": "Loaded Baked Potato Soup", "group": "Soups & stews", "emoji": "🥔", "wiki": "Potato_soup", "minutes": 40, "serves": 6,
+      "id": "potato-soup", "photo": "Parmesan potato soup topped with bacon.jpg", "search": "potato soup bacon", "name": "Loaded Baked Potato Soup", "group": "Soups & stews", "emoji": "🥔", "wiki": "Potato_soup", "minutes": 40, "serves": 6,
       "ingredients": [
         { "name": "potatoes", "measure": "1.1 kg (2 1/2 lb) russets, diced" }, { "name": "bacon", "measure": "6 slices" }, { "name": "onion", "measure": "1" },
         { "name": "chicken stock", "measure": "4 cups" }, { "name": "milk", "measure": "1 cup" }, { "name": "sour cream", "measure": "1/2 cup" },
@@ -602,7 +602,7 @@
       "swaps": [{ "label": "Use canned tomato soup", "sauce": "tomato soup", "measure": "2 cans (284 ml each)", "replaces": ["crushed tomatoes", "onion", "vegetable stock", "cream"], "note": "Skip step 1 and heat the canned tomato soup with a can of milk or water." }]
     },
     {
-      "id": "veggie-fried-rice", "search": "egg fried rice", "name": "Egg Fried Rice", "group": "Vegetarian", "emoji": "🍳", "wiki": "Fried_rice", "minutes": 20, "serves": 4,
+      "id": "veggie-fried-rice", "photo": "Egg Fried Rice.jpg", "search": "egg fried rice", "name": "Egg Fried Rice", "group": "Vegetarian", "emoji": "🍳", "wiki": "Fried_rice", "minutes": 20, "serves": 4,
       "ingredients": [
         { "name": "cooked rice", "measure": "4 cups, cold (day-old is best)" }, { "name": "eggs", "measure": "3" }, { "name": "frozen peas and carrots", "measure": "1 1/2 cups" },
         { "name": "green onions", "measure": "4" }, { "name": "garlic", "measure": "2 cloves" }, { "name": "soy sauce", "measure": "3 tbsp" },
