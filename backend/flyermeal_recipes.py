@@ -181,18 +181,20 @@ def photos(classics: list[dict], offline: bool) -> dict:
 
 
 def candidates(classics: list[dict]) -> None:
-    """Print freely licensed Commons photos for each classic, to pick a better one by name."""
+    """List Commons photos for each classic in backend/data/photo_candidates.txt, to pick one by name."""
+    lines = []
     for c in classics:
         q = urllib.parse.urlencode({"action": "query", "generator": "search", "gsrnamespace": 6, "gsrlimit": 10,
                                     "gsrsearch": f"{c.get('search', c['name'])} filetype:bitmap", "prop": "imageinfo",
                                     "iiprop": "extmetadata|size", "format": "json", "formatversion": 2})
         pages = get(f"{COMMONS}/w/api.php?{q}").get("query", {}).get("pages", [])
-        print(f"## {c['id']} ({c['name']})")
+        lines.append(f"## {c['id']} ({c['name']})")
         for pg in sorted(pages, key=lambda p: p.get("index", 99)):
             info = (pg.get("imageinfo") or [{}])[0]
             lic = strip_tags(((info.get("extmetadata") or {}).get("LicenseShortName") or {}).get("value", ""))
-            print(f"   {pg['title'][5:]} | {info.get('width')}x{info.get('height')} | {lic}")
+            lines.append(f"   {pg['title'][5:]} | {info.get('width')}x{info.get('height')} | {lic}")
         time.sleep(0.3)
+    (HERE / "data" / "photo_candidates.txt").write_text("\n".join(lines) + "\n")
 
 
 def build(catalogue: list[dict], offline: bool = False) -> dict:

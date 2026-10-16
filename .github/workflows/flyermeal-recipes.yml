@@ -11,7 +11,7 @@ on:
         type: boolean
         default: false
       candidates:
-        description: Only list Commons photos for each classic (prints to the log, commits nothing)
+        description: Only list Commons photos for each classic (commits backend/data/photo_candidates.txt)
         type: boolean
         default: false
   push:
@@ -42,7 +42,6 @@ jobs:
         if: ${{ !inputs.candidates }}
         run: python backend/flyermeal_recipes.py ${{ inputs.refresh && '--refresh' || '' }}
       - name: Commit
-        if: ${{ !inputs.candidates }}
         run: |
           git add web/public/flyermeal/recipes.json backend/data
           if git diff --cached --quiet; then echo "No new recipes."; exit 0; fi
