@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { covers, norm, rankRecipes, scoreRecipe } from './match'
+import { covers, norm, scoreRecipe, sortRecipes, withSwap } from './match'
 
 describe('norm', () => {
   it('folds British names, plurals and prep words', () => {
@@ -34,19 +34,32 @@ describe('covers', () => {
 
 const recipe = (name, ings) => ({ name, category: 'Chicken', ingredients: ings.map((n) => ({ name: n, measure: '' })) })
 
-describe('rankRecipes', () => {
+describe('sortRecipes', () => {
   const recipes = [
-    recipe('Chicken Fajitas', ['Chicken Breast', 'Red Pepper', 'Tortillas', 'Onion', 'Olive Oil', 'Lime']),
-    recipe('Chicken Curry', ['Chicken Thighs', 'Coconut Milk', 'Curry Powder', 'Garlic', 'Basmati Rice']),
     recipe('Beef Stew', ['Beef', 'Potatoes', 'Carrots', 'Beef Stock']),
+    recipe('Chicken Curry', ['Chicken Thighs', 'Coconut Milk', 'Curry Powder', 'Garlic', 'Basmati Rice']),
+    recipe('Chicken Fajitas', ['Chicken Breast', 'Red Pepper', 'Tortillas', 'Onion', 'Olive Oil', 'Lime']),
   ]
-  it('ranks by list items used, then fewest to buy; pantry counts as covered', () => {
+  it('keeps every recipe, most of your list first, library order otherwise', () => {
     const list = ['chicken', 'peppers', 'tortillas'].map(norm)
-    const ranked = rankRecipes(recipes, list)
-    expect(ranked.map((r) => r.recipe.name)).toEqual(['Chicken Fajitas', 'Chicken Curry'])
-    const s = scoreRecipe(recipes[0], list)
+    expect(sortRecipes(recipes, list).map((r) => r.recipe.name)).toEqual(['Chicken Fajitas', 'Chicken Curry', 'Beef Stew'])
+    expect(sortRecipes(recipes, []).map((r) => r.recipe.name)).toEqual(['Beef Stew', 'Chicken Curry', 'Chicken Fajitas'])
+    const s = scoreRecipe(recipes[2], list)
     expect(s.uses).toBe(3)
     expect(s.lines.filter((l) => l.status === 'need').map((l) => l.name)).toEqual(['Lime'])
+  })
+})
+
+describe('withSwap', () => {
+  it('trades the sauce ingredients for the jar, and the jar counts against the list', () => {
+    const r = recipe('Spaghetti and Meatballs', ['spaghetti', 'ground beef', 'crushed tomatoes', 'tomato paste', 'dried oregano'])
+    const swap = { sauce: 'pasta sauce', measure: '1 jar', replaces: ['crushed tomatoes', 'tomato paste', 'dried oregano'] }
+    const s = scoreRecipe(withSwap(r, swap), ['pasta sauce', 'ground beef'].map(norm))
+    expect(s.lines.map((l) => [l.name, l.status])).toEqual([['spaghetti', 'need'], ['ground beef', 'list'], ['pasta sauce', 'list']])
+    expect(withSwap(r, null)).toBe(r)
+  })
+  it("doesn't let fresh tomatoes on the list stand in for canned", () => {
+    expect(covers(norm('tomatoes'), norm('crushed tomatoes'))).toBe(false)
   })
 })
 

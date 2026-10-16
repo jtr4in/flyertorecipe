@@ -128,11 +128,19 @@ The actor bills per deal returned ($0.002/deal from 2026-10-08, plus $0.0005 per
 ## Flyer Meal (experiment)
 
 A second, simpler app at `/flyermeal/` (source in `web/flyermeal/`): write a grocery list, see each
-item's best flyer deal, get suggestions for real everyday things (toilet paper, dish soap, milk)
-on sale, and recipes that use what's on the list plus what most kitchens have.
+item's best flyer deal, and get suggestions for real everyday things (toilet paper, dish soap, milk)
+on sale. The Recipes tab shows every recipe by meal type, the ones that use the most of your list
+first; one tap adds a recipe's ingredients to the list, and recipes that make their own sauce offer
+a store-bought shortcut (jarred pasta sauce, taco seasoning) instead.
 
 - Deals come from the same Firestore regions as Flyer2Recipes, matched with its code (`@f2r` alias).
-- Recipes and photos are TheMealDB's catalogue, downloaded once by `.github/workflows/flyermeal-recipes.yml`
-  (`backend/flyermeal_recipes.py`) into `web/public/flyermeal/recipes.json`. The app reads that file
-  and never calls a recipe API, so there's no per-user quota. Later runs only fetch new recipes.
+- Recipes are built by `.github/workflows/flyermeal-recipes.yml` (`backend/flyermeal_recipes.py`) into
+  `web/public/flyermeal/recipes.json`. The app reads that file and never calls a recipe API, so there's
+  no per-user quota. The library is:
+  - familiar TheMealDB dishes named in `backend/flyermeal_common.json` (most of its catalogue is
+    regional, so dishes are picked by name; the full catalogue is cached in `backend/data/`),
+  - everyday dinners TheMealDB lacks, in `backend/flyermeal_classics.json`, with photos from each
+    dish's Wikipedia article and the photographer's credit shown in the app,
+  - store-bought sauce shortcuts for TheMealDB dishes in `backend/flyermeal_swaps.json`.
+  Editing any of those files rebuilds the library and redeploys.
 - The list is stored on the device.

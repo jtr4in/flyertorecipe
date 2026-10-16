@@ -9,7 +9,7 @@ import FlyersView from './FlyersView'
 const MORE = 6 // suggestions per section, and how many more each tap adds
 const EXAMPLES = ['chicken thighs', 'rice', 'broccoli', 'eggs', 'toilet paper']
 
-export default function ListTab({ postal, setPostal, dealState, deals, lines, add, update, remove, clear, recipeCount, toRecipes }) {
+export default function ListTab({ postal, setPostal, dealState, deals, lines, add, update, remove, clear }) {
   const [text, setText] = useState('')
   const [open, setOpen] = useState(null) // list line whose other deals are showing
   const [flyers, setFlyers] = useState(false)
@@ -99,7 +99,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, lines, ad
       {lines.length === 0 ? (
         <div className="rounded-3xl border border-dashed border-stone-300 bg-white p-5 text-center">
           <p className="font-semibold">Write your grocery list</p>
-          <p className="mt-1 text-sm text-stone-500">We'll find each item in this week's flyers and suggest meals you can make with it.</p>
+          <p className="mt-1 text-sm text-stone-500">We'll find each item in this week's flyers. Browse Recipes to add a whole meal at once.</p>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             {EXAMPLES.map((e) => (
               <button key={e} onClick={() => add(e)} className="rounded-full border border-stone-200 bg-stone-50 px-3 py-1.5 text-sm">
@@ -132,11 +132,6 @@ export default function ListTab({ postal, setPostal, dealState, deals, lines, ad
               />
             ))}
           </ul>
-          {recipeCount > 0 && (
-            <button onClick={toRecipes} className="mt-3 w-full rounded-2xl bg-stone-900 py-3 font-semibold text-white">
-              🍳 {recipeCount} recipes use your list
-            </button>
-          )}
         </section>
       )}
 

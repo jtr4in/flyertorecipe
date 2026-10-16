@@ -1,0 +1,47 @@
+{
+  "_about": "TheMealDB dishes most North American home cooks know, by the group the app files them under, most familiar first. Anything not named here stays out of the app. Names must match TheMealDB's strMeal exactly.",
+  "Pasta": [
+    "Spaghetti Bolognese", "Lasagne", "Fettuccine Alfredo", "Spaghetti alla Carbonara", "Chicken Alfredo Primavera",
+    "Spicy Arrabiata Penne", "Spinach & Ricotta Cannelloni", "Chicken Fajita Mac and Cheese", "Chilli prawn linguine", "Vegan Lasagna"
+  ],
+  "Chicken": [
+    "Kentucky Fried Chicken", "Chicken Fried Rice", "Sweet and Sour Chicken", "General Tsos Chicken", "Extra crispy chicken wings",
+    "Chinese Orange Chicken", "Teriyaki Chicken Casserole", "Kung Pao Chicken", "Chicken Enchilada Casserole", "Crock Pot Chicken Baked Tacos",
+    "Tandoori chicken", "Thai Green Curry", "Honey Balsamic Chicken with Crispy Broccoli & Potatoes", "French Onion Chicken with Roasted Carrots & Mashed Potatoes",
+    "Chick-Fil-A Sandwich", "Sticky Chicken", "Creamy Mustard Chicken", "Jerk chicken with rice & peas", "Chicken Shawarma with homemade garlic herb yoghurt sauce",
+    "Pad See Ew", "Katsu Chicken curry", "Chicken Karaage", "Jamaican Curry Chicken Recipe", "Piri-piri chicken and slaw", "Spiced smoky barbecued chicken",
+    "Chicken Quinoa Greek Salad", "Chicken Couscous", "Coq au vin", "Turkey Meatloaf"
+  ],
+  "Beef": [
+    "Beef and Broccoli Stir-Fry", "Beef stroganoff", "Beef Sunday Roast", "Beef Brisket Pot Roast", "Big Mac", "Pate Chinois", "Beef Lo Mein",
+    "Classic Tourtière", "Golabki (cabbage roll)", "Jamaican Beef Patties", "Corned Beef Hash", "Corned Beef and Cabbage", "Beef Empanadas",
+    "Szechuan Beef", "Thai beef stir-fry", "Drunken noodles (pad kee mao)", "Massaman Beef curry", "Moussaka", "Steak Diane", "Beef Wellington", "Ma Po Tofu"
+  ],
+  "Pork": [
+    "BBQ Pork Sloppy Joes", "Sweet and Sour Pork", "Skillet Apple Pork Chops with Roasted Sweet Potatoes & Zucchini", "Tonkatsu pork", "Japanese Katsudon",
+    "Cuban Sandwich", "Wontons", "Vietnamese Grilled Pork (bun-thit-nuong)", "Slow-roasted ham with lemon, garlic & sage", "Barbecue pork buns"
+  ],
+  "Seafood": [
+    "Honey Teriyaki Salmon", "Cajun spiced fish tacos", "Pad Thai", "Prawn stir-fry", "Baked salmon with fennel & tomatoes", "Fish pie", "Shrimp With Snow Peas",
+    "Singapore Noodles with Shrimp", "Salmon Avocado Salad", "Tuna Nicoise", "Fried calamari", "Paella", "Thai prawn curry"
+  ],
+  "Vegetarian": [
+    "Pizza Express Margherita", "Vegetarian Chilli", "Stuffed Bell Peppers with Quinoa and Black Beans", "Chickpea Fajitas", "Falafel", "Ratatouille",
+    "Tofu, greens & cashew stir-fry", "Yaki Udon", "Shakshuka", "Dal fry", "Matar Paneer", "Rice and Beans", "Vegetable Shepherds Pie", "Ramen Noodles with Boiled Egg"
+  ],
+  "Soups & stews": [
+    "Creamy Tomato Soup", "Clam chowder", "French Onion Soup", "Irish stew", "Beef Bourguignon", "Braised Beef Chilli", "Black Bean soup",
+    "Split Pea Soup", "Egg Drop Soup", "Hot and Sour Soup", "Beef pho", "Easy White Bean Soup", "Tom yum soup with prawns"
+  ],
+  "Breakfast": [
+    "Pancakes", "Banana Pancakes", "French Omelette", "Breakfast Potatoes", "Full English Breakfast", "Oatmeal pancakes", "Fruit and Cream Cheese Breakfast Pastries"
+  ],
+  "Sides & salads": [
+    "Poutine", "Classic Potato Salad", "Tangy cabbage slaw", "Hummus", "Air Fryer Egg Rolls", "Pierogi (Polish Dumplings)", "Molasses Baked Beans"
+  ],
+  "Desserts": [
+    "Apple Pie", "Chocolate Raspberry Brownies", "New York cheesecake", "Carrot Cake", "Peanut Butter Cookies", "Cinnamon buns", "Pumpkin Pie",
+    "Nanaimo Bars", "Canadian Butter Tarts", "Apple & Blackberry Crumble", "Key Lime Pie", "Date squares", "Strawberry Rhubarb Pie", "Sugar Pie",
+    "Pouding chomeur", "Sticky Toffee Pudding", "Churros", "Apple cake", "BeaverTails", "Flan", "Vegan Chocolate Cake"
+  ]
+}

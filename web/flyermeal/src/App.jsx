@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { fsa, loadDeals } from '@f2r/lib/data'
 import { activeDeals } from '@f2r/lib/planner'
 import { bestDeal } from './lib/deals'
-import { norm, prepare, rankRecipes } from './lib/match'
+import { norm, prepare, sortRecipes } from './lib/match'
 import ListTab from './components/ListTab'
 import RecipesTab from './components/RecipesTab'
 
@@ -31,6 +31,7 @@ export default function App() {
   const [deals, setDeals] = useState([])
   const [dealState, setDealState] = useState('idle') // idle | loading | ready | none | error
   const [recipes, setRecipes] = useState(null)
+  const [groups, setGroups] = useState([])
 
   useEffect(() => write('fm.list', list), [list])
   useEffect(() => write('fm.postal', postal), [postal])
@@ -52,12 +53,15 @@ export default function App() {
     }
   }, [postal])
 
-  // The recipe library is a stored file (fetched once from TheMealDB by a GitHub Action), so
-  // there's no recipe API call here and no quota to run out.
+  // The recipe library is a stored file (built by a GitHub Action from TheMealDB and our own
+  // classics), so there's no recipe API call here and no quota to run out.
   useEffect(() => {
     fetch('recipes.json')
       .then((r) => r.json())
-      .then((d) => setRecipes(prepare(d.recipes || [])))
+      .then((d) => {
+        setGroups(d.meta?.groups || [])
+        setRecipes(prepare(d.recipes || []))
+      })
       .catch(() => setRecipes([]))
   }, [])
 
@@ -84,7 +88,8 @@ export default function App() {
   )
 
   const keys = useMemo(() => [...new Set(list.map((i) => norm(i.name)))].filter(Boolean), [list])
-  const ranked = useMemo(() => (recipes ? rankRecipes(recipes, keys, { limit: 80 }) : []), [recipes, keys])
+  // Every recipe, the ones you already have the most of first.
+  const sorted = useMemo(() => (recipes ? sortRecipes(recipes, keys) : []), [recipes, keys])
 
   return (
     <div className="mx-auto min-h-dvh max-w-md bg-stone-50 pb-[calc(5rem+env(safe-area-inset-bottom))] sm:max-w-2xl">
@@ -109,18 +114,16 @@ export default function App() {
             update={update}
             remove={remove}
             clear={clear}
-            recipeCount={ranked.length}
-            toRecipes={() => setTab('recipes')}
           />
         ) : (
-          <RecipesTab ranked={ranked} loading={!recipes} list={list} deals={deals} add={add} toList={() => setTab('list')} />
+          <RecipesTab sorted={sorted} groups={groups} loading={!recipes} list={list} keys={keys} deals={deals} add={add} />
         )}
       </main>
 
       <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-stone-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur">
         <div className="mx-auto flex max-w-md sm:max-w-2xl">
           <TabButton active={tab === 'list'} onClick={() => setTab('list')} icon="📝" label="List" badge={list.length || null} />
-          <TabButton active={tab === 'recipes'} onClick={() => setTab('recipes')} icon="🍳" label="Recipes" badge={ranked.length || null} />
+          <TabButton active={tab === 'recipes'} onClick={() => setTab('recipes')} icon="🍳" label="Recipes" />
         </div>
       </nav>
     </div>

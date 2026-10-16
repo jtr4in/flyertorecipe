@@ -15,7 +15,7 @@ const SAME = [
   ['cheddar cheese', 'cheddar'], ['parmesan cheese', 'parmesan'], ['parmigiano-reggiano', 'parmesan'], ['parmigiano reggiano', 'parmesan'],
   ['mozzarella cheese', 'mozzarella'], ['feta cheese', 'feta'],
   ['red pepper', 'bell pepper'], ['green pepper', 'bell pepper'], ['yellow pepper', 'bell pepper'], ['orange pepper', 'bell pepper'],
-  ['chopped tomatoes', 'canned tomato'], ['tinned tomatoes', 'canned tomato'], ['plum tomatoes', 'canned tomato'], ['passata', 'tomato sauce'],
+  ['chopped tomatoes', 'canned tomato'], ['crushed tomatoes', 'canned tomato'], ['diced tomatoes', 'canned tomato'], ['canned tomatoes', 'canned tomato'], ['tinned tomatoes', 'canned tomato'], ['plum tomatoes', 'canned tomato'], ['tinned tomato', 'canned tomato'], ['tin of tomato', 'canned tomato'], ['passata', 'tomato sauce'],
   ['tomato puree', 'tomato paste'], ['garlic clove', 'garlic'], ['clove of garlic', 'garlic'], ['cloves garlic', 'garlic'],
   ['spaghetti', 'pasta spaghetti'], ['penne rigate', 'pasta penne'], ['penne', 'pasta penne'], ['rigatoni', 'pasta rigatoni'], ['fusilli', 'pasta fusilli'],
   ['linguine', 'pasta linguine'], ['tagliatelle', 'pasta tagliatelle'], ['farfalle', 'pasta farfalle'], ['macaroni', 'pasta macaroni'], ['lasagne sheets', 'pasta lasagna'],
@@ -29,7 +29,7 @@ const SAME = [
 
 // Words that describe how it's cut or sold, not what it is.
 const NOISE = new Set(
-  'fresh freshly chopped diced sliced large small medium boneless skinless free range organic extra virgin unsalted salted dried frozen canned tinned tin can of whole raw cooked peeled grated shredded crushed finely roughly thinly to taste handful pinch ripe lean'.split(' '),
+  'fresh freshly chopped diced sliced large small medium boneless skinless free range organic extra virgin unsalted salted dried frozen of whole raw cooked peeled grated shredded crushed finely roughly thinly to taste handful pinch ripe lean'.split(' '),
 )
 
 const fold = (t) => t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 -]+/g, ' ')
@@ -53,8 +53,8 @@ export function norm(name) {
 }
 
 // An ingredient made from the thing, not the thing: "chicken stock" isn't the chicken on your list,
-// and "rice noodles" aren't the rice.
-const MADE_FROM = new Set(['noodle', 'vermicelli', 'flour', 'wine', 'milk', 'cake', 'bread', 'crumb', 'cracker', 'wrapper', 'paper', 'starch', 'syrup', 'stock', 'broth', 'cube', 'powder', 'sauce', 'paste', 'seasoning', 'extract', 'essence', 'gravy', 'soup', 'jelly', 'jam', 'juice', 'zest', 'leaves', 'leaf', 'seed', 'oil', 'flake', 'vinegar'])
+// "rice noodles" aren't the rice, and canned tomatoes aren't the fresh ones.
+const MADE_FROM = new Set(['canned', 'noodle', 'vermicelli', 'flour', 'wine', 'milk', 'cake', 'bread', 'crumb', 'cracker', 'wrapper', 'paper', 'starch', 'syrup', 'stock', 'broth', 'cube', 'powder', 'sauce', 'paste', 'seasoning', 'extract', 'essence', 'gravy', 'soup', 'jelly', 'jam', 'juice', 'zest', 'leaves', 'leaf', 'seed', 'oil', 'flake', 'vinegar'])
 
 /** Does the shopping-list entry cover this recipe ingredient? Both already folded with norm(). */
 export function covers(item, ingredient) {
@@ -95,15 +95,22 @@ export function scoreRecipe(recipe, list, pantry = pantrySet) {
   return { recipe, lines, uses: used.size, need: lines.filter((l) => l.status === 'need').length }
 }
 
-/** Recipes that use at least one list item: most of your list first, then fewest extra things to buy. */
-export function rankRecipes(recipes, list, { pantry = pantrySet, category = null, limit = 60 } = {}) {
-  if (!list.length) return []
+/**
+ * Every recipe, the ones that use the most of your list first. Ties (and an empty list) keep the
+ * library's own order, which puts the most familiar dishes first.
+ */
+export function sortRecipes(recipes, list, { pantry = pantrySet } = {}) {
   return recipes
-    .filter((r) => !category || r.category === category)
-    .map((r) => scoreRecipe(r, list, pantry))
-    .filter((s) => s.uses > 0)
-    .sort((x, y) => y.uses - x.uses || x.need - y.need || x.recipe.name.localeCompare(y.recipe.name))
-    .slice(0, limit)
+    .map((r, i) => ({ ...scoreRecipe(r, list, pantry), order: i }))
+    .sort((x, y) => y.uses - x.uses || x.order - y.order)
+}
+
+/** The recipe made with a store-bought sauce: the sauce's own ingredients go, the jar comes in. */
+export function withSwap(recipe, swap) {
+  if (!swap) return recipe
+  const out = new Set(swap.replaces)
+  const sauce = { name: swap.sauce, measure: swap.measure, key: norm(swap.sauce), swapped: true }
+  return { ...recipe, ingredients: [...recipe.ingredients.filter((i) => !out.has(i.name)), sauce] }
 }
 
 /** Fold every ingredient once when the library loads, so ranking stays fast while typing. */
