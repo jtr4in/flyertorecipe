@@ -84,13 +84,14 @@ export default function ListTab({ postal, setPostal, dealState, deals, lines, ad
           onClick={() => setFlyers(true)}
           className="flex w-full items-center justify-between rounded-2xl border border-orange-200 bg-orange-50 px-4 py-3 text-left font-semibold text-orange-800 active:scale-[0.99]"
         >
-          <span>🗞️ View all flyers</span>
-          <span className="text-sm font-normal text-orange-700">{new Set(deals.map((d) => d.merchant)).size} stores ›</span>
+          <span>🗞️ View flyers</span>
+          <span className="text-sm font-normal text-orange-700">{onSale ? `${onSale} on your list` : `${new Set(deals.map((d) => d.merchant)).size} stores`} ›</span>
         </button>
       )}
       <FlyersView
         open={flyers}
         deals={deals}
+        mine={[...new Map(lines.filter((l) => l.deal).map((l) => [l.deal.dealId, l.deal])).values()]}
         onClose={() => setFlyers(false)}
         add={add}
         onList={(name) => names.some((n) => n.toLowerCase() === name.toLowerCase())}
