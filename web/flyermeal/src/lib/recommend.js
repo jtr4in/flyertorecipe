@@ -102,15 +102,24 @@ const RES = new Map()
 const re = (w) => RES.get(w) || RES.set(w, new RegExp(`(^|[^\\p{L}])${esc(fold(w))}(s|es|x)?($|[^\\p{L}])`, 'iu')).get(w)
 const hit = (name, words) => words.some((w) => re(w).test(name))
 
+// Answers per deals array, so retyping or re-rendering never re-scans thousands of flyer ads.
+const MEMO = new WeakMap()
+const memoFor = (deals) => MEMO.get(deals) || MEMO.set(deals, { names: deals.map((d) => fold(d.name)), hits: new Map() }).get(deals)
+
 /** This week's deals that really are this thing, best pick first. */
 export function dealsFor(entry, deals) {
-  return deals
-    .filter((d) => {
-      const name = fold(d.name)
+  const memo = memoFor(deals)
+  const key = `${entry.match}|${entry.exclude}`
+  if (memo.hits.has(key)) return memo.hits.get(key)
+  const found = deals
+    .filter((d, i) => {
+      const name = memo.names[i]
       return hit(name, entry.match) && !hit(name, entry.exclude)
     })
     // On sale with a stated saving first, then the lowest shelf price (a dozen eggs before 180).
     .sort((a, b) => Number(b.savings > 0) - Number(a.savings > 0) || (a.price ?? 1e9) - (b.price ?? 1e9))
+  memo.hits.set(key, found)
+  return found
 }
 
 const onList = (list, name) => list.some((l) => fold(l) === fold(name) || fold(l) === `${fold(name)}s` || `${fold(l)}s` === fold(name))

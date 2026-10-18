@@ -3,6 +3,7 @@ import { fsa, loadDeals } from '@f2r/lib/data'
 import { activeDeals } from '@f2r/lib/planner'
 import { followMatch, tidyMatch } from '@f2r/lib/priceMatch'
 import { bestDeal } from './lib/deals'
+import { recommend } from './lib/recommend'
 import { norm, prepare, sortRecipes } from './lib/match'
 import ListTab from './components/ListTab'
 import RecipesTab from './components/RecipesTab'
@@ -73,6 +74,15 @@ export default function App() {
 
   // Everything (list matches, suggestions, the flyer wall, recipe prices) uses only these flyers.
   const deals = useMemo(() => (filters.stores.length ? allDeals.filter((d) => filters.stores.includes(d.merchant)) : allDeals), [allDeals, filters.stores])
+  // Match the everyday suggestions against this week's ads while the page is idle, so adding the
+  // first item doesn't stall on it.
+  useEffect(() => {
+    if (!deals.length) return
+    const idle = window.requestIdleCallback || ((f) => setTimeout(f, 300))
+    const cancel = window.cancelIdleCallback || clearTimeout
+    const id = idle(() => recommend([], deals))
+    return () => cancel(id)
+  }, [deals])
   const merchants = useMemo(() => {
     const n = new Map()
     for (const d of allDeals) n.set(d.merchant, (n.get(d.merchant) || 0) + 1)

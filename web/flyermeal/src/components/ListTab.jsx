@@ -17,10 +17,13 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
   const [flyers, setFlyers] = useState(false)
   const [zoom, setZoom] = useState(null) // list line whose flyer ad is blown up
   const [more, setMore] = useState(MORE) // household and kitchen suggestions showing, per section
-  const names = lines.map((l) => l.name)
-  const picks = useMemo(() => (text.trim().length > 1 ? suggestNeeds(text, deals, names.map((n) => n.toLowerCase()), 6) : []), [text, deals, names])
+  // Memoized so typing in the box doesn't redo the suggestions below, which scan every flyer ad.
+  const names = useMemo(() => lines.map((l) => l.name), [lines])
+  const lower = useMemo(() => names.map((n) => n.toLowerCase()), [names])
+  const picks = useMemo(() => (text.trim().length > 1 ? suggestNeeds(text, deals, lower, 6) : []), [text, deals, lower])
   const recs = useMemo(() => (lines.length ? recommend(names, deals) : null), [names, deals, lines.length])
   const onSale = lines.filter((l) => l.deal).length
+  const mine = useMemo(() => [...new Map(lines.filter((l) => l.deal).map((l) => [l.deal.dealId, l.deal])).values()], [lines])
 
   const submit = (e) => {
     e.preventDefault()
@@ -106,7 +109,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
       <FlyersView
         open={flyers}
         deals={deals}
-        mine={[...new Map(lines.filter((l) => l.deal).map((l) => [l.deal.dealId, l.deal])).values()]}
+        mine={mine}
         onClose={() => setFlyers(false)}
         add={add}
         onList={(name) => names.some((n) => n.toLowerCase() === name.toLowerCase())}

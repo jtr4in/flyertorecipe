@@ -24,14 +24,15 @@ export default function FlyersView({ open, deals, mine, onClose, add, onList }) 
   const [shown, setShown] = useState(PAGE)
   const [zoom, setZoom] = useState(null)
 
+  const folded = useMemo(() => new Map(showing.map((d) => [d, fold(d.name)])), [showing])
   const ads = useMemo(() => {
     const rank = new Map(stores.map((s, i) => [s, i]))
     const words = fold(q).split(/\s+/).filter(Boolean)
     // Store by store, each in flyer page order, so it reads like flipping through the flyers.
     return showing
-      .filter((d) => (!store || d.merchant === store) && words.every((w) => fold(d.name).includes(w)))
+      .filter((d) => (!store || d.merchant === store) && words.every((w) => folded.get(d).includes(w)))
       .sort((a, b) => rank.get(a.merchant) - rank.get(b.merchant) || (a.page ?? 99) - (b.page ?? 99))
-  }, [showing, stores, store, q])
+  }, [showing, folded, stores, store, q])
 
   if (!open) return null
   const pick = (s) => {
