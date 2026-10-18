@@ -11,6 +11,8 @@ export default defineConfig({
     alias: { '@f2r': resolve(import.meta.dirname, 'src') },
   },
   build: {
+    // Older iPhones: rewrite newer syntax (like ??=) so Safari 14+ can run the app.
+    target: ['es2020', 'safari14', 'chrome87', 'firefox78', 'edge88'],
     rolldownOptions: {
       input: {
         main: resolve(import.meta.dirname, 'index.html'),

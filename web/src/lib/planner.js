@@ -16,8 +16,9 @@ const GLOBAL_EXCLUDE = ['seasoning', 'flavour', 'flavor', 'flavoured', 'flavored
   'sauce', 'paste', 'pastry', 'dumpling', 'spring roll', 'marinade', 'dressing', 'cracker']
 
 // Whole words, plurals allowed: "bun" matches "buns" but not "bunch". Letter-aware, so French
-// words ending in an accent ("boeuf haché") still match.
-const wordRe = (w) => new RegExp(`(?<![\\p{L}\\p{N}])${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:s|es)?(?![\\p{L}\\p{N}])`, 'iu')
+// words ending in an accent ("boeuf haché") still match. No lookbehind: iPhones before iOS 16.4
+// can't run it, and the whole app failed to load there.
+const wordRe = (w) => new RegExp(`(?:^|[^\\p{L}\\p{N}])${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?:s|es)?(?![\\p{L}\\p{N}])`, 'iu')
 
 export function activeDeals(deals, { stores = [], today = new Date() } = {}) {
   const day = today.toISOString().slice(0, 10)
