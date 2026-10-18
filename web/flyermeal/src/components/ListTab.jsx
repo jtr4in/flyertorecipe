@@ -20,7 +20,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
   // Memoized so typing in the box doesn't redo the suggestions below, which scan every flyer ad.
   const names = useMemo(() => lines.map((l) => l.name), [lines])
   const lower = useMemo(() => names.map((n) => n.toLowerCase()), [names])
-  const picks = useMemo(() => (text.trim().length > 1 ? suggestNeeds(text, deals, lower, 6) : []), [text, deals, lower])
+  const picks = useMemo(() => (text.trim().length > 1 ? suggestNeeds(text, deals, lower) : []), [text, deals, lower])
   const recs = useMemo(() => (lines.length ? recommend(names, deals) : null), [names, deals, lines.length])
   const onSale = lines.filter((l) => l.deal).length
   const mine = useMemo(() => [...new Map(lines.filter((l) => l.deal).map((l) => [l.deal.dealId, l.deal])).values()], [lines])
@@ -58,7 +58,11 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
           </button>
         </div>
         {picks.length > 0 && (
-          <ul className="absolute inset-x-0 top-full z-10 mt-1 overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-lg" role="listbox" aria-label="Suggestions">
+          <ul
+            className="absolute inset-x-0 top-full z-10 mt-1 max-h-[60dvh] divide-y divide-stone-100 overflow-y-auto rounded-2xl border border-stone-200 bg-white shadow-lg"
+            role="listbox"
+            aria-label="Suggestions"
+          >
             {picks.map((p) => (
               <li key={p.need + (p.deal?.dealId || '')}>
                 <button
@@ -70,12 +74,32 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
                     add([...before, p.need], p.deal?.dealId)
                     setText('')
                   }}
-                  className="flex w-full items-center justify-between gap-3 px-4 py-2.5 text-left hover:bg-orange-50"
+                  className="flex w-full items-center gap-3 px-3 py-2 text-left hover:bg-orange-50"
                 >
-                  <span className="truncate capitalize">{p.need}</span>
                   {p.deal && (
-                    <span className="shrink-0 text-sm text-green-700">
-                      {p.deal.priceLabel} · {p.deal.merchant}
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-stone-50">
+                      {p.deal.imageUrl ? (
+                        <img src={p.deal.imageUrl} alt="" loading="lazy" className="max-h-12 max-w-12 object-contain" />
+                      ) : p.deal.clip?.box ? (
+                        <FlyerClip deal={p.deal} sharp={160} maxHeight="3rem" />
+                      ) : (
+                        <span aria-hidden>🏷️</span>
+                      )}
+                    </span>
+                  )}
+                  <span className="line-clamp-2 min-w-0 flex-1 text-sm">
+                    {p.deal ? (
+                      dealName(p.deal.name)
+                    ) : (
+                      <span className="font-medium">
+                        <span className="capitalize">{p.need}</span> <span className="font-normal text-stone-400">(any kind)</span>
+                      </span>
+                    )}
+                  </span>
+                  {p.deal && (
+                    <span className="shrink-0 text-right text-xs">
+                      <span className="block font-semibold text-green-700">{p.deal.priceLabel || p.deal.priceText}</span>
+                      <span className="block text-stone-500">{p.deal.merchant}</span>
                     </span>
                   )}
                 </button>
