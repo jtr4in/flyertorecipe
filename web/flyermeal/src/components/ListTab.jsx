@@ -1,18 +1,21 @@
 import { useMemo, useState } from 'react'
 import FlyerClip from '@f2r/components/FlyerClip'
+import FlyerProof from '@f2r/components/FlyerProof'
 import { fsa } from '@f2r/lib/data'
 import { searchDeals, suggestNeeds } from '@f2r/lib/needs'
 import { dealName, money, shortDay } from '@f2r/lib/stores'
 import { recommend } from '../lib/recommend'
 import FlyersView from './FlyersView'
+import { filterSummary } from './FiltersSheet'
 
 const MORE = 6 // suggestions per section, and how many more each tap adds
 const EXAMPLES = ['chicken thighs', 'rice', 'broccoli', 'eggs', 'toilet paper']
 
-export default function ListTab({ postal, setPostal, dealState, deals, lines, add, update, remove, clear }) {
+export default function ListTab({ postal, setPostal, dealState, deals, filters, openFilters, lines, add, update, remove, clear }) {
   const [text, setText] = useState('')
   const [open, setOpen] = useState(null) // list line whose other deals are showing
   const [flyers, setFlyers] = useState(false)
+  const [zoom, setZoom] = useState(null) // list line whose flyer ad is blown up
   const [more, setMore] = useState(MORE) // household and kitchen suggestions showing, per section
   const names = lines.map((l) => l.name)
   const picks = useMemo(() => (text.trim().length > 1 ? suggestNeeds(text, deals, names.map((n) => n.toLowerCase()), 6) : []), [text, deals, names])
@@ -79,6 +82,18 @@ export default function ListTab({ postal, setPostal, dealState, deals, lines, ad
         )}
       </form>
 
+      {fsa(postal) && (
+        <button
+          onClick={openFilters}
+          className="flex w-full items-center justify-between gap-3 rounded-2xl border border-stone-200 bg-white px-4 py-2.5 text-left text-sm shadow-sm"
+        >
+          <span className="min-w-0 truncate">
+            🏷️ <span className="font-semibold">{filterSummary(filters)}</span>
+            {filters.matchAt && <span className="text-stone-500"> · only flyers they accept</span>}
+          </span>
+          <span className="shrink-0 font-medium text-orange-700">Filters ›</span>
+        </button>
+      )}
       {deals.length > 0 && (
         <button
           onClick={() => setFlyers(true)}
@@ -127,6 +142,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, lines, ad
                 deals={deals}
                 open={open === l.name}
                 onOpen={() => setOpen(open === l.name ? null : l.name)}
+                onZoom={() => setZoom(l)}
                 onPick={(d) => (update(l.name, { dealId: d.dealId }), setOpen(null))}
                 onCheck={() => update(l.name, { checked: !l.checked })}
                 onRemove={() => remove(l.name)}
@@ -135,6 +151,12 @@ export default function ListTab({ postal, setPostal, dealState, deals, lines, ad
           </ul>
         </section>
       )}
+
+      <FlyerProof
+        deal={zoom?.deal}
+        onClose={() => setZoom(null)}
+        action={zoom && { label: 'Other deals', onClick: () => (setOpen(zoom.name), setZoom(null)) }}
+      />
 
       {recs && (
         <>
@@ -152,19 +174,23 @@ export default function ListTab({ postal, setPostal, dealState, deals, lines, ad
   )
 }
 
-function ListLine({ line, deals, open, onOpen, onPick, onCheck, onRemove }) {
+function ListLine({ line, deals, open, onOpen, onZoom, onPick, onCheck, onRemove }) {
   const d = line.deal
   const others = useMemo(() => (open ? searchDeals(line.name, deals).slice(0, 8) : []), [open, line.name, deals])
   return (
     <li className={line.checked ? 'bg-stone-50' : ''}>
       <div className="flex items-center gap-3 px-3 py-2.5">
         <input type="checkbox" checked={line.checked} onChange={onCheck} className="size-5 shrink-0 accent-orange-600" aria-label={`Got ${line.name}`} />
+        {d && (
+          <button
+            onClick={onZoom}
+            className="h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-stone-100 bg-white transition hover:scale-110 hover:shadow-md"
+            aria-label={`See the ${d.merchant} flyer ad for ${line.name}`}
+          >
+            <FlyerClip deal={d} maxHeight="3rem" sharp={200} />
+          </button>
+        )}
         <button onClick={onOpen} disabled={!d} className="flex min-w-0 flex-1 items-center gap-3 text-left">
-          {d && (
-            <div className="h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-stone-100 bg-white">
-              <FlyerClip deal={d} maxHeight="3rem" sharp={200} />
-            </div>
-          )}
           <div className="min-w-0">
             <p className={`truncate font-medium capitalize ${line.checked ? 'text-stone-400 line-through' : ''}`}>{line.name}</p>
             {d ? (

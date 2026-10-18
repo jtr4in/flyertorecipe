@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { fsa, loadDeals } from '@f2r/lib/data'
 import { activeDeals } from '@f2r/lib/planner'
+import { followMatch, tidyMatch } from '@f2r/lib/priceMatch'
 import { bestDeal } from './lib/deals'
 import { norm, prepare, sortRecipes } from './lib/match'
 import ListTab from './components/ListTab'
 import RecipesTab from './components/RecipesTab'
+import FiltersSheet from './components/FiltersSheet'
 
 // Device-local on purpose: this is a test app, and a list is scratch state.
 const read = (key, fallback) => {
@@ -28,13 +30,17 @@ export default function App() {
   const [tab, setTab] = useState('list')
   const [postal, setPostal] = useState(() => read('fm.postal', ''))
   const [list, setList] = useState(() => read('fm.list', [])) // [{ name, checked, dealId }]
-  const [deals, setDeals] = useState([])
+  const [allDeals, setDeals] = useState([])
+  // Same store filters as Flyer2Recipes: the store you price match at, and which flyers to use.
+  const [filters, setFilters] = useState(() => tidyMatch({ matchAt: '', matchExtras: [], stores: [], ...read('fm.filters', {}) }))
+  const [filtering, setFiltering] = useState(false)
   const [dealState, setDealState] = useState('idle') // idle | loading | ready | none | error
   const [recipes, setRecipes] = useState(null)
   const [groups, setGroups] = useState([])
 
   useEffect(() => write('fm.list', list), [list])
   useEffect(() => write('fm.postal', postal), [postal])
+  useEffect(() => write('fm.filters', filters), [filters])
 
   useEffect(() => {
     if (!fsa(postal)) return
@@ -64,6 +70,14 @@ export default function App() {
       })
       .catch(() => setRecipes([]))
   }, [])
+
+  // Everything (list matches, suggestions, the flyer wall, recipe prices) uses only these flyers.
+  const deals = useMemo(() => (filters.stores.length ? allDeals.filter((d) => filters.stores.includes(d.merchant)) : allDeals), [allDeals, filters.stores])
+  const merchants = useMemo(() => {
+    const n = new Map()
+    for (const d of allDeals) n.set(d.merchant, (n.get(d.merchant) || 0) + 1)
+    return [...n].sort((a, b) => b[1] - a[1]).map(([m]) => m)
+  }, [allDeals])
 
   const add = useCallback((names, dealId) => {
     const items = (Array.isArray(names) ? names : [names]).map((n) => n.trim()).filter(Boolean)
@@ -109,6 +123,8 @@ export default function App() {
             setPostal={setPostal}
             dealState={dealState}
             deals={deals}
+            filters={filters}
+            openFilters={() => setFiltering(true)}
             lines={lines}
             add={add}
             update={update}
@@ -119,6 +135,14 @@ export default function App() {
           <RecipesTab sorted={sorted} groups={groups} loading={!recipes} list={list} keys={keys} deals={deals} add={add} />
         )}
       </main>
+
+      <FiltersSheet
+        open={filtering}
+        onClose={() => setFiltering(false)}
+        filters={filters}
+        merchants={merchants}
+        onChange={(next) => setFilters((prev) => followMatch(next, prev))}
+      />
 
       <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-stone-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur">
         <div className="mx-auto flex max-w-md sm:max-w-2xl">
