@@ -7,11 +7,12 @@ import { dealName, money, shortDay } from '@f2r/lib/stores'
 import { recommend } from '../lib/recommend'
 import FlyersView from './FlyersView'
 import { filterSummary } from './FiltersSheet'
+import { Photo } from './RecipesTab'
 
 const MORE = 6 // suggestions per section, and how many more each tap adds
 const EXAMPLES = ['chicken thighs', 'rice', 'broccoli', 'eggs', 'toilet paper']
 
-export default function ListTab({ postal, setPostal, dealState, deals, filters, openFilters, lines, add, update, remove, clear }) {
+export default function ListTab({ postal, setPostal, dealState, deals, filters, openFilters, lines, meals, mealName, openMeal, removeMeal, add, update, remove, clear }) {
   const [text, setText] = useState('')
   const [open, setOpen] = useState(null) // list line whose other deals are showing
   const [flyers, setFlyers] = useState(false)
@@ -139,6 +140,35 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
         onList={(name) => names.some((n) => n.toLowerCase() === name.toLowerCase())}
       />
 
+      {meals.length > 0 && (
+        <section>
+          <h2 className="mb-2 text-sm font-semibold text-stone-500">Your meals · {meals.length}</h2>
+          <ul className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1">
+            {meals.map((s) => {
+              const need = s.lines.filter((l) => l.status === 'need').length
+              return (
+                <li key={s.recipe.id} className="relative w-32 shrink-0">
+                  <button onClick={() => openMeal(s.recipe.id)} className="block w-full overflow-hidden rounded-2xl border border-stone-200 bg-white text-left shadow-sm">
+                    <Photo recipe={s.recipe} />
+                    <span className="block p-2">
+                      <span className="line-clamp-2 text-sm leading-tight font-semibold">{s.recipe.name}</span>
+                      <span className={`mt-0.5 block text-xs ${need ? 'text-orange-700' : 'text-green-700'}`}>{need ? `${need} still to add` : '✓ All on your list'}</span>
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => removeMeal(s.recipe.id)}
+                    className="absolute top-1 right-1 flex size-7 items-center justify-center rounded-full bg-white/90 text-sm text-stone-500 shadow"
+                    aria-label={`Remove ${s.recipe.name} from your meals`}
+                  >
+                    ✕
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+        </section>
+      )}
+
       {lines.length === 0 ? (
         <div className="rounded-3xl border border-dashed border-stone-300 bg-white p-5 text-center">
           <p className="font-semibold">Write your grocery list</p>
@@ -166,6 +196,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
               <ListLine
                 key={l.name}
                 line={l}
+                forMeals={(l.meals || []).map(mealName).filter(Boolean)}
                 deals={deals}
                 open={open === l.name}
                 onOpen={() => setOpen(open === l.name ? null : l.name)}
@@ -201,7 +232,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
   )
 }
 
-function ListLine({ line, deals, open, onOpen, onZoom, onPick, onCheck, onRemove }) {
+function ListLine({ line, forMeals, deals, open, onOpen, onZoom, onPick, onCheck, onRemove }) {
   const d = line.deal
   const others = useMemo(() => (open ? searchDeals(line.name, deals).slice(0, 8) : []), [open, line.name, deals])
   return (
@@ -228,6 +259,7 @@ function ListLine({ line, deals, open, onOpen, onZoom, onPick, onCheck, onRemove
             ) : (
               <p className="text-sm text-stone-400">Not in this week's flyers</p>
             )}
+            {forMeals.length > 0 && <p className="truncate text-xs font-medium text-orange-700">🍽️ For {forMeals.join(', ')}</p>}
           </div>
         </button>
         <button onClick={onRemove} className="shrink-0 rounded-full p-2 text-stone-400 hover:text-rose-600" aria-label={`Remove ${line.name}`}>

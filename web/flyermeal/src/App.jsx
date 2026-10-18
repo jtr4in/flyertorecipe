@@ -30,7 +30,9 @@ const fold = (t) => (t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,
 export default function App() {
   const [tab, setTab] = useState('list')
   const [postal, setPostal] = useState(() => read('fm.postal', ''))
-  const [list, setList] = useState(() => read('fm.list', [])) // [{ name, checked, dealId }]
+  const [list, setList] = useState(() => read('fm.list', [])) // [{ name, checked, dealId, meals: [recipe id] }]
+  const [meals, setMeals] = useState(() => read('fm.meals', [])) // recipe ids you're shopping for
+  const [openId, setOpenId] = useState(null) // recipe showing on the Recipes tab
   const [allDeals, setDeals] = useState([])
   // Same store filters as Flyer2Recipes: the store you price match at, and which flyers to use.
   const [filters, setFilters] = useState(() => tidyMatch({ matchAt: '', matchExtras: [], stores: [], ...read('fm.filters', {}) }))
@@ -40,6 +42,7 @@ export default function App() {
   const [groups, setGroups] = useState([])
 
   useEffect(() => write('fm.list', list), [list])
+  useEffect(() => write('fm.meals', meals), [meals])
   useEffect(() => write('fm.postal', postal), [postal])
   useEffect(() => write('fm.filters', filters), [filters])
 
@@ -89,20 +92,31 @@ export default function App() {
     return [...n].sort((a, b) => b[1] - a[1]).map(([m]) => m)
   }, [allDeals])
 
-  const add = useCallback((names, dealId) => {
+  // `meal` is the recipe id the items are for, so the list can say what each one is for.
+  const add = useCallback((names, dealId, meal) => {
     const items = (Array.isArray(names) ? names : [names]).map((n) => n.trim()).filter(Boolean)
     setList((cur) => {
       const next = [...cur]
       for (const name of items) {
-        if (next.some((i) => fold(i.name) === fold(name))) continue
-        next.push({ name, checked: false, dealId: dealId || null })
+        const at = next.findIndex((i) => fold(i.name) === fold(name))
+        if (at >= 0) {
+          const had = next[at].meals || []
+          if (meal && !had.includes(meal)) next[at] = { ...next[at], meals: [...had, meal] }
+          continue
+        }
+        next.push({ name, checked: false, dealId: dealId || null, meals: meal ? [meal] : [] })
       }
       return next
     })
   }, [])
+  const saveMeal = useCallback((id, on = true) => {
+    setMeals((cur) => (on ? (cur.includes(id) ? cur : [...cur, id]) : cur.filter((m) => m !== id)))
+    // Unsaving a meal keeps its groceries, just without the "for" note.
+    if (!on) setList((cur) => cur.map((i) => (i.meals?.includes(id) ? { ...i, meals: i.meals.filter((m) => m !== id) } : i)))
+  }, [])
   const update = useCallback((name, patch) => setList((cur) => cur.map((i) => (i.name === name ? { ...i, ...patch } : i))), [])
   const remove = useCallback((name) => setList((cur) => cur.filter((i) => i.name !== name)), [])
-  const clear = useCallback(() => setList([]), [])
+  const clear = useCallback(() => (setList([]), setMeals([])), [])
 
   // Each list line with its deal: the one picked, else the best plain match this week.
   const byId = useMemo(() => new Map(deals.map((d) => [d.dealId, d])), [deals])
@@ -114,6 +128,8 @@ export default function App() {
   const keys = useMemo(() => [...new Set(list.map((i) => norm(i.name)))].filter(Boolean), [list])
   // Every recipe, the ones you already have the most of first.
   const sorted = useMemo(() => (recipes ? sortRecipes(recipes, keys) : []), [recipes, keys])
+  const saved = useMemo(() => meals.map((id) => sorted.find((s) => s.recipe.id === id)).filter(Boolean), [meals, sorted])
+  const mealName = useCallback((id) => recipes?.find((r) => r.id === id)?.name, [recipes])
 
   return (
     <div className="mx-auto min-h-dvh max-w-md bg-stone-50 pb-[calc(5rem+env(safe-area-inset-bottom))] sm:max-w-2xl">
@@ -136,13 +152,17 @@ export default function App() {
             filters={filters}
             openFilters={() => setFiltering(true)}
             lines={lines}
+            meals={saved}
+            mealName={mealName}
+            openMeal={(id) => (setOpenId(id), setTab('recipes'))}
+            removeMeal={(id) => saveMeal(id, false)}
             add={add}
             update={update}
             remove={remove}
             clear={clear}
           />
         ) : (
-          <RecipesTab sorted={sorted} groups={groups} loading={!recipes} list={list} keys={keys} deals={deals} add={add} />
+          <RecipesTab sorted={sorted} groups={groups} loading={!recipes} list={list} keys={keys} deals={deals} add={add} meals={meals} saveMeal={saveMeal} openId={openId} setOpenId={setOpenId} />
         )}
       </main>
 

@@ -21,10 +21,11 @@ function saleFor(key, deals, memo) {
   return memo.get(key)
 }
 
-export default function RecipesTab({ sorted, groups, loading, list, keys, deals, add }) {
+export default function RecipesTab({ sorted, groups, loading, list, keys, deals, add, meals, saveMeal, openId, setOpenId }) {
   const [group, setGroup] = useState(null)
   const [q, setQ] = useState('')
-  const [open, setOpen] = useState(null)
+  const open = openId && sorted.find((s) => s.recipe.id === openId)?.recipe
+  const setOpen = (r) => setOpenId(r ? r.id : null)
   const memo = useMemo(() => new Map(), [deals])
   const byGroup = useMemo(() => {
     const m = new Map(groups.map((g) => [g, []]))
@@ -86,7 +87,7 @@ export default function RecipesTab({ sorted, groups, loading, list, keys, deals,
       )}
       <p className="pb-2 text-center text-xs text-stone-400">Recipes from TheMealDB and Flyer Meal. Photos from TheMealDB and Wikimedia Commons.</p>
 
-      {open && <RecipeSheet key={open.id} recipe={open} onClose={() => setOpen(null)} deals={deals} memo={memo} add={add} list={list} keys={keys} />}
+      {open && <RecipeSheet key={open.id} recipe={open} onClose={() => setOpen(null)} deals={deals} memo={memo} add={add} list={list} keys={keys} saved={meals.includes(open.id)} saveMeal={saveMeal} />}
     </div>
   )
 }
@@ -137,7 +138,7 @@ function Grid({ items, onOpen }) {
   )
 }
 
-function Photo({ recipe, big }) {
+export function Photo({ recipe, big }) {
   const src = big ? recipe.image : recipe.thumb || recipe.image
   if (src) return <img src={src} alt={big ? recipe.name : ''} loading="lazy" className={`w-full bg-stone-100 object-cover ${big ? 'aspect-[4/3] rounded-2xl' : 'aspect-square'}`} />
   return (
@@ -171,7 +172,7 @@ const STATUS = {
   need: { icon: '+', cls: 'bg-orange-100 text-orange-700', label: 'To buy' },
 }
 
-function RecipeSheet({ recipe, onClose, deals, memo, add, list, keys }) {
+function RecipeSheet({ recipe, onClose, deals, memo, add, list, keys, saved, saveMeal }) {
   const swap = recipe.swaps?.[0]
   const [store, setStore] = useState(false) // using the store-bought sauce
   const score = scoreRecipe(withSwap(recipe, store && swap), keys)
@@ -193,13 +194,20 @@ function RecipeSheet({ recipe, onClose, deals, memo, add, list, keys }) {
       footer={
         toBuy.length > 0 ? (
           <button
-            onClick={() => toBuy.forEach((l) => add(l.name.toLowerCase(), saleFor(l.key, deals, memo)?.dealId))}
+            onClick={() => {
+              toBuy.forEach((l) => add(l.name.toLowerCase(), saleFor(l.key, deals, memo)?.dealId, recipe.id))
+              saveMeal(recipe.id)
+            }}
             className="w-full rounded-2xl bg-orange-600 py-3 font-semibold text-white"
           >
             Add {toBuy.length} {toBuy.length === 1 ? 'ingredient' : 'ingredients'} to my list
           </button>
+        ) : saved ? (
+          <p className="py-2 text-center font-semibold text-green-700">✓ In your meals, and everything's on your list</p>
         ) : (
-          <p className="py-2 text-center font-semibold text-green-700">✓ Everything for this is on your list</p>
+          <button onClick={() => saveMeal(recipe.id)} className="w-full rounded-2xl bg-orange-600 py-3 font-semibold text-white">
+            Save to my meals
+          </button>
         )
       }
     >
@@ -217,7 +225,16 @@ function RecipeSheet({ recipe, onClose, deals, memo, add, list, keys }) {
           'Recipe and photo from TheMealDB'
         ) : null}
       </p>
-      {facts && <p className="mt-2 text-sm text-stone-500">{facts}</p>}
+      <div className="mt-2 flex items-center justify-between gap-3">
+        <p className="text-sm text-stone-500">{facts}</p>
+        <button
+          onClick={() => saveMeal(recipe.id, !saved)}
+          aria-pressed={saved}
+          className={`shrink-0 rounded-full border px-3 py-1 text-sm font-semibold ${saved ? 'border-green-200 bg-green-50 text-green-800' : 'border-orange-200 text-orange-700'}`}
+        >
+          {saved ? '✓ In my meals' : '+ Save meal'}
+        </button>
+      </div>
       <div className="mt-3 flex flex-wrap gap-2 text-sm">
         {recipe.youtube && (
           <a href={recipe.youtube} target="_blank" rel="noreferrer" className="rounded-full bg-red-50 px-3 py-1.5 font-medium text-red-700">
@@ -272,7 +289,7 @@ function RecipeSheet({ recipe, onClose, deals, memo, add, list, keys }) {
               </div>
               {st !== 'list' && (
                 <button
-                  onClick={() => add(l.name.toLowerCase(), deal?.dealId)}
+                  onClick={() => add(l.name.toLowerCase(), deal?.dealId, recipe.id)}
                   className={`shrink-0 rounded-full border px-3 py-1 text-xs font-semibold ${st === 'need' ? 'border-orange-200 text-orange-700' : 'border-stone-200 text-stone-500'}`}
                   aria-label={`Add ${l.name} to my list`}
                 >
