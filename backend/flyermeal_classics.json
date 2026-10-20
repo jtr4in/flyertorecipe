@@ -763,7 +763,7 @@
       "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "tomato sauce", "Italian seasoning"], "note": "In step 2, pour in the jar of pasta sauce with the broth and paprika." }]
     },
     {
-      "id": "stuffed-shells", "search": "stuffed shells pasta", "name": "Baked Stuffed Shells", "group": "Pasta", "emoji": "🐚", "wiki": "Conchiglie", "minutes": 60, "serves": 6,
+      "id": "stuffed-shells", "photo": "Stuffed shells 002.jpg", "search": "stuffed shells pasta", "name": "Baked Stuffed Shells", "group": "Pasta", "emoji": "🐚", "wiki": "Conchiglie", "minutes": 60, "serves": 6,
       "ingredients": [
         { "name": "jumbo pasta shells", "measure": "1 box (340 g)" }, { "name": "ricotta", "measure": "1 tub (475 g)" }, { "name": "mozzarella", "measure": "2 cups shredded" },
         { "name": "parmesan", "measure": "1/2 cup grated" }, { "name": "egg", "measure": "1" }, { "name": "frozen spinach", "measure": "1 box (300 g), thawed and squeezed" },
@@ -837,7 +837,7 @@
       "swaps": [{ "label": "Use store-bought hollandaise", "sauce": "hollandaise sauce", "measure": "1 package", "replaces": ["butter", "lemon"], "note": "In step 1, use 3 eggs fewer and warm the store-bought hollandaise as the package says instead of making it." }]
     },
     {
-      "id": "hash-browns", "name": "Crispy Hash Browns", "group": "Breakfast", "emoji": "🥔", "wiki": "Hash_browns", "minutes": 25, "serves": 4,
+      "id": "hash-browns", "search": "hash browns", "name": "Crispy Hash Browns", "group": "Breakfast", "emoji": "🥔", "wiki": "Hash_browns", "minutes": 25, "serves": 4,
       "ingredients": [
         { "name": "russet potatoes", "measure": "4 large" }, { "name": "onion", "measure": "1/2, grated (optional)" }, { "name": "vegetable oil", "measure": "3 tbsp" },
         { "name": "butter", "measure": "1 tbsp" }, { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
@@ -864,7 +864,7 @@
       ]
     },
     {
-      "id": "overnight-oats", "search": "overnight oats jar", "name": "Overnight Oats", "group": "Breakfast", "emoji": "🥣", "wiki": "Rolled_oats", "minutes": 5, "serves": 2,
+      "id": "overnight-oats", "search": "overnight oats", "name": "Overnight Oats", "group": "Breakfast", "emoji": "🥣", "wiki": "Rolled_oats", "minutes": 5, "serves": 2,
       "ingredients": [
         { "name": "rolled oats", "measure": "1 cup" }, { "name": "milk", "measure": "1 cup" }, { "name": "Greek yogurt", "measure": "1/2 cup" },
         { "name": "chia seeds", "measure": "1 tbsp" }, { "name": "maple syrup", "measure": "1 tbsp" }, { "name": "vanilla extract", "measure": "1/2 tsp" },
@@ -877,7 +877,7 @@
       ]
     },
     {
-      "id": "roast-potatoes", "name": "Crispy Roast Potatoes", "group": "Sides & salads", "emoji": "🥔", "wiki": "Roast_potato", "minutes": 60, "serves": 6,
+      "id": "roast-potatoes", "search": "roast potatoes", "name": "Crispy Roast Potatoes", "group": "Sides & salads", "emoji": "🥔", "wiki": "Roast_potato", "minutes": 60, "serves": 6,
       "ingredients": [
         { "name": "yellow potatoes", "measure": "1.5 kg (3 lb)" }, { "name": "olive oil", "measure": "1/4 cup" }, { "name": "garlic", "measure": "4 cloves, smashed" },
         { "name": "rosemary", "measure": "2 sprigs" }, { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
@@ -890,7 +890,7 @@
       ]
     },
     {
-      "id": "rice-pilaf", "name": "Rice Pilaf", "group": "Sides & salads", "emoji": "🍚", "wiki": "Pilaf", "minutes": 30, "serves": 6,
+      "id": "rice-pilaf", "photo": "Turkish Pilaf Rice - degustation - Ottoman Cuisine (3061206332).jpg", "name": "Rice Pilaf", "group": "Sides & salads", "emoji": "🍚", "wiki": "Pilaf", "minutes": 30, "serves": 6,
       "ingredients": [
         { "name": "long-grain rice", "measure": "1 1/2 cups" }, { "name": "orzo", "measure": "1/2 cup" }, { "name": "butter", "measure": "2 tbsp" },
         { "name": "onion", "measure": "1 small" }, { "name": "garlic", "measure": "1 clove" }, { "name": "chicken broth", "measure": "3 cups" },
@@ -917,7 +917,7 @@
       ]
     },
     {
-      "id": "roasted-broccoli", "search": "roasted broccoli", "name": "Garlic Parmesan Roasted Broccoli", "group": "Sides & salads", "emoji": "🥦", "wiki": "Broccoli", "minutes": 25, "serves": 4,
+      "id": "roasted-broccoli", "photo": "Liat Portal for Foodie Disorder - Roasted broccoli cauliflower and onions.jpg", "search": "roasted broccoli", "name": "Garlic Parmesan Roasted Broccoli", "group": "Sides & salads", "emoji": "🥦", "wiki": "Broccoli", "minutes": 25, "serves": 4,
       "ingredients": [
         { "name": "broccoli", "measure": "2 heads, in florets" }, { "name": "olive oil", "measure": "3 tbsp" }, { "name": "garlic", "measure": "3 cloves, minced" },
         { "name": "parmesan", "measure": "1/3 cup grated" }, { "name": "lemon", "measure": "1/2" }, { "name": "salt", "measure": "to taste" },
@@ -960,7 +960,7 @@
       ]
     },
     {
-      "id": "pork-tenderloin", "name": "Roast Pork Tenderloin", "group": "Pork", "emoji": "🐖", "wiki": "Pork_tenderloin", "minutes": 35, "serves": 4,
+      "id": "pork-tenderloin", "photo": "Seared and roasted Pork Tenderloin in Cast Iron Skillet.jpg", "name": "Roast Pork Tenderloin", "group": "Pork", "emoji": "🐖", "wiki": "Pork_tenderloin", "minutes": 35, "serves": 4,
       "ingredients": [
         { "name": "pork tenderloin", "measure": "2 (about 900 g total)" }, { "name": "Dijon mustard", "measure": "2 tbsp" }, { "name": "honey", "measure": "2 tbsp" },
         { "name": "garlic", "measure": "2 cloves" }, { "name": "rosemary", "measure": "1 tbsp chopped" }, { "name": "olive oil", "measure": "1 tbsp" },
@@ -1020,7 +1020,7 @@
       "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "dried basil"], "note": "Skip step 3 and layer with the jar of pasta sauce instead." }]
     },
     {
-      "id": "black-bean-tacos", "search": "black bean tacos", "name": "Crispy Black Bean Tacos", "group": "Vegetarian", "emoji": "🌮", "wiki": "Taco", "minutes": 25, "serves": 4,
+      "id": "black-bean-tacos", "photo": "Vegetables and Black Bean Tacos (7212559656).jpg", "search": "black bean tacos", "name": "Crispy Black Bean Tacos", "group": "Vegetarian", "emoji": "🌮", "wiki": "Taco", "minutes": 25, "serves": 4,
       "ingredients": [
         { "name": "black beans", "measure": "2 cans (540 ml / 19 oz), drained" }, { "name": "taco seasoning", "measure": "2 tbsp" }, { "name": "corn tortillas", "measure": "12 small" },
         { "name": "cheddar", "measure": "1 1/2 cups shredded" }, { "name": "avocado", "measure": "2" }, { "name": "limes", "measure": "1" },
@@ -1054,7 +1054,7 @@
       "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "2 jars (650 ml each)", "replaces": ["crushed tomatoes", "dried oregano"], "note": "Skip step 2 and layer with the jarred pasta sauce instead." }]
     },
     {
-      "id": "salmon-tacos", "search": "salmon tacos", "name": "Baked Salmon Tacos", "group": "Seafood", "emoji": "🐟", "wiki": "Fish_taco", "minutes": 25, "serves": 4,
+      "id": "salmon-tacos", "photo": "Salmon tacos a morris (20505485971).jpg", "search": "salmon tacos", "name": "Baked Salmon Tacos", "group": "Seafood", "emoji": "🐟", "wiki": "Fish_taco", "minutes": 25, "serves": 4,
       "ingredients": [
         { "name": "salmon fillets", "measure": "600 g" }, { "name": "chili powder", "measure": "1 tsp" }, { "name": "ground cumin", "measure": "1 tsp" },
         { "name": "flour tortillas", "measure": "8 small" }, { "name": "green cabbage", "measure": "2 cups shredded" }, { "name": "mayonnaise", "measure": "1/3 cup" },
