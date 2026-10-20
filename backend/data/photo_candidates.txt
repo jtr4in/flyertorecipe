@@ -1,14 +1,4 @@
 ## spaghetti-meatballs (Spaghetti and Meatballs)
-   Spaghetti and meatballs 1.jpg | 1600x1063 | CC BY 2.0
-   Spaghetti with Meatballs in Marinara Sauce found in the cold case at 7-Eleven.jpg | 8160x6120 | CC BY-SA 4.0
-   Spaghetti with meatballs 3.jpg | 3888x2592 | CC BY 2.0
-   Spaghetti with meatballs 2.jpg | 667x1000 | CC BY 2.0
-   Spaghetti and meatballs on plate.jpg | 1798x1260 | CC BY 2.0
-   Spaghetti and meatballs (cropped).jpg | 885x470 | CC BY-SA 3.0
-   Spaghetti and meatballs 3.jpg | 3072x2304 | CC BY 2.0
-   Spaghetti and meatballs 4.jpg | 5184x3456 | CC BY 2.0
-   Marinara Spaghetti and meatballs bread18.jpg | 4096x3072 | CC BY-SA 4.0
-   Spaghetti & Meatballs (4) (38218925246).jpg | 4201x2793 | CC BY 2.0
 ## baked-ziti (Baked Ziti)
    Baked Ziti (cropped).jpg | 558x435 | CC BY 2.0
    Baked Ziti and breadsticks, Fazoli's.jpg | 1536x2048 | CC BY-SA 4.0
@@ -18,8 +8,8 @@
    Pumpkin baked ziti (43178434001).jpg | 4752x3168 | CC BY 2.0
    RecipeoftheMonthNov SJ (10807432016).jpg | 6016x4000 | CC BY 2.0
    RecipeoftheMonthNov SJ (10807566674).jpg | 6016x4000 | CC BY 2.0
+   RecipeoftheMonthNov SJ (10807551504).jpg | 6016x4000 | CC BY 2.0
    RecipeoftheMonthNov SJ (10807413315).jpg | 6016x4000 | CC BY 2.0
-   RecipeoftheMonthNov SJ (10807542124).jpg | 6016x4000 | CC BY 2.0
 ## mac-and-cheese (Baked Mac and Cheese)
    Pulled pork, baked beans and mac & cheese from Peg Leg Porker in Nashville, TN.jpg | 4032x3024 | CC BY-SA 4.0
    Pulled pork, brisket, baked beans and mac & cheese from Martin's BBQ in Nashville, TN.jpg | 4032x3024 | CC BY-SA 4.0
@@ -27,8 +17,8 @@
    Half-chicken (dark meat) at Hattie B's with side of baked beans and mac & cheese.jpg | 4032x3024 | CC BY-SA 4.0
    Glorified mac and cheese.jpg | 3120x3298 | CC BY-SA 4.0
    Bake mac.jpg | 3456x4608 | CC BY-SA 4.0
-   Սաղմոնի ուտեստ.JPG | 3864x2729 | CC BY-SA 3.0
    Սաղմոն ու մակարոն.JPG | 4066x2728 | CC BY-SA 3.0
+   Սաղմոնի ուտեստ.JPG | 3864x2729 | CC BY-SA 3.0
    Canadian grocer January-June 1910 (1910) (14759900016).jpg | 2142x1708 | No restrictions
    Langer's Delicatessen-Restaurant — 704 S. Alvarado Street — Los Angeles - Flickr - dalecruse.jpg | 5712x3213 | CC BY 4.0
 ## chicken-parmesan (Chicken Parmesan)
@@ -43,16 +33,6 @@
    Tony's of North Beach - December 2022 - Sarah Stierch 05.jpg | 4032x3024 | CC BY 4.0
    Chicken Parmi, Leopold Hotel, Bicton, 2025 (02).jpg | 3809x2146 | CC BY-SA 4.0
 ## penne-vodka (Penne alla Vodka)
-   PenneAllaVodka.jpg | 1600x1066 | CC BY-SA 2.0
-   Penne alla Vodka (4707914239).jpg | 2592x2736 | CC BY 2.0
-   Penne alla Vodka (4707916799).jpg | 3456x2592 | CC BY 2.0
-   Penne alla Vodka (4708557452).jpg | 3456x2592 | CC BY 2.0
-   Erica's Vodka Sauce - 16784035738.jpg | 2448x2448 | CC BY 2.0
-   Penne alla Vodka.jpg | 2407x2407 | CC BY 2.0
-   Penne Vodka (140490401).jpeg | 2048x1365 | CC BY 3.0
-   Penne Pasta cooked in Red Sauce and Vodka.jpg | 640x607 | CC BY-SA 4.0
-   Erica's Vodka Sauce.jpg | 2448x2448 | CC BY 2.0
-   Napoli Villa - October 2023 - Sarah Stierch 03.jpg | 5712x4284 | CC BY 4.0
 ## shrimp-scampi (Shrimp Scampi)
    Scampi prawns.jpg | 1280x960 | CC BY 2.0
    Spicy shrimp scampi (3280336102).jpg | 1903x1605 | CC BY 2.0
@@ -68,59 +48,19 @@
    Shrimp and basil pesto pasta 2.jpg | 720x720 | CC BY 4.0
    Shrimp and basil pesto pasta 1.jpg | 720x720 | CC BY 4.0
    Pasta al pesto fatto in casa.jpg | 3648x5472 | CC BY-SA 4.0
-   Shrimp and basil pesto pasta 3.jpg | 720x720 | CC BY 4.0
    Pasta Pesto, Dec 2025.jpg | 4080x3072 | CC BY-SA 4.0
+   Shrimp and basil pesto pasta 3.jpg | 720x720 | CC BY 4.0
    Pasta al pesto con fagiolini e patate.jpg | 3024x3024 | CC BY-SA 4.0
-   Pesto pasta - Stierch.jpg | 3024x4032 | CC BY 4.0
    Pesto Pasta Salad.jpg | 1897x1898 | CC BY 2.0
+   Pesto pasta - Stierch.jpg | 3024x4032 | CC BY 4.0
    Pasta pesto, homemade.png | 3722x2792 | CC BY-SA 4.0
    Pasta Pesto (Albert Heijn), Hillegersberg, Rotterdam (2023) 03.jpg | 4032x2268 | CC BY-SA 4.0
 ## tuna-casserole (Tuna Noodle Casserole)
    Tuna Casserole2.jpg | 433x334 | CC BY-SA 2.0
 ## butter-chicken (Butter Chicken)
-   Chicken makhani.jpg | 3008x2000 | CC BY-SA 2.0
-   Butter chicken rice bowl - chaiiwala 2024-02-10.jpg | 4032x3024 | CC0
-   Butter chicken, chickpeas, and rice in a takeout container.jpg | 2448x3264 | CC BY-SA 4.0
-   Butter Chicken (2446546141).jpg | 3264x2448 | CC BY-SA 2.0
-   Butter Chicken, City Grill Kottayam.jpg | 9248x6936 | CC BY-SA 4.0
-   Butter Chicken with Jeera Rice, Air Arabia, 2025 (02).jpg | 3776x2520 | CC BY-SA 4.0
-   Butter chicken, self-cooked, Roing, Arunachal Pradesh, jpg.0001.jpg | 960x960 | CC BY-SA 4.0
-   Butter Chicken with Jeera Rice, Air Arabia, 2025 (01).jpg | 3704x2406 | CC BY-SA 4.0
-   Chicken butter masala.jpg | 3024x4032 | CC BY-SA 4.0
-   CreamyButterChicken.jpg | 4898x3265 | CC BY-SA 4.0
 ## chicken-fajitas (Chicken Fajitas)
-   Chicken fajitas - La Hacienda - Sarah Stierch.jpg | 3024x4032 | CC BY 4.0
-   Chicken fajitas.jpg | 1600x1063 | CC BY 2.0
-   Tacos de Pok Chuk and Chicken Fajitas - Wayan'e, Mérida, Yucatán.jpg | 3264x1836 | CC BY-SA 2.0
-   Chicken fajitas limes.jpg | 1000x750 | Public domain
-   First meal in Playa del Carmen. Sorry -- nothing special, just chicken fajitas (= tourist food).jpg | 3264x2448 | CC BY 2.0
-   Fajitas Wraps.JPG | 4896x3672 | CC0
-   Chicken fajitas at Agave Taqueria (8785194803).jpg | 3538x2651 | CC BY 2.0
-   Fajitas chicken food cooking bell peppers onions tortillas food.jpg | 1000x750 | Public domain
-   Chicken Fajita Ingredints.JPG | 4896x3672 | CC0
-   Chicken Fajitas, Cabo Flags, West Palm Beach.jpg | 3024x4032 | CC BY-SA 4.0
 ## chicken-quesadillas (Chicken Quesadillas)
-   Chicken quesadilla 1.jpg | 400x300 | CC BY-SA 3.0
-   Chicken quesadilla - Massachusetts.jpg | 2267x2267 | CC0
-   Chicken quesadilla - La Casa Restaurant - August 2023 - Sarah Stierch.jpg | 4032x3024 | CC BY 4.0
-   Quesadilla with chicken in Ohio USA 2009.jpg | 3008x2000 | CC BY-SA 2.0
-   Chicken quesadilla.jpg | 1000x750 | Public domain
-   Chuy's chicken quesadilla, Tallahassee.jpg | 2048x1536 | CC BY-SA 4.0
-   2019-02-25 19 29 02 Chicken quesadilla at the Applebee's in Fair Lakes, Fairfax County, Virginia.jpg | 4032x3024 | CC BY-SA 4.0
-   Quesadilla - La Casa Restaurant - April 2023 - Sarah Stierch.jpg | 3330x2498 | CC BY 4.0
-   Chicken Quesadilla dish at Latin Bistro restaurant Summit NJ.JPG | 2592x1944 | CC0
-   Chicken Quesadilla from Chili's at SM City Cebu (2025-03-16).jpg | 4080x3072 | CC BY 4.0
 ## roast-chicken (Roast Chicken with Potatoes)
-   02023 0166 Roasted Chicken and Potatoes with fried Beets.jpg | 2850x2875 | CC BY-SA 4.0
-   Roasted potatoes chicken.jpg | 4096x3072 | CC BY 4.0
-   Halal Roast Chicken Leg + Roasted Sweet Potato - Foodilic 2024-03-25.jpg | 4032x3024 | CC0
-   Roasted chicken and potatoes.JPG | 2000x1500 | CC BY 3.0
-   02023 0151 Roasted Chicken and Potatoes.jpg | 2989x2943 | CC BY-SA 4.0
-   02023 0153 Roasted Chicken, Cucumber Salad and Potatoes.jpg | 3133x3133 | CC BY-SA 4.0
-   Roast Chicken with Potato Wedges.jpg | 5520x4140 | CC BY-SA 4.0
-   Liat Portal for Foodie Disorder - Oven baked chicken with potatoes, onions, garlic, and rice.jpg | 3024x4032 | CC BY-SA 4.0
-   Roasted Chicken, Butterflied, on Potatoes, Baking Pan 01.jpg | 5032x2488 | CC BY-SA 3.0
-   Liat Portal for Foodie Disorder - Roasted chicken with cauliflower broccoli potatoes rice and salad.jpg | 3024x4032 | CC BY-SA 4.0
 ## chicken-pot-pie (Chicken Pot Pie)
    Chicken pot pie - Cambridge, MA.jpg | 2703x2703 | CC0
    Chicken Pot Pie, cut open.jpg | 4032x1908 | CC BY-SA 4.0
@@ -130,8 +70,8 @@
    Frozen Swanson chicken pot pie, June 2018.jpg | 4079x3028 | CC0
    Chicken pot pie - Massachusetts.jpg | 2082x2082 | CC0
    KS chicken pot pie uncooked 2.JPG | 4000x3000 | CC BY 3.0
+   KS chicken pot pie uncooked 1.JPG | 4000x3000 | CC BY 3.0
    KS chicken pot pie cooked 2.JPG | 4000x3000 | CC BY 3.0
-   KS chicken pot pie cooked 1.JPG | 4000x3000 | CC BY 3.0
 ## honey-garlic-chicken (Honey Garlic Chicken Thighs)
    Chicken wings with honey-garlic sauce.jpg | 800x600 | CC BY-SA 2.0
    Spicy honey garlic chicken wings.jpg | 640x640 | CC BY 2.0
@@ -142,27 +82,7 @@
    Subway Footlong Signature Sandwiches.jpg | 2700x1518 | CC BY-SA 4.0
    三枣炖芫蹄 Stewed Pork Knuckle with Dates - Sungs Kitchen.jpg | 2048x1536 | CC BY-SA 2.0
 ## chicken-caesar (Chicken Caesar Salad)
-   Chicken fettuccine alfredo.JPG | 4870x4820 | CC BY-SA 4.0
-   Caesar salad with chicken, homemade - Massachusetts.jpg | 2233x2233 | CC0
-   Chicken Caesar salad - Auckland, New Zealand.jpg | 2063x2063 | CC0
-   Chicken Caesar Salad at French Market Restaurant.jpg | 3264x2448 | CC BY 2.0
-   Chicken Caesar Salad - Amo 2026-04-11.jpg | 8160x6144 | CC0
-   Caesar salad with iceberg lettuce, chicken, broiled eel, cheddar cheese, and black pepper - Massachusetts.jpg | 2122x2122 | CC0
-   Chicken Caesar salad at the office.jpg | 4608x3456 | CC BY-SA 4.0
-   Chicken Caesar Salad (15950600202).jpg | 4716x3144 | CC BY 2.0
-   Caesar Salad & Grilled Chicken (30548011308).jpg | 5000x4000 | CC BY 2.0
-   Caesar salad with chicken - Cambridge, MA.jpg | 2918x2952 | CC0
 ## chicken-stir-fry (Chicken and Vegetable Stir-Fry)
-   Kai phat khing.jpg | 1925x1532 | CC BY-SA 4.0
-   Stir-fry Chicken, Curry, Vegetables Meal.jpg | 4080x3072 | CC BY-SA 4.0
-   Noodle stir fry with chicken, shrimp, and broccoli (18471621051).jpg | 4928x3264 | CC BY 2.0
-   Chicken and almonds stir fry.jpg | 3456x2304 | Copyrighted free use
-   Healthy Chicken and Vegetables Stir Fry - 49859055253.jpg | 4032x3024 | CC BY-SA 2.0
-   Healthy Chicken and Vegetables Stir Fry.jpg | 4032x3024 | CC BY-SA 2.0
-   Chicken and Vegetable Stir-Fry (15914100572).jpg | 3872x2592 | CC BY 2.0
-   Thai Stir Fry Vegetable Taco with Veggie Chicken (4997457818).jpg | 3456x2592 | CC BY 2.0
-   Thai Stir Fry Vegetable Taco with Veggie Chicken (4997458560).jpg | 2385x3456 | CC BY 2.0
-   Asian Chicken and Veggie Stir Fry (36963101024).jpg | 5616x3744 | CC BY-SA 2.0
 ## beef-tacos (Ground Beef Tacos)
    001 Tacos de carnitas, carne asada y al pastor.jpg | 4799x3600 | CC BY-SA 2.0
    Tacos al pastor prepa 1.jpg | 3000x4000 | CC BY-SA 4.0
@@ -179,10 +99,10 @@
    Chili con carne 50 A.jpg | 3576x2761 | CC0
    Chili con carne cuisson.jpg | 3072x2304 | CC0
    Chili con carne with beef, beans, chili peppers, garlic, black pepper, and a soft-boiled egg - Massachusetts.jpg | 2611x2611 | CC0
-   Chili con carne in Helsinki.jpg | 4032x3024 | CC BY-SA 3.0
-   Chili con carne (7556966148).jpg | 4288x2848 | CC BY-SA 2.0
    Flickr - cyclonebill - Chili con carne (2).jpg | 1600x1200 | CC BY-SA 2.0
    Chili con carne (8085378954).jpg | 4288x2848 | CC BY-SA 2.0
+   Chili con carne in Helsinki.jpg | 4032x3024 | CC BY-SA 3.0
+   Chili con carne (7556966148).jpg | 4288x2848 | CC BY-SA 2.0
    Chili con carne with pasta.jpg | 4608x3456 | CC BY-SA 4.0
    Chili con carne (5034005470).jpg | 4288x2848 | CC BY-SA 2.0
 ## cheeseburgers (Classic Cheeseburgers)
@@ -213,46 +133,39 @@
    Beef stew 2.jpg | 4032x3024 | CC BY-SA 4.0
    Cookbook-beef-stew.jpg | 1200x800 | Public domain
    Beef stew at Swiss Hotel - Sarah Stierch.jpg | 960x960 | CC BY 4.0
-   Carne al toro.jpg | 5312x2988 | CC BY-SA 4.0
    Beef stew Kurofunetei.jpg | 4032x3024 | CC BY-SA 4.0
    Irish Beef Stew (34046928633).jpg | 5802x3852 | CC BY-SA 2.0
+   Carne al toro.jpg | 5312x2988 | CC BY-SA 4.0
    Beef Stew with Rice with peanut butter.jpg | 2268x4032 | CC BY-SA 4.0
    Claypot beef stew with potatoes and mushrooms.jpg | 800x640 | CC BY 2.0
    Beef Stew!.jpg | 1024x768 | CC BY 2.0
-   Home-made Dumplings & beef stew dish.jpg | 809x1080 | CC BY-SA 4.0
+   Beef stew kikusui.jpg | 1594x1006 | CC0
 ## beef-burritos (Beef and Bean Burritos)
 ## sloppy-joes (Sloppy Joes)
    Sloppy Joes Bar, Havana, Cuba.jpg | 750x1131 | Public domain
    Sloppy joe sandwich with French fries.jpg | 4288x2848 | CC BY 2.0
-   Sloppy Joes Key West.jpg | 900x900 | CC BY-SA 3.0
    Sloppy-Joes-Bar-01.jpg | 1659x1072 | Public domain
+   Sloppy Joes Key West.jpg | 900x900 | CC BY-SA 3.0
    Sloppy Joe "homemade".jpg | 1600x1200 | CC BY 2.0
    Havana - Exterior, Sloppy Joe's Bar.jpg | 1003x710 | Public domain
    Sloppy Joe with White Cheddar Cheese.jpg | 2048x1152 | CC BY-SA 4.0
    Havana - Sloppy Joe's Bar 2.jpg | 859x561 | Public domain
    Millburn Deli Sloppy Joes.jpg | 3264x2448 | CC BY-SA 4.0
-   Key West - Sloppy Joe's Interior.jpg | 1150x815 | CC BY-SA 2.0
+   Havana - Sloppy Joe Bar.jpg | 1600x1084 | Public domain
 ## loaded-nachos (Loaded Beef Nachos)
    Two Tim Hortons meals 2025-06-12.jpg | 8160x6144 | CC0
 ## stuffed-peppers (Stuffed Peppers)
-   Stuffed Peppers Florentine.jpg | 5184x3456 | CC0
-   Stuffed Peppers Florentine Close Up.jpg | 5184x3456 | CC0
-   Полнети пиперки 02.jpg | 5184x3456 | CC BY-SA 4.0
-   Полнети пиперки 01.jpg | 5184x3456 | CC BY-SA 4.0
-   Полнети пиперки 03.jpg | 3456x4740 | CC BY-SA 4.0
-   The Food at Davids Kitchen 049.jpg | 800x800 | CC BY-SA 2.0
-   Prison life in the South - at Richmond, Macon, Savannah, Charleston, Columbia, Charlotte, Raleigh, Goldsborough, and Andersonville, during the years 1864 and 1865 (1865) (14579950459).jpg | 1660x2568 | No restrictions
 ## garlic-butter-steak (Steak with Garlic Butter)
    Steak dinner - Indianapolis - 2006.jpg | 800x600 | CC BY 2.0
    Steak dinner with vegetables.jpg | 2160x3148 | CC BY-SA 4.0
    Steak dinner in France.jpg | 2709x3130 | CC BY-SA 4.0
    JP 沖繩 Okinawa 名護 Nago 牛扒屋 Steak House Restaurant dinner in January 2026 N13P 206.jpg | 3060x4080 | CC0
-   JP 沖繩 Okinawa 名護 Nago 牛扒屋 Steak House Restaurant dinner January 2026 N13P 102.jpg | 3060x4080 | CC0
    JP 沖繩 Okinawa 名護 Nago 牛扒屋 Steak House Restaurant dinner in January 2026 N13P 205.jpg | 3060x4080 | CC0
    JP 沖繩 Okinawa 名護 Nago 牛扒屋 Steak House Restaurant dinner in January 2026 N13P 204.jpg | 4080x3060 | CC0
+   JP 沖繩 Okinawa 名護 Nago 牛扒屋 Steak House Restaurant dinner January 2026 N13P 102.jpg | 3060x4080 | CC0
    JP 沖繩 Okinawa 名護 Nago 牛扒屋 Steak House Restaurant dinner in January 2026 N13P 211.jpg | 3060x4080 | CC0
-   JP 沖繩 Okinawa 名護 Nago 牛扒屋 Steak House Restaurant dinner in January 2026 N13P 220.jpg | 3060x4080 | CC0
-   JP 沖繩 Okinawa 名護 Nago 牛扒屋 Steak House Restaurant dinner in January 2026 N13P 212.jpg | 3060x4080 | CC0
+   JP 沖繩 Okinawa 名護 Nago 牛扒屋 Steak House Restaurant dinner in January 2026 N13P 201.jpg | 4080x3060 | CC0
+   JP 沖繩 Okinawa 名護 Nago 牛扒屋 Steak House Restaurant dinner in January 2026 N13P 213.jpg | 3060x4080 | CC0
 ## pulled-pork (Pulled Pork Sandwiches)
    Pulled pork sandwich - "Naked".jpg | 5184x3888 | CC BY-SA 4.0
    Pulled-pork-sandwiches.jpg | 6240x4160 | CC0
@@ -276,16 +189,6 @@
    Ribs with Asian Barbecue Sauce 3of3 (8735180329).jpg | 1024x637 | CC BY 2.0
    Barbecue Ribs in my saucer.jpg | 4160x1872 | CC0
 ## pork-chops (Pan-Fried Pork Chops)
-   A Three Pork chops on the fry pan.jpg | 5184x3888 | CC BY-SA 4.0
-   SZ 深圳 Shenzhen 羅湖 Luohu 羅芳路 Luofang Road shop 茶精靈 小食店 Tea Elves food 煎豬排炸醬麵 pan fried pork chop noodle April 2023 Px3 01.jpg | 4000x3000 | CC BY-SA 4.0
-   SZ 深圳 Shenzhen 羅湖 Luohu 羅芳路 Luofang Road shop 茶精靈 小食店 Tea Elves food 煎豬排炸醬麵 pan fried pork chop noodle April 2023 Px3 09.jpg | 4000x3000 | CC BY-SA 4.0
-   SZ 深圳 Shenzhen 羅湖 Luohu 羅芳路 Luofang Road shop 茶精靈 小食店 Tea Elves food 煎豬排炸醬麵 pan fried pork chop noodle April 2023 Px3 08.jpg | 4000x3000 | CC BY-SA 4.0
-   SZ 深圳 Shenzhen 羅湖 Luohu 羅芳路 Luofang Road shop 茶精靈 小食店 Tea Elves food 煎豬排炸醬麵 pan fried pork chop noodle April 2023 Px3 02.jpg | 4000x3000 | CC BY-SA 4.0
-   SZ 深圳 Shenzhen 羅湖 Luohu 羅芳路 Luofang Road shop 茶精靈 小食店 Tea Elves food 煎豬排炸醬麵 pan fried pork chop noodle April 2023 Px3 03.jpg | 4000x3000 | CC BY-SA 4.0
-   SZ 深圳 Shenzhen 羅湖 Luohu 羅芳路 Luofang Road shop 茶精靈 小食店 Tea Elves food 煎豬排炸醬麵 pan fried pork chop noodle April 2023 Px3 06.jpg | 4000x3000 | CC BY-SA 4.0
-   SZ 深圳 Shenzhen 羅湖 Luohu 羅芳路 Luofang Road shop 茶精靈 小食店 Tea Elves food 煎豬排炸醬麵 pan fried pork chop noodle n wood chopstick April 2023 Px3 01.jpg | 4000x3000 | CC BY-SA 4.0
-   SZ 深圳 Shenzhen 羅湖 Luohu 羅芳路 Luofang Road shop 茶精靈 小食店 Tea Elves food 煎豬排炸醬麵 pan fried pork chop noodle n wood chopstick April 2023 Px3 02.jpg | 4000x3000 | CC BY-SA 4.0
-   SZ 深圳 Shenzhen 羅湖 Luohu 羅芳路 Luofang Road shop 茶精靈 小食店 Tea Elves food 煎豬排炸醬麵 pan fried pork chop noodle n wood chopstick n QR code April 2023 Px3 01.jpg | 3000x4000 | CC BY-SA 4.0
 ## sausage-peppers (Sheet-Pan Sausage and Peppers)
 ## garlic-butter-salmon (Garlic Butter Salmon)
    Liat Portal for Foodie Disorder - Oven-baked teriyaki salmon with vegetables.jpg | 3024x4032 | CC BY-SA 4.0
@@ -317,12 +220,12 @@
    Minestrone soup (2).jpg | 3888x2337 | CC BY 2.0
    Minestrone soup (7).jpg | 640x640 | CC BY 2.0
    Liat Portal for Foodie Disorder - Homemade minestrone soup.jpg | 3024x4032 | CC BY-SA 4.0
-   Minestrone at Saizeriya Tongzhou Beiyuan (20210222181711).jpg | 3954x2636 | CC BY-SA 4.0
    Minestrone soup (1).jpg | 2816x1880 | CC BY-SA 2.0
+   Minestrone at Saizeriya Tongzhou Beiyuan (20210222181711).jpg | 3954x2636 | CC BY-SA 4.0
    Minestrone soup (5).jpg | 3198x2562 | CC BY-SA 2.0
    Minestrone soup (6).jpg | 3456x2023 | CC BY 2.0
-   Italian minestrone soup.jpg | 3456x4608 | CC BY-SA 4.0
    Italian Minestrone soup.jpg | 2353x2316 | CC BY-SA 4.0
+   Italian minestrone soup.jpg | 3456x4608 | CC BY-SA 4.0
 ## broccoli-cheddar-soup (Broccoli Cheddar Soup)
    Broccoli cheddar soup and grilled cheese sandwich.jpg | 4863x3225 | CC0
    Broccoli and cheddar soup - Pausa Cafe, Dunelm Shoreham 2026-01-13.jpg | 8160x6144 | CC0
@@ -346,8 +249,8 @@
    9853Cuisine of the Philippines in Poblacion, Baliuag 49.jpg | 4608x3456 | CC0
 ## chickpea-curry (Chickpea Curry)
    Chana Masala in Paulínia, 2023-10-16.jpg | 3000x4000 | CC BY-SA 4.0
-   Chickpea Curry.jpg | 3024x4032 | CC BY-SA 4.0
    Chickpea Curry (57189).jpg | 3072x4096 | CC BY-SA 4.0
+   Chickpea Curry.jpg | 3024x4032 | CC BY-SA 4.0
    Chickpea curry on rotini, with corn, hot mixed Indian pickles, peanuts, curry powder, and black pepper - Massachusetts.jpg | 1950x1951 | CC0
    Chickpea curry.jpg | 3024x4032 | CC BY-SA 4.0
    Chana Masala - Mohammed - Spice Of Life 2024-05-27.jpg | 4032x3024 | CC0
@@ -369,18 +272,18 @@
 ## veggie-fried-rice (Egg Fried Rice)
    Fried rice with chicken and egg.jpg | 1549x1936 | CC BY-SA 4.0
    Egg Fried Rice.jpg | 3024x4032 | CC BY-SA 4.0
-   Blanket fried rice.jpg | 1920x2560 | CC BY 3.0
    Fried Rice with Egg and Dalmote.jpg | 3024x4032 | CC BY-SA 4.0
+   Blanket fried rice.jpg | 1920x2560 | CC BY 3.0
    A bilao of salted egg, seafood, porkchop and fried rice.jpg | 2712x1808 | CC BY-SA 4.0
    Kimchi Fried Rice, Farm Egg.jpg | 4032x3024 | CC BY 2.0
-   Fried rice with egg.jpg | 3920x2204 | CC BY-SA 3.0
    Kimchi fried rice 1.jpg | 1500x1000 | CC BY 2.0
-   Fried rice with sunny-side egg, chicken, and satay; December 2018.jpg | 2560x1440 | CC BY 2.0
+   Fried rice with egg.jpg | 3920x2204 | CC BY-SA 3.0
    Chinese egg fried rice.jpg | 3000x4000 | CC BY-SA 4.0
+   Fried rice with sunny-side egg, chicken, and satay; December 2018.jpg | 2560x1440 | CC BY 2.0
 ## french-toast (French Toast)
    French toast 001.jpg | 4288x2848 | CC0
-   FrenchToast.JPG | 2851x2036 | CC BY-SA 3.0
    French toast 003.jpg | 4288x2848 | CC0
+   FrenchToast.JPG | 2851x2036 | CC BY-SA 3.0
    Masala French Toast - Malt Cafe 2025-11-30.jpg | 8160x6144 | CC0
    French Toast with banana & frangelico cream cheesestuffed french toast topped with hazelnut chocolate.jpg | 1867x2800 | CC BY-SA 4.0
    French toast from Japan.jpg | 4032x3024 | CC BY-SA 4.0
@@ -392,8 +295,8 @@
    Bacon Kale Breakfast Burrito (8429773809).jpg | 2571x1688 | CC BY-SA 2.0
    Breakfast burritos 1.jpg | 4928x3264 | CC BY 2.0
    Chorizo breakfast burrito - 17 GRAMS 2024-02-05.jpg | 3024x4032 | CC0
-   Brisket breakfast burrito from Buc-ee's - October 2023 - Sarah Stierch.jpg | 3024x4032 | CC0
    Breakfast Burrito - 1UP Cafe 2024-02-18.jpg | 3024x4032 | CC0
+   Brisket breakfast burrito from Buc-ee's - October 2023 - Sarah Stierch.jpg | 3024x4032 | CC0
    New Mexican breakfast burrito.jpg | 6000x4000 | CC BY-SA 4.0
    Breakfast burritos.jpg | 2048x1360 | CC BY 2.0
    Breakfast burrito (cropped).jpg | 2030x1116 | CC BY-SA 2.0
@@ -425,9 +328,9 @@
    Garlic bread baguettes 2.jpg | 3888x5184 | CC BY-SA 4.0
    Garlic bread baguettes 1.jpg | 3888x5184 | CC BY-SA 4.0
    Garlic bread - in pan, cooked.jpg | 3024x4032 | CC BY-SA 2.0
-   Garlic bread - preparation in home kitchen.jpg | 3024x4032 | CC BY-SA 2.0
-   Garlic Bread Mozzarella - Oregano Pizzeria 2025-05-17.jpg | 8160x6144 | CC0
    Garlic bread - on plate, ready to eat.jpg | 3024x4032 | CC BY-SA 2.0
+   Garlic Bread Mozzarella - Oregano Pizzeria 2025-05-17.jpg | 8160x6144 | CC0
+   Garlic bread - preparation in home kitchen.jpg | 3024x4032 | CC BY-SA 2.0
    Manul bread (Manurupan), Garlic bread.jpg | 4032x3024 | CC BY-SA 4.0
    Chicken Schnitzel with chips & peas, garlic bread, tea - IKEA Southampton 2026-03-17.jpg | 8160x6144 | CC0
    Pretzel Bread & Garlic Bread.jpg | 3669x2434 | CC BY-SA 2.0
@@ -449,8 +352,277 @@
    Banana bread 3.jpg | 4032x3024 | CC BY 4.0
    Banana bread 2.jpg | 4032x3024 | CC BY 4.0
    Banana bread cut into slices.jpg | 4032x3024 | CC BY 4.0
-   Sliced Filipino Homemade Banana Bread.jpg | 750x750 | CC BY 2.0
    Caramel Hazelnut Banana Bread with Yoghurt - Moksha Caffè 2023-09-13.jpg | 4032x3024 | CC0
+   Sliced Filipino Homemade Banana Bread.jpg | 750x750 | CC BY 2.0
    Banana Bread, Disney’s Riviera Resort.jpg | 4032x3024 | CC BY 4.0
    Banana bread toasted with butter - Tilt 2024-03-29.jpg | 4032x3024 | CC0
    Dark chocolate & banana loaf - Bread & Milk 2024-06-27.jpg | 4032x3024 | CC0
+## aglio-e-olio (Spaghetti Aglio e Olio)
+   Spaghetti aglio e olio KB.jpg | 2714x2035 | CC BY-SA 4.0
+   Aglio-e-olio.png | 335x364 | CC BY-SA 4.0
+   Spaghetti aglio olio e peperoncino by matsuyuki retouched.jpg | 2354x2054 | CC BY-SA 2.0
+   Spaghetti aglio e olio (La Mirada Restaurant Richardstraße Berlin).jpg | 3753x2450 | CC BY-SA 4.0
+   Mussels Spaghetti aglio e olio Vikings Luxury Dinner Buffet 26 January 2025 Philippines6.jpg | 2588x2258 | CC BY-SA 4.0
+   Mussels Spaghetti aglio e olio textures Vikings Luxury Dinner Buffet 26 January 2025 Philippines5.jpg | 4007x2953 | CC BY-SA 4.0
+   Konstancin 2022 (aglio e olio).jpg | 3439x4143 | CC BY-SA 4.0
+   Spaghetti aglio e olio 1.jpg | 2272x1704 | CC BY 2.0
+   Spaghetti Aglio Olio Peperoncino.jpg | 576x459 | CC BY-SA 3.0
+   Spaghetti agll' aglio, olio e peperoncino by kawanet.jpg | 640x480 | CC BY 2.0
+## pasta-primavera (Pasta Primavera)
+   Pasta primavera.jpg | 1600x1200 | CC BY 2.0
+   Shrimp primavera pasta cooking food dinner.jpg | 1000x750 | Public domain
+   Pasta primavera (1) (cropped).jpg | 1121x623 | CC BY 2.0
+   Pasta primavera (1).jpg | 1188x792 | CC BY 2.0
+   POLLO PESTO PRIMAVERA (27230443866).jpg | 4532x3021 | CC BY 2.0
+   Garganelli Stridoli e Pancetta.jpg | 3888x5184 | CC BY-SA 4.0
+   Carbonara con asparagi.jpg | 3157x4250 | CC BY-SA 4.0
+   Dolceriso del Moro.jpg | 768x760 | CC BY-SA 4.0
+   Dolceriso del Moro in vetrina.jpg | 1919x1189 | CC BY-SA 4.0
+   Globo celeste - Museo scienza tecnologia Milano D0008.jpg | 1091x1100 | CC BY-SA 4.0
+## cacio-e-pepe (Cacio e Pepe)
+   Spaghetti, cacio e pepe & bitter leaf salad - Tutto 2024-04-04.jpg | 4032x3024 | CC0
+   Cacio e pepe.jpg | 3794x2136 | CC BY-SA 3.0
+   Cacio e pepe at trattoria in Rome.jpg | 2854x3813 | CC BY-SA 4.0
+   Spaghetto cacio e pepe Roma 2018.jpg | 4128x2322 | CC BY-SA 4.0
+   Cacio e pepe 2022.jpg | 750x749 | CC BY-SA 4.0
+   Spaghetti cacio e pepe (creamy as it should be).jpg | 3008x2000 | CC BY-SA 4.0
+   Risotto cacio e pepe (9390325233).jpg | 2048x1365 | CC BY 2.0
+   Cacio e pepe 2024.jpg | 2048x1542 | CC BY-SA 4.0
+   Cacio e pepe (15454950583).jpg | 3264x2448 | CC BY 2.0
+   Cacio e pepe (16072681631).jpg | 3264x2448 | CC BY 2.0
+## american-goulash (American Goulash)
+   Goulash from usa.jpg | 256x256 | CC BY-SA 3.0
+   Goulash from usa salvaged.jpg | 660x660 | CC BY-SA 3.0
+   American Goulash variant whitebalance.jpg | 1536x2048 | CC BY-SA 3.0
+   American Goulash variant.jpg | 1536x2048 | CC BY-SA 3.0
+   American Beef Goulash.jpg | 2048x1152 | CC BY-SA 4.0
+   Goulash ~ Savory beef stew with mushrooms and carrots (44301070064).jpg | 6000x3144 | CC BY 2.0
+   Hungarian Heritage Festival in Belmont, California (14 May 2022) - 19.jpg | 3672x2304 | CC BY-SA 4.0
+   Pork goulash on spätzle.jpg | 2048x1536 | CC BY 2.0
+   Goulash dish.jpg | 1280x960 | CC BY 3.0
+   Американски гулаш.jpg | 1295x1753 | CC BY-SA 4.0
+## stuffed-shells (Baked Stuffed Shells)
+   Stuffed shells 002.jpg | 3957x2903 | CC BY 4.0
+   Stuffed shells 001.jpg | 3583x2360 | CC BY 4.0
+   2021-01-02 20 54 39 A container of Severino Pasta Company Cheese-stuffed Shells with Marinara in the Franklin Farm section of Oak Hill, Fairfax County, Virginia.jpg | 3024x4032 | CC BY-SA 4.0
+   2021-01-02 20 51 29 A container of Severino Pasta Company Cheese-stuffed Shells with Marinara in the Franklin Farm section of Oak Hill, Fairfax County, Virginia.jpg | 3024x4032 | CC BY-SA 4.0
+   2021-01-02 20 58 25 A container of Severino Pasta Company Cheese-stuffed Shells with Marinara in the Franklin Farm section of Oak Hill, Fairfax County, Virginia.jpg | 4032x3024 | CC BY-SA 4.0
+   2021-01-02 20 51 38 A container of Severino Pasta Company Cheese-stuffed Shells with Marinara in the Franklin Farm section of Oak Hill, Fairfax County, Virginia.jpg | 3024x4032 | CC BY-SA 4.0
+   2021-01-02 21 02 59 A container of Severino Pasta Company Cheese-stuffed Shells with Marinara covered with Kraft Finely Shredded Mozzarella Cheese after heating in the Franklin Farm section of Oak Hill, Fairfax County, Virginia.jpg | 4032x3024 | CC BY-SA 4.0
+   2021-01-02 20 59 05 A container of Severino Pasta Company Cheese-stuffed Shells with Marinara covered with Kraft Finely Shredded Mozzarella Cheese before heating in the Franklin Farm section of Oak Hill, Fairfax County, Virginia.jpg | 4032x3024 | CC BY-SA 4.0
+   2021-01-02 21 05 00 A container of Severino Pasta Company Cheese-stuffed Shells with Marinara covered with Kraft Finely Shredded Mozzarella Cheese after heating in the Franklin Farm section of Oak Hill, Fairfax County, Virginia.jpg | 4032x3024 | CC BY-SA 4.0
+   2021-01-02 20 52 58 A container of Severino Pasta Company Cheese-stuffed Shells with Marinara covered with Kraft Finely Shredded Mozzarella Cheese before heating in the Franklin Farm section of Oak Hill, Fairfax County, Virginia.jpg | 4032x3024 | CC BY-SA 4.0
+## scrambled-eggs (Scrambled Eggs and Toast)
+   Scrambled eggs on toast - Joe's Cafe 2024-04-14.jpg | 4032x3024 | CC0
+   Scrambled eggs on toast - Floral Cafe 2026-02-25.jpg | 8160x6144 | CC0
+   Scrambled-Eggs-And-Tuna-On-Toast-2007.jpg | 1280x960 | CC BY-SA 3.0
+   Scrambled egg on toast - Loro's Cafe 2025-08-13.jpg | 8160x6144 | CC0
+   Carbonara Scrambled Eggs on Toasted Sourdough - T @ Hove 2023-10-22.jpg | 4032x3024 | CC0
+   Mushrooms with 2 Scrambled Eggs On Toast - Snais's Cafe 2025-11-26.jpg | 8160x6144 | CC0
+   Liat Portal for Foodie Disorder - Scrambled Eggs on Whole Grain Toast with Yellow Tomatoes.jpg | 2446x2446 | CC BY-SA 4.0
+   Chilli Scrambled Eggs.jpg | 2580x2580 | CC BY-SA 4.0
+   -2012-12-05 Scrambled eggs on toast, Trimingham, Norfolk.JPG | 5152x3864 | CC BY-SA 4.0
+   Scrambled eggs on toast at Manna (51707343779).jpg | 4032x3024 | CC BY 2.0
+## blueberry-muffins (Blueberry Muffins)
+   Blueberry muffin baby.jpg | 753x673 | CC BY 2.0
+   Vegan Blueberry Muffins (4972870642).jpg | 4272x2848 | CC BY-SA 2.0
+   Blueberry muffins, whole and partial.jpg | 3092x2164 | CC BY-SA 3.0
+   Blueberry muffins - ND0 3639 (8694455448).jpg | 5184x3456 | CC BY 2.0
+   Vegan Warm Blueberry Muffins (4332821119).jpg | 2592x3456 | CC BY 2.0
+   ChatGPT blueberry muffins - March 2025 - Sarah Stierch.jpg | 4032x3024 | CC0
+   Vegan Blueberry Muffins (4276797087).jpg | 4272x2848 | CC BY-SA 2.0
+   Little Debbie Blueberry Muffins Wrapped (18992931573).jpg | 1600x1200 | CC BY-SA 2.0
+   Blueberry muffin - GAIL's 2025-03-10.jpg | 8160x6144 | CC0
+   Sugar Free Vegan Blueberry Corn Muffins (5347154968).jpg | 1536x2048 | CC BY-SA 2.0
+## waffles (Buttermilk Waffles)
+   Buttermilk waffles with crispy bacon - Ren's Kitchen 2026-03-14.jpg | 8160x6144 | CC0
+   Buttermilk waffles in the patio.jpg | 1867x2800 | CC BY-SA 4.0
+   Vegan Buttermilk Waffles (5741059469).jpg | 5184x3456 | CC BY-SA 2.0
+   Fried Chicken, Bacon & Waffles - The Breakfast Club 2023-09-03.jpg | 4032x3024 | CC0
+   Buttermilk fried chicken with croffle.jpg | 3024x4032 | CC BY-SA 4.0
+   Waffle fry (4532929501).jpg | 4288x2848 | CC BY 2.0
+   Sunset (1898) (14775051754).jpg | 3002x4294 | No restrictions
+   The Boston Cooking School magazine of culinary science and domestic economics (1913) (14590907878).jpg | 2976x2196 | No restrictions
+## eggs-benedict (Eggs Benedict)
+   Eggs Benedict2.jpg | 458x274 | CC BY-SA 3.0
+   Eggs Benedict-01-cropped.jpg | 1298x979 | CC BY 2.0
+   Eggs Benny (2499670523).jpg | 3264x2448 | CC BY-SA 2.0
+   Eggs Benedict at Delmonico's.jpg | 3754x2812 | CC BY-SA 4.0
+   Eggs Benny (5458488025).jpg | 2799x1868 | CC BY 2.0
+   Eggs benedict melbourne standard.jpg | 640x640 | CC BY-SA 4.0
+   Burger, fries, and eggs benedict - La Tessa.jpg | 3024x4032 | CC0
+   Eggs Benedict - the M&S Café.jpg | 4032x3024 | CC0
+   Eggs Benedict 2.jpg | 4128x3096 | CC BY-SA 3.0
+   Traditional Eggs Benedict.jpg | 6000x4000 | CC BY-SA 4.0
+## hash-browns (Crispy Hash Browns)
+   McDonald's BBQ Hash Brown Stacks McCrispy and Beef.jpg | 4032x3024 | CC BY 4.0
+   McDonald's BBQ Hash Brown Stacks McCrispy.jpg | 3024x4032 | CC BY 4.0
+   McDonald's BBQ Hash Brown Stacks Beef.jpg | 3024x4032 | CC BY 4.0
+   Breakfast foods.jpg | 3351x1885 | CC BY 2.0
+   Maggies, Lewisham, London (1506365402).jpg | 1280x960 | CC BY-SA 2.0
+   Big Bacon Swiss - Oowee, Brighton 2026-09-29.jpg | 8160x6144 | CC0
+   Riding House Cafe, Fitzrovia, London (5691255294).jpg | 3776x2520 | CC BY-SA 2.0
+## quiche-lorraine (Quiche Lorraine)
+   Quiche lorraine 01.JPG | 2048x1536 | CC BY-SA 4.0
+   Quiche lorraine 04.jpg | 2048x1536 | CC0
+   Quiche Lorraine - Julien Plumart 2025-05-12.jpg | 6144x8160 | CC0
+   Quiche Lorraine - Massachusetts.jpg | 2056x2056 | CC0
+   Quiche lorraine 02.JPG | 2048x1536 | CC BY-SA 4.0
+   Quiche lorraine 03.JPG | 2048x1536 | CC BY-SA 4.0
+   54. Quiche lorraine.jpg | 4032x2268 | CC BY-SA 4.0
+   Quiche Lorraine-2009.jpg | 3888x2592 | CC BY 3.0
+   Quiche de Lorraine.jpg | 1600x1548 | CC BY-SA 4.0
+   Quiche Lorraine.jpg | 480x360 | CC BY-SA 3.0
+## overnight-oats (Overnight Oats)
+## roast-potatoes (Crispy Roast Potatoes)
+   DFC 3983 Crispy breaded schnitzel with lemon wedge golden fried potatoes creamy coleslaw and gravy on the side - a hearty comfort meal.jpg | 5568x3712 | CC BY-SA 4.0
+   Roasted Duckling - Fedeles (60238457).jpg | 800x600 | CC BY-SA 2.0
+   Butcher’s Plate (“Schlachtplatte”) at Zum Gemalten Haus featuring Sauerkraut and mashed potatoes Black Pudding and Liver Sausage, German Style Pork.jpg | 4080x3072 | CC BY-SA 3.0
+   Roasted Beef Strip Loin.jpg | 3587x2391 | CC BY 2.0
+   Krustenbraten Zur Elsa Epplas.jpg | 3024x4032 | CC BY-SA 4.0
+   35-day-aged grass-fed beef rump - Post House Cafe, Brighton 2024-01-28.jpg | 4032x3024 | CC0
+   Krustenbraten mit Dunkelbiersoße.jpg | 1920x1440 | CC BY-SA 3.0
+   Aaloo ki tikki or Aaloo Pattice.jpg | 1023x1280 | CC BY-SA 4.0
+   Time for another food photo! (3036108724).jpg | 2456x1661 | CC BY 2.0
+   Khichadi.jpg | 768x1280 | CC BY-SA 4.0
+## rice-pilaf (Rice Pilaf)
+   Afghan Zamarod Palaw (Emerald Pilaf) زمرد پلو with a side of Meat in Sour Cherry Sauce.jpg | 3819x2746 | CC0
+   Polu.jpg | 3072x2048 | CC BY-SA 3.0
+   Arabic rice.jpg | 8000x6000 | CC BY-SA 4.0
+   Riz pilaf au riz rouge de Camargue.jpg | 4000x3000 | CC BY-SA 3.0
+   Stamp of Seychelles - Zil Eloigne Sesel - 1989 - Colnect 993890 - Pilaf à la Seychellois.jpeg | 251x364 | Public domain
+   Stamp of Seychelles - Zil Eloigne Sesel - 1989 - Colnect 633783 - Pilaf à la Seychellois.jpeg | 284x410 | Public domain
+   Folk Festival to Celebrate the New Year. Plov (Rice Pilaf) Vendor WDL10787.png | 1024x1385 | Public domain
+   Pork shoulder pilaf.jpg | 2304x1536 | CC BY 2.0
+   Turkish Pilaf Rice - degustation - Ottoman Cuisine (3061206332).jpg | 2048x1536 | CC BY-SA 2.0
+   Rice Pilaf cooking outside restaurants Listvyanka Russia (14563908202).jpg | 4896x3672 | CC BY 2.0
+## cornbread (Cornbread)
+   Hal Singer.FF.jpg | 1918x3051 | CC BY-SA 4.0
+   Cornbread 2.jpg | 3456x2765 | CC BY 4.0
+   Piece of cornbread on plate.jpg | 2800x2100 | CC BY 3.0
+   Skillet cornbread 1.jpg | 1964x1068 | Attribution
+   Proja.jpg | 400x276 | Copyrighted free use
+   Yellow cornbread.jpg | 1656x1502 | CC BY-SA 4.0
+   Toaster Cornbread.jpg | 4446x3382 | CC BY-SA 2.0
+   Cornbread in glass pan.jpg | 3024x4032 | CC BY-SA 4.0
+   Cornbread waffle with chili.jpg | 600x900 | CC BY 2.0
+   Cajun Kitchen Cafe - 2021-09-27 - Sarah Stierch 05.jpg | 4031x3023 | CC BY 4.0
+## roasted-broccoli (Garlic Parmesan Roasted Broccoli)
+   Roasted tomato, broccoli, tunafish, and peas, on paratha - Massachusetts.jpg | 2099x2099 | CC0
+   Ground beef, roasted broccoli, green beans, and cherry tomatoes - Massachusetts.jpg | 2134x2134 | CC0
+   Liat Portal for Foodie Disorder - Roasted broccoli cauliflower and onions.jpg | 3024x4032 | CC BY-SA 4.0
+   Roasted Chicken Dinner Plate, Broccoli, Demi Glace.jpg | 5184x3456 | CC BY-SA 3.0
+   Sausage with garlic and cheese, roasted with broccoli and plum tomato, on sliced potato, with raw onion - Massachusetts.jpg | 2140x2140 | CC0
+   Roasted Chicken Dinner Plate, Broccoli, Stuffing, Potatoes, Demi Glace.jpg | 3792x2776 | CC BY-SA 3.0
+   Broccoli Soup With Roasted Bread (164927623).jpeg | 1400x933 | CC BY 3.0
+   Liat Portal for Foodie Disorder - Roasted chicken with cauliflower broccoli potatoes rice and salad.jpg | 3024x4032 | CC BY-SA 4.0
+   Chicken breast, roast broccoli, and celery - Massachusetts.jpg | 2227x2227 | CC0
+   Tunafish roasted with soy sauce, on mashed potatoes, with bell peppers and sauteed broccoli - Massachusetts.jpg | 2211x2211 | CC0
+## greek-salad (Greek Salad)
+   Greek salad and Tzatziki.jpg | 2899x3181 | CC BY-SA 4.0
+   Greek Salad Choriatiki.jpg | 774x590 | CC BY 2.0
+   GreekSalad.jpg | 400x388 | CC BY-SA 3.0
+   Greek Salad from Thessaloniki.jpg | 4032x3024 | CC BY-SA 4.0
+   DSC04477trfguyh.jpg | 3072x2304 | CC BY-SA 4.0
+   National Coney Island coney dog and Greek salad.jpg | 4032x3024 | CC BY-SA 2.0
+   Greek Salad ingredients.png | 1080x1300 | CC BY-SA 4.0
+   Flickr - cyclonebill - Græsk salat.jpg | 1632x1224 | CC BY-SA 2.0
+   Horiatiki salad.jpg | 2944x1782 | CC BY-SA 4.0
+   Greek salad (5178297958).jpg | 5184x3456 | CC BY 2.0
+## carnitas-tacos (Pork Carnitas Tacos)
+   Pork carnitas tacos (cropped).jpg | 3024x2240 | CC BY-SA 4.0
+   Pork shoulder tacos - 33983678678.jpg | 4032x3024 | CC BY 2.0
+   Pork carnitas tacos.jpg | 3024x4032 | CC BY-SA 4.0
+   Carnitas taco - China Poblano.jpg | 6000x4000 | CC BY 2.0
+   Pork shoulder tacos.jpg | 4032x3024 | CC BY 2.0
+   07 Roast Pork Taco - Tacos Nuevo Mexico.jpg | 640x480 | CC BY-SA 2.0
+   Pork tacos at the Rendezvous (26943375693).jpg | 3714x2651 | CC BY 2.0
+   04 Veal Brain Taco and Roast Pork Taco - Tacos Nuevo Mexico.jpg | 640x480 | CC BY-SA 2.0
+   Pork chamorro tacos.jpg | 3024x3024 | CC BY-SA 4.0
+   Kid-size pork taco at Tropisueno (14274906483).jpg | 5908x4220 | CC BY 2.0
+## pork-tenderloin (Roast Pork Tenderloin)
+   Pork Tenderloin on cutting board.jpg | 4032x3024 | CC BY 4.0
+   Pork tenderloin dish.png | 4008x2551 | CC BY-SA 4.0
+   Seared and roasted Pork Tenderloin in Cast Iron Skillet.jpg | 4032x3024 | CC BY 4.0
+   Pork-tenderloin.JPG | 1280x1280 | CC BY-SA 3.0
+   Roast pork tenderloin, steamed broccolini, and macaroni with Pomodoro sauce 豚テンダーロインのロースト、ブロッコリーニ、マカロニのポモドーロソース.jpg | 1080x1080 | CC BY 2.0
+   Roasted pork tenderloin, stewed lentils, sautéed cauliflower, seared cherry tomatoes ポークテンダーロインのロースト、レンズ豆の煮込み、カリフラワーの炒めもの、焼きプチトマト.jpg | 1080x1080 | CC BY 2.0
+   Pork Tenderloin with Raspberry and Lavender, roasted carrot and broccolini on the side. Not pictured, the Cauliflower and Capsicum Chowder we had to start. @toriarrgh was pretty delighted. -mycookingadventures (44194987491).jpg | 640x640 | CC BY-SA 2.0
+   Svinemørbrad med bacon og rodfrugter (5018776216).jpg | 4288x2848 | CC BY-SA 2.0
+   MyPlate gov Cultural Food (20241025-USDA-FNS-UNK-0066).jpg | 3300x2475 | Public domain
+   Flickr - cyclonebill - Svinemørbrad bagt med tapenade.jpg | 1600x1200 | CC BY-SA 2.0
+## scalloped-potatoes-ham (Scalloped Potatoes and Ham)
+   The pure food cook book, the Good housekeeping recipes, just how to buy-just how to cook (1914) (14598352449).jpg | 3392x2065 | No restrictions
+   The pure food cook book, the Good housekeeping recipes, just how to buy-just how to cook (1914) (14598503347).jpg | 2416x1286 | No restrictions
+   The Boston Cooking School magazine of culinary science and domestic economics (1913) (14798394553).jpg | 2052x1308 | No restrictions
+   The Boston Cooking School magazine of culinary science and domestic economics (1908) (14580400709).jpg | 2596x1292 | No restrictions
+   The Gary schools; a general account (1918) (14800062283).jpg | 2192x1242 | No restrictions
+   Image from page 619 of "American cookery" (1914).jpg | 1780x1076 | No restrictions
+   The Boston Cooking School magazine of culinary science and domestic economics (1905) (14770011881).jpg | 3296x2600 | No restrictions
+   American cookery (1915) (14781178111).jpg | 3600x2604 | No restrictions
+   The Boston Cooking School magazine of culinary science and domestic economics (1913) (14777809375).jpg | 2768x2284 | No restrictions
+   The Boston Cooking School magazine of culinary science and domestic economics (1913) (14778238215).jpg | 3056x2152 | No restrictions
+## bangers-and-mash (Sausages and Mash with Onion Gravy)
+   Sausage Trio, Mash and Cabbage with Onion Gravy (cropped).jpg | 501x300 | CC BY-SA 2.0
+   Sausage and mash with onion gravy.jpg | 800x600 | CC BY 2.0
+   Sausage Trio, Mash and Cabbage with Onion Gravy.jpg | 800x600 | CC BY-SA 2.0
+   CONISBEE BUTCHER LAMB & MINT SAUSAGES - The Greyhound 2025-05-14.jpg | 8160x6144 | CC0
+   Bangers and mash with beer in Tampere.jpg | 4608x3456 | CC BY-SA 4.0
+   Bangers and mash - The Perkin Warbeck 2025-07-26.jpg | 8160x6144 | CC0
+   Bangers & Mash (29275522271).jpg | 4321x2881 | CC BY 2.0
+   Dish at Darcy's.jpg | 4096x3072 | CC0
+## eggplant-parmesan (Eggplant Parmesan)
+   Eggplant parmesan (3849722245).jpg | 2272x1704 | CC BY 2.0
+   Eggplant parmesan (20287338975).jpg | 2448x3264 | CC0
+   2019-04-13 20 26 51 A serving of eggplant parmesan and spaghetti at the Olive Garden in Fair Lakes, Fairfax County, Virginia.jpg | 4032x3024 | CC BY-SA 4.0
+   Starr-221112-5047-Solanum melongena-eggplant parmesan-Hawea Pl Olinda-Maui (52507559608).jpg | 5184x3888 | CC BY 2.0
+   2019-02-16 21 19 53 A serving of eggplant parmesan and spaghetti at the Olive Garden in Fair Lakes, Fairfax County, Virginia.jpg | 4032x3024 | CC BY-SA 4.0
+   Starr-221112-5046-Solanum melongena-eggplant parmesan-Hawea Pl Olinda-Maui (52506527562).jpg | 5184x3888 | CC BY 2.0
+   2020-01-24 20 01 42 A serving of eggplant parmesan and spaghetti at the Olive Garden in Fair Lakes, Fairfax County, Virginia.jpg | 4032x3024 | CC BY-SA 4.0
+   2026-09-12 20 19 58 A portion of eggplant parmesan from ShopRite in Ewing Township, Mercer County, New Jersey.jpg | 4032x3024 | CC BY-SA 4.0
+   2026-09-12 20 08 05 A portion of eggplant parmesan from ShopRite in Ewing Township, Mercer County, New Jersey.jpg | 4032x3024 | CC BY-SA 4.0
+   2026-09-12 20 10 03 A portion of eggplant parmesan from ShopRite in Ewing Township, Mercer County, New Jersey.jpg | 4032x3024 | CC BY-SA 4.0
+## black-bean-tacos (Crispy Black Bean Tacos)
+   Vegetables and Black Bean Tacos (7212559656).jpg | 1800x1200 | CC BY 2.0
+   Roasted sweet potato + black bean tacos (7784822910).jpg | 3339x2650 | CC BY 2.0
+   Black bean corn tacos at Down The Rabbit Hole 2018.jpg | 3264x1836 | CC BY-SA 4.0
+   Tacos de pollo asado mesquite grilled chicken, black bean puree, lettuce, charred onion, chunky fire roasted tomato sauce (26834480122).jpg | 3264x2448 | CC BY 2.0
+   Tacos with refried beans and textured vegetable protein, plus salad with homemade tea egg, plus cheddar cheese, olive oil, and black pepper - Massachusetts.jpg | 2075x2074 | CC0
+   Indian Taco 001.jpg | 4000x3000 | CC BY-SA 3.0
+   La Casa Restaurant - Stierch - April 2019 03.jpg | 2708x2799 | CC BY 4.0
+   Rocco's Tacos, E Las Olas Blvd, Fort Lauderdale Florida January 2018 04.jpg | 5184x3888 | CC BY-SA 4.0
+   Breakfast tacos.jpg | 3072x2048 | CC BY-SA 2.0
+   Vegetarian taco salad.jpg | 640x640 | Public domain
+## veggie-lasagna (Vegetable Lasagna)
+   Meaty Lasagna 8of8 (8736299782).jpg | 1024x658 | CC BY 2.0
+   Eggplant Lasagna (Vegitarian) (6 of 6).jpg | 5472x3648 | CC BY 2.0
+   Eggplant Lasagna (Vegitarian) (1 of 6).jpg | 5472x3648 | CC BY 2.0
+   Eggplant Lasagna (Vegitarian) (2 of 6).jpg | 5472x3648 | CC BY 2.0
+   Eggplant Lasagna (Vegitarian) (4 of 6).jpg | 4815x3210 | CC BY 2.0
+   11-29-2024 Eggplant lasagna 1 (6 of 7).jpg | 4956x3304 | CC BY 2.0
+   Eggplant Lasagna (Vegitarian) (5 of 6).jpg | 4956x3304 | CC BY 2.0
+   Eggplant Lasagna (Vegitarian) (3 of 6).jpg | 5472x3648 | CC BY 2.0
+   11-29-2024 Eggplant lasagna 1 (5 of 7).jpg | 4815x3210 | CC BY 2.0
+   11-29-2024 Eggplant lasagna 1 (1 of 7).jpg | 5472x3648 | CC BY 2.0
+## salmon-tacos (Baked Salmon Tacos)
+   The Shore Room - June 2019 - Stierch 05.jpg | 4032x3024 | CC BY 4.0
+   Salmon tacos a morris (20505485971).jpg | 720x960 | Public domain
+   Veggie Salmon Tacos (4260954823).jpg | 3456x2592 | CC BY 2.0
+   Veggie Imitation Salmon Tacos (4260955691).jpg | 2100x2800 | CC BY 2.0
+   Halibut Tacos (2240469467).jpg | 2048x1536 | CC BY-SA 2.0
+   Taco Pizza.jpg | 3165x2375 | CC BY-SA 2.0
+   Street taters, twice fried Kennebec potatoes, habanero chile, smoked salmon, creme fraiche, chives.jpg | 3264x2448 | CC BY 2.0
+   Wahoo's salad (23809951792).jpg | 5312x2988 | CC BY 2.0
+   Street taters, twice fried Kennebec potatoes, habanero chile, smoked salmon, creme fraiche, chives - 16099815014.jpg | 3264x2448 | CC BY 2.0
+   Ravintola Olo - Amuse(s) (13989186457).jpg | 7360x4912 | CC BY-SA 2.0
+## shrimp-fried-rice (Shrimp Fried Rice)
+   Shrimp Paste Fried Rice.jpg | 5520x4140 | CC BY-SA 4.0
+   Shrimp Fried Rice (Taiwan).jpg | 4080x3072 | CC BY-SA 4.0
+   Sakura Shrimp Fried Rice (Taiwan).jpg | 4080x3072 | CC BY-SA 4.0
+   Fried shrimp sandwich with rice and beans.jpg | 2742x2208 | CC BY-SA 4.0
+   Fried tofu, rice noodle with shrimp paste.jpg | 4032x3016 | CC BY-SA 4.0
+   Bowl of homemade shrimp fried rice - Forsythe 0.jpg | 2664x1998 | CC BY 4.0
+   Fried rice with shrimp paste.jpg | 4000x3000 | CC BY-SA 4.0
+   Fried tofu, rice noodle with shrimp paste (Home made).jpg | 3016x4032 | CC BY-SA 4.0
+   King prawns fried rice, Stir Fry by CK.jpg | 3024x4032 | CC0
+   Wok fried rice with chicken & dried shrimp - Pho 2025-07-25.jpg | 8160x6144 | CC0
