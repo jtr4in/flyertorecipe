@@ -837,7 +837,7 @@
       "swaps": [{ "label": "Use store-bought hollandaise", "sauce": "hollandaise sauce", "measure": "1 package", "replaces": ["butter", "lemon"], "note": "In step 1, use 3 eggs fewer and warm the store-bought hollandaise as the package says instead of making it." }]
     },
     {
-      "id": "hash-browns", "search": "hash browns", "name": "Crispy Hash Browns", "group": "Breakfast", "emoji": "🥔", "wiki": "Hash_browns", "minutes": 25, "serves": 4,
+      "id": "hash-browns", "photo": "Hash browns on white plate.jpg", "search": "hash browns", "name": "Crispy Hash Browns", "group": "Breakfast", "emoji": "🥔", "wiki": "Hash_browns", "minutes": 25, "serves": 4,
       "ingredients": [
         { "name": "russet potatoes", "measure": "4 large" }, { "name": "onion", "measure": "1/2, grated (optional)" }, { "name": "vegetable oil", "measure": "3 tbsp" },
         { "name": "butter", "measure": "1 tbsp" }, { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
@@ -864,7 +864,7 @@
       ]
     },
     {
-      "id": "overnight-oats", "search": "overnight oats", "name": "Overnight Oats", "group": "Breakfast", "emoji": "🥣", "wiki": "Rolled_oats", "minutes": 5, "serves": 2,
+      "id": "overnight-oats", "photo": "-2019-02-07 Overnight Oats, Cromer.JPG", "search": "overnight oats", "name": "Overnight Oats", "group": "Breakfast", "emoji": "🥣", "wiki": "Rolled_oats", "minutes": 5, "serves": 2,
       "ingredients": [
         { "name": "rolled oats", "measure": "1 cup" }, { "name": "milk", "measure": "1 cup" }, { "name": "Greek yogurt", "measure": "1/2 cup" },
         { "name": "chia seeds", "measure": "1 tbsp" }, { "name": "maple syrup", "measure": "1 tbsp" }, { "name": "vanilla extract", "measure": "1/2 tsp" },
@@ -877,7 +877,7 @@
       ]
     },
     {
-      "id": "roast-potatoes", "search": "roast potatoes", "name": "Crispy Roast Potatoes", "group": "Sides & salads", "emoji": "🥔", "wiki": "Roast_potato", "minutes": 60, "serves": 6,
+      "id": "roast-potatoes", "photo": "Roasted potatoes in bowl.jpg", "search": "roast potatoes", "name": "Crispy Roast Potatoes", "group": "Sides & salads", "emoji": "🥔", "wiki": "Roast_potato", "minutes": 60, "serves": 6,
       "ingredients": [
         { "name": "yellow potatoes", "measure": "1.5 kg (3 lb)" }, { "name": "olive oil", "measure": "1/4 cup" }, { "name": "garlic", "measure": "4 cloves, smashed" },
         { "name": "rosemary", "measure": "2 sprigs" }, { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
