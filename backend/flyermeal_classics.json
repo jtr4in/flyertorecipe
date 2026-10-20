@@ -702,6 +702,385 @@
         "Stir in the baking soda and salt, then the flour and walnuts until just mixed.",
         "Bake 55 to 65 minutes until a skewer comes out clean. Cool before slicing."
       ]
+    },
+    {
+      "id": "aglio-e-olio", "name": "Spaghetti Aglio e Olio", "group": "Pasta", "emoji": "🧄", "wiki": "Spaghetti_aglio_e_olio", "minutes": 20, "serves": 4,
+      "ingredients": [
+        { "name": "spaghetti", "measure": "450 g (1 lb)" }, { "name": "garlic", "measure": "6 cloves, thinly sliced" }, { "name": "olive oil", "measure": "1/2 cup" },
+        { "name": "red pepper flakes", "measure": "1/2 tsp" }, { "name": "parsley", "measure": "a handful, chopped" }, { "name": "parmesan", "measure": "1/2 cup grated (optional)" },
+        { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Boil the spaghetti in well-salted water until al dente. Save 1 cup of the cooking water, then drain.",
+        "While it cooks, warm the oil and garlic in a large pan over medium-low heat for 3 to 4 minutes, until the garlic is just golden. Add the pepper flakes.",
+        "Toss the spaghetti in the pan with a splash of the pasta water until glossy.",
+        "Stir in the parsley, season with salt, and serve with parmesan if you like."
+      ]
+    },
+    {
+      "id": "pasta-primavera", "name": "Pasta Primavera", "group": "Pasta", "emoji": "🥦", "wiki": "Pasta_primavera", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "penne", "measure": "450 g (1 lb)" }, { "name": "broccoli", "measure": "1 head, in small florets" }, { "name": "zucchini", "measure": "1, sliced" },
+        { "name": "red bell pepper", "measure": "1, sliced" }, { "name": "cherry tomatoes", "measure": "1 pint, halved" }, { "name": "frozen peas", "measure": "1 cup" },
+        { "name": "garlic", "measure": "3 cloves" }, { "name": "butter", "measure": "2 tbsp" }, { "name": "whipping cream", "measure": "1/2 cup" },
+        { "name": "parmesan", "measure": "3/4 cup grated" }, { "name": "lemon", "measure": "1" }, { "name": "olive oil", "measure": "2 tbsp" },
+        { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Boil the penne in salted water. Add the broccoli and peas for the last 3 minutes, then drain, saving 1/2 cup of the water.",
+        "Meanwhile cook the zucchini and pepper in the oil over medium-high heat for 5 minutes. Add the garlic and tomatoes for 2 minutes more.",
+        "Stir in the butter, cream and half the parmesan, then the pasta, broccoli and peas, loosening with the pasta water.",
+        "Finish with the lemon zest and a squeeze of juice, the rest of the parmesan, salt and pepper."
+      ]
+    },
+    {
+      "id": "cacio-e-pepe", "name": "Cacio e Pepe", "group": "Pasta", "emoji": "🧀", "wiki": "Cacio_e_pepe", "minutes": 20, "serves": 4,
+      "ingredients": [
+        { "name": "spaghetti", "measure": "450 g (1 lb)" }, { "name": "pecorino romano", "measure": "1 1/2 cups finely grated" }, { "name": "parmesan", "measure": "1/2 cup finely grated" },
+        { "name": "pepper", "measure": "2 tsp, coarsely ground" }, { "name": "butter", "measure": "2 tbsp" }, { "name": "salt", "measure": "for the pasta water" }
+      ],
+      "steps": [
+        "Boil the spaghetti in lightly salted water (the cheese is salty). Save 1 1/2 cups of the water before draining.",
+        "Toast the pepper in the butter in a large pan for 1 minute.",
+        "Off the heat, add the spaghetti and 1/2 cup of the water. Add the cheeses a handful at a time, tossing fast and adding water, until a smooth sauce coats the pasta. Serve right away."
+      ]
+    },
+    {
+      "id": "american-goulash", "name": "American Goulash", "group": "Pasta", "emoji": "🍲", "wiki": "American_goulash", "minutes": 40, "serves": 6,
+      "ingredients": [
+        { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "onion", "measure": "1" }, { "name": "green bell pepper", "measure": "1" },
+        { "name": "garlic", "measure": "3 cloves" }, { "name": "elbow macaroni", "measure": "2 cups" }, { "name": "crushed tomatoes", "measure": "1 can (796 ml / 28 oz)" },
+        { "name": "tomato sauce", "measure": "1 can (213 ml)" }, { "name": "beef broth", "measure": "2 cups" }, { "name": "paprika", "measure": "1 tbsp" },
+        { "name": "Italian seasoning", "measure": "1 tbsp" }, { "name": "cheddar", "measure": "1 cup shredded" }, { "name": "salt", "measure": "to taste" },
+        { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Brown the beef with the chopped onion and pepper in a large pot. Drain any fat and add the garlic for 1 minute.",
+        "Stir in the crushed tomatoes, tomato sauce, broth, paprika and Italian seasoning. Bring to a boil.",
+        "Add the macaroni, cover and simmer, stirring now and then, for 12 to 15 minutes until tender.",
+        "Season, then top with the cheddar and cover for 2 minutes to melt."
+      ],
+      "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "tomato sauce", "Italian seasoning"], "note": "In step 2, pour in the jar of pasta sauce with the broth and paprika." }]
+    },
+    {
+      "id": "stuffed-shells", "search": "stuffed shells pasta", "name": "Baked Stuffed Shells", "group": "Pasta", "emoji": "🐚", "wiki": "Conchiglie", "minutes": 60, "serves": 6,
+      "ingredients": [
+        { "name": "jumbo pasta shells", "measure": "1 box (340 g)" }, { "name": "ricotta", "measure": "1 tub (475 g)" }, { "name": "mozzarella", "measure": "2 cups shredded" },
+        { "name": "parmesan", "measure": "1/2 cup grated" }, { "name": "egg", "measure": "1" }, { "name": "frozen spinach", "measure": "1 box (300 g), thawed and squeezed" },
+        { "name": "garlic", "measure": "2 cloves" }, { "name": "crushed tomatoes", "measure": "1 can (796 ml / 28 oz)" }, { "name": "dried basil", "measure": "1 tsp" },
+        { "name": "olive oil", "measure": "1 tbsp" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 375°F (190°C). Boil the shells until just tender, drain and rinse in cool water.",
+        "Make the sauce: cook the garlic in the oil for 1 minute, add the crushed tomatoes and basil, and simmer 10 minutes.",
+        "Mix the ricotta, spinach, egg, half the mozzarella, the parmesan and a pinch of salt.",
+        "Spread half the sauce in a 9x13 dish. Fill each shell with a spoonful of the filling and set them in the dish.",
+        "Spoon over the rest of the sauce, top with the remaining mozzarella, cover with foil and bake 25 minutes, then uncovered 10 more."
+      ],
+      "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "dried basil"], "note": "Skip step 2 and use the jar of pasta sauce instead." }]
+    },
+    {
+      "id": "scrambled-eggs", "name": "Scrambled Eggs and Toast", "group": "Breakfast", "emoji": "🍳", "wiki": "Scrambled_eggs", "minutes": 10, "serves": 2,
+      "ingredients": [
+        { "name": "eggs", "measure": "4" }, { "name": "butter", "measure": "1 tbsp, plus more for toast" }, { "name": "milk", "measure": "2 tbsp" },
+        { "name": "bread", "measure": "4 slices" }, { "name": "chives", "measure": "a few (optional)" }, { "name": "salt", "measure": "to taste" },
+        { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Whisk the eggs, milk and a pinch of salt.",
+        "Melt the butter in a non-stick pan over medium-low heat. Add the eggs and stir slowly with a spatula until softly set, about 3 minutes.",
+        "Take them off the heat while still a little wet. Serve on buttered toast with pepper and chives."
+      ]
+    },
+    {
+      "id": "blueberry-muffins", "search": "blueberry muffins", "name": "Blueberry Muffins", "group": "Breakfast", "emoji": "🫐", "wiki": "Muffin", "minutes": 35, "serves": 12,
+      "ingredients": [
+        { "name": "flour", "measure": "2 cups" }, { "name": "sugar", "measure": "3/4 cup" }, { "name": "baking powder", "measure": "2 tsp" },
+        { "name": "salt", "measure": "1/2 tsp" }, { "name": "eggs", "measure": "2" }, { "name": "milk", "measure": "3/4 cup" },
+        { "name": "vegetable oil", "measure": "1/2 cup" }, { "name": "vanilla extract", "measure": "1 tsp" }, { "name": "blueberries", "measure": "1 1/2 cups, fresh or frozen" }
+      ],
+      "steps": [
+        "Heat the oven to 400°F (200°C) and line a 12-cup muffin pan.",
+        "Whisk the flour, sugar, baking powder and salt in a bowl. In another, whisk the eggs, milk, oil and vanilla.",
+        "Stir the wet into the dry until just mixed (a few lumps are fine), then fold in the blueberries.",
+        "Fill the cups, sprinkle with a little sugar and bake 18 to 22 minutes until golden."
+      ]
+    },
+    {
+      "id": "waffles", "name": "Buttermilk Waffles", "group": "Breakfast", "emoji": "🧇", "wiki": "Waffle", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "flour", "measure": "2 cups" }, { "name": "sugar", "measure": "2 tbsp" }, { "name": "baking powder", "measure": "2 tsp" },
+        { "name": "baking soda", "measure": "1/2 tsp" }, { "name": "salt", "measure": "1/2 tsp" }, { "name": "buttermilk", "measure": "2 cups" },
+        { "name": "eggs", "measure": "2" }, { "name": "butter", "measure": "1/3 cup, melted" }, { "name": "maple syrup", "measure": "to serve" },
+        { "name": "strawberries", "measure": "to serve" }
+      ],
+      "steps": [
+        "Heat the waffle iron.",
+        "Whisk the flour, sugar, baking powder, baking soda and salt. Whisk in the buttermilk, eggs and melted butter until just combined.",
+        "Pour batter into the greased iron and cook until golden and crisp, 4 to 5 minutes each.",
+        "Serve with maple syrup and sliced strawberries."
+      ]
+    },
+    {
+      "id": "eggs-benedict", "name": "Eggs Benedict", "group": "Breakfast", "emoji": "🥚", "wiki": "Eggs_Benedict", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "English muffins", "measure": "4" }, { "name": "back bacon", "measure": "8 slices (or ham)" }, { "name": "eggs", "measure": "8, plus 3 yolks for the sauce" },
+        { "name": "butter", "measure": "1/2 cup" }, { "name": "lemon", "measure": "1" }, { "name": "white vinegar", "measure": "1 tbsp" },
+        { "name": "salt", "measure": "to taste" }, { "name": "paprika", "measure": "a pinch" }
+      ],
+      "steps": [
+        "Make the hollandaise: whisk the 3 yolks with 1 tbsp lemon juice in a bowl set over simmering water until thick. Slowly whisk in the melted butter. Season and keep warm.",
+        "Brown the back bacon in a pan and toast the split muffins.",
+        "Bring a wide pot of water to a gentle simmer with the vinegar. Crack in the eggs and poach 3 minutes. Lift out with a slotted spoon.",
+        "Top each muffin half with bacon, an egg and hollandaise, and dust with paprika."
+      ],
+      "swaps": [{ "label": "Use store-bought hollandaise", "sauce": "hollandaise sauce", "measure": "1 package", "replaces": ["butter", "lemon"], "note": "In step 1, use 3 eggs fewer and warm the store-bought hollandaise as the package says instead of making it." }]
+    },
+    {
+      "id": "hash-browns", "name": "Crispy Hash Browns", "group": "Breakfast", "emoji": "🥔", "wiki": "Hash_browns", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "russet potatoes", "measure": "4 large" }, { "name": "onion", "measure": "1/2, grated (optional)" }, { "name": "vegetable oil", "measure": "3 tbsp" },
+        { "name": "butter", "measure": "1 tbsp" }, { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Peel and coarsely grate the potatoes. Wrap them in a clean towel and squeeze out as much water as you can.",
+        "Mix in the onion, 1 tsp salt and some pepper.",
+        "Heat the oil and butter in a large non-stick pan over medium-high heat. Spread the potatoes in a thin layer and press down.",
+        "Cook without stirring for 6 to 8 minutes until deep golden, flip in sections, and cook 5 minutes more."
+      ]
+    },
+    {
+      "id": "quiche-lorraine", "search": "quiche lorraine", "name": "Quiche Lorraine", "group": "Breakfast", "emoji": "🥧", "wiki": "Quiche", "minutes": 60, "serves": 6,
+      "ingredients": [
+        { "name": "frozen pie shell", "measure": "1 deep-dish (23 cm / 9 in)" }, { "name": "bacon", "measure": "6 slices" }, { "name": "onion", "measure": "1 small" },
+        { "name": "eggs", "measure": "4" }, { "name": "whipping cream", "measure": "1 1/2 cups" }, { "name": "Swiss cheese", "measure": "1 cup shredded" },
+        { "name": "nutmeg", "measure": "a pinch" }, { "name": "salt", "measure": "1/2 tsp" }, { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 375°F (190°C). Bake the pie shell 10 minutes.",
+        "Cook the chopped bacon until crisp, then soften the chopped onion in the fat for 5 minutes. Drain.",
+        "Whisk the eggs, cream, nutmeg, salt and pepper.",
+        "Scatter the bacon, onion and cheese in the shell, pour in the custard, and bake 30 to 35 minutes until just set in the middle. Rest 10 minutes."
+      ]
+    },
+    {
+      "id": "overnight-oats", "search": "overnight oats jar", "name": "Overnight Oats", "group": "Breakfast", "emoji": "🥣", "wiki": "Rolled_oats", "minutes": 5, "serves": 2,
+      "ingredients": [
+        { "name": "rolled oats", "measure": "1 cup" }, { "name": "milk", "measure": "1 cup" }, { "name": "Greek yogurt", "measure": "1/2 cup" },
+        { "name": "chia seeds", "measure": "1 tbsp" }, { "name": "maple syrup", "measure": "1 tbsp" }, { "name": "vanilla extract", "measure": "1/2 tsp" },
+        { "name": "blueberries", "measure": "1 cup" }, { "name": "bananas", "measure": "1" }
+      ],
+      "steps": [
+        "Stir the oats, milk, yogurt, chia, maple syrup and vanilla together in two jars.",
+        "Cover and chill overnight, or at least 4 hours.",
+        "Top with blueberries and sliced banana in the morning."
+      ]
+    },
+    {
+      "id": "roast-potatoes", "name": "Crispy Roast Potatoes", "group": "Sides & salads", "emoji": "🥔", "wiki": "Roast_potato", "minutes": 60, "serves": 6,
+      "ingredients": [
+        { "name": "yellow potatoes", "measure": "1.5 kg (3 lb)" }, { "name": "olive oil", "measure": "1/4 cup" }, { "name": "garlic", "measure": "4 cloves, smashed" },
+        { "name": "rosemary", "measure": "2 sprigs" }, { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 425°F (220°C) with the oil in a large roasting pan.",
+        "Cut the potatoes into chunks and boil in salted water for 8 minutes. Drain and shake in the pot to rough up the edges.",
+        "Tip them into the hot oil with the garlic and rosemary, turn to coat, and season.",
+        "Roast 40 to 45 minutes, turning once, until crisp and golden."
+      ]
+    },
+    {
+      "id": "rice-pilaf", "name": "Rice Pilaf", "group": "Sides & salads", "emoji": "🍚", "wiki": "Pilaf", "minutes": 30, "serves": 6,
+      "ingredients": [
+        { "name": "long-grain rice", "measure": "1 1/2 cups" }, { "name": "orzo", "measure": "1/2 cup" }, { "name": "butter", "measure": "2 tbsp" },
+        { "name": "onion", "measure": "1 small" }, { "name": "garlic", "measure": "1 clove" }, { "name": "chicken broth", "measure": "3 cups" },
+        { "name": "parsley", "measure": "a handful" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Melt the butter in a pot and toast the orzo until golden, about 3 minutes.",
+        "Add the chopped onion for 3 minutes, then the garlic and rice for 1 minute.",
+        "Pour in the broth, bring to a boil, cover and simmer on low for 18 minutes.",
+        "Rest 5 minutes off the heat, then fluff with a fork and stir in the parsley."
+      ]
+    },
+    {
+      "id": "cornbread", "name": "Cornbread", "group": "Sides & salads", "emoji": "🌽", "wiki": "Cornbread", "minutes": 35, "serves": 9,
+      "ingredients": [
+        { "name": "cornmeal", "measure": "1 cup" }, { "name": "flour", "measure": "1 cup" }, { "name": "sugar", "measure": "1/4 cup" },
+        { "name": "baking powder", "measure": "1 tbsp" }, { "name": "salt", "measure": "1/2 tsp" }, { "name": "milk", "measure": "1 cup" },
+        { "name": "eggs", "measure": "2" }, { "name": "butter", "measure": "1/3 cup, melted" }
+      ],
+      "steps": [
+        "Heat the oven to 400°F (200°C) and grease an 8-inch square pan or cast-iron skillet.",
+        "Whisk the cornmeal, flour, sugar, baking powder and salt. Stir in the milk, eggs and butter until just mixed.",
+        "Pour into the pan and bake 20 to 25 minutes until golden and a skewer comes out clean."
+      ]
+    },
+    {
+      "id": "roasted-broccoli", "search": "roasted broccoli", "name": "Garlic Parmesan Roasted Broccoli", "group": "Sides & salads", "emoji": "🥦", "wiki": "Broccoli", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "broccoli", "measure": "2 heads, in florets" }, { "name": "olive oil", "measure": "3 tbsp" }, { "name": "garlic", "measure": "3 cloves, minced" },
+        { "name": "parmesan", "measure": "1/3 cup grated" }, { "name": "lemon", "measure": "1/2" }, { "name": "salt", "measure": "to taste" },
+        { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 425°F (220°C).",
+        "Toss the broccoli with the oil, garlic, salt and pepper on a baking sheet.",
+        "Roast 18 to 20 minutes until browned at the edges. Toss with the parmesan and a squeeze of lemon."
+      ]
+    },
+    {
+      "id": "greek-salad", "name": "Greek Salad", "group": "Sides & salads", "emoji": "🥗", "wiki": "Greek_salad", "minutes": 15, "serves": 4,
+      "ingredients": [
+        { "name": "tomatoes", "measure": "4" }, { "name": "cucumber", "measure": "1 English" }, { "name": "green bell pepper", "measure": "1" },
+        { "name": "red onion", "measure": "1/2" }, { "name": "kalamata olives", "measure": "1/2 cup" }, { "name": "feta", "measure": "200 g block" },
+        { "name": "olive oil", "measure": "1/4 cup" }, { "name": "red wine vinegar", "measure": "2 tbsp" }, { "name": "dried oregano", "measure": "1 tsp" },
+        { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Cut the tomatoes into wedges, and the cucumber and pepper into chunks. Thinly slice the onion.",
+        "Toss with the olives, oil, vinegar and a pinch of salt.",
+        "Top with the feta, in a slab or crumbled, and sprinkle with oregano."
+      ],
+      "swaps": [{ "label": "Use bottled Greek dressing", "sauce": "Greek dressing", "measure": "1/3 cup", "replaces": ["olive oil", "red wine vinegar", "dried oregano"], "note": "In step 2, toss the vegetables with the bottled dressing instead." }]
+    },
+    {
+      "id": "carnitas-tacos", "name": "Pork Carnitas Tacos", "group": "Pork", "emoji": "🌮", "wiki": "Carnitas", "minutes": 180, "serves": 8,
+      "ingredients": [
+        { "name": "pork shoulder", "measure": "1.5 kg (3 lb), in large chunks" }, { "name": "onion", "measure": "1" }, { "name": "garlic", "measure": "5 cloves" },
+        { "name": "oranges", "measure": "1" }, { "name": "limes", "measure": "2" }, { "name": "ground cumin", "measure": "2 tsp" },
+        { "name": "dried oregano", "measure": "1 tsp" }, { "name": "salt", "measure": "2 tsp" }, { "name": "corn tortillas", "measure": "24 small" },
+        { "name": "cilantro", "measure": "1 bunch" }, { "name": "salsa", "measure": "to serve" }
+      ],
+      "steps": [
+        "Heat the oven to 325°F (160°C). Put the pork in a Dutch oven with the quartered onion, garlic, cumin, oregano, salt, the orange juice and the juice of 1 lime.",
+        "Add water to come halfway up the meat. Cover and bake 2 1/2 hours until it falls apart.",
+        "Shred the pork, spread on a sheet pan with some of the juices, and broil 5 minutes until the edges crisp.",
+        "Serve in warm tortillas with chopped onion, cilantro, salsa and lime wedges."
+      ]
+    },
+    {
+      "id": "pork-tenderloin", "name": "Roast Pork Tenderloin", "group": "Pork", "emoji": "🐖", "wiki": "Pork_tenderloin", "minutes": 35, "serves": 4,
+      "ingredients": [
+        { "name": "pork tenderloin", "measure": "2 (about 900 g total)" }, { "name": "Dijon mustard", "measure": "2 tbsp" }, { "name": "honey", "measure": "2 tbsp" },
+        { "name": "garlic", "measure": "2 cloves" }, { "name": "rosemary", "measure": "1 tbsp chopped" }, { "name": "olive oil", "measure": "1 tbsp" },
+        { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 425°F (220°C). Season the pork with salt and pepper.",
+        "Brown it all over in the oil in an ovenproof pan, about 5 minutes.",
+        "Mix the mustard, honey, garlic and rosemary and brush it over the pork.",
+        "Roast 15 to 20 minutes until it reaches 145°F (63°C). Rest 5 minutes before slicing."
+      ]
+    },
+    {
+      "id": "scalloped-potatoes-ham", "search": "scalloped potatoes ham", "name": "Scalloped Potatoes and Ham", "group": "Pork", "emoji": "🥔", "wiki": "Scalloped_potatoes", "minutes": 90, "serves": 6,
+      "ingredients": [
+        { "name": "yellow potatoes", "measure": "1.2 kg (2 1/2 lb)" }, { "name": "ham", "measure": "2 cups diced" }, { "name": "onion", "measure": "1" },
+        { "name": "butter", "measure": "3 tbsp" }, { "name": "flour", "measure": "3 tbsp" }, { "name": "milk", "measure": "3 cups" },
+        { "name": "cheddar", "measure": "1 1/2 cups shredded" }, { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 375°F (190°C) and butter a 9x13 dish. Thinly slice the potatoes and onion.",
+        "Melt the butter, stir in the flour for 1 minute, then whisk in the milk and simmer until thickened. Season and stir in 1 cup of the cheddar.",
+        "Layer the potatoes, onion and ham in the dish, pouring sauce over each layer.",
+        "Cover with foil and bake 45 minutes. Uncover, top with the rest of the cheddar and bake 25 minutes more until tender and golden."
+      ]
+    },
+    {
+      "id": "bangers-and-mash", "name": "Sausages and Mash with Onion Gravy", "group": "Pork", "emoji": "🌭", "wiki": "Bangers_and_mash", "minutes": 40, "serves": 4,
+      "ingredients": [
+        { "name": "pork sausages", "measure": "8" }, { "name": "yellow potatoes", "measure": "1 kg (2 lb)" }, { "name": "butter", "measure": "3 tbsp" },
+        { "name": "milk", "measure": "1/2 cup" }, { "name": "onions", "measure": "2" }, { "name": "flour", "measure": "1 tbsp" },
+        { "name": "beef broth", "measure": "1 1/2 cups" }, { "name": "frozen peas", "measure": "2 cups" }, { "name": "salt", "measure": "to taste" },
+        { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Boil the peeled, chunked potatoes in salted water until tender, 15 to 20 minutes. Drain and mash with 2 tbsp butter and the milk.",
+        "Meanwhile brown the sausages in a pan over medium heat, turning, for 15 minutes until cooked through. Set aside.",
+        "Make the gravy: cook the sliced onions in the rest of the butter for 10 minutes until golden. Stir in the flour, then the broth, and simmer until thick.",
+        "Cook the peas, then serve the sausages on the mash with the gravy and peas."
+      ],
+      "swaps": [{ "label": "Use gravy mix", "sauce": "gravy mix", "measure": "1 packet", "replaces": ["flour", "beef broth"], "note": "In step 3, cook the onions, then make the gravy mix with water as the packet says and stir it in." }]
+    },
+    {
+      "id": "eggplant-parmesan", "name": "Eggplant Parmesan", "group": "Vegetarian", "emoji": "🍆", "wiki": "Parmigiana", "minutes": 75, "serves": 6,
+      "ingredients": [
+        { "name": "eggplant", "measure": "2 large" }, { "name": "eggs", "measure": "2" }, { "name": "breadcrumbs", "measure": "2 cups" },
+        { "name": "parmesan", "measure": "1 cup grated" }, { "name": "mozzarella", "measure": "2 cups shredded" }, { "name": "crushed tomatoes", "measure": "1 can (796 ml / 28 oz)" },
+        { "name": "garlic", "measure": "3 cloves" }, { "name": "dried basil", "measure": "1 tsp" }, { "name": "olive oil", "measure": "1/4 cup" },
+        { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 400°F (200°C). Slice the eggplant into rounds 1 cm thick and salt them for 20 minutes, then pat dry.",
+        "Dip the slices in beaten egg, then in the breadcrumbs mixed with half the parmesan. Lay on oiled sheets, drizzle with oil and bake 25 minutes, turning once.",
+        "Make the sauce: cook the garlic in 1 tbsp oil, add the crushed tomatoes and basil, and simmer 10 minutes.",
+        "Layer sauce, eggplant, mozzarella and parmesan in a 9x13 dish, twice. Bake 25 minutes until bubbling."
+      ],
+      "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "dried basil"], "note": "Skip step 3 and layer with the jar of pasta sauce instead." }]
+    },
+    {
+      "id": "black-bean-tacos", "search": "black bean tacos", "name": "Crispy Black Bean Tacos", "group": "Vegetarian", "emoji": "🌮", "wiki": "Taco", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "black beans", "measure": "2 cans (540 ml / 19 oz), drained" }, { "name": "taco seasoning", "measure": "2 tbsp" }, { "name": "corn tortillas", "measure": "12 small" },
+        { "name": "cheddar", "measure": "1 1/2 cups shredded" }, { "name": "avocado", "measure": "2" }, { "name": "limes", "measure": "1" },
+        { "name": "red cabbage", "measure": "2 cups shredded" }, { "name": "sour cream", "measure": "to serve" }, { "name": "salsa", "measure": "to serve" },
+        { "name": "vegetable oil", "measure": "2 tbsp" }
+      ],
+      "steps": [
+        "Mash the beans roughly with the taco seasoning and 2 tbsp water.",
+        "Spread a spoonful on half of each tortilla, top with cheese and fold.",
+        "Fry the tacos in a little oil over medium heat, 2 to 3 minutes a side, until crisp.",
+        "Mash the avocado with lime and salt. Fill the tacos with cabbage, avocado, sour cream and salsa."
+      ]
+    },
+    {
+      "id": "veggie-lasagna", "search": "vegetable lasagna", "name": "Vegetable Lasagna", "group": "Vegetarian", "emoji": "🥬", "wiki": "Lasagna", "minutes": 90, "serves": 8,
+      "ingredients": [
+        { "name": "lasagna noodles", "measure": "12 oven-ready" }, { "name": "zucchini", "measure": "2" }, { "name": "mushrooms", "measure": "1 package (227 g)" },
+        { "name": "red bell pepper", "measure": "1" }, { "name": "baby spinach", "measure": "1 bag (142 g)" }, { "name": "ricotta", "measure": "1 tub (475 g)" },
+        { "name": "egg", "measure": "1" }, { "name": "mozzarella", "measure": "3 cups shredded" }, { "name": "parmesan", "measure": "1/2 cup grated" },
+        { "name": "crushed tomatoes", "measure": "2 cans (796 ml / 28 oz)" }, { "name": "garlic", "measure": "4 cloves" }, { "name": "dried oregano", "measure": "1 tsp" },
+        { "name": "olive oil", "measure": "2 tbsp" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 375°F (190°C).",
+        "Make the sauce: cook half the garlic in 1 tbsp oil, add the crushed tomatoes and oregano, and simmer 15 minutes.",
+        "Cook the chopped zucchini, mushrooms and pepper in the rest of the oil with the remaining garlic for 8 minutes. Wilt in the spinach.",
+        "Mix the ricotta, egg and half the parmesan.",
+        "In a 9x13 dish layer sauce, noodles, ricotta, vegetables and mozzarella three times, ending with sauce, mozzarella and parmesan.",
+        "Cover and bake 40 minutes, then uncover for 15. Rest 15 minutes before cutting."
+      ],
+      "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "2 jars (650 ml each)", "replaces": ["crushed tomatoes", "dried oregano"], "note": "Skip step 2 and layer with the jarred pasta sauce instead." }]
+    },
+    {
+      "id": "salmon-tacos", "search": "salmon tacos", "name": "Baked Salmon Tacos", "group": "Seafood", "emoji": "🐟", "wiki": "Fish_taco", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "salmon fillets", "measure": "600 g" }, { "name": "chili powder", "measure": "1 tsp" }, { "name": "ground cumin", "measure": "1 tsp" },
+        { "name": "flour tortillas", "measure": "8 small" }, { "name": "green cabbage", "measure": "2 cups shredded" }, { "name": "mayonnaise", "measure": "1/3 cup" },
+        { "name": "sriracha", "measure": "1 tbsp" }, { "name": "limes", "measure": "2" }, { "name": "cilantro", "measure": "a handful" },
+        { "name": "avocado", "measure": "1" }, { "name": "olive oil", "measure": "1 tbsp" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 425°F (220°C). Rub the salmon with the oil, chili powder, cumin and salt.",
+        "Bake 12 to 14 minutes until it flakes, then break into pieces.",
+        "Stir the mayonnaise with the sriracha and the juice of 1 lime. Toss the cabbage with a little of it.",
+        "Fill warm tortillas with cabbage, salmon, avocado, cilantro and the rest of the sauce. Serve with lime wedges."
+      ]
+    },
+    {
+      "id": "shrimp-fried-rice", "search": "shrimp fried rice", "name": "Shrimp Fried Rice", "group": "Seafood", "emoji": "🍤", "wiki": "Fried_rice", "minutes": 20, "serves": 4,
+      "ingredients": [
+        { "name": "cooked rice", "measure": "4 cups, cold" }, { "name": "shrimp", "measure": "450 g (1 lb), peeled" }, { "name": "eggs", "measure": "3" },
+        { "name": "frozen peas and carrots", "measure": "1 1/2 cups" }, { "name": "green onions", "measure": "4" }, { "name": "garlic", "measure": "2 cloves" },
+        { "name": "soy sauce", "measure": "3 tbsp" }, { "name": "sesame oil", "measure": "1 tsp" }, { "name": "vegetable oil", "measure": "3 tbsp" }
+      ],
+      "steps": [
+        "Heat 1 tbsp oil in a wok or large pan over high heat. Cook the shrimp 2 minutes a side and set aside.",
+        "Scramble the eggs in another tbsp of oil, then set aside.",
+        "Add the rest of the oil, the garlic, peas and carrots for 2 minutes, then the rice. Stir-fry 4 minutes until hot and a little crisp.",
+        "Stir in the soy sauce, sesame oil, shrimp, eggs and sliced green onions."
+      ]
     }
   ]
 }

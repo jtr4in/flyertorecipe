@@ -2,46 +2,80 @@
   "_about": "TheMealDB dishes most North American home cooks know, by the group the app files them under, most familiar first. Anything not named here stays out of the app. Names must match TheMealDB's strMeal exactly.",
   "Pasta": [
     "Spaghetti Bolognese", "Lasagne", "Fettuccine Alfredo", "Spaghetti alla Carbonara", "Chicken Alfredo Primavera",
-    "Spicy Arrabiata Penne", "Spinach & Ricotta Cannelloni", "Chicken Fajita Mac and Cheese", "Chilli prawn linguine", "Vegan Lasagna"
+    "Spicy Arrabiata Penne", "Spinach & Ricotta Cannelloni", "Chicken Fajita Mac and Cheese", "Chilli prawn linguine", "Vegan Lasagna",
+    "Rigatoni with fennel sausage sauce", "Squash linguine", "Macaroni Pie"
   ],
   "Chicken": [
     "Kentucky Fried Chicken", "Chicken Fried Rice", "Sweet and Sour Chicken", "General Tsos Chicken", "Extra crispy chicken wings",
-    "Chinese Orange Chicken", "Teriyaki Chicken Casserole", "Kung Pao Chicken", "Chicken Enchilada Casserole", "Crock Pot Chicken Baked Tacos",
-    "Tandoori chicken", "Thai Green Curry", "Honey Balsamic Chicken with Crispy Broccoli & Potatoes", "French Onion Chicken with Roasted Carrots & Mashed Potatoes",
-    "Chick-Fil-A Sandwich", "Sticky Chicken", "Creamy Mustard Chicken", "Jerk chicken with rice & peas", "Chicken Shawarma with homemade garlic herb yoghurt sauce",
-    "Pad See Ew", "Katsu Chicken curry", "Chicken Karaage", "Jamaican Curry Chicken Recipe", "Piri-piri chicken and slaw", "Spiced smoky barbecued chicken",
-    "Chicken Quinoa Greek Salad", "Chicken Couscous", "Coq au vin", "Turkey Meatloaf"
+    "Chinese Orange Chicken", "Teriyaki Chicken Casserole", "Kung Pao Chicken", "Chicken Enchilada Casserole",
+    "Crock Pot Chicken Baked Tacos", "Tandoori chicken", "Thai Green Curry", "Honey Balsamic Chicken with Crispy Broccoli & Potatoes",
+    "French Onion Chicken with Roasted Carrots & Mashed Potatoes", "Chick-Fil-A Sandwich", "Sticky Chicken", "Creamy Mustard Chicken",
+    "Jerk chicken with rice & peas", "Chicken Shawarma with homemade garlic herb yoghurt sauce", "Pad See Ew", "Katsu Chicken curry",
+    "Chicken Karaage", "Jamaican Curry Chicken Recipe", "Piri-piri chicken and slaw", "Spiced smoky barbecued chicken",
+    "Chicken Quinoa Greek Salad", "Chicken Couscous", "Coq au vin", "Turkey Meatloaf", "Shawarma",
+    "Chicken wings with cumin, lemon & garlic", "Thai drumsticks", "Easy Spanish chicken", "Stir-fried chicken with chillies & basil",
+    "Panang chicken curry (kaeng panang gai)", "Smoky chicken skewers", "Chicken & mushroom Hotpot", "Brown Stew Chicken",
+    "Chicken & chorizo rice pot", "Thai chicken cakes with sweet chilli sauce", "Red curry chicken kebabs", "Nutty Chicken Curry",
+    "Chicken Marengo"
   ],
   "Beef": [
-    "Beef and Broccoli Stir-Fry", "Beef stroganoff", "Beef Sunday Roast", "Beef Brisket Pot Roast", "Big Mac", "Pate Chinois", "Beef Lo Mein",
-    "Classic Tourtière", "Golabki (cabbage roll)", "Jamaican Beef Patties", "Corned Beef Hash", "Corned Beef and Cabbage", "Beef Empanadas",
-    "Szechuan Beef", "Thai beef stir-fry", "Drunken noodles (pad kee mao)", "Massaman Beef curry", "Moussaka", "Steak Diane", "Beef Wellington", "Ma Po Tofu"
+    "Beef and Broccoli Stir-Fry", "Beef stroganoff", "Beef Sunday Roast", "Beef Brisket Pot Roast", "Big Mac", "Pate Chinois",
+    "Beef Lo Mein", "Classic Tourtière", "Golabki (cabbage roll)", "Jamaican Beef Patties", "Corned Beef Hash",
+    "Corned Beef and Cabbage", "Beef Empanadas", "Szechuan Beef", "Thai beef stir-fry", "Drunken noodles (pad kee mao)",
+    "Massaman Beef curry", "Moussaka", "Steak Diane", "Beef Wellington", "Ma Po Tofu", "Empanadas", "Montreal Smoked Meat", "Milanesa",
+    "Minced Beef Pie", "Aussie Burgers", "Cabbage with Ground Beef", "Shawarma chuck roast wrap",
+    "Beef Banh Mi Bowls with Sriracha Mayo, Carrot & Pickled Cucumber", "Steak & Vietnamese noodle salad", "Beef Rendang",
+    "Cumberland Pie", "Steak and Kidney Pie", "Jiggs Dinner"
   ],
   "Pork": [
-    "BBQ Pork Sloppy Joes", "Sweet and Sour Pork", "Skillet Apple Pork Chops with Roasted Sweet Potatoes & Zucchini", "Tonkatsu pork", "Japanese Katsudon",
-    "Cuban Sandwich", "Wontons", "Vietnamese Grilled Pork (bun-thit-nuong)", "Slow-roasted ham with lemon, garlic & sage", "Barbecue pork buns"
+    "BBQ Pork Sloppy Joes", "Sweet and Sour Pork", "Skillet Apple Pork Chops with Roasted Sweet Potatoes & Zucchini", "Tonkatsu pork",
+    "Japanese Katsudon", "Cuban Sandwich", "Wontons", "Vietnamese Grilled Pork (bun-thit-nuong)",
+    "Slow-roasted ham with lemon, garlic & sage", "Barbecue pork buns", "Toad In The Hole", "Vietnamese-style caramel pork",
+    "Thai pork & peanut curry", "Frikadeller - Danish Meatballs", "Crispy Sausages and Greens", "Bean & Sausage Hotpot",
+    "Pork Cassoulet", "Ham hock colcannon", "Ham croquetas", "Choripán", "Pork & sauerkraut goulash", "Coddled pork with cider"
   ],
   "Seafood": [
-    "Honey Teriyaki Salmon", "Cajun spiced fish tacos", "Pad Thai", "Prawn stir-fry", "Baked salmon with fennel & tomatoes", "Fish pie", "Shrimp With Snow Peas",
-    "Singapore Noodles with Shrimp", "Salmon Avocado Salad", "Tuna Nicoise", "Fried calamari", "Paella", "Thai prawn curry"
+    "Honey Teriyaki Salmon", "Cajun spiced fish tacos", "Pad Thai", "Prawn stir-fry", "Baked salmon with fennel & tomatoes",
+    "Fish pie", "Shrimp With Snow Peas", "Singapore Noodles with Shrimp", "Salmon Avocado Salad", "Tuna Nicoise", "Fried calamari",
+    "Paella", "Thai prawn curry", "Kung Po Prawns", "Shrimp Chow Fun", "Egg Foo Young", "Thai fried rice with prawns & peas",
+    "Salt & pepper squid", "Gambas al ajillo", "Spicy Thai prawn noodles", "Spanish seafood rice",
+    "Sea bass with sizzled ginger, chilli & spring onions", "Three Fish Pie", "Jamaican Curry Shrimp Recipe",
+    "Laksa King Prawn Noodles", "Bang bang prawn salad", "Salmon Prawn Risotto"
   ],
   "Vegetarian": [
-    "Pizza Express Margherita", "Vegetarian Chilli", "Stuffed Bell Peppers with Quinoa and Black Beans", "Chickpea Fajitas", "Falafel", "Ratatouille",
-    "Tofu, greens & cashew stir-fry", "Yaki Udon", "Shakshuka", "Dal fry", "Matar Paneer", "Rice and Beans", "Vegetable Shepherds Pie", "Ramen Noodles with Boiled Egg"
+    "Pizza Express Margherita", "Vegetarian Chilli", "Stuffed Bell Peppers with Quinoa and Black Beans", "Chickpea Fajitas", "Falafel",
+    "Ratatouille", "Tofu, greens & cashew stir-fry", "Yaki Udon", "Shakshuka", "Dal fry", "Matar Paneer", "Rice and Beans",
+    "Vegetable Shepherds Pie", "Ramen Noodles with Boiled Egg", "Spanish Tortilla", "Falafel Pita Sandwich with Tahini Sauce",
+    "Chinese Tomato Egg Stir Fry", "Sichuan Eggplant", "Smoky Lentil Chili with Squash", "Kidney Bean Curry", "Baingan Bharta",
+    "Sauerkraut pierogi", "Vegetarian Shakshuka", "Jamaican Rice and Peas", "Gallo pinto", "Vegetarian Casserole",
+    "Mushroom & Chestnut Rotolo", "Cottage Cheese And Feta Stuffed Peppers"
   ],
   "Soups & stews": [
-    "Creamy Tomato Soup", "Clam chowder", "French Onion Soup", "Irish stew", "Beef Bourguignon", "Braised Beef Chilli", "Black Bean soup",
-    "Split Pea Soup", "Egg Drop Soup", "Hot and Sour Soup", "Beef pho", "Easy White Bean Soup", "Tom yum soup with prawns"
+    "Creamy Tomato Soup", "Clam chowder", "French Onion Soup", "Irish stew", "Beef Bourguignon", "Braised Beef Chilli",
+    "Black Bean soup", "Split Pea Soup", "Egg Drop Soup", "Hot and Sour Soup", "Beef pho", "Easy White Bean Soup",
+    "Tom yum soup with prawns", "Tom kha gai", "Thai pumpkin soup", "Moroccan Carrot Soup", "Creamy Corn Soup Recipe",
+    "Broccoli & Stilton soup", "Beetroot Soup (Borscht)", "Chorizo & chickpea soup", "Rosol (Polish Chicken Soup)", "Ribollita",
+    "Fish Stew with Rouille", "Beef Dumpling Stew", "Traditional Croatian Goulash", "Quick gazpacho", "Salmon noodle soup"
   ],
   "Breakfast": [
-    "Pancakes", "Banana Pancakes", "French Omelette", "Breakfast Potatoes", "Full English Breakfast", "Oatmeal pancakes", "Fruit and Cream Cheese Breakfast Pastries"
+    "Pancakes", "Banana Pancakes", "French Omelette", "Breakfast Potatoes", "Full English Breakfast", "Oatmeal pancakes",
+    "Fruit and Cream Cheese Breakfast Pastries", "Salmon Eggs Eggs Benedict", "Chorizo, potato & cheese omelette", "Migas",
+    "Boxty Breakfast", "Dutch poffertjes (mini pancakes)", "Chicken Congee", "Kedgeree"
   ],
   "Sides & salads": [
-    "Poutine", "Classic Potato Salad", "Tangy cabbage slaw", "Hummus", "Air Fryer Egg Rolls", "Pierogi (Polish Dumplings)", "Molasses Baked Beans"
+    "Poutine", "Classic Potato Salad", "Tangy cabbage slaw", "Hummus", "Air Fryer Egg Rolls", "Pierogi (Polish Dumplings)",
+    "Molasses Baked Beans", "Yorkshire Puddings", "Boulangère Potatoes", "Patatas bravas", "Brazilian cheese bread (pão de queijo)",
+    "Sesame Cucumber Salad", "Corn on the cob with lime, green chilli and coconut butter", "Mediterranean Pasta Salad",
+    "Chicken Salad With Mushrooms and Bacon", "Baba Ghanoush", "Shopska Salad", "Potato Salad (Olivier Salad)", "Mustard champ",
+    "Griddled flatbreads", "Smoky tomato pepper salsa", "Kumpir"
   ],
   "Desserts": [
-    "Apple Pie", "Chocolate Raspberry Brownies", "New York cheesecake", "Carrot Cake", "Peanut Butter Cookies", "Cinnamon buns", "Pumpkin Pie",
-    "Nanaimo Bars", "Canadian Butter Tarts", "Apple & Blackberry Crumble", "Key Lime Pie", "Date squares", "Strawberry Rhubarb Pie", "Sugar Pie",
-    "Pouding chomeur", "Sticky Toffee Pudding", "Churros", "Apple cake", "BeaverTails", "Flan", "Vegan Chocolate Cake"
+    "Apple Pie", "Chocolate Raspberry Brownies", "New York cheesecake", "Carrot Cake", "Peanut Butter Cookies", "Cinnamon buns",
+    "Pumpkin Pie", "Nanaimo Bars", "Canadian Butter Tarts", "Apple & Blackberry Crumble", "Key Lime Pie", "Date squares",
+    "Strawberry Rhubarb Pie", "Sugar Pie", "Pouding chomeur", "Sticky Toffee Pudding", "Churros", "Apple cake", "BeaverTails", "Flan",
+    "Vegan Chocolate Cake", "Timbits", "Portuguese custard tarts", "Peanut Butter Cheesecake",
+    "Salted Caramel Cheescake", "Choc Chip Pecan Pie", "Saskatoon Pie", "Bread and Butter Pudding", "Rocky Road Fudge", "Eton Mess",
+    "Tarte Tatin", "Lamingtons", "Strawberry tart", "Chocolate Souffle", "Arroz con Leche Recipe", "Jam jam cookies", "Anzac biscuits",
+    "Cinnamon Roll Cookies"
   ]
 }
