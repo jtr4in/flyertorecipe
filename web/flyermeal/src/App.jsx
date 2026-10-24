@@ -125,6 +125,16 @@ export default function App() {
     [list, deals, byId],
   )
 
+  // Remember the ad each item was matched to, so a reload (or a re-ordered flyer download) shows
+  // the same deal. An item is re-matched only when its ad has left this week's flyers, not when a
+  // store filter hides it.
+  const live = useMemo(() => new Set(allDeals.map((d) => d.dealId)), [allDeals])
+  useEffect(() => {
+    if (dealState !== 'ready') return
+    const pin = new Map(lines.filter((l) => l.deal && (!l.dealId || !live.has(l.dealId)) && l.dealId !== l.deal.dealId).map((l) => [l.name, l.deal.dealId]))
+    if (pin.size) setList((cur) => cur.map((i) => (pin.has(i.name) ? { ...i, dealId: pin.get(i.name) } : i)))
+  }, [lines, live, dealState])
+
   const keys = useMemo(() => [...new Set(list.map((i) => norm(i.name)))].filter(Boolean), [list])
   // Every recipe, the ones you already have the most of first.
   const sorted = useMemo(() => (recipes ? sortRecipes(recipes, keys) : []), [recipes, keys])
