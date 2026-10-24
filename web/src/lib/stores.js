@@ -55,14 +55,17 @@ const FLYER_PAGES = {
 }
 /**
  * This ad in Flipp, where most cashiers check price matches. Flyer items carry Flipp's own item id
- * ("f123" → item 123), which opens that one ad; any city in the path works. Otherwise the whole
- * flyer, by Flipp's flyer id. On Android these open the Flipp app when it's installed; elsewhere
- * flipp.com, which shows the same ad.
+ * ("f123" → item 123), which opens that one ad; otherwise the whole flyer, by Flipp's flyer id.
+ * Flipp needs to know where you are: without a postal code (or a real city in the path) it guesses
+ * Toronto, and a regional flyer like FreshCo's shows as expired. On Android these open the Flipp
+ * app when it's installed; elsewhere flipp.com, which shows the same ad.
  */
-export function flippUrl(deal) {
+export function flippUrl(deal, postal) {
+  const code = (postal || '').replace(/\s+/g, '').toUpperCase()
+  const where = /^[A-Z]\d[A-Z]\d[A-Z]\d$/.test(code) ? `?postal_code=${code}` : ''
   const item = /^f(\d+)$/.exec(deal?.dealId || '')
-  if (item) return `https://flipp.com/en-ca/flyers/item/${item[1]}`
-  if (deal?.flyerId) return `https://flipp.com/en-ca/weekly_ad/${deal.flyerId}`
+  if (item) return `https://flipp.com/en-ca/item/${item[1]}${where}`
+  if (deal?.flyerId) return `https://flipp.com/en-ca/weekly_ad/${deal.flyerId}${where}`
   return null
 }
 

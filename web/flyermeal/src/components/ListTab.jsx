@@ -134,6 +134,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
         </button>
       )}
       <FlyersView
+        postal={postal}
         open={flyers}
         deals={deals}
         mine={mine}
@@ -202,6 +203,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
                     <ListLine
                       key={l.name}
                       line={l}
+                      postal={postal}
                       section={s.id}
                       forMeals={(l.meals || []).map(mealName).filter(Boolean)}
                       deals={deals}
@@ -223,6 +225,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
 
       <FlyerProof
         deal={zoom?.deal}
+        postal={postal}
         onClose={() => setZoom(null)}
         action={zoom && { label: 'Other deals', onClick: () => (setOpen(zoom.name), setZoom(null)) }}
       />
@@ -243,7 +246,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
   )
 }
 
-function ListLine({ line, section, forMeals, deals, open, onOpen, onZoom, onPick, onMove, onCheck, onRemove }) {
+function ListLine({ line, postal, section, forMeals, deals, open, onOpen, onZoom, onPick, onMove, onCheck, onRemove }) {
   const d = line.deal
   const others = useMemo(() => (open ? findDeals(line.name, deals).slice(0, 8) : []), [open, line.name, deals])
   return (
@@ -289,9 +292,9 @@ function ListLine({ line, section, forMeals, deals, open, onOpen, onZoom, onPick
               ))}
             </select>
           </label>
-          {d && flippUrl(d) && (
+          {d && flippUrl(d, postal) && (
             <a
-              href={flippUrl(d)}
+              href={flippUrl(d, postal)}
               target="_blank"
               rel="noreferrer"
               className="flex items-center justify-center gap-1 rounded-2xl bg-sky-500 py-2 text-sm font-semibold text-white"

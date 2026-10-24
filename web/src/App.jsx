@@ -561,6 +561,7 @@ export default function App() {
         </Sheet>
         <FlyerProof
           deal={proof}
+          postal={prefs?.postalCode}
           onClose={() => setProof(null)}
           action={
             proofItem && {

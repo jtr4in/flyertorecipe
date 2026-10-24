@@ -8,7 +8,7 @@ import { flippUrl, flyerUrl } from '../lib/stores'
 const fmtDate = (d) =>
   d ? new Date(d.length === 10 ? `${d}T12:00:00` : d).toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric' }) : null
 
-export default function FlyerProof({ deal, onClose, action }) {
+export default function FlyerProof({ deal, postal, onClose, action }) {
   useEffect(() => {
     if (!deal) return
     const onKey = (e) => e.key === 'Escape' && onClose()
@@ -59,8 +59,8 @@ export default function FlyerProof({ deal, onClose, action }) {
                 {action.label}
               </button>
             )}
-            {flippUrl(deal) && (
-              <a href={flippUrl(deal)} target="_blank" rel="noreferrer" className="rounded-xl bg-sky-500 px-4 py-2 text-sm font-semibold text-white">
+            {flippUrl(deal, postal) && (
+              <a href={flippUrl(deal, postal)} target="_blank" rel="noreferrer" className="rounded-xl bg-sky-500 px-4 py-2 text-sm font-semibold text-white">
                 Open in Flipp ↗
               </a>
             )}

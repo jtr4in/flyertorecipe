@@ -11,7 +11,7 @@ const PAGE = 40 // ads drawn at a time; each one loads flyer image tiles
 
 const fold = (t) => (t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
 
-export default function FlyersView({ open, deals, mine, onClose, add, onList }) {
+export default function FlyersView({ open, postal, deals, mine, onClose, add, onList }) {
   const [view, setView] = useState('mine') // 'mine' | 'all'
   const showing = view === 'mine' ? mine : deals
   const stores = useMemo(() => {
@@ -147,6 +147,7 @@ export default function FlyersView({ open, deals, mine, onClose, add, onList }) 
 
       <FlyerProof
         deal={zoom}
+        postal={postal}
         onClose={() => setZoom(null)}
         action={zoom && { label: zoomAdded ? '✓ On your list' : '+ Add to my list', onClick: () => (zoomAdded ? null : add(zoomName.toLowerCase(), zoom.dealId)) }}
       />
