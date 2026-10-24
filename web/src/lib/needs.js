@@ -24,7 +24,7 @@ export function needItems(need) {
 
 // Words that make a flyer item a variety of what was typed: "milk" means plain milk, not
 // chocolate or oat milk, unless the person typed that word too.
-const VARIETY = /\b(chocolate|chocolat|choco|almond|amande|oat|avoine|soy|soya|coconut|coco|rice|lactose|flavou?red|strawberry|vanilla|caramel|spiced|candy|cookies?|bars?|chips?|snacks?|drink|beverage|sauce|soup|dog|cat|pet|evaporated|evapore|condensed|condense|creamer|cremeur|2 ?go|single serve|rehausseur|whitener|powder|poudre|pods?|filters?|cream|creme|whipping|tea|the|noodles?|nouilles|peanut|arachide|macaroni|lettuce|laitue|nog|custard|crackers?|quail|caille|boisson|energy|energetique|waffles?)\b/g
+const VARIETY = /\b(chocolate|chocolat|choco|almond|amande|oat|avoine|soy|soya|coconut|coco|rice|lactose|flavou?red|strawberry|vanilla|caramel|spiced|candy|cookies?|bars?|chips?|snacks?|drink|beverage|sauce|soup|dog|cat|pet|evaporated|evapore|condensed|condense|creamer|cremeur|cremier|2 ?go|single serve|rehausseur|whitener|powder|poudre|pods?|filters?|cream|creme|whipping|tea|the|noodles?|nouilles|peanut|arachide|macaroni|lettuce|laitue|nog|custard|crackers?|quail|caille|boisson|energy|energetique|waffles?)s?\b/g
 
 /** The flyer deal for a need: the exact item if one was picked, else the best plain search match. */
 export function needDeal(need, deals) {
@@ -37,7 +37,7 @@ export function needDeal(need, deals) {
 }
 
 // A variety of what was typed ("chocolate milk" for "milk"), unless the person typed that word too.
-const isPlain = (n, d) => !(fold(dealName(d.name)).match(VARIETY) || []).some((w) => !n.includes(w))
+const isPlain = (n, d) => !(fold(d.name || '').match(VARIETY) || []).some((w) => !n.includes(w))
 // The typed word is only the start of a longer word in the name: "egg" in "eggplant".
 const partOfWord = (n, d) => {
   const name = fold(dealName(d.name))
@@ -47,25 +47,76 @@ const partOfWord = (n, d) => {
     .some((w) => w.length > 2 && wordStart(w).test(name) && !wholeWord(w).test(name))
 }
 // The typed word only describes something else: "egg" in "No Yolks Egg Noodles", "butter" in
-// "Butter Lettuce". Flyer names lead (French) or end (English) with what the item is.
+// "Butter Lettuce". Flyer names lead (French) or end (English) with what the item is, before the
+// size and words like "sticks" or "family pack" ("Gay Lea Butter Sticks 454 g" is butter).
+const FORM = /^(sticks?|bricks?|blocks?|slices?|sliced|shredded|grated|tubs?|bags?|box|jars?|bottles?|cans?|rolls?|pack|pk|family|size|value|selected|select|varieties|variety|assorted|organic|fresh|frais|fraiche|large|medium|small|whole|bulk|vrac|en|each|ea|sheets?|count|un)$/
+const SIZE = /\d+(?:[.,/=x-]\s*\d+)*\s*(?:kg|g|ml|l|lbs?|oz|pk|pcs?|un|ct|'s|s)?(?![\p{L}])/giu
+const FRENCH = /(^| )(de|du|des|d'\S+|a|au|aux|la|le|les|l'\S+|et|sans|nom|pour)( |$)/
 const describesOther = (n, d) => {
-  const parts = fold(dealName(d.name))
+  const parts = fold(d.name || '')
     .split(/[|/,(]| or | ou /)
-    .map((p) => p.replace(/[^\p{L}' ]+/gu, ' ').trim().split(/\s+/).filter(Boolean))
-  return fold(n)
-    .split(/\s+/)
+    .map((p) => {
+      const words = p.replace(SIZE, ' ').replace(/[^\p{L}' ]+/gu, ' ').trim().split(/\s+/).filter(Boolean)
+      while (words.length > 1 && FORM.test(words.at(-1))) words.pop()
+      return words
+    })
+  // Only the last typed word names the thing ("tissue" in "facial tissue").
+  return [fold(n).split(/\s+/).filter(Boolean).at(-1) || '']
     .some((w) => {
-      const re = wholeWord(w)
-      const at = parts.filter((p) => p.some((x) => re.test(x)))
-      return at.length > 0 && at.every((p) => !re.test(p[0]) && !re.test(p.at(-1)))
+      const stem = w.length > 3 ? w.replace(/(es|s)$/, '') : w
+      // The French word counts too ("beurre" for butter), so French names are read the same way.
+      const res = [stem, ...(SAY[w] || SAY[stem] || []).filter((a) => !a.includes(' '))].map((x) => wholeWord(fold(x)))
+      const has = (x) => res.some((re) => re.test(x))
+      const at = parts.filter((p) => p.some(has))
+      // English names end with what the item is ("Butter Chicken" is chicken); French ones lead.
+      return at.length > 0 && at.every((p) => !has(FRENCH.test(p.join(' ')) ? p[0] : p.at(-1)))
     })
 }
-/** Whole-word, plain matches first ("coffee" → coffee before creamer, "eggs" → eggs before eggplant). */
+/** Every typed word is in the deal's name, whole ("butter" in "Gay Lea Butter", not "Butternut"). */
+export const namesIt = (n, d) => termGroups(n, true).every((alts) => alts.some((re) => re.test(fold(d.name || ''))))
+// The same, also counting the flyer search that found the deal.
+const wholly = (n, d) => {
+  const text = fold(`${d.name || ''} | ${(d.queries || []).join(' | ')}`)
+  return termGroups(n, true).every((alts) => alts.some((re) => re.test(text)))
+}
+// The typed words sit side by side ("facial tissue", not "facial ... bathroom tissue").
+const together = (n, d) => {
+  const words = fold(n).split(/\s+/).filter(Boolean)
+  if (words.length < 2) return true
+  return new RegExp(`(^|[^\\p{L}])${words.map((w) => esc(w.replace(/(es|s)$/, '')) + '(s|es)?').join('[\\s-]+')}($|[^\\p{L}])`, 'iu').test(fold(d.name || ''))
+}
+// One ad for several products, and what was typed isn't the first ("bathroom tissue, paper towels
+// or facial tissue" for facial tissue). Bilingual ads repeat after a |, so read the longest part.
+const combo = (n, d) => {
+  const alts = fold(d.name || '').split('|').sort((a, b) => b.length - a.length)[0].split(/ or | ou |, (?=[a-z])/)
+  return (alts.length > 1 && !termGroups(n, true).every((res) => res.some((re) => re.test(alts[0])))) || sibling(n, d)
+}
+// The ad also names another kind of the same thing: "facial tissue" in an ad that says "bathroom
+// tissue" too, "sour cream" next to "ice cream".
+const sibling = (n, d) => {
+  const words = fold(n).split(/\s+/).filter(Boolean)
+  if (words.length < 2) return false
+  const name = fold(d.name || '')
+  const count = (re) => (name.match(new RegExp(re.source, 'giu')) || []).length
+  const head = wholeWord(words.at(-1).replace(/(es|s)$/, ''))
+  const phrase = new RegExp(`(^|[^\\p{L}])${words.map((w) => esc(w.replace(/(es|s)$/, '')) + '(s|es)?').join('[\\s-]+')}($|[^\\p{L}])`, 'iu')
+  return count(head) > count(phrase)
+}
+/**
+ * Whole-word, plain, single-product matches first ("coffee" → coffee before creamer, "eggs" → eggs
+ * before eggplant). Once something matches the typed words whole, ads that only start with them
+ * ("butter" → butternut squash) drop out; while a word is half typed ("butt") they still show,
+ * after the whole-word ones.
+ */
+const WHOLE_ENOUGH = 3 // whole-word matches that make the "starts with" ones noise ("butt" has 1)
 const byFit = (n, hits) => {
   const groups = termGroups(n)
   const mentions = (d) => groups.every((alts) => alts.some((re) => re.test(fold(d.name || ''))))
-  const rank = (d) => (mentions(d) ? 0 : 8) + (partOfWord(n, d) ? 4 : 0) + (describesOther(n, d) ? 2 : 0) + (isPlain(n, d) ? 0 : 1)
-  return hits.map((d, i) => [d, rank(d), i]).sort((a, b) => a[1] - b[1] || a[2] - b[2]).map(([d]) => d)
+  const whole = new Map(hits.map((d) => [d, wholly(n, d)]))
+  const pool = [...whole.values()].filter(Boolean).length >= WHOLE_ENOUGH ? hits.filter((d) => whole.get(d)) : hits
+  const rank = (d) =>
+    (mentions(d) ? 0 : 16) + (partOfWord(n, d) ? 8 : 0) + (together(n, d) ? 0 : 4) + (describesOther(n, d) ? 2 : 0) + (isPlain(n, d) ? 0 : 1) + (combo(n, d) ? 1.5 : 0)
+  return pool.map((d, i) => [d, rank(d), i]).sort((a, b) => a[1] - b[1] || a[2] - b[2]).map(([d]) => d)
 }
 
 // What people type vs. what flyers print. Each typed word also matches these (English and
@@ -120,7 +171,7 @@ const wholeWord = (w) => new RegExp(/^[\p{L}]/u.test(w) ? `(^|[^\\p{L}])${esc(w)
 const wordStart = (w) => new RegExp(/^[\p{L}]/u.test(w) ? `(^|[^\\p{L}])${esc(w)}` : esc(w), 'iu')
 
 /** Typed words (and the phrases people say) with what each also matches. */
-function termGroups(term) {
+function termGroups(term, whole = false) {
   const t = fold(term).replace(/\s+/g, ' ').trim()
   const phrases = Object.keys(SAY).filter((k) => k.includes(' ') && t.includes(k))
   let rest = t
@@ -132,7 +183,7 @@ function termGroups(term) {
     // What people say is matched as whole words ("lait" is milk, "laitue" is lettuce); what's typed
     // can be the start of a word, so the list updates as you type.
     const said = [...(SAY[w] || []), ...(plain !== w ? SAY[plain] || [] : [])].filter((a) => !typed.includes(a))
-    return [...new Set(typed.map(fold))].map(wordStart).concat([...new Set(said.map(fold))].map(wholeWord))
+    return [...new Set(typed.map(fold))].map(whole ? wholeWord : wordStart).concat([...new Set(said.map(fold))].map(wholeWord))
   })
 }
 
@@ -161,6 +212,9 @@ export function searchDeals(term, deals) {
   }
   return hits.sort((a, b) => b.inName - a.inName || (a.deal.price ?? 1e9) - (b.deal.price ?? 1e9)).map((h) => h.deal)
 }
+
+/** Flyer items for a list item, best fit first: what the "other deals" pickers show. */
+export const findDeals = (term, deals) => byFit(term.toLowerCase(), searchDeals(term, deals))
 
 /**
  * As-you-type picks for the last thing typed ("cheese, mil" → milk): the plain word first, then

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { activeDeals, buildShoppingList, cookedMeals, planWeek, weekDays } from './planner'
 import { sampleDeals } from '../data/sampleDeals'
-import { needDeal, needItems, pantryDeal, withoutItems, parseNeeds, placeNeeds, searchDeals, suggestNeeds, wantedItems, withNeeds } from './needs'
+import { findDeals, needDeal, needItems, pantryDeal, withoutItems, parseNeeds, placeNeeds, searchDeals, suggestNeeds, wantedItems, withNeeds } from './needs'
 
 const today = new Date('2026-10-09T12:00:00Z')
 const deals = activeDeals(sampleDeals(today), { today })
@@ -170,5 +170,36 @@ describe('French flyer words', () => {
   it('reads lait as milk but not laitue', () => {
     const deals = [{ dealId: 'l', name: 'Laitue romaine | Romaine lettuce', price: 1.77 }, { dealId: 'm', name: 'Lait 2 % Québon 4 L', price: 5.99 }]
     expect(searchDeals('milk', deals).map((d) => d.dealId)).toEqual(['m'])
+  })
+})
+
+describe('telling look-alike flyer items apart', () => {
+  const ids = (term, deals) => findDeals(term, deals).map((d) => d.dealId)
+  it('drops butternut squash for butter once real butter is in the flyers', () => {
+    const deals = [
+      { dealId: 'sq', name: 'ACORN, BUTTERNUT OR SPAGHETTI SQUASH', price: 1 },
+      { dealId: 'b1', name: 'Gay Lea Butter Sticks 454 g', price: 6 },
+      { dealId: 'b2', name: 'BEURRE SANS NOM®, 454 g', price: 5 },
+      { dealId: 'b3', name: 'LACTANTIA BUTTER, 454 G', price: 7 },
+    ]
+    expect(ids('butter', deals)).not.toContain('sq')
+    // Half typed, the squash can still show, after the butter.
+    expect(suggestNeeds('butt', deals).filter((x) => x.deal).at(-1).deal.dealId).toBe('sq')
+  })
+  it('puts facial tissue before ads that are mostly bathroom tissue', () => {
+    const deals = [
+      { dealId: 'combo', name: 'CASHMERE BATHROOM TISSUE, 8=16 ROLLS SCOTTIES FACIAL TISSUE', price: 3 },
+      { dealId: 'or', name: 'ROYALE BATHROOM TISSUE, 8=16 ROLLS OR FACIAL TISSUE', price: 4 },
+      { dealId: 'f', name: 'SCOTTIES FACIAL TISSUES, 6 PK', price: 9 },
+    ]
+    expect(ids('facial tissue', deals)[0]).toBe('f')
+  })
+  it('reads English names by their last word and French ones by their first', () => {
+    const deals = [
+      { dealId: 'bc', name: 'Butter Chicken, 300 g', price: 3 },
+      { dealId: 'cr', name: 'CROISSANTS AU BEURRE', price: 4 },
+      { dealId: 'b', name: 'COMPLIMENTS BUTTER, 454 g', price: 6 },
+    ]
+    expect(ids('butter', deals)[0]).toBe('b')
   })
 })

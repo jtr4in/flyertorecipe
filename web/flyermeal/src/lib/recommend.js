@@ -16,7 +16,7 @@ export const HOUSEHOLD = [
   item('toothpaste', '🪥', ['toothpaste', 'dentifrice', 'colgate', 'crest'], ['toothbrush', 'brush', 'floss', 'mouthwash']),
   item('shampoo', '🧴', ['shampoo', 'shampooing'], ['dog', 'carpet']),
   item('deodorant', '🧴', ['deodorant', 'antiperspirant', 'déodorant'], []),
-  item('facial tissue', '🤧', ['facial tissue', 'kleenex', 'papiers-mouchoirs', 'scotties'], []),
+  item('facial tissue', '🤧', ['facial tissue', 'kleenex', 'papiers-mouchoirs', 'mouchoirs'], []),
   item('aluminum foil', '🥡', ['aluminum foil', "papier d'aluminium", 'reynolds wrap'], ['pan', 'tray', 'container']),
   item('plastic wrap', '🥡', ['plastic wrap', 'cling wrap', 'saran'], []),
   item('sandwich bags', '🥪', ['sandwich bag', 'ziploc', 'freezer bag'], []),
@@ -39,9 +39,9 @@ export const HOUSEHOLD = [
 export const STAPLES = [
   item('milk', '🥛', ['milk', 'lait'], ['chocolate', 'almond', 'oat', 'soy', 'coconut', 'condensed', 'evaporated', 'powder', 'cream', 'tea', 'cake', 'rusk', 'bread', 'shake', 'veal', 'veau', 'carnation', 'choc', 'beverage', 'lactose', 'protein', '2go', 'moules', 'biscuit', 'chocolat']),
   item('eggs', '🥚', ['eggs', 'oeufs', 'œufs', 'large eggs'], ['noodle', 'nog', 'chocolate', 'quail', 'plant', 'yolk', 'roll']),
-  item('bread', '🍞', ['bread', 'pain tranché', 'loaf'], ['crumb', 'garlic', 'banana', 'cheese', 'focaccia', 'naan', 'pita', 'machine', 'maker', 'muffins', 'sticks', 'custard', 'puff']),
+  item('bread', '🍞', ['bread', 'pain tranché', 'loaf'], ['crumb', 'stuffing', 'garlic', 'banana', 'cheese', 'focaccia', 'naan', 'pita', 'machine', 'maker', 'muffins', 'sticks', 'custard', 'puff']),
   item('butter', '🧈', ['butter', 'beurre'], ['peanut', 'almond', 'apple', 'cookie', 'chicken', 'lettuce', 'popcorn', 'croissant', 'tart', 'cup', 'buns', 'topped', 'garlic', 'margarine', 'arachide', 'sour cream', 'biscuit', 'chocolat', 'tartinade', 'ail']),
-  item('coffee', '☕', ['coffee', 'café', 'k-cup', 'keurig'], ['creamer', 'crème', 'creme', 'rehausseur', 'mousse', 'international delight', 'maker', 'machine', 'cake', 'mug', 'filter', 'table', 'iced']),
+  item('coffee', '☕', ['coffee', 'café', 'k-cup', 'keurig'], ['creamer', 'crème', 'creme', 'crémier', 'cremier', 'rehausseur', 'mousse', 'international delight', 'maker', 'machine', 'cake', 'mug', 'filter', 'table', 'iced']),
   item('bananas', '🍌', ['banana', 'bananes'], ['bread', 'chips', 'muffin', 'yogurt', 'cream', 'sauce']),
   item('cheese', '🧀', ['cheddar', 'marble cheese', 'mozzarella', 'cheese bars', 'shredded cheese', 'cheese slices', 'sliced cheese', 'mozzarellissima'], ['cream cheese', 'cake', 'sauce', 'dip', 'crackers', 'macaroni', 'pizza', 'bread', 'puffs', 'dippers', 'samosa', 'pasta', 'tortellini', 'cannelloni']),
   item('yogurt', '🥣', ['yogurt', 'yogourt'], ['dog', 'bar', 'covered', 'drink', 'drinkable', 'raisins', 'pretzel', 'drink']),
@@ -101,6 +101,15 @@ const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 const RES = new Map()
 const re = (w) => RES.get(w) || RES.set(w, new RegExp(`(^|[^\\p{L}])${esc(fold(w))}(s|es|x)?($|[^\\p{L}])`, 'iu')).get(w)
 const hit = (name, words) => words.some((w) => re(w).test(name))
+// One ad for several products, read from its longest part (bilingual ads repeat after a |).
+// One ad for several products, read from its longest part (bilingual ads repeat after a |), or one
+// that also names another kind of the same thing ("bathroom tissue" in a facial tissue ad).
+const combo = (d, entry) => {
+  const name = fold(d.name)
+  if (/ or | ou |, (?=[a-z])/.test(name.split('|').sort((a, b) => b.length - a.length)[0])) return 1
+  const count = (w) => (name.match(new RegExp(re(w).source, 'giu')) || []).length
+  return Number(entry.match.some((m) => m.includes(' ') && count(m) > 0 && count(m.split(' ').at(-1)) > count(m)))
+}
 
 // Answers per deals array, so retyping or re-rendering never re-scans thousands of flyer ads.
 const MEMO = new WeakMap()
@@ -116,8 +125,9 @@ export function dealsFor(entry, deals) {
       const name = memo.names[i]
       return hit(name, entry.match) && !hit(name, entry.exclude)
     })
-    // On sale with a stated saving first, then the lowest shelf price (a dozen eggs before 180).
-    .sort((a, b) => Number(b.savings > 0) - Number(a.savings > 0) || (a.price ?? 1e9) - (b.price ?? 1e9))
+    // Ads for just this thing before ads for several products ("bathroom tissue, paper towels or
+    // facial tissue"), then on sale with a stated saving, then the lowest shelf price.
+    .sort((a, b) => combo(a, entry) - combo(b, entry) || Number(b.savings > 0) - Number(a.savings > 0) || (a.price ?? 1e9) - (b.price ?? 1e9))
   memo.hits.set(key, found)
   return found
 }

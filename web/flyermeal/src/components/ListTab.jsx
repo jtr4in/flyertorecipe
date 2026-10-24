@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import FlyerClip from '@f2r/components/FlyerClip'
 import FlyerProof from '@f2r/components/FlyerProof'
 import { fsa } from '@f2r/lib/data'
-import { searchDeals, suggestNeeds } from '@f2r/lib/needs'
+import { findDeals, suggestNeeds } from '@f2r/lib/needs'
 import { dealName, money, shortDay } from '@f2r/lib/stores'
 import { recommend } from '../lib/recommend'
 import { SECTIONS, bySection } from '../lib/sections'
@@ -247,7 +247,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
 
 function ListLine({ line, section, forMeals, deals, open, onOpen, onZoom, onPick, onMove, onCheck, onRemove }) {
   const d = line.deal
-  const others = useMemo(() => (open ? searchDeals(line.name, deals).slice(0, 8) : []), [open, line.name, deals])
+  const others = useMemo(() => (open ? findDeals(line.name, deals).slice(0, 8) : []), [open, line.name, deals])
   return (
     <li className={line.checked ? 'bg-stone-50' : ''}>
       <div className="flex items-center gap-3 px-3 py-2.5">

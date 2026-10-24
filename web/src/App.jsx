@@ -12,7 +12,7 @@ import Welcome from './components/Welcome'
 import Tour from './components/Tour'
 import { withExtras } from './lib/extras'
 import { followMatch, matchableDeals, tidyMatch } from './lib/priceMatch'
-import { needItems, pantryDeal, placeNeeds, searchDeals, withNeeds, withoutItems } from './lib/needs'
+import { findDeals, needItems, pantryDeal, placeNeeds, withNeeds, withoutItems } from './lib/needs'
 import NeedsSheet from './components/NeedsSheet'
 import OptionsSheet from './components/OptionsSheet'
 import DinnerPlan, { HaveContext, MealsCard } from './components/DinnerPlan'
@@ -218,7 +218,7 @@ export default function App() {
     if (!item) return []
     const pool = listMode === 'single' && list?.store ? allDeals.filter((d) => d.merchant === list.store) : deals
     if (item.ing) return matchAll(item.ing, pool)
-    if (item.need) return searchDeals(item.item, pool)
+    if (item.need) return findDeals(item.item, pool)
     return []
   }
   // Flyer deals for the "check your pantry" items, in case the cupboard is bare.
