@@ -29,9 +29,7 @@ jobs:
           }
           const b = await chromium.launch()
           const p = await b.newPage({ ...devices['iPhone 13'] })
-          const urls = [`https://flipp.com/en-ca/item/${it.id}`, `https://flipp.com/en-ca/orleans-on/item/${it.id}`,
-            `https://flipp.com/en-ca/weekly_ad/${f.id}`, `https://flipp.com/en-ca/orleans-on/weekly_ad/${f.id}?item_id=${it.id}`,
-            `https://flipp.com/en-ca/orleans-on/weekly_ad/${f.id}-${f.merchant.toLowerCase().replace(/\W+/g, '-')}?flyer_run_id=${f.flyer_run_id}&item_id=${it.id}`]
+          const urls = [`https://flipp.com/en-ca/toronto-on/item/${it.id}`, `https://flipp.com/en-ca/x/item/${it.id}`, `https://flipp.com/en-ca/flyers/item/${it.id}`, `https://flipp.com/fr-ca/x/item/${it.id}`]
           let i = 0
           for (const u of urls) {
             i++
