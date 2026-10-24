@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import FlyerClip from '@f2r/components/FlyerClip'
 import FlyerProof from '@f2r/components/FlyerProof'
 import { fsa } from '@f2r/lib/data'
@@ -189,9 +189,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
             <h2 className="text-sm font-semibold text-stone-500">
               Your list · {onSale} of {lines.length} on sale
             </h2>
-            <button onClick={clear} className="text-sm text-stone-400 hover:text-rose-600">
-              Clear
-            </button>
+            <ClearButton count={lines.length} onClear={clear} />
           </div>
           <div className="space-y-3">
             {sections.map((s) => (
@@ -313,6 +311,32 @@ function ListLine({ line, section, forMeals, deals, open, onOpen, onZoom, onPick
         </div>
       )}
     </li>
+  )
+}
+
+// Clearing takes a second tap, so a stray tap can't wipe the list. The question goes away by itself.
+function ClearButton({ count, onClear }) {
+  const [asking, setAsking] = useState(false)
+  useEffect(() => {
+    if (!asking) return
+    const t = setTimeout(() => setAsking(false), 5000)
+    return () => clearTimeout(t)
+  }, [asking])
+  if (!asking)
+    return (
+      <button onClick={() => setAsking(true)} className="text-sm text-stone-400 hover:text-rose-600">
+        Clear
+      </button>
+    )
+  return (
+    <span className="flex items-center gap-2 text-sm">
+      <button onClick={() => setAsking(false)} className="rounded-full px-2 py-1 text-stone-500">
+        Cancel
+      </button>
+      <button onClick={() => (setAsking(false), onClear())} className="rounded-full bg-rose-600 px-3 py-1 font-semibold text-white">
+        Clear all {count}
+      </button>
+    </span>
   )
 }
 
