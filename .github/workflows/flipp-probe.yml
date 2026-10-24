@@ -14,31 +14,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Sample stored deals
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+      - name: Location fields
         run: |
-          pip install -q firebase-admin
-          echo "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/sa.json"
-          GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json" python3 - <<'PY'
-          import json, random, urllib.request, firebase_admin
-          from firebase_admin import firestore
-          firebase_admin.initialize_app(); db = firestore.client()
-          deals = [d for doc in db.collection("regions").document("K4A").collection("deals").stream() for d in (doc.to_dict().get("deals") or [doc.to_dict()])]
-          region = db.collection("regions").document("K4A").get().to_dict() or {}
-          cur = set()
-          for pc in ("K1E0A1", "K4A1A1"):
-              fl = json.load(urllib.request.urlopen(urllib.request.Request(f"https://backflipp.wishabi.com/flipp/data?locale=en-ca&postal_code={pc}", headers={"User-Agent": "Mozilla/5.0"})))["flyers"]
-              cur |= {str(f["id"]) for f in fl}
-          ids = [d for d in deals if str(d.get("dealId", "")).startswith("f")]
-          stale = [d for d in ids if str(d.get("flyerId")) not in cur]
-          random.seed(1)
-          sample = random.sample([d for d in ids if str(d.get("flyerId")) in cur], 8) + random.sample(stale, min(4, len(stale)))
-          json.dump(sample, open("/tmp/sample.json", "w"))
-          with open("/tmp/head.txt", "w") as f:
-              f.write(f"ingestedAt {region.get('ingestedAt')} deals {len(deals)} f-ids {len(ids)} flyers-not-current {len(stale)}\n")
-              f.write(f"stale merchants {sorted({d.get('merchant') for d in stale})}\n")
+          python3 - <<'PY' > /tmp/head.txt
+          import json, urllib.request
+          for pc in ("K4A1A1", "M5V2T6", "K1E0A1"):
+              d = json.load(urllib.request.urlopen(urllib.request.Request(f"https://backflipp.wishabi.com/flipp/data?locale=en-ca&postal_code={pc}", headers={"User-Agent": "Mozilla/5.0"})))
+              print(pc, "keys", sorted(d.keys()))
+              for k, v in d.items():
+                  if k != "flyers": print("  ", k, json.dumps(v)[:300])
           PY
+          echo '[{"dealId":"f1048227931","merchant":"FreshCo","name":"Hersheys"}]' > /tmp/sample.json
       - name: Open each in a phone browser
         run: |
           mkdir -p /tmp/p && cd /tmp/p && npm init -y >/dev/null && npm i playwright@1.48.2 >/dev/null && npx playwright install chromium >/dev/null
@@ -51,12 +37,12 @@ jobs:
           const p = await b.newPage({ ...devices['Pixel 7'] })
           for (const d of sample) {
             const id = d.dealId.slice(1)
-            for (const u of [`https://flipp.com/en-ca/flyers/item/${id}`, `https://flipp.com/en-ca/orleans-on/item/${id}`]) {
+            for (const u of [`https://flipp.com/en-ca/flyers/item/${id}?postal_code=K4A1A1`, `https://flipp.com/en-ca/item/${id}?postal_code=K4A1A1`, `https://flipp.com/en-ca/ottawa-on/item/${id}`, `https://flipp.com/en-ca/k4a1a1/item/${id}`, `https://flipp.com/en-ca/toronto-on/item/${id}`]) {
               try { await p.goto(u, { waitUntil: 'networkidle', timeout: 45000 }) } catch (e) {}
               await p.waitForTimeout(2500)
               const text = (await p.locator('body').innerText()).replace(/\s+/g, ' ')
               const ok = !/stores\/undefined/.test(p.url()) && !/expired/i.test(text)
-              out.push(`${ok ? 'OK ' : 'BAD'} ${d.merchant} | ${d.name.slice(0, 50)} | valid ${d.validFrom?.slice(0, 10)}..${d.validTo?.slice(0, 10)} flyer ${d.flyerId} | ${u} -> ${p.url()} | ${text.match(/This item is expired[^.]*|Valid [A-Z][a-z]{2} \d+, \d{4} – [A-Z][a-z]{2} \d+, \d{4}/)?.[0] || ''}`)
+              out.push(`${ok ? 'OK ' : 'BAD'} ${d.merchant} | ${d.name} | ${u} -> ${p.url()} | ${text.match(/This item is expired[^.]*|Valid [A-Z][a-z]{2} \d+, \d{4} – [A-Z][a-z]{2} \d+, \d{4}/)?.[0] || ''}`)
             }
           }
           fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/backend/data/flipp_probe.txt`, out.join('\n'))
