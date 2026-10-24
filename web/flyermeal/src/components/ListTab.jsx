@@ -5,6 +5,7 @@ import { fsa } from '@f2r/lib/data'
 import { searchDeals, suggestNeeds } from '@f2r/lib/needs'
 import { dealName, money, shortDay } from '@f2r/lib/stores'
 import { recommend } from '../lib/recommend'
+import { SECTIONS, bySection } from '../lib/sections'
 import FlyersView from './FlyersView'
 import { filterSummary } from './FiltersSheet'
 import { Photo } from './RecipesTab'
@@ -24,6 +25,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
   const picks = useMemo(() => (text.trim().length > 1 ? suggestNeeds(text, deals, lower) : []), [text, deals, lower])
   const recs = useMemo(() => (lines.length ? recommend(names, deals) : null), [names, deals, lines.length])
   const onSale = lines.filter((l) => l.deal).length
+  const sections = useMemo(() => bySection(lines), [lines])
   const mine = useMemo(() => [...new Map(lines.filter((l) => l.deal).map((l) => [l.deal.dealId, l.deal])).values()], [lines])
 
   const submit = (e) => {
@@ -191,22 +193,33 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
               Clear
             </button>
           </div>
-          <ul className="divide-y divide-stone-100 overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm">
-            {lines.map((l) => (
-              <ListLine
-                key={l.name}
-                line={l}
-                forMeals={(l.meals || []).map(mealName).filter(Boolean)}
-                deals={deals}
-                open={open === l.name}
-                onOpen={() => setOpen(open === l.name ? null : l.name)}
-                onZoom={() => setZoom(l)}
-                onPick={(d) => (update(l.name, { dealId: d.dealId }), setOpen(null))}
-                onCheck={() => update(l.name, { checked: !l.checked })}
-                onRemove={() => remove(l.name)}
-              />
+          <div className="space-y-3">
+            {sections.map((s) => (
+              <div key={s.id}>
+                <h3 className="mb-1 px-1 text-xs font-semibold tracking-wide text-stone-500 uppercase">
+                  {s.emoji} {s.label} <span className="font-normal text-stone-400">· {s.lines.length}</span>
+                </h3>
+                <ul className="divide-y divide-stone-100 overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm">
+                  {s.lines.map((l) => (
+                    <ListLine
+                      key={l.name}
+                      line={l}
+                      section={s.id}
+                      forMeals={(l.meals || []).map(mealName).filter(Boolean)}
+                      deals={deals}
+                      open={open === l.name}
+                      onOpen={() => setOpen(open === l.name ? null : l.name)}
+                      onZoom={() => setZoom(l)}
+                      onPick={(d) => (update(l.name, { dealId: d.dealId }), setOpen(null))}
+                      onMove={(section) => (update(l.name, { section }), setOpen(null))}
+                      onCheck={() => update(l.name, { checked: !l.checked })}
+                      onRemove={() => remove(l.name)}
+                    />
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </div>
         </section>
       )}
 
@@ -232,7 +245,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
   )
 }
 
-function ListLine({ line, forMeals, deals, open, onOpen, onZoom, onPick, onCheck, onRemove }) {
+function ListLine({ line, section, forMeals, deals, open, onOpen, onZoom, onPick, onMove, onCheck, onRemove }) {
   const d = line.deal
   const others = useMemo(() => (open ? searchDeals(line.name, deals).slice(0, 8) : []), [open, line.name, deals])
   return (
@@ -248,7 +261,7 @@ function ListLine({ line, forMeals, deals, open, onOpen, onZoom, onPick, onCheck
             <FlyerClip deal={d} maxHeight="3rem" sharp={200} />
           </button>
         )}
-        <button onClick={onOpen} disabled={!d} className="flex min-w-0 flex-1 items-center gap-3 text-left">
+        <button onClick={onOpen} className="flex min-w-0 flex-1 items-center gap-3 text-left">
           <div className="min-w-0">
             <p className={`truncate font-medium capitalize ${line.checked ? 'text-stone-400 line-through' : ''}`}>{line.name}</p>
             {d ? (
@@ -268,7 +281,17 @@ function ListLine({ line, forMeals, deals, open, onOpen, onZoom, onPick, onCheck
       </div>
       {open && (
         <div className="space-y-1.5 bg-orange-50/60 px-3 pt-1 pb-3">
-          <p className="px-1 text-xs font-semibold text-stone-500">Other deals for {line.name}</p>
+          <label className="flex items-center justify-between gap-2 px-1 py-1 text-xs font-semibold text-stone-500">
+            Aisle
+            <select value={section} onChange={(e) => onMove(e.target.value)} className="rounded-lg border border-stone-200 bg-white px-2 py-1 text-sm font-medium text-stone-700">
+              {SECTIONS.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.emoji} {s.label}
+                </option>
+              ))}
+            </select>
+          </label>
+          {others.length > 0 && <p className="px-1 text-xs font-semibold text-stone-500">{d ? 'Other deals' : 'Deals'} for {line.name}</p>}
           {others.map((o) => (
             <button
               key={o.dealId}
