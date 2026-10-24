@@ -1,29 +1,30 @@
-ingestedAt 2026-10-22T14:48:46.691729+00:00 deals 6187 f-ids 6187 flyers-not-current 320
-stale merchants ['Green Fresh Supermarket', 'T&T Supermarket']
+K4A1A1 keys ['category_sort_csv', 'coupon_category_sort_csv', 'coupons', 'flyer_item_coupons', 'flyers', 'loyalty_program_coupons', 'refreshed_at', 'web_promos']
+   refreshed_at "2026-10-24 19:21:49 -0400"
+   category_sort_csv "All Flyers,Black Friday,Boxing Day,Halloween,Thanksgiving,Cyber Monday,Holiday Gifting,Christmas,New Year's Eve,New Years,Valentine's Day,President's Day,Easter,Spring,Mother's Day,Father's Day,Memorial Day,Victoria Day,Back to School,Labor Day,Garden & Patio,Groceries,Restaurants,Home & Garden,Pha
+   coupon_category_sort_csv "All Deals,Household,Grocery,Health & Beauty,Baby,Pets,Other"
+   web_promos []
+   coupons [{"coupon_id": 4854768, "merchant_id": 3526, "merchant_name": "Healthy Planet", "merchant_logo_url": "http://images.wishabi.net/merchants/3526/1500305449/small", "coupon_vendor_id": null, "coupon_type": "percentoff", "brand": "Tony's Chocolonely", "brand_logo_url": null, "raw_brand": null, "sale_sto
+   flyer_item_coupons [{"id": 115912025, "flyer_item_id": 1046291968, "flyer_id": 8178607, "coupon_id": 4854768, "left": 11514.4, "bottom": -2442.2, "right": 12706.1, "top": -1367.42, "item_cutout_url": "http://f.wishabi.net/page_items/436605945/1791361658/standard.jpg", "percent_off": null, "display_final_price": false,
+   loyalty_program_coupons []
+M5V2T6 keys ['category_sort_csv', 'coupon_category_sort_csv', 'coupons', 'flyer_item_coupons', 'flyers', 'loyalty_program_coupons', 'refreshed_at', 'web_promos']
+   refreshed_at "2026-10-24 19:21:49 -0400"
+   category_sort_csv "All Flyers,Black Friday,Boxing Day,Halloween,Thanksgiving,Cyber Monday,Holiday Gifting,Christmas,New Year's Eve,New Years,Valentine's Day,President's Day,Easter,Spring,Mother's Day,Father's Day,Memorial Day,Victoria Day,Back to School,Labor Day,Garden & Patio,Groceries,Restaurants,Home & Garden,Pha
+   coupon_category_sort_csv "All Deals,Household,Grocery,Health & Beauty,Baby,Pets,Other"
+   web_promos []
+   coupons [{"coupon_id": 4854768, "merchant_id": 3526, "merchant_name": "Healthy Planet", "merchant_logo_url": "http://images.wishabi.net/merchants/3526/1500305449/small", "coupon_vendor_id": null, "coupon_type": "percentoff", "brand": "Tony's Chocolonely", "brand_logo_url": null, "raw_brand": null, "sale_sto
+   flyer_item_coupons [{"id": 115912025, "flyer_item_id": 1046291968, "flyer_id": 8178607, "coupon_id": 4854768, "left": 11514.4, "bottom": -2442.2, "right": 12706.1, "top": -1367.42, "item_cutout_url": "http://f.wishabi.net/page_items/436605945/1791361658/standard.jpg", "percent_off": null, "display_final_price": false,
+   loyalty_program_coupons []
+K1E0A1 keys ['category_sort_csv', 'coupon_category_sort_csv', 'coupons', 'flyer_item_coupons', 'flyers', 'loyalty_program_coupons', 'refreshed_at', 'web_promos']
+   refreshed_at "2026-10-24 19:21:50 -0400"
+   category_sort_csv "All Flyers,Black Friday,Boxing Day,Halloween,Thanksgiving,Cyber Monday,Holiday Gifting,Christmas,New Year's Eve,New Years,Valentine's Day,President's Day,Easter,Spring,Mother's Day,Father's Day,Memorial Day,Victoria Day,Back to School,Labor Day,Garden & Patio,Groceries,Restaurants,Home & Garden,Pha
+   coupon_category_sort_csv "All Deals,Household,Grocery,Health & Beauty,Baby,Pets,Other"
+   web_promos []
+   coupons [{"coupon_id": 4854768, "merchant_id": 3526, "merchant_name": "Healthy Planet", "merchant_logo_url": "http://images.wishabi.net/merchants/3526/1500305449/small", "coupon_vendor_id": null, "coupon_type": "percentoff", "brand": "Tony's Chocolonely", "brand_logo_url": null, "raw_brand": null, "sale_sto
+   flyer_item_coupons [{"id": 115912025, "flyer_item_id": 1046291968, "flyer_id": 8178607, "coupon_id": 4854768, "left": 11514.4, "bottom": -2442.2, "right": 12706.1, "top": -1367.42, "item_cutout_url": "http://f.wishabi.net/page_items/436605945/1791361658/standard.jpg", "percent_off": null, "display_final_price": false,
+   loyalty_program_coupons []
 
-BAD FreshCo | Hershey's Chocolate 50 pk 481-515 g | valid 2026-10-22..2026-10-28 flyer 8191355 | https://flipp.com/en-ca/flyers/item/1048227931 -> https://flipp.com/en-ca/des-moines-ia/stores/undefined | This item is expired
-BAD FreshCo | Hershey's Chocolate 50 pk 481-515 g | valid 2026-10-22..2026-10-28 flyer 8191355 | https://flipp.com/en-ca/orleans-on/item/1048227931 -> https://flipp.com/en-ca/orleans-on/item/1048227931 | Valid Oct 22, 2026 – Oct 28, 2026
-OK  Metro | CADBURY CHOCOLATES OR MAYNARDS CANDY, 45 PACK
-SELE | valid 2026-10-22..2026-10-28 flyer 8192508 | https://flipp.com/en-ca/flyers/item/1048633388 -> https://flipp.com/en-ca/flyers/item/1048633388 | Valid Oct 22, 2026 – Oct 28, 2026
-OK  Metro | CADBURY CHOCOLATES OR MAYNARDS CANDY, 45 PACK
-SELE | valid 2026-10-22..2026-10-28 flyer 8192508 | https://flipp.com/en-ca/orleans-on/item/1048633388 -> https://flipp.com/en-ca/orleans-on/item/1048633388 | Valid Oct 22, 2026 – Oct 28, 2026
-OK  IGA | LEAN GROUND VEAL | valid 2026-10-22..2026-10-28 flyer 8193695 | https://flipp.com/en-ca/flyers/item/1048478530 -> https://flipp.com/en-ca/flyers/item/1048478530 | Valid Oct 22, 2026 – Oct 28, 2026
-OK  IGA | LEAN GROUND VEAL | valid 2026-10-22..2026-10-28 flyer 8193695 | https://flipp.com/en-ca/orleans-on/item/1048478530 -> https://flipp.com/en-ca/orleans-on/item/1048478530 | Valid Oct 22, 2026 – Oct 28, 2026
-OK  Real Canadian Superstore | NO NAME® DRINK BOXES, 8/10X200 ML, SELECTED VARIET | valid 2026-10-22..2026-10-28 flyer 8191910 | https://flipp.com/en-ca/flyers/item/1048191850 -> https://flipp.com/en-ca/flyers/item/1048191850 | Valid Oct 22, 2026 – Oct 28, 2026
-OK  Real Canadian Superstore | NO NAME® DRINK BOXES, 8/10X200 ML, SELECTED VARIET | valid 2026-10-22..2026-10-28 flyer 8191910 | https://flipp.com/en-ca/orleans-on/item/1048191850 -> https://flipp.com/en-ca/orleans-on/item/1048191850 | Valid Oct 22, 2026 – Oct 28, 2026
-OK  Farm Boy | Farm Boy™ All Natural Peanut Butter, Crunchy or Sm | valid 2026-10-22..2026-10-28 flyer 8191964 | https://flipp.com/en-ca/flyers/item/1048322134 -> https://flipp.com/en-ca/flyers/item/1048322134 | Valid Oct 22, 2026 – Oct 28, 2026
-OK  Farm Boy | Farm Boy™ All Natural Peanut Butter, Crunchy or Sm | valid 2026-10-22..2026-10-28 flyer 8191964 | https://flipp.com/en-ca/orleans-on/item/1048322134 -> https://flipp.com/en-ca/orleans-on/item/1048322134 | Valid Oct 22, 2026 – Oct 28, 2026
-OK  Wholesale Club and Club Entrepôt | Dare CANDY, 500-700 G, SELECTED VARIETIES | valid 2026-10-22..2026-11-11 flyer 8188826 | https://flipp.com/en-ca/flyers/item/1047671660 -> https://flipp.com/en-ca/flyers/item/1047671660 | Valid Oct 22, 2026 – Nov 11, 2026
-OK  Wholesale Club and Club Entrepôt | Dare CANDY, 500-700 G, SELECTED VARIETIES | valid 2026-10-22..2026-11-11 flyer 8188826 | https://flipp.com/en-ca/orleans-on/item/1047671660 -> https://flipp.com/en-ca/orleans-on/item/1047671660 | Valid Oct 22, 2026 – Nov 11, 2026
-OK  Loblaws | IN-STORE PREPARED CATERING SLIDERS OR LARGE SIDES, | valid 2026-10-22..2026-10-28 flyer 8191824 | https://flipp.com/en-ca/flyers/item/1048841740 -> https://flipp.com/en-ca/flyers/item/1048841740 | Valid Oct 22, 2026 – Oct 28, 2026
-OK  Loblaws | IN-STORE PREPARED CATERING SLIDERS OR LARGE SIDES, | valid 2026-10-22..2026-10-28 flyer 8191824 | https://flipp.com/en-ca/orleans-on/item/1048841740 -> https://flipp.com/en-ca/orleans-on/item/1048841740 | Valid Oct 22, 2026 – Oct 28, 2026
-OK  Sobeys | Liberté Méditerranée Yogurt | valid 2026-10-22..2026-10-28 flyer 8189264 | https://flipp.com/en-ca/flyers/item/1047707046 -> https://flipp.com/en-ca/flyers/item/1047707046 | Valid Oct 22, 2026 – Oct 28, 2026
-OK  Sobeys | Liberté Méditerranée Yogurt | valid 2026-10-22..2026-10-28 flyer 8189264 | https://flipp.com/en-ca/orleans-on/item/1047707046 -> https://flipp.com/en-ca/orleans-on/item/1047707046 | Valid Oct 22, 2026 – Oct 28, 2026
-BAD Green Fresh Supermarket | SOFT FRENCH BREAD SERIES, 360G | valid 2026-10-16..2026-10-22 flyer 8190430 | https://flipp.com/en-ca/flyers/item/1047911543 -> https://flipp.com/en-ca/orleans-on/stores/undefined | 
-BAD Green Fresh Supermarket | SOFT FRENCH BREAD SERIES, 360G | valid 2026-10-16..2026-10-22 flyer 8190430 | https://flipp.com/en-ca/orleans-on/item/1047911543 -> https://flipp.com/en-ca/orleans-on/stores/undefined | 
-BAD T&T Supermarket | ORION TURTLE CHIPS, 160G, (Seaweed/Spicy Lime) | valid 2026-10-16..2026-10-22 flyer 8189008 | https://flipp.com/en-ca/flyers/item/1047663031 -> https://flipp.com/en-ca/orleans-on/stores/undefined | 
-BAD T&T Supermarket | ORION TURTLE CHIPS, 160G, (Seaweed/Spicy Lime) | valid 2026-10-16..2026-10-22 flyer 8189008 | https://flipp.com/en-ca/orleans-on/item/1047663031 -> https://flipp.com/en-ca/orleans-on/stores/undefined | 
-BAD T&T Supermarket | CALBEE POTATO CHIP (BIBIMBAP/CHEESE HAM) 52G | valid 2026-10-16..2026-10-22 flyer 8189008 | https://flipp.com/en-ca/flyers/item/1047663101 -> https://flipp.com/en-ca/orleans-on/stores/undefined | 
-BAD T&T Supermarket | CALBEE POTATO CHIP (BIBIMBAP/CHEESE HAM) 52G | valid 2026-10-16..2026-10-22 flyer 8189008 | https://flipp.com/en-ca/orleans-on/item/1047663101 -> https://flipp.com/en-ca/orleans-on/stores/undefined | 
-BAD Green Fresh Supermarket | SW RAW PEEL SHRIMP 908G | valid 2026-10-16..2026-10-22 flyer 8190430 | https://flipp.com/en-ca/flyers/item/1047911627 -> https://flipp.com/en-ca/orleans-on/stores/undefined | 
-BAD Green Fresh Supermarket | SW RAW PEEL SHRIMP 908G | valid 2026-10-16..2026-10-22 flyer 8190430 | https://flipp.com/en-ca/orleans-on/item/1047911627 -> https://flipp.com/en-ca/orleans-on/stores/undefined | 
+OK  FreshCo | Hersheys | https://flipp.com/en-ca/flyers/item/1048227931?postal_code=K4A1A1 -> https://flipp.com/en-ca/flyers/item/1048227931?postal_code=K4A1A1 | Valid Oct 22, 2026 – Oct 28, 2026
+OK  FreshCo | Hersheys | https://flipp.com/en-ca/item/1048227931?postal_code=K4A1A1 -> https://flipp.com/en-ca/item/1048227931?postal_code=K4A1A1 | Valid Oct 22, 2026 – Oct 28, 2026
+OK  FreshCo | Hersheys | https://flipp.com/en-ca/ottawa-on/item/1048227931 -> https://flipp.com/en-ca/ottawa-on/item/1048227931 | Valid Oct 22, 2026 – Oct 28, 2026
+OK  FreshCo | Hersheys | https://flipp.com/en-ca/k4a1a1/item/1048227931 -> https://flipp.com/en-ca/k4a1a1/item/1048227931 | Valid Oct 22, 2026 – Oct 28, 2026
+OK  FreshCo | Hersheys | https://flipp.com/en-ca/toronto-on/item/1048227931 -> https://flipp.com/en-ca/toronto-on/item/1048227931 | Valid Oct 22, 2026 – Oct 28, 2026
