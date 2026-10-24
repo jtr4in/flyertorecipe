@@ -1,0 +1,44 @@
+# Temporary: find which flipp.com links open a flyer or a single flyer item. Commits its findings.
+name: Flipp link probe
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          python3 - <<'PY' > backend/data/flipp_probe.txt 2>&1
+          import json, urllib.request
+          API = "https://backflipp.wishabi.com/flipp"
+          H = {"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148"}
+          def get(u):
+              return json.load(urllib.request.urlopen(urllib.request.Request(u, headers=H), timeout=30))
+          flyers = get(f"{API}/data?locale=en-ca&postal_code=K4A1A1")["flyers"]
+          f = next(x for x in flyers if "Metro" in x.get("merchant", "") or "Freshco" in x.get("merchant", "")) if flyers else None
+          f = f or flyers[0]
+          print("FLYER keys", sorted(f.keys())); print("FLYER", {k: f.get(k) for k in ("id", "merchant", "name", "flyer_run_id", "path", "url", "web_url")})
+          items = get(f"{API}/flyers/{f['id']}")
+          it = (items.get("items") or items)[3]
+          print("FLYERITEM keys", sorted(it.keys())); print("FLYERITEM", {k: it.get(k) for k in ("id", "name", "flyer_item_id", "page_destination_url", "url")})
+          full = get(f"{API}/items/{it['id']}")
+          full = full.get("item", full)
+          print("ITEM keys", sorted(full.keys()))
+          for k, v in full.items():
+              if isinstance(v, str) and ("http" in v or "/" in v): print("ITEM", k, v[:200])
+          import subprocess
+          slug = f.get("merchant", "").lower().replace(" ", "-")
+          for u in [f"https://flipp.com/en-ca/item/{it['id']}", f"https://flipp.com/item/{it['id']}",
+                    f"https://flipp.com/en-ca/orleans-on/item/{it['id']}", f"https://flipp.com/en-ca/weekly_ad/{f['id']}",
+                    f"https://flipp.com/en-ca/orleans-on/weekly_ad/{f['id']}-{slug}", f"https://flipp.com/flyer/{f['id']}",
+                    f"https://flipp.com/en-ca/orleans-on/weekly_ad/{f['id']}-{slug}?flyer_run_id={f.get('flyer_run_id')}&item_id={it['id']}",
+                    "https://flipp.com/.well-known/apple-app-site-association"]:
+              out = subprocess.run(["curl", "-s", "-L", "-A", H["User-Agent"], "-o", "/tmp/b", "-w", "%{http_code} %{url_effective}", u], capture_output=True, text=True).stdout
+              body = open("/tmp/b", errors="ignore").read()
+              import re
+              t = re.search(r"<title>(.*?)</title>", body, re.S)
+              print("URL", u, "->", out, "|", (t.group(1).strip()[:120] if t else body[:300].replace("\n", " ")))
+          PY
+          git config user.name "github-actions[bot]"; git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git add backend/data/flipp_probe.txt && git commit -m "Flipp link probe results" && git push
