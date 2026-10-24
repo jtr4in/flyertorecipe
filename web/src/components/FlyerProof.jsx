@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import FlyerClip from './FlyerClip'
-import { flyerUrl } from '../lib/stores'
+import { flippUrl, flyerUrl } from '../lib/stores'
 
 // Date-only strings parse as UTC midnight, which shows as the previous day in Canada.
 const fmtDate = (d) =>
@@ -58,6 +58,11 @@ export default function FlyerProof({ deal, onClose, action }) {
               <button onClick={action.onClick} className="rounded-xl border border-green-700 px-4 py-2 text-sm font-semibold text-green-700">
                 {action.label}
               </button>
+            )}
+            {flippUrl(deal) && (
+              <a href={flippUrl(deal)} target="_blank" rel="noreferrer" className="rounded-xl bg-sky-500 px-4 py-2 text-sm font-semibold text-white">
+                Open in Flipp ↗
+              </a>
             )}
             <a
               href={flyerUrl(deal.merchant)}

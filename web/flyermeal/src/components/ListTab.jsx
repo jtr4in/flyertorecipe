@@ -3,7 +3,7 @@ import FlyerClip from '@f2r/components/FlyerClip'
 import FlyerProof from '@f2r/components/FlyerProof'
 import { fsa } from '@f2r/lib/data'
 import { findDeals, suggestNeeds } from '@f2r/lib/needs'
-import { dealName, money, shortDay } from '@f2r/lib/stores'
+import { dealName, flippUrl, money, shortDay } from '@f2r/lib/stores'
 import { recommend } from '../lib/recommend'
 import { SECTIONS, bySection } from '../lib/sections'
 import FlyersView from './FlyersView'
@@ -289,6 +289,16 @@ function ListLine({ line, section, forMeals, deals, open, onOpen, onZoom, onPick
               ))}
             </select>
           </label>
+          {d && flippUrl(d) && (
+            <a
+              href={flippUrl(d)}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-center gap-1 rounded-2xl bg-sky-500 py-2 text-sm font-semibold text-white"
+            >
+              Show this ad in Flipp ↗ <span className="font-normal opacity-80">for price matching</span>
+            </a>
+          )}
           {others.length > 0 && <p className="px-1 text-xs font-semibold text-stone-500">{d ? 'Other deals' : 'Deals'} for {line.name}</p>}
           {others.map((o) => (
             <button
