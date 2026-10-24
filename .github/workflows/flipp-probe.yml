@@ -8,37 +8,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
       - run: |
-          python3 - <<'PY' > backend/data/flipp_probe.txt 2>&1
-          import json, urllib.request
-          API = "https://backflipp.wishabi.com/flipp"
-          H = {"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148"}
-          def get(u):
-              return json.load(urllib.request.urlopen(urllib.request.Request(u, headers=H), timeout=30))
-          flyers = get(f"{API}/data?locale=en-ca&postal_code=K4A1A1")["flyers"]
-          f = next(x for x in flyers if "Metro" in x.get("merchant", "") or "Freshco" in x.get("merchant", "")) if flyers else None
-          f = f or flyers[0]
-          print("FLYER keys", sorted(f.keys())); print("FLYER", {k: f.get(k) for k in ("id", "merchant", "name", "flyer_run_id", "path", "url", "web_url")})
-          items = get(f"{API}/flyers/{f['id']}")
-          it = (items.get("items") or items)[3]
-          print("FLYERITEM keys", sorted(it.keys())); print("FLYERITEM", {k: it.get(k) for k in ("id", "name", "flyer_item_id", "page_destination_url", "url")})
-          full = get(f"{API}/items/{it['id']}")
-          full = full.get("item", full)
-          print("ITEM keys", sorted(full.keys()))
-          for k, v in full.items():
-              if isinstance(v, str) and ("http" in v or "/" in v): print("ITEM", k, v[:200])
-          import subprocess
-          slug = f.get("merchant", "").lower().replace(" ", "-")
-          for u in [f"https://flipp.com/en-ca/item/{it['id']}", f"https://flipp.com/item/{it['id']}",
-                    f"https://flipp.com/en-ca/orleans-on/item/{it['id']}", f"https://flipp.com/en-ca/weekly_ad/{f['id']}",
-                    f"https://flipp.com/en-ca/orleans-on/weekly_ad/{f['id']}-{slug}", f"https://flipp.com/flyer/{f['id']}",
-                    f"https://flipp.com/en-ca/orleans-on/weekly_ad/{f['id']}-{slug}?flyer_run_id={f.get('flyer_run_id')}&item_id={it['id']}",
-                    "https://flipp.com/.well-known/apple-app-site-association"]:
-              out = subprocess.run(["curl", "-s", "-L", "-A", H["User-Agent"], "-o", "/tmp/b", "-w", "%{http_code} %{url_effective}", u], capture_output=True, text=True).stdout
-              body = open("/tmp/b", errors="ignore").read()
-              import re
-              t = re.search(r"<title>(.*?)</title>", body, re.S)
-              print("URL", u, "->", out, "|", (t.group(1).strip()[:120] if t else body[:300].replace("\n", " ")))
-          PY
+          mkdir -p /tmp/p && cd /tmp/p && npm init -y >/dev/null && npm i playwright@1.48.2 >/dev/null && npx playwright install chromium >/dev/null
+          cat > probe.mjs <<'JS'
+          import { chromium, devices } from 'playwright'
+          import fs from 'fs'
+          const H = { 'User-Agent': 'Mozilla/5.0' }
+          const get = async (u) => (await fetch(u, { headers: H })).json()
+          const API = 'https://backflipp.wishabi.com/flipp'
+          const flyers = (await get(`${API}/data?locale=en-ca&postal_code=K4A1A1`)).flyers
+          const f = flyers.find((x) => /freshco|no frills/i.test(x.merchant)) || flyers[0]
+          const items = await get(`${API}/flyers/${f.id}`)
+          const it = (items.items || items).find((x) => x.name && x.price) 
+          const out = [`FLYER ${f.id} ${f.merchant} run ${f.flyer_run_id}`, `ITEM ${it.id} ${it.name} ${it.price}`]
+          for (const u of ['https://flipp.com/.well-known/apple-app-site-association', 'https://app.flipp.com/.well-known/apple-app-site-association', 'https://flipp.com/.well-known/assetlinks.json']) {
+            const r = await fetch(u); const t = await r.text(); out.push(`WELLKNOWN ${u} ${r.status} ${r.headers.get('content-type')} ${t.slice(0, 600).replace(/\s+/g, ' ')}`)
+          }
+          const b = await chromium.launch()
+          const p = await b.newPage({ ...devices['iPhone 13'] })
+          const urls = [`https://flipp.com/en-ca/item/${it.id}`, `https://flipp.com/en-ca/orleans-on/item/${it.id}`,
+            `https://flipp.com/en-ca/weekly_ad/${f.id}`, `https://flipp.com/en-ca/orleans-on/weekly_ad/${f.id}?item_id=${it.id}`,
+            `https://flipp.com/en-ca/orleans-on/weekly_ad/${f.id}-${f.merchant.toLowerCase().replace(/\W+/g, '-')}?flyer_run_id=${f.flyer_run_id}&item_id=${it.id}`]
+          let i = 0
+          for (const u of urls) {
+            i++
+            try { await p.goto(u, { waitUntil: 'networkidle', timeout: 45000 }) } catch (e) { out.push(`ERR ${u} ${e.message.slice(0, 100)}`) }
+            await p.waitForTimeout(4000)
+            const text = (await p.locator('body').innerText()).replace(/\s+/g, ' ').slice(0, 500)
+            out.push(`URL${i} ${u} -> ${p.url()} | ${await p.title()} | ${text}`)
+            await p.screenshot({ path: `${process.env.GITHUB_WORKSPACE}/backend/data/flipp_probe_${i}.png` })
+          }
+          fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/backend/data/flipp_probe.txt`, out.join('\n'))
+          await b.close()
+          JS
+          node probe.mjs || true
+          cd "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"; git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
-          git add backend/data/flipp_probe.txt && git commit -m "Flipp link probe results" && git push
+          git add backend/data/flipp_probe* && git commit -m "Flipp link probe results" && git push
