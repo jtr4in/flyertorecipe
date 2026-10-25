@@ -1,0 +1,24 @@
+name: flipp probe (temporary)
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p backend/data
+          curl -s "https://backflipp.wishabi.com/flipp/data?locale=en-ca&postal_code=K1E0A1" > /tmp/d.json
+          python3 - <<'PY' > backend/data/flipp_probe.txt
+          import json
+          d=json.load(open('/tmp/d.json'))
+          fl=d.get('flyers',[])
+          print('keys', sorted(fl[0].keys()) if fl else None)
+          for f in fl:
+              if 'Groceries' in (f.get('categories') or []) or f.get('merchant') in ('Jean Coutu','Costco'):
+                  print(json.dumps({k:f.get(k) for k in f if k not in ('categories','thumbnail_url','storefront_payload')})[:600])
+          PY
+          curl -s "https://backflipp.wishabi.com/flipp/flyers/8175907" | head -c 1500 >> backend/data/flipp_probe.txt
+          git config user.name probe; git config user.email probe@users.noreply.github.com
+          git add backend/data/flipp_probe.txt; git commit -m "flipp probe output [skip ci]"; git push
