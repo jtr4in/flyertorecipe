@@ -140,11 +140,11 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
           onClick={() => setPrep(true)}
           className="flex w-full items-center justify-between gap-3 rounded-2xl bg-sky-500 px-4 py-3 text-left text-white shadow-sm active:scale-[0.99]"
         >
-          <span className="truncate font-semibold">✂️ Get ready to price match</span>
-          <span className="shrink-0 text-sm opacity-90">
-            {cart.priced > 0 && <b className="font-semibold">≈ {money(cart.total)} · </b>}
-            {clipped === clip.length ? '✓' : `${clipped}/${clip.length}`} ›
+          <span className="min-w-0">
+            <span className="block truncate font-semibold">✂️ Get ready to price match</span>
+            {cart.priced > 0 && <span className="block text-sm opacity-90">≈ {money(cart.total)} estimated total</span>}
           </span>
+          <span className="shrink-0 text-sm opacity-90">{clipped === clip.length ? '✓ All clipped' : `${clipped}/${clip.length} clipped`} ›</span>
         </button>
       )}
       <CheckoutPrep open={prep} onClose={() => setPrep(false)} lines={lines} postal={postal} pounds={pounds} update={update} />
@@ -302,25 +302,37 @@ function ListLine({ line, postal, section, forMeals, deals, open, onOpen, onZoom
               Show in Flipp for price matching ↗
             </a>
           )}
-          {others.length > 0 && <p className="px-1 pt-1 text-xs font-semibold text-stone-500">{d ? 'Other deals' : 'Deals'} for {line.name}</p>}
-          {others.map((o) => (
-            <button
-              key={o.dealId}
-              onClick={() => onPick(o)}
-              className={`flex w-full items-center gap-3 rounded-2xl border bg-white p-2 text-left ${o.dealId === d?.dealId ? 'border-orange-400 ring-1 ring-orange-400' : 'border-stone-200'}`}
-            >
-              <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg">
-                <FlyerClip deal={o} maxHeight="3.5rem" sharp={200} />
+          {others.length > 0 && (
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-2">
+              <p className="px-1 pb-1.5 text-xs font-semibold text-amber-900">
+                {d ? 'Other deals' : 'Deals'} for {line.name} <span className="font-normal text-amber-800/70">· tap one to use it</span>
+              </p>
+              <div className="space-y-1.5">
+                {others.map((o) => {
+                  const using = o.dealId === d?.dealId
+                  return (
+                    <button
+                      key={o.dealId}
+                      onClick={() => onPick(o)}
+                      className={`flex w-full items-center gap-3 rounded-xl border bg-white p-1.5 text-left ${using ? 'border-orange-400 ring-1 ring-orange-400' : 'border-amber-100'}`}
+                    >
+                      <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg">
+                        <FlyerClip deal={o} maxHeight="3rem" sharp={200} />
+                      </div>
+                      <div className="min-w-0 flex-1 text-sm">
+                        <p className="line-clamp-2 leading-snug">{dealName(o.name)}</p>
+                        <p className="text-stone-500">
+                          <span className="font-semibold text-green-700">{o.priceLabel}</span> · {o.merchant}
+                          {o.savings > 0 && <span className="text-green-700"> · save {money(o.savings)}</span>}
+                        </p>
+                      </div>
+                      {using && <span className="shrink-0 rounded-full bg-orange-100 px-2 py-0.5 text-[11px] font-semibold text-orange-800">Using</span>}
+                    </button>
+                  )
+                })}
               </div>
-              <div className="min-w-0 text-sm">
-                <p className="line-clamp-2">{dealName(o.name)}</p>
-                <p className="text-stone-500">
-                  <span className="font-semibold text-green-700">{o.priceLabel}</span> · {o.merchant}
-                  {o.savings > 0 && <span className="text-green-700"> · save {money(o.savings)}</span>}
-                </p>
-              </div>
-            </button>
-          ))}
+            </div>
+          )}
           <label className="flex items-center justify-between gap-2 px-1 pt-1 text-xs font-semibold text-stone-500">
             Aisle
             <select value={section} onChange={(e) => onMove(e.target.value)} className="rounded-lg border border-stone-200 bg-white px-2 py-1 text-sm font-medium text-stone-700">
