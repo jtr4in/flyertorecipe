@@ -1,0 +1,39 @@
+keys ['analytics_payload', 'auction_uuid', 'available_from', 'available_to', 'budget_id', 'categories', 'categories_csv', 'cost_model_type', 'display_type', 'featured_items', 'flyer_run_id', 'flyer_type_id', 'height', 'id', 'is_store_select', 'language', 'locale', 'merchant', 'merchant_id', 'merchant_logo', 'name', 'organic_rank', 'path', 'popularity', 'postal_code', 'premium', 'premium_thumbnail_url', 'priority', 'publication_type', 'relationship', 'resolutions', 'resolutions_csv', 'seed', 'sfml_hashed_key', 'stock_premium_thumbnail_url', 'storefront_carousel_organic_thumbnail_url', 'storefront_carousel_premium_thumbnail_url', 'storefront_logo_url', 'storefront_premium_thumbnail_url', 'storefront_sale_story', 'thumbnail_hashed_key', 'thumbnail_url', 'updated_at', 'valid_from', 'valid_to', 'web_indexed', 'width']
+8190624 | Adonis | Weekly | K1E0A1 | 1 en_CA | True False
+8191355 | FreshCo | Weekly eFlyer 10/22 - 10/28 | K1E0A1 | 1 en_CA | True False
+8190070 | L'Inter-Marché | Weekly Flyer - Valid Thursday, October 22 - Wednesday, October 28 | K1E0A1 | 1 en_CA | True False
+8194481 | Lufa Farms | Flyer | K1E0A1 | 1 en_CA | True False
+8193695 | IGA | Québec – Weekly eFlyer | K1E0A1 | 1 en_CA | True False
+8188985 | Jean Coutu | Health & Beauty Flyer | K1E0A1 | 1 en_CA | True False
+8191964 | Farm Boy | Weekly | K1E0A1 | 1 en_CA | True False
+8194765 | Walmart | Flyer | K1E0A1 | 1 en_CA | True True
+8190200 | Giant Tiger | Weekly Flyer | K1E0A1 | 1 en_CA | True True
+8179351 | Healthy Planet | Monthly Ad | K1E0A1 | 1 en_CA | True False
+8192538 | Rachelle Béry | Espace Santé | K1E0A1 | 1 en_CA | True False
+8197579 | Mid-East Food Centre | Indexed Weekly | K1E0A1 | 1 en_CA | True False
+8180944 | FreshCo | Diwali Low Prices | K1E0A1 | 1 en_CA | True False
+8191805 | M&M Food Market | Weekly Flyer | K1E0A1 | 1 en_CA | True True
+8191552 | Food Basics | Weekly Ad | K1E0A1 | 1 en_CA | True False
+8194267 | Costco | Flyer | K1E0A1 | 1 en_CA | True True
+8189868 | Jean Coutu | Special Insert | K1E0A1 | 1 en_CA | True False
+8194100 | Costco | Costco Grocery | K1E0A1 | 1 en_CA | True True
+8191824 | Loblaws | Weekly Flyer - Valid Thursday, October 22 - Wednesday, October 28 | K1E0A1 | 1 en_CA | True True
+8191910 | Real Canadian Superstore | Weekly Flyer - Valid Thursday, October 22 - Wednesday, October 28 | K1E0A1 | 1 en_CA | True True
+8189264 | Sobeys | Weekly eFlyer 10/22 -10/28 | K1E0A1 | 1 en_CA | True True
+8180807 | Jean Coutu | Special Insert | K1E0A1 | 1 en_CA | True False
+8178607 | Healthy Planet | Produce | K1E0A1 | 1 en_CA | True False
+8191529 | Jean Coutu | Special Insert | K1E0A1 | 1 en_CA | True False
+8188842 | Jean Coutu | Weekly Ad | K1E0A1 | 1 en_CA | True False
+8136478 | La Boite à Grains | Newcampaign | K1E0A1 | 1 en_CA | True False
+8190660 | Maxi | Weekly Flyer - Valid Thursday, October 22 - Wednesday, October 28 | K1E0A1 | 1 en_CA | True False
+8191877 | No Frills | Weekly Flyer - Valid Thursday, October 22 - Wednesday, October 28 | K1E0A1 | 1 en_CA | True True
+8188830 | Super C | Flyer | K1E0A1 | 1 en_CA | True False
+8205635 | Bulk Barn | Monthly | K1E0A1 | 1 en_CA | True True
+8188826 | Wholesale Club and Club Entrepôt | Flyer - Valid Thursday, October 22 - Wednesday, November 11 | K1E0A1 | 1 en_CA | True False
+8206342 | Green Fresh Supermarket | Indexed Weekly | K1E0A1 | 1 en_CA | True False
+8191842 | Your Independent Grocer | Weekly Flyer - Valid Thursday, October 22 - Wednesday, October 28 | K1E0A1 | 1 en_CA | True True
+8186423 | Walmart | Diwali | K1E0A1 | 1 en_CA | True True
+8190553 | Provigo | Weekly Flyer - Valid Thursday, October 22 - Wednesday, October 28 | K1E0A1 | 1 en_CA | True False
+8192480 | Metro | Quebec | K1E0A1 | 1 en_CA | True False
+8192508 | Metro | Ontario | K1E0A1 | 1 en_CA | True False
+8197680 | T&T Supermarket | Weekly Flyer | K1E0A1 | 1 en_CA | True False
