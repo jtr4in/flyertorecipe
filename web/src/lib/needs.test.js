@@ -186,6 +186,16 @@ describe('telling look-alike flyer items apart', () => {
     // Half typed, the squash can still show, after the butter.
     expect(suggestNeeds('butt', deals).filter((x) => x.deal).at(-1).deal.dealId).toBe('sq')
   })
+  it("doesn't take spaghetti squash for spaghetti", () => {
+    const deals = [
+      { dealId: 'sq', name: 'Acorn, butternut, spaghetti, buttercup or kabocha squash', price: 0.97, unit: '/lb' },
+      { dealId: 'mm', name: 'Spaghetti Bolognese, 300 g', price: 5.99 },
+      { dealId: 'pa', name: 'BARILLA PASTA, 340-410 G, SELECTED VARIETIES', price: 2.5 },
+    ]
+    expect(ids('spaghetti', deals)[0]).toBe('pa')
+    expect(needDeal('spaghetti', deals).dealId).toBe('pa')
+    expect(ids('butternut squash', deals)[0]).toBe('sq')
+  })
   it('puts facial tissue before ads that are mostly bathroom tissue', () => {
     const deals = [
       { dealId: 'combo', name: 'CASHMERE BATHROOM TISSUE, 8=16 ROLLS SCOTTIES FACIAL TISSUE', price: 3 },

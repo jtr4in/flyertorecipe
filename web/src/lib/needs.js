@@ -60,6 +60,10 @@ const describesOther = (n, d) => {
       while (words.length > 1 && FORM.test(words.at(-1))) words.pop()
       return words
     })
+  // A list shares its last word: in "acorn, butternut, spaghetti or kabocha squash" each one is a
+  // squash, so "spaghetti" there is spaghetti squash, not pasta.
+  for (let i = parts.length - 2; i >= 0; i--)
+    if (parts[i].length === 1 && parts[i + 1].length > 1 && !FRENCH.test(parts[i + 1].join(' '))) parts[i] = [...parts[i], parts[i + 1].at(-1)]
   // Only the last typed word names the thing ("tissue" in "facial tissue").
   return [fold(n).split(/\s+/).filter(Boolean).at(-1) || '']
     .some((w) => {
@@ -133,6 +137,8 @@ const SAY = {
   eggs: ['oeufs', 'œufs'],
   bread: ['pain', 'loaf', 'bagels', 'buns'],
   butter: ['beurre'],
+  // Pasta ads rarely name the shape ("Barilla pasta, selected varieties").
+  ...Object.fromEntries(['spaghetti', 'spaghettini', 'linguine', 'penne', 'fusilli', 'rotini', 'macaroni', 'fettuccine', 'rigatoni', 'farfalle'].map((w) => [w, ['pasta', 'pâtes']])),
   yogurt: ['yogourt', 'yoghurt', 'yogurts'],
   chicken: ['poulet'],
   beef: ['boeuf', 'bœuf', 'steak'],
