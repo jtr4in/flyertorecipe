@@ -6,6 +6,7 @@ import { findDeals, suggestNeeds } from '@f2r/lib/needs'
 import { dealName, flippUrl, money, shortDay } from '@f2r/lib/stores'
 import { recommend } from '../lib/recommend'
 import { SECTIONS, bySection } from '../lib/sections'
+import CheckoutPrep, { isClipped, toClip } from './CheckoutPrep'
 import FlyersView from './FlyersView'
 import { filterSummary } from './FiltersSheet'
 import { Photo } from './RecipesTab'
@@ -17,6 +18,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
   const [text, setText] = useState('')
   const [open, setOpen] = useState(null) // list line whose other deals are showing
   const [flyers, setFlyers] = useState(false)
+  const [prep, setPrep] = useState(false)
   const [zoom, setZoom] = useState(null) // list line whose flyer ad is blown up
   const [more, setMore] = useState(MORE) // household and kitchen suggestions showing, per section
   // Memoized so typing in the box doesn't redo the suggestions below, which scan every flyer ad.
@@ -25,6 +27,8 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
   const picks = useMemo(() => (text.trim().length > 1 ? suggestNeeds(text, deals, lower) : []), [text, deals, lower])
   const recs = useMemo(() => (lines.length ? recommend(names, deals) : null), [names, deals, lines.length])
   const onSale = lines.filter((l) => l.deal).length
+  const clip = toClip(lines, postal)
+  const clipped = clip.filter(isClipped).length
   const sections = useMemo(() => bySection(lines), [lines])
   const mine = useMemo(() => [...new Map(lines.filter((l) => l.deal).map((l) => [l.deal.dealId, l.deal])).values()], [lines])
 
@@ -130,6 +134,16 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
           </button>
         </div>
       )}
+      {clip.length > 0 && (
+        <button
+          onClick={() => setPrep(true)}
+          className="flex w-full items-center justify-between gap-3 rounded-2xl bg-sky-500 px-4 py-3 text-left text-white shadow-sm active:scale-[0.99]"
+        >
+          <span className="truncate font-semibold">✂️ Get ready to price match</span>
+          <span className="shrink-0 text-sm opacity-90">{clipped === clip.length ? '✓ Done' : `${clipped}/${clip.length}`} ›</span>
+        </button>
+      )}
+      <CheckoutPrep open={prep} onClose={() => setPrep(false)} lines={lines} postal={postal} update={update} />
       <FlyersView
         postal={postal}
         open={flyers}
@@ -265,7 +279,7 @@ function ListLine({ line, postal, section, forMeals, deals, open, onOpen, onZoom
             {d ? (
               <p className="truncate text-sm text-stone-500">
                 <span className="font-semibold text-green-700">{d.priceLabel}</span> · {d.merchant}
-                {d.validTo && <span className="text-stone-400"> · until {shortDay(d.validTo)}</span>}
+                {isClipped(line) ? <span className="text-sky-700"> · ✂️ in Flipp</span> : d.validTo && <span className="text-stone-400"> · until {shortDay(d.validTo)}</span>}
               </p>
             ) : (
               <p className="text-sm text-stone-400">Not in this week's flyers</p>
