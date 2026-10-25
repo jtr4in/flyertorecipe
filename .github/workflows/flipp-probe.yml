@@ -17,8 +17,7 @@ jobs:
           print('keys', sorted(fl[0].keys()) if fl else None)
           for f in fl:
               if 'Groceries' in (f.get('categories') or []) or f.get('merchant') in ('Jean Coutu','Costco'):
-                  print(json.dumps({k:f.get(k) for k in f if k not in ('categories','thumbnail_url','storefront_payload')})[:600])
+                  print(f['id'], '|', f.get('merchant'), '|', f.get('name'), '|', f.get('postal_code'), '|', f.get('language'), f.get('locale'), '|', f.get('is_store_select'), f.get('relationship'))
           PY
-          curl -s "https://backflipp.wishabi.com/flipp/flyers/8175907" | head -c 1500 >> backend/data/flipp_probe.txt
           git config user.name probe; git config user.email probe@users.noreply.github.com
           git add backend/data/flipp_probe.txt; git commit -m "flipp probe output [skip ci]"; git push
