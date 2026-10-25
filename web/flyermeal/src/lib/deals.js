@@ -1,5 +1,5 @@
 import { CATALOG } from '@f2r/data/ingredients'
-import { namesIt, needDeal } from '@f2r/lib/needs'
+import { isPlain, namesIt, needDeal } from '@f2r/lib/needs'
 import { matchDeal } from '@f2r/lib/planner'
 import { HOUSEHOLD, STAPLES, dealsFor } from './recommend'
 
@@ -17,9 +17,10 @@ export function bestDeal(name, deals) {
   const everyday = [...STAPLES, ...HOUSEHOLD].find((e) => e.name === n || e.name === `${n}s` || `${e.name}s` === n)
   if (everyday) return dealsFor(everyday, deals)[0] || null
   const known = CATALOG_ITEMS.find((i) => i.item === n || i.item === `${n}s` || `${i.item}s` === n || i.as === n)
-  // The tuned match can land on a neighbour (thighs → drumsticks); an ad that says what was typed wins.
+  // The tuned match can land on a neighbour (thighs → drumsticks) or a flavour ("greens powder
+  // strawberry banana" for bananas); a plain ad that says what was typed wins.
   const tuned = known && matchDeal(known, deals)
-  if (tuned && namesIt(n, tuned)) return tuned
+  if (tuned && namesIt(n, tuned) && isPlain(n, tuned)) return tuned
   const plain = needDeal(name, deals)
   return (plain && namesIt(n, plain) ? plain : tuned || plain) || null
 }

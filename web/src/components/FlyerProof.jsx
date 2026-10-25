@@ -18,6 +18,7 @@ export default function FlyerProof({ deal, postal, onClose, action }) {
   if (!deal) return null
   const from = fmtDate(deal.validFrom)
   const to = fmtDate(deal.validTo)
+  const flipp = flippUrl(deal, postal)
   return createPortal(
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -42,36 +43,29 @@ export default function FlyerProof({ deal, postal, onClose, action }) {
           {deal.priceText && deal.priceLabel && deal.priceText !== deal.priceLabel && /\d/.test(deal.priceText) && (
             <p className="mt-1 text-sm text-stone-500">Flyer says: {deal.priceText}</p>
           )}
-          {deal.page && (
-            <p className="mt-3 rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-900">
-              Page {deal.page} of the {deal.merchant} flyer
-            </p>
-          )}
           {(from || to) && (
-            <p className="mt-4 text-sm text-stone-500">
+            <p className="mt-3 text-sm text-stone-500">
               Valid {from && <>{from} </>}
               {to && <>to {to}</>}
+              {deal.page && <> · page {deal.page}</>}
             </p>
           )}
-          <div className="mt-5 flex flex-wrap justify-center gap-2">
+          <div className="mt-5 flex w-full flex-col gap-2">
+            {/* Cashiers price match from Flipp, so that's the main way out; the store's own flyer only when Flipp can't show it. */}
+            {flipp ? (
+              <a href={flipp} target="_blank" rel="noreferrer" className="rounded-2xl bg-sky-500 py-3 font-semibold text-white">
+                Show in Flipp for price matching ↗
+              </a>
+            ) : (
+              <a href={flyerUrl(deal.merchant)} target="_blank" rel="noreferrer" className="rounded-2xl bg-green-700 py-3 font-semibold text-white">
+                See {deal.merchant}'s flyer ↗
+              </a>
+            )}
             {action && (
-              <button onClick={action.onClick} className="rounded-xl border border-green-700 px-4 py-2 text-sm font-semibold text-green-700">
+              <button onClick={action.onClick} className="rounded-2xl py-2 text-sm font-semibold text-stone-600">
                 {action.label}
               </button>
             )}
-            {flippUrl(deal, postal) && (
-              <a href={flippUrl(deal, postal)} target="_blank" rel="noreferrer" className="rounded-xl bg-sky-500 px-4 py-2 text-sm font-semibold text-white">
-                Open in Flipp ↗
-              </a>
-            )}
-            <a
-              href={flyerUrl(deal.merchant)}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-xl bg-green-700 px-4 py-2 text-sm font-semibold text-white"
-            >
-              See {deal.merchant}'s full flyer ↗
-            </a>
           </div>
         </div>
       </div>

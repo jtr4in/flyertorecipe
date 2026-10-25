@@ -1,5 +1,6 @@
 // "You might also need": real everyday things, never random flyer items. Three short lists a
 // person would recognize: what goes with what's on the list, household basics, and food staples.
+import { isPlain } from '@f2r/lib/needs'
 
 // Each entry: what goes on the list, an emoji, and the flyer words that really mean that thing
 // (English and Quebec French), with words that mean it's something else.
@@ -101,12 +102,13 @@ const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 const RES = new Map()
 const re = (w) => RES.get(w) || RES.set(w, new RegExp(`(^|[^\\p{L}])${esc(fold(w))}(s|es|x)?($|[^\\p{L}])`, 'iu')).get(w)
 const hit = (name, words) => words.some((w) => re(w).test(name))
-// One ad for several products, read from its longest part (bilingual ads repeat after a |).
 // One ad for several products, read from its longest part (bilingual ads repeat after a |), or one
 // that also names another kind of the same thing ("bathroom tissue" in a facial tissue ad).
 const combo = (d, entry) => {
   const name = fold(d.name)
-  if (/ or | ou |, (?=[a-z])/.test(name.split('|').sort((a, b) => b.length - a.length)[0])) return 1
+  // A comma before where it's from, its size or "selected varieties" still describes one product.
+  const part = name.split('|').sort((a, b) => b.length - a.length)[0].replace(/,\s*(product|produit|produce|grown|imported|selected|selection|assorted|varieties|\d).*$/, '')
+  if (/ or | ou |, (?=[a-z])/.test(part)) return 1
   const count = (w) => (name.match(new RegExp(re(w).source, 'giu')) || []).length
   return Number(entry.match.some((m) => m.includes(' ') && count(m) > 0 && count(m.split(' ').at(-1)) > count(m)))
 }
@@ -126,8 +128,9 @@ export function dealsFor(entry, deals) {
       return hit(name, entry.match) && !hit(name, entry.exclude)
     })
     // Ads for just this thing before ads for several products ("bathroom tissue, paper towels or
-    // facial tissue"), then on sale with a stated saving, then the lowest shelf price.
-    .sort((a, b) => combo(a, entry) - combo(b, entry) || Number(b.savings > 0) - Number(a.savings > 0) || (a.price ?? 1e9) - (b.price ?? 1e9))
+    // facial tissue"), plain before a flavour of it (bananas, not banana greens powder), then on
+    // sale with a stated saving, then the lowest shelf price.
+    .sort((a, b) => combo(a, entry) - combo(b, entry) || isPlain(entry.name, b) - isPlain(entry.name, a) || Number(b.savings > 0) - Number(a.savings > 0) || (a.price ?? 1e9) - (b.price ?? 1e9))
   memo.hits.set(key, found)
   return found
 }

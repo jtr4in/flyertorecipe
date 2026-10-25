@@ -37,7 +37,7 @@ export function needDeal(need, deals) {
 }
 
 // A variety of what was typed ("chocolate milk" for "milk"), unless the person typed that word too.
-const isPlain = (n, d) => !(fold(d.name || '').match(VARIETY) || []).some((w) => !n.includes(w))
+export const isPlain = (n, d) => !(fold(d.name || '').match(VARIETY) || []).some((w) => !n.includes(w))
 // The typed word is only the start of a longer word in the name: "egg" in "eggplant".
 const partOfWord = (n, d) => {
   const name = fold(dealName(d.name))

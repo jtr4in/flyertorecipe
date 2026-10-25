@@ -113,25 +113,22 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
       </form>
 
       {fsa(postal) && (
-        <button
-          onClick={openFilters}
-          className="flex w-full items-center justify-between gap-3 rounded-2xl border border-stone-200 bg-white px-4 py-2.5 text-left text-sm shadow-sm"
-        >
-          <span className="min-w-0 truncate">
-            🏷️ <span className="font-semibold">{filterSummary(filters)}</span>
-            {filters.matchAt && <span className="text-stone-500"> · only flyers they accept</span>}
-          </span>
-          <span className="shrink-0 font-medium text-orange-700">Filters ›</span>
-        </button>
-      )}
-      {deals.length > 0 && (
-        <button
-          onClick={() => setFlyers(true)}
-          className="flex w-full items-center justify-between rounded-2xl border border-orange-200 bg-orange-50 px-4 py-3 text-left font-semibold text-orange-800 active:scale-[0.99]"
-        >
-          <span>🗞️ View flyers</span>
-          <span className="text-sm font-normal text-orange-700">{onSale ? `${onSale} on your list` : `${new Set(deals.map((d) => d.merchant)).size} stores`} ›</span>
-        </button>
+        <div className="grid grid-cols-2 gap-2">
+          <button onClick={openFilters} className="flex min-w-0 flex-col rounded-2xl border border-stone-200 bg-white px-3 py-2 text-left shadow-sm active:scale-[0.98]">
+            <span className="text-xs text-stone-500">🏷️ Stores</span>
+            <span className="truncate text-sm font-semibold">{filterSummary(filters)}</span>
+          </button>
+          <button
+            onClick={() => setFlyers(true)}
+            disabled={!deals.length}
+            className="flex min-w-0 flex-col rounded-2xl border border-orange-200 bg-orange-50 px-3 py-2 text-left active:scale-[0.98] disabled:opacity-50"
+          >
+            <span className="text-xs text-orange-700">🗞️ Flyers</span>
+            <span className="truncate text-sm font-semibold text-orange-900">
+              {onSale ? `${onSale} ads on your list` : `${new Set(deals.map((d) => d.merchant)).size} stores`}
+            </span>
+          </button>
+        </div>
       )}
       <FlyersView
         postal={postal}
@@ -281,33 +278,18 @@ function ListLine({ line, postal, section, forMeals, deals, open, onOpen, onZoom
         </button>
       </div>
       {open && (
-        <div className="space-y-1.5 bg-orange-50/60 px-3 pt-1 pb-3">
-          <label className="flex items-center justify-between gap-2 px-1 py-1 text-xs font-semibold text-stone-500">
-            Aisle
-            <select value={section} onChange={(e) => onMove(e.target.value)} className="rounded-lg border border-stone-200 bg-white px-2 py-1 text-sm font-medium text-stone-700">
-              {SECTIONS.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.emoji} {s.label}
-                </option>
-              ))}
-            </select>
-          </label>
+        <div className="space-y-2 border-t border-stone-100 bg-stone-50 px-3 pt-2 pb-3">
           {d && flippUrl(d, postal) && (
-            <a
-              href={flippUrl(d, postal)}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center justify-center gap-1 rounded-2xl bg-sky-500 py-2 text-sm font-semibold text-white"
-            >
-              Show this ad in Flipp ↗ <span className="font-normal opacity-80">for price matching</span>
+            <a href={flippUrl(d, postal)} target="_blank" rel="noreferrer" className="block rounded-2xl bg-sky-500 py-2.5 text-center text-sm font-semibold text-white">
+              Show in Flipp for price matching ↗
             </a>
           )}
-          {others.length > 0 && <p className="px-1 text-xs font-semibold text-stone-500">{d ? 'Other deals' : 'Deals'} for {line.name}</p>}
+          {others.length > 0 && <p className="px-1 pt-1 text-xs font-semibold text-stone-500">{d ? 'Other deals' : 'Deals'} for {line.name}</p>}
           {others.map((o) => (
             <button
               key={o.dealId}
               onClick={() => onPick(o)}
-              className={`flex w-full items-center gap-3 rounded-2xl border bg-white p-2 text-left ${o.dealId === d?.dealId ? 'border-orange-400' : 'border-stone-200'}`}
+              className={`flex w-full items-center gap-3 rounded-2xl border bg-white p-2 text-left ${o.dealId === d?.dealId ? 'border-orange-400 ring-1 ring-orange-400' : 'border-stone-200'}`}
             >
               <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg">
                 <FlyerClip deal={o} maxHeight="3.5rem" sharp={200} />
@@ -321,6 +303,16 @@ function ListLine({ line, postal, section, forMeals, deals, open, onOpen, onZoom
               </div>
             </button>
           ))}
+          <label className="flex items-center justify-between gap-2 px-1 pt-1 text-xs font-semibold text-stone-500">
+            Aisle
+            <select value={section} onChange={(e) => onMove(e.target.value)} className="rounded-lg border border-stone-200 bg-white px-2 py-1 text-sm font-medium text-stone-700">
+              {SECTIONS.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.emoji} {s.label}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
       )}
     </li>
