@@ -6,7 +6,7 @@ import { findDeals, suggestNeeds } from '@f2r/lib/needs'
 import { dealName, flippUrl, money, shortDay } from '@f2r/lib/stores'
 import { recommend } from '../lib/recommend'
 import { SECTIONS, bySection } from '../lib/sections'
-import CheckoutPrep, { isClipped, toClip } from './CheckoutPrep'
+import CheckoutPrep, { cartEstimate, isClipped, toClip } from './CheckoutPrep'
 import FlyersView from './FlyersView'
 import { filterSummary } from './FiltersSheet'
 import { Photo } from './RecipesTab'
@@ -14,7 +14,7 @@ import { Photo } from './RecipesTab'
 const MORE = 6 // suggestions per section, and how many more each tap adds
 const EXAMPLES = ['chicken thighs', 'rice', 'broccoli', 'eggs', 'toilet paper']
 
-export default function ListTab({ postal, setPostal, dealState, deals, filters, openFilters, lines, meals, mealName, openMeal, removeMeal, add, update, remove, clear }) {
+export default function ListTab({ postal, setPostal, dealState, deals, filters, openFilters, lines, meals, pounds, mealName, openMeal, removeMeal, add, update, remove, clear }) {
   const [text, setText] = useState('')
   const [open, setOpen] = useState(null) // list line whose other deals are showing
   const [flyers, setFlyers] = useState(false)
@@ -29,6 +29,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
   const onSale = lines.filter((l) => l.deal).length
   const clip = toClip(lines, postal)
   const clipped = clip.filter(isClipped).length
+  const cart = useMemo(() => cartEstimate(lines, pounds), [lines, pounds])
   const sections = useMemo(() => bySection(lines), [lines])
   const mine = useMemo(() => [...new Map(lines.filter((l) => l.deal).map((l) => [l.deal.dealId, l.deal])).values()], [lines])
 
@@ -140,10 +141,13 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
           className="flex w-full items-center justify-between gap-3 rounded-2xl bg-sky-500 px-4 py-3 text-left text-white shadow-sm active:scale-[0.99]"
         >
           <span className="truncate font-semibold">✂️ Get ready to price match</span>
-          <span className="shrink-0 text-sm opacity-90">{clipped === clip.length ? '✓ Done' : `${clipped}/${clip.length}`} ›</span>
+          <span className="shrink-0 text-sm opacity-90">
+            {cart.priced > 0 && <b className="font-semibold">≈ {money(cart.total)} · </b>}
+            {clipped === clip.length ? '✓' : `${clipped}/${clip.length}`} ›
+          </span>
         </button>
       )}
-      <CheckoutPrep open={prep} onClose={() => setPrep(false)} lines={lines} postal={postal} update={update} />
+      <CheckoutPrep open={prep} onClose={() => setPrep(false)} lines={lines} postal={postal} pounds={pounds} update={update} />
       <FlyersView
         postal={postal}
         open={flyers}

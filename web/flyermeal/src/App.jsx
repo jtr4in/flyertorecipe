@@ -3,6 +3,7 @@ import { fsa, loadDeals } from '@f2r/lib/data'
 import { activeDeals } from '@f2r/lib/planner'
 import { followMatch, otherProvince, tidyMatch } from '@f2r/lib/priceMatch'
 import { bestDeal } from './lib/deals'
+import { poundsFor } from './lib/estimate'
 import { recommend } from './lib/recommend'
 import { norm, prepare, scoreRecipe, sortRecipes, withSwap } from './lib/match'
 import ListTab from './components/ListTab'
@@ -166,6 +167,19 @@ export default function App() {
         .map((s) => (shortcuts.includes(s.recipe.id) && s.recipe.swaps?.[0] ? { ...scoreRecipe(withSwap(s.recipe, s.recipe.swaps[0]), keys), recipe: s.recipe } : s)),
     [meals, sorted, shortcuts, keys],
   )
+  // How much of each list item the saved meals call for, in pounds, so per-pound prices can be costed.
+  const pounds = useMemo(() => {
+    const out = {}
+    for (const i of list) {
+      let lb = 0
+      for (const id of i.meals || []) {
+        const ing = recipes?.find((r) => r.id === id)?.ingredients.find((x) => fold(x.name) === fold(i.name))
+        lb += (ing && poundsFor(ing.name, ing.measure)) || 0
+      }
+      if (lb) out[i.name] = lb
+    }
+    return out
+  }, [list, recipes])
   const mealName = useCallback((id) => recipes?.find((r) => r.id === id)?.name, [recipes])
 
   return (
@@ -190,6 +204,7 @@ export default function App() {
             openFilters={() => setFiltering(true)}
             lines={lines}
             meals={saved}
+            pounds={pounds}
             mealName={mealName}
             openMeal={(id) => (setOpenId(id), setTab('recipes'))}
             removeMeal={(id) => saveMeal(id, false)}

@@ -1,6 +1,7 @@
 import FlyerClip from '@f2r/components/FlyerClip'
 import Sheet from '@f2r/components/Sheet'
-import { flippUrl } from '@f2r/lib/stores'
+import { flippUrl, money } from '@f2r/lib/stores'
+import { estimate } from '../lib/estimate'
 
 // Price matching at the till is quickest from one place: Flipp's own shopping list. This walks
 // through each matched ad once, before you go, so each gets clipped there; at the till you stay in
@@ -8,12 +9,38 @@ import { flippUrl } from '@f2r/lib/stores'
 export const toClip = (lines, postal) => lines.filter((l) => !l.checked && l.deal && flippUrl(l.deal, postal))
 export const isClipped = (l) => !!l.deal && l.clipped === l.deal.dealId
 
-export default function CheckoutPrep({ open, onClose, lines, postal, update }) {
+/** The cart at flyer prices: every item still to get that has an ad. */
+export function cartEstimate(lines, pounds = {}) {
+  const toGet = lines.filter((l) => !l.checked)
+  const priced = toGet.map((l) => estimate(l.deal, pounds[l.name])).filter(Boolean)
+  return {
+    total: priced.reduce((sum, e) => sum + e.cost, 0),
+    priced: priced.length,
+    unpriced: toGet.length - priced.length,
+    guessed: priced.some((e) => e.guessed),
+  }
+}
+
+export default function CheckoutPrep({ open, onClose, lines, postal, pounds = {}, update }) {
   const rows = toClip(lines, postal).sort((a, b) => a.deal.merchant.localeCompare(b.deal.merchant) || a.name.localeCompare(b.name))
   const done = rows.filter(isClipped).length
   const next = rows.find((l) => !isClipped(l))
+  const cost = (l) => estimate(l.deal, pounds[l.name])
+  const { total, priced, unpriced, guessed } = cartEstimate(lines, pounds)
   return (
     <Sheet open={open} onClose={onClose} title="Get ready to price match" tall>
+      {priced > 0 && (
+        <div className="mb-3 rounded-2xl bg-stone-50 p-3">
+          <p className="flex items-baseline justify-between">
+            <span className="text-sm font-semibold text-stone-600">Estimated total</span>
+            <span className="text-2xl font-bold text-green-700">≈ {money(total)}</span>
+          </p>
+          <p className="mt-0.5 text-xs text-stone-500">
+            {priced} {priced === 1 ? 'item' : 'items'} at flyer prices, before tax. Priced by the pound for the amounts in your recipes
+            {guessed ? ', or about a pound where it doesn\'t say' : ''}.{unpriced > 0 && ` ${unpriced} ${unpriced === 1 ? 'item has' : 'items have'} no flyer price and aren't counted.`}
+          </p>
+        </div>
+      )}
       <p className="text-sm text-stone-600">
         Open each ad and tap <b>Clip</b> in Flipp. At the till, open Flipp's <b>Shopping List</b> and every ad is there, no switching apps.
       </p>
@@ -40,6 +67,12 @@ export default function CheckoutPrep({ open, onClose, lines, postal, update }) {
                 <div className="min-w-0 flex-1">
                   <p className={`truncate font-medium capitalize ${clipped ? 'text-stone-400' : ''}`}>{l.name}</p>
                   <p className="truncate text-sm font-semibold text-green-700">{l.deal.priceLabel || l.deal.priceText}</p>
+                  {cost(l)?.qty && (
+                    <p className="text-xs text-stone-500">
+                      {cost(l).guessed ? 'About ' : ''}
+                      {cost(l).qty} ≈ {money(cost(l).cost)}
+                    </p>
+                  )}
                 </div>
                 <a
                   href={flippUrl(l.deal, postal)}
