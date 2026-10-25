@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { fsa, loadDeals } from '@f2r/lib/data'
+import { describesOther } from '@f2r/lib/needs'
 import { activeDeals } from '@f2r/lib/planner'
 import { followMatch, otherProvince, tidyMatch } from '@f2r/lib/priceMatch'
 import { bestDeal } from './lib/deals'
@@ -141,10 +142,13 @@ export default function App() {
 
   // Each list line with its deal: the one picked, else the best plain match this week.
   const byId = useMemo(() => new Map(deals.map((d) => [d.dealId, d])), [deals])
-  const lines = useMemo(
-    () => list.map((i) => ({ ...i, deal: (i.dealId && byId.get(i.dealId)) || bestDeal(i.name, deals) })),
-    [list, deals, byId],
-  )
+  // A remembered ad that turns out to be something else (spaghetti squash for spaghetti, from
+  // before the matching knew better) is matched again.
+  const pinned = useCallback((i) => {
+    const d = i.dealId && byId.get(i.dealId)
+    return d && !describesOther(i.name.toLowerCase(), d) ? d : null
+  }, [byId])
+  const lines = useMemo(() => list.map((i) => ({ ...i, deal: pinned(i) || bestDeal(i.name, deals) })), [list, deals, pinned])
 
   // Remember the ad each item was matched to, so a reload (or a re-ordered flyer download) shows
   // the same deal. An item is re-matched only when its ad has left this week's flyers, not when a
@@ -152,9 +156,10 @@ export default function App() {
   const live = useMemo(() => new Set(allDeals.map((d) => d.dealId)), [allDeals])
   useEffect(() => {
     if (dealState !== 'ready') return
-    const pin = new Map(lines.filter((l) => l.deal && (!l.dealId || !live.has(l.dealId)) && l.dealId !== l.deal.dealId).map((l) => [l.name, l.deal.dealId]))
+    const stale = (l) => !l.dealId || !live.has(l.dealId) || (byId.has(l.dealId) && !pinned(l))
+    const pin = new Map(lines.filter((l) => l.deal && stale(l) && l.dealId !== l.deal.dealId).map((l) => [l.name, l.deal.dealId]))
     if (pin.size) setList((cur) => cur.map((i) => (pin.has(i.name) ? { ...i, dealId: pin.get(i.name) } : i)))
-  }, [lines, live, dealState])
+  }, [lines, live, dealState, byId, pinned])
 
   const keys = useMemo(() => [...new Set(list.map((i) => norm(i.name)))].filter(Boolean), [list])
   // Every recipe, the ones you already have the most of first.

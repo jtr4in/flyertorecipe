@@ -52,7 +52,7 @@ const partOfWord = (n, d) => {
 const FORM = /^(sticks?|bricks?|blocks?|slices?|sliced|shredded|grated|tubs?|bags?|box|jars?|bottles?|cans?|rolls?|pack|pk|family|size|value|selected|select|varieties|variety|assorted|organic|fresh|frais|fraiche|large|medium|small|whole|bulk|vrac|en|each|ea|sheets?|count|un)$/
 const SIZE = /\d+(?:[.,/=x-]\s*\d+)*\s*(?:kg|g|ml|l|lbs?|oz|pk|pcs?|un|ct|'s|s)?(?![\p{L}])/giu
 const FRENCH = /(^| )(de|du|des|d'\S+|a|au|aux|la|le|les|l'\S+|et|sans|nom|pour)( |$)/
-const describesOther = (n, d) => {
+export const describesOther = (n, d) => {
   const parts = fold(d.name || '')
     .split(/[|/,(]| or | ou /)
     .map((p) => {
