@@ -20,6 +20,7 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
   const [flyers, setFlyers] = useState(false)
   const [prep, setPrep] = useState(false)
   const [zoom, setZoom] = useState(null) // list line whose flyer ad is blown up
+  const zoomChoices = useMemo(() => (zoom ? findDeals(zoom.name, deals).slice(0, 12) : []), [zoom, deals])
   const [more, setMore] = useState(MORE) // household and kitchen suggestions showing, per section
   // Memoized so typing in the box doesn't redo the suggestions below, which scan every flyer ad.
   const names = useMemo(() => lines.map((l) => l.name), [lines])
@@ -225,7 +226,6 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
                       open={open === l.name}
                       onOpen={() => setOpen(open === l.name ? null : l.name)}
                       onZoom={() => setZoom(l)}
-                      onPick={(d) => (update(l.name, { dealId: d.dealId }), setOpen(null))}
                       onMove={(section) => (update(l.name, { section }), setOpen(null))}
                       onCheck={() => update(l.name, { checked: !l.checked })}
                       onRemove={() => remove(l.name)}
@@ -242,7 +242,8 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
         deal={zoom?.deal}
         postal={postal}
         onClose={() => setZoom(null)}
-        action={zoom && { label: 'Other deals', onClick: () => (setOpen(zoom.name), setZoom(null)) }}
+        choices={zoomChoices}
+        onChoose={(o) => (update(zoom.name, { dealId: o.dealId }), setZoom(null))}
       />
 
       {recs && (
@@ -261,9 +262,10 @@ export default function ListTab({ postal, setPostal, dealState, deals, filters, 
   )
 }
 
-function ListLine({ line, postal, section, forMeals, deals, open, onOpen, onZoom, onPick, onMove, onCheck, onRemove }) {
+function ListLine({ line, postal, section, forMeals, deals, open, onOpen, onZoom, onMove, onCheck, onRemove }) {
   const d = line.deal
-  const others = useMemo(() => (open ? findDeals(line.name, deals).slice(0, 8) : []), [open, line.name, deals])
+  // The same ads the pop-up offers, besides the one in use.
+  const others = useMemo(() => (open ? findDeals(line.name, deals).slice(0, 12).filter((o) => o.dealId !== d?.dealId) : []), [open, line.name, deals, d?.dealId])
   return (
     <li className={line.checked ? 'bg-stone-50' : ''}>
       <div className="flex items-center gap-3 px-3 py-2.5">
@@ -303,35 +305,9 @@ function ListLine({ line, postal, section, forMeals, deals, open, onOpen, onZoom
             </a>
           )}
           {others.length > 0 && (
-            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-2">
-              <p className="px-1 pb-1.5 text-xs font-semibold text-amber-900">
-                {d ? 'Other deals' : 'Deals'} for {line.name} <span className="font-normal text-amber-800/70">· tap one to use it</span>
-              </p>
-              <div className="space-y-1.5">
-                {others.map((o) => {
-                  const using = o.dealId === d?.dealId
-                  return (
-                    <button
-                      key={o.dealId}
-                      onClick={() => onPick(o)}
-                      className={`flex w-full items-center gap-3 rounded-xl border bg-white p-1.5 text-left ${using ? 'border-orange-400 ring-1 ring-orange-400' : 'border-amber-100'}`}
-                    >
-                      <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg">
-                        <FlyerClip deal={o} maxHeight="3rem" sharp={200} />
-                      </div>
-                      <div className="min-w-0 flex-1 text-sm">
-                        <p className="line-clamp-2 leading-snug">{dealName(o.name)}</p>
-                        <p className="text-stone-500">
-                          <span className="font-semibold text-green-700">{o.priceLabel}</span> · {o.merchant}
-                          {o.savings > 0 && <span className="text-green-700"> · save {money(o.savings)}</span>}
-                        </p>
-                      </div>
-                      {using && <span className="shrink-0 rounded-full bg-orange-100 px-2 py-0.5 text-[11px] font-semibold text-orange-800">Using</span>}
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
+            <button onClick={onZoom} className="block w-full rounded-2xl border border-amber-200 bg-amber-50 py-2.5 text-center text-sm font-semibold text-amber-900">
+              {d ? `Compare ${others.length} other ${others.length === 1 ? 'deal' : 'deals'}` : `See ${others.length} ${others.length === 1 ? 'deal' : 'deals'}`} ›
+            </button>
           )}
           <label className="flex items-center justify-between gap-2 px-1 pt-1 text-xs font-semibold text-stone-500">
             Aisle
