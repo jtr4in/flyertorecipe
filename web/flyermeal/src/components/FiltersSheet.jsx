@@ -25,7 +25,7 @@ export function filterSummary(f) {
   return 'All stores'
 }
 
-export default function FiltersSheet({ open, onClose, filters, merchants, onChange }) {
+export default function FiltersSheet({ open, onClose, filters, merchants, quebec, onChange }) {
   const set = (patch) => onChange({ ...filters, ...patch })
   const match = PRICE_MATCH[filters.matchAt] || null
   return (
@@ -82,6 +82,24 @@ export default function FiltersSheet({ open, onClose, filters, merchants, onChan
             </button>
           )}
         </fieldset>
+
+        {quebec > 0 && (
+          <label className="flex items-start gap-3 rounded-2xl border border-stone-200 p-3">
+            <input
+              type="checkbox"
+              checked={!!filters.quebec}
+              onChange={(e) => set({ quebec: e.target.checked })}
+              disabled={!!match}
+              className="mt-0.5 size-5 shrink-0 accent-orange-600"
+            />
+            <span className="text-sm">
+              <span className="block font-semibold">Include Quebec flyers</span>
+              <span className="block text-xs text-stone-500">
+                Maxi, Provigo, Super C, IGA, Metro Quebec and others near you. Ontario stores won't price match them{match ? ', so they stay off while price matching' : ''}.
+              </span>
+            </span>
+          </label>
+        )}
       </div>
     </Sheet>
   )

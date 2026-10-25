@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { fsa, loadDeals } from '@f2r/lib/data'
 import { activeDeals } from '@f2r/lib/planner'
-import { followMatch, tidyMatch } from '@f2r/lib/priceMatch'
+import { followMatch, otherProvince, tidyMatch } from '@f2r/lib/priceMatch'
 import { bestDeal } from './lib/deals'
 import { recommend } from './lib/recommend'
 import { norm, prepare, sortRecipes } from './lib/match'
@@ -75,8 +75,12 @@ export default function App() {
       .catch(() => setRecipes([]))
   }, [])
 
+  // Near Ottawa, Flipp also sends Gatineau's Quebec flyers; Ontario stores won't price match them,
+  // so they're left out unless asked for.
+  const quebec = useMemo(() => allDeals.filter((d) => otherProvince(d, postal)).length, [allDeals, postal])
+  const local = useMemo(() => ((filters.quebec && !filters.matchAt) || !quebec ? allDeals : allDeals.filter((d) => !otherProvince(d, postal))), [allDeals, postal, quebec, filters.quebec, filters.matchAt])
   // Everything (list matches, suggestions, the flyer wall, recipe prices) uses only these flyers.
-  const deals = useMemo(() => (filters.stores.length ? allDeals.filter((d) => filters.stores.includes(d.merchant)) : allDeals), [allDeals, filters.stores])
+  const deals = useMemo(() => (filters.stores.length ? local.filter((d) => filters.stores.includes(d.merchant)) : local), [local, filters.stores])
   // Match the everyday suggestions against this week's ads while the page is idle, so adding the
   // first item doesn't stall on it.
   useEffect(() => {
@@ -88,9 +92,9 @@ export default function App() {
   }, [deals])
   const merchants = useMemo(() => {
     const n = new Map()
-    for (const d of allDeals) n.set(d.merchant, (n.get(d.merchant) || 0) + 1)
+    for (const d of local) n.set(d.merchant, (n.get(d.merchant) || 0) + 1)
     return [...n].sort((a, b) => b[1] - a[1]).map(([m]) => m)
-  }, [allDeals])
+  }, [local])
 
   // `meal` is the recipe id the items are for, so the list can say what each one is for.
   const add = useCallback((names, dealId, meal) => {
@@ -181,6 +185,7 @@ export default function App() {
         onClose={() => setFiltering(false)}
         filters={filters}
         merchants={merchants}
+        quebec={quebec}
         onChange={(next) => setFilters((prev) => followMatch(next, prev))}
       />
 

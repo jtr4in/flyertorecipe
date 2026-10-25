@@ -173,6 +173,7 @@ def normalize(row: dict, fetched_at: datetime | None = None) -> dict | None:
         "saleStory": row.get("saleStory"),
         "flyerId": row.get("flyerId"),
         "page": row.get("page"),
+        "province": row.get("province"),
         "fetchedAt": (fetched_at or datetime.now(timezone.utc)).isoformat(),
     }
 

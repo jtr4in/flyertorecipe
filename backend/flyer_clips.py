@@ -169,6 +169,22 @@ def page_of(item: dict, pages: list[dict]) -> int | None:
     return None
 
 
+# Chains whose flyers near the Ontario border are only for their Quebec stores. Ontario stores
+# won't price match these. Metro and IGA say which province in the flyer's name instead.
+QUEBEC_ONLY = {"Maxi", "Provigo", "Super C", "IGA", "L'Inter-Marché", "Rachelle Béry", "Jean Coutu", "La Boite à Grains", "Lufa Farms"}
+
+
+def flyer_province(f: dict) -> str | None:
+    """'QC' or 'ON' when the flyer says which province it's for, else None (most chains run one
+    flyer per region and Flipp already picked the one for the postal code)."""
+    name = (f.get("name") or "").lower()
+    if "quebec" in name or "québec" in name or f.get("merchant") in QUEBEC_ONLY:
+        return "QC"
+    if "ontario" in name:
+        return "ON"
+    return None
+
+
 def flyer_rows(flyers: list[tuple[dict, dict]]) -> list[dict]:
     """Every priced item on the flyers, shaped like the search actor's rows so normalize()
     reads both: "2/" + "5.00" + "ea." becomes currentPrice 5.00, priceText "2/ ea."."""
@@ -196,6 +212,7 @@ def flyer_rows(flyers: list[tuple[dict, dict]]) -> list[dict]:
                 "validTo": it.get("valid_to") or f.get("valid_to"),
                 "flyerId": f.get("id"),
                 "page": page_of(it, pages),
+                "province": flyer_province(f),
             })
     return rows
 

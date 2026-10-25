@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { followMatch, matchableDeals, matchSources, tidyMatch } from './priceMatch'
+import { followMatch, matchableDeals, matchSources, otherProvince, tidyMatch } from './priceMatch'
 
 const deals = ['FreshCo', 'No Frills', 'Walmart', 'Metro', 'Farm Boy', 'Food Basics'].map((merchant) => ({ merchant, name: 'x' }))
 const stores = (ds) => ds.map((d) => d.merchant)
@@ -33,5 +33,15 @@ describe('stores follow the price-match store', () => {
   })
   it('drops saved stores the match store will not accept', () => {
     expect(tidyMatch({ stores: ['Sobeys', 'Walmart', 'Farm Boy'], matchAt: 'FreshCo', matchExtras: [] }).stores).toEqual(['Walmart'])
+  })
+})
+
+describe('Quebec flyers', () => {
+  it("are left out where Ontario stores price match, and only from Ontario", () => {
+    const deals = [{ merchant: 'Metro', province: 'QC' }, { merchant: 'Metro', province: 'ON' }, { merchant: 'Food Basics' }]
+    expect(matchableDeals(deals, 'No Frills')).toHaveLength(2)
+    expect(otherProvince(deals[0], 'K4A1A1')).toBe(true)
+    expect(otherProvince(deals[0], 'J8Y 1A1')).toBe(false)
+    expect(otherProvince(deals[2], 'K4A1A1')).toBe(false)
   })
 })

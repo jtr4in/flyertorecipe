@@ -67,3 +67,12 @@ def test_page_of_finds_the_page_under_the_item():
     assert page_of({"left": 10, "right": 20}, pages) == 1
     assert page_of({"left": 500, "right": 600}, pages) is None
     assert page_of({}, pages) is None
+
+
+def test_flyer_province():
+    from flyer_clips import flyer_province
+    assert flyer_province({"merchant": "Metro", "name": "Quebec"}) == "QC"
+    assert flyer_province({"merchant": "Metro", "name": "Ontario"}) == "ON"
+    assert flyer_province({"merchant": "IGA", "name": "Québec – Weekly eFlyer"}) == "QC"
+    assert flyer_province({"merchant": "Maxi", "name": "Weekly Flyer"}) == "QC"
+    assert flyer_province({"merchant": "FreshCo", "name": "Weekly eFlyer"}) is None

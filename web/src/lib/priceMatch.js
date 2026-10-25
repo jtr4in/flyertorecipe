@@ -48,10 +48,18 @@ export function matchSources(store, extras = []) {
   return [store, ...p.accepts, ...p.optional.filter((s) => extras.includes(s))]
 }
 
+// Every store above is in Ontario, and none of them match a Quebec flyer (Metro and IGA run
+// separate Quebec flyers that Flipp also shows near Ottawa).
 export function matchableDeals(deals, store, extras = []) {
   const ok = matchSources(store, extras)
-  return ok ? deals.filter((d) => ok.includes(d.merchant)) : deals
+  return ok ? deals.filter((d) => ok.includes(d.merchant) && d.province !== 'QC') : deals
 }
+
+/** Ontario postal codes start with K, L, M, N or P. */
+export const inOntario = (postal) => /^[KLMNP]/i.test((postal || '').trim())
+
+/** A Quebec flyer seen from Ontario: Ontario stores won't price match it. */
+export const otherProvince = (deal, postal) => deal.province === 'QC' && inOntario(postal)
 
 /**
  * Prefs with the store picks following the price-match store: choosing one selects the flyers
