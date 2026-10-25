@@ -21,7 +21,7 @@ function saleFor(key, deals, memo) {
   return memo.get(key)
 }
 
-export default function RecipesTab({ sorted, groups, loading, list, keys, deals, add, meals, saveMeal, openId, setOpenId }) {
+export default function RecipesTab({ sorted, groups, loading, list, keys, deals, add, meals, saveMeal, shortcuts, takeShortcut, openId, setOpenId }) {
   const [group, setGroup] = useState(null)
   const [q, setQ] = useState('')
   const open = openId && sorted.find((s) => s.recipe.id === openId)?.recipe
@@ -87,7 +87,7 @@ export default function RecipesTab({ sorted, groups, loading, list, keys, deals,
       )}
       <p className="pb-2 text-center text-xs text-stone-400">Recipes from TheMealDB and Flyer Meal. Photos from TheMealDB and Wikimedia Commons.</p>
 
-      {open && <RecipeSheet key={open.id} recipe={open} onClose={() => setOpen(null)} deals={deals} memo={memo} add={add} list={list} keys={keys} saved={meals.includes(open.id)} saveMeal={saveMeal} />}
+      {open && <RecipeSheet key={open.id} recipe={open} onClose={() => setOpen(null)} deals={deals} memo={memo} add={add} list={list} keys={keys} saved={meals.includes(open.id)} saveMeal={saveMeal} store={shortcuts.includes(open.id)} setStore={(on) => takeShortcut(open, on)} />}
     </div>
   )
 }
@@ -172,9 +172,12 @@ const STATUS = {
   need: { icon: '+', cls: 'bg-orange-100 text-orange-700', label: 'To buy' },
 }
 
-function RecipeSheet({ recipe, onClose, deals, memo, add, list, keys, saved, saveMeal }) {
+function RecipeSheet({ recipe, onClose, deals, memo, add, list, keys, saved, saveMeal, store, setStore }) {
   const swap = recipe.swaps?.[0]
-  const [store, setStore] = useState(false) // using the store-bought sauce
+  const patch = store && swap?.steps // step number → its store-bought version, or null to skip it
+  const steps = recipe.steps
+    .map((text, i) => (patch && String(i + 1) in patch ? { text: patch[String(i + 1)], changed: true } : { text }))
+    .filter((st) => st.text !== null)
   const score = scoreRecipe(withSwap(recipe, store && swap), keys)
   const onList = (name) => list.some((i) => i.name.toLowerCase() === name.toLowerCase())
   const status = (l) => (l.status === 'need' && onList(l.name) ? 'list' : l.status)
@@ -304,12 +307,15 @@ function RecipeSheet({ recipe, onClose, deals, memo, add, list, keys, saved, sav
       <p className="mt-2 text-xs text-stone-400">🏠 means most kitchens have it already, like salt, oil and garlic.</p>
 
       <h3 className="mt-5 mb-2 font-semibold">How to make it</h3>
-      {store && <p className="mb-3 rounded-2xl bg-green-50 p-3 text-sm text-green-900">{swap.note}</p>}
+      {store && !patch && <p className="mb-3 rounded-2xl bg-green-50 p-3 text-sm text-green-900">{swap.note}</p>}
       <ol className="list-decimal space-y-2 pl-5 text-sm leading-relaxed text-stone-700">
-        {recipe.steps.map((s, i) => (
-          <li key={i}>{s}</li>
+        {steps.map((st, i) => (
+          <li key={i} className={st.changed ? '-ml-1 rounded-lg bg-green-50 py-1 pr-2 pl-1 text-green-900' : ''}>
+            {st.text}
+          </li>
         ))}
       </ol>
+      {patch && <p className="mt-2 text-xs text-stone-400">Steps in green are changed for the store-bought {swap.sauce}.</p>}
     </Sheet>
   )
 }

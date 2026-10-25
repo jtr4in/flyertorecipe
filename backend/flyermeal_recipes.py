@@ -8,6 +8,7 @@ per-user quota to run out. That file is built from:
 - flyermeal_common.json: the TheMealDB dishes worth showing, by group. Most of the catalogue is
   regional (Algerian flatbreads, Norwegian cakes), so only named dishes make it into the app.
 - flyermeal_swaps.json: store-bought sauce shortcuts for TheMealDB dishes that make their own.
+- flyermeal_swap_steps.json: how each recipe's steps read with its shortcut, by dish name.
 - flyermeal_classics.json: everyday dinners TheMealDB lacks (spaghetti and meatballs, tacos,
   chili). Each photo is a freely licensed Wikimedia Commons file: the one a classic names in
   "photo", else the lead image of its Wikipedia article. The photographer's credit and licence
@@ -37,6 +38,7 @@ PHOTOS = HERE / "data" / "flyermeal_photos.json"
 COMMON = HERE / "flyermeal_common.json"
 CLASSICS = HERE / "flyermeal_classics.json"
 SWAPS = HERE / "flyermeal_swaps.json"
+SWAP_STEPS = HERE / "flyermeal_swap_steps.json"
 API = "https://www.themealdb.com/api/json/v1/1"
 WIKI = "https://en.wikipedia.org"
 COMMONS = "https://commons.wikimedia.org"
@@ -227,12 +229,23 @@ def build(catalogue: list[dict], offline: bool = False) -> dict:
                 "youtube": r["youtube"], "source": r["source"], "ingredients": r["ingredients"], "steps": r["steps"],
                 "swaps": swaps.get(name, []),
             })
+    steps = {k: v for k, v in read(SWAP_STEPS, {}).items() if not k.startswith("_")}
     for c in out:
         assert c["group"] in GROUPS, f"{c['name']}: unknown group {c['group']}"
         names = {i["name"] for i in c["ingredients"]}
         for s in c["swaps"]:
             missing = [n for n in s["replaces"] if n not in names]
             assert not missing, f"{c['name']}: swap replaces {missing}, not in its ingredients"
+            if c["name"] in steps:
+                patch = steps[c["name"]]
+                bad = [k for k in patch if not (k.isdigit() and 1 <= int(k) <= len(c["steps"]))]
+                assert not bad, f"{c['name']}: swap steps {bad} aren't steps of the recipe"
+                s["steps"] = patch
+    unpatched = sorted(c["name"] for c in out if c["swaps"] and c["name"] not in steps)
+    if unpatched:
+        print(f"  shortcuts without rewritten steps (the note is shown instead): {', '.join(unpatched)}")
+    unknown = set(steps) - {c["name"] for c in out if c["swaps"]}
+    assert not unknown, f"swap steps for dishes without a shortcut: {unknown}"
     unused = set(swaps) - {c["name"] for c in out}
     assert not unused, f"swaps for dishes not in the app: {unused}"
     data = {

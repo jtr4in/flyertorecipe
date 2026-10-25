@@ -1,0 +1,179 @@
+{
+  "_about": "How each recipe's steps change with its store-bought shortcut (flyermeal_swaps.json, or a classic's own swaps), keyed by dish name. Each key is a step number from 1; the text replaces that step, and null drops it.",
+  "Spaghetti and Meatballs": {
+    "3": "Make the sauce: cook the chopped onion and remaining garlic in the same pan for 5 minutes. Pour in the jar of pasta sauce and bring it to a simmer."
+  },
+  "Baked Ziti": {
+    "3": "Pour in the jar of pasta sauce and simmer 5 minutes."
+  },
+  "Chicken Parmesan": {
+    "3": "Warm the jar of pasta sauce in a small pot."
+  },
+  "Penne alla Vodka": {
+    "2": "Cook the finely chopped onion in a little oil for 5 minutes, then the garlic for 1 minute. Pour in the jar of vodka sauce and heat it through.",
+    "3": null
+  },
+  "Pesto Chicken Pasta": {
+    "3": null,
+    "4": "Toss the pasta with the jar of pesto, the parmesan, tomatoes, chicken and a splash of the pasta water."
+  },
+  "Tuna Noodle Casserole": {
+    "2": "Make the sauce: whisk the soup with 1 cup of the milk in the empty noodle pot over medium heat until smooth and hot."
+  },
+  "Butter Chicken": {
+    "4": "Pour the jar of butter chicken sauce into the pan and bring it to a simmer.",
+    "5": "Stir in the chicken and simmer 8 to 10 minutes until cooked through. Serve over rice with cilantro."
+  },
+  "Chicken Fajitas": {
+    "1": "Toss the chicken with the fajita seasoning, half the lime juice and 1 tbsp oil."
+  },
+  "Chicken Pot Pie": {
+    "2": "Make the filling: cook the onion in a splash of oil for 5 minutes, then stir in the soup, milk and thyme. Season with salt and pepper."
+  },
+  "Honey Garlic Chicken Thighs": {
+    "2": null,
+    "3": "Flip the chicken, pour the honey garlic sauce around it and roast 20 minutes, basting once, until cooked through."
+  },
+  "Chicken Caesar Salad": {
+    "2": null,
+    "3": "Toss the chopped romaine with the Caesar dressing and half the parmesan, then top with the chicken, croutons, bacon and the rest of the parmesan."
+  },
+  "Chicken and Vegetable Stir-Fry": {
+    "2": null,
+    "5": "Return the chicken, pour in about 3/4 cup of the stir-fry sauce and toss until glossy. Serve over rice."
+  },
+  "Ground Beef Tacos": {
+    "2": "Stir in the taco seasoning and 2/3 cup water (or as the packet says). Simmer 5 minutes until saucy."
+  },
+  "Shepherd's Pie": {
+    "2": "Brown the beef with the onion and carrots for 8 minutes.",
+    "3": "Whisk the gravy mix with 1 cup of water, add it to the beef and simmer 10 minutes until thick. Stir in the peas."
+  },
+  "Beef and Bean Burritos": {
+    "2": "Brown the beef with the onion, breaking it up. Stir in the taco seasoning and 1/2 cup water and simmer 5 minutes."
+  },
+  "Sloppy Joes": {
+    "2": "Stir in the can of sloppy joe sauce."
+  },
+  "Loaded Beef Nachos": {
+    "1": "Heat the oven to 400°F (200°C). Brown the beef, then stir in the taco seasoning and 1/3 cup water and simmer 3 minutes."
+  },
+  "Pulled Pork Sandwiches": {
+    "2": "Pour half the bottle of BBQ sauce over the pork.",
+    "4": "Shred with two forks, toss with the juices and the rest of the BBQ sauce, and pile onto buns with coleslaw."
+  },
+  "Oven-Baked BBQ Ribs": {
+    "4": null,
+    "5": "Unwrap, brush with the BBQ sauce and broil or grill 5 minutes until sticky."
+  },
+  "Chickpea Curry": {
+    "2": "Cook the onion in the oil for 6 minutes.",
+    "3": "Add the jar of curry sauce and the chickpeas and simmer 10 minutes."
+  },
+  "Grilled Cheese and Tomato Soup": {
+    "1": "For the soup: heat the tomato soup in a pot with a can of milk or water, as the can says."
+  },
+  "American Goulash": {
+    "2": "Stir in the jar of pasta sauce, the broth and paprika. Bring to a boil."
+  },
+  "Baked Stuffed Shells": {
+    "2": null,
+    "4": "Spread half the pasta sauce in a 9x13 dish. Fill each shell with a spoonful of the filling and set them in the dish."
+  },
+  "Eggs Benedict": {
+    "1": "Warm the hollandaise as the package says and keep it warm."
+  },
+  "Greek Salad": {
+    "2": "Toss with the olives, the Greek dressing and a pinch of salt.",
+    "3": "Top with the feta, in a slab or crumbled."
+  },
+  "Sausages and Mash with Onion Gravy": {
+    "3": "Make the gravy: cook the sliced onions in the rest of the butter for 10 minutes until golden. Stir in the gravy mix with water as the packet says and simmer until thick."
+  },
+  "Eggplant Parmesan": {
+    "3": null,
+    "4": "Layer the pasta sauce, eggplant, mozzarella and parmesan in a 9x13 dish, twice. Bake 25 minutes until bubbling."
+  },
+  "Vegetable Lasagna": {
+    "2": null,
+    "3": "Cook the chopped zucchini, mushrooms and pepper in the oil with the garlic for 8 minutes. Wilt in the spinach.",
+    "5": "In a 9x13 dish layer pasta sauce, noodles, ricotta, vegetables and mozzarella three times, ending with sauce, mozzarella and parmesan."
+  },
+  "Spaghetti Bolognese": {
+    "1": "Put the onion and oil in a large pan and fry over a fairly high heat for 3-4 mins. Add the garlic and mince and fry until they both brown. Add the mushrooms and cook for another couple of mins.",
+    "2": "Stir in the jar of pasta sauce, the beef stock, Worcestershire sauce and seasoning. Bring to the boil, then reduce the heat, cover and simmer, stirring occasionally, for 30 mins."
+  },
+  "Lasagne": {
+    "3": "Pour in the jar of pasta sauce, rinse the jar with a splash of water and add that too. Season to taste and simmer for 20 mins."
+  },
+  "Fettuccine Alfredo": {
+    "1": "Cook pasta according to package instructions in a large pot of boiling water and salt. Warm the jar of Alfredo sauce in a large skillet over medium heat, then add the pasta and toss until coated. Season with black pepper, garnish with parsley, and it's ready."
+  },
+  "Chicken Alfredo Primavera": {
+    "1": "Heat 1 tablespoon of butter and 2 tablespoons of olive oil in a large skillet over medium-high heat. Season both sides of each chicken breast with seasoned salt and a pinch of pepper. Add the chicken to the skillet and cook for 5-7 minutes on each side, or until cooked through. While the chicken is cooking, bring a large pot of water to a boil. Season the boiling water with a few generous pinches of kosher salt. Add the pasta and give it a stir. Cook, stirring occasionally, until al dente, about 12 minutes. Reserve 1/2 cup of pasta water before draining the pasta. Remove the chicken from the pan and transfer it to a cutting board; allow it to rest. Turn the heat down to medium and add the remaining 1 tablespoon of butter and olive oil to the same pan you used to cook the chicken. Add the veggies (minus the garlic) and red pepper flakes to the pan and stir to coat with the oil and butter (refrain from seasoning with salt until the veggies are finished browning). Cook, stirring often, until the veggies are tender, about 5 minutes. Add the garlic and a generous pinch of salt and pepper to the pan and cook for 1 minute. Pour in the jar of Alfredo sauce and the reserved pasta water and bring to a gentle simmer. Turn off the heat and add the cooked pasta. Season with salt and pepper to taste. Garnish with chopped parsley, if desired."
+  },
+  "Spicy Arrabiata Penne": {
+    "2": "In a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Pour in the jar of arrabbiata sauce and simmer for 5 minutes. Remove from the heat and add the chopped basil."
+  },
+  "Spinach & Ricotta Cannelloni": {
+    "1": "Spread the jar of pasta sauce over the bottom of 2 or more shallow ovenproof dishes. Make a sauce by beating the mascarpone with the milk until smooth, season, then set aside."
+  },
+  "Sweet and Sour Chicken": {
+    "3": null,
+    "4": null,
+    "12": "Add the pineapple chunks and about 3/4 cup of the sweet and sour sauce. Turn up the heat to high. When the sauce is simmering, add the chicken pieces back in.",
+    "15": "Taste and add a little more sauce if you'd like."
+  },
+  "General Tsos Chicken": {
+    "2": null,
+    "3": null,
+    "4": null,
+    "11": "Heat about 3/4 cup of the General Tso sauce in the wok with the broccoli until it's boiling."
+  },
+  "Chinese Orange Chicken": {
+    "1": null,
+    "2": null,
+    "11": "Once chicken is done, pour out hot oil and wipe pan clean. Add a fresh tablespoon of oil along with chopped garlic and shallot. Cook for a minute, then add about 3/4 cup of the orange sauce. Simmer until it starts to thicken."
+  },
+  "Teriyaki Chicken Casserole": {
+    "2": "Bring about 1 1/2 cups of the teriyaki sauce to a boil in a small saucepan over medium heat."
+  },
+  "Kung Pao Chicken": {
+    "1": "Mix the sesame oil with the cornflour dissolved in water.",
+    "2": "In a glass dish or bowl, toss the chicken pieces in this mixture. Cover and refrigerate for about 30 minutes.",
+    "3": "In a medium frying pan, warm about 1/2 cup of the kung pao sauce with the spring onion, garlic, water chestnuts and peanuts over medium heat until aromatic."
+  },
+  "Crock Pot Chicken Baked Tacos": {
+    "1": "Put the uncooked chicken breasts in the crock pot. Pour the full bottle of salad dressing over the chicken. Sprinkle the taco seasoning over the top and mix it in a bit with a spoon."
+  },
+  "Tandoori chicken": {
+    "1": "Mix the lemon juice with the red onions in a large shallow dish. Slash each chicken thigh three times, then turn them in the juice and set aside for 10 mins.",
+    "2": "Mix the yogurt with 1/3 cup of tandoori paste and pour over the chicken. Give everything a good mix, then cover and chill for at least 1 hr. This can be done up to a day in advance."
+  },
+  "Katsu Chicken curry": {
+    "3": "Gradually stir in the stock and bring to a simmer. Add the curry roux blocks and the bay leaf, stirring until the roux melts.",
+    "4": "Simmer for 10 minutes or until the sauce thickens but is still of pouring consistency. Remove the bay leaf and keep on low heat until ready to serve."
+  },
+  "Big Mac": {
+    "1": null,
+    "4": "4. To assemble the burgers, spread a little burger sauce over the bottom base. Top with some chopped onion, shredded lettuce, slice of cheese, beef patty and some pickle slices. Top with the middle bun layer, and spread with more burger sauce, onion, lettuce, pickles, beef patty and then finish with more sauce. Top with burger lid to serve."
+  },
+  "Sweet and Sour Pork": {
+    "7": "5. Put the remaining starch in a bowl and stir in some water to make a starchy sauce.",
+    "11": "2. Leave some oil in the wok. Add about 1/2 cup of the sweet and sour sauce and heat it through.",
+    "12": "3. Add the pork strips to the sauce."
+  },
+  "Honey Teriyaki Salmon": {
+    "1": "Toss the salmon with about 1/4 cup of the teriyaki sauce.",
+    "2": "Heat up a skillet on medium-low heat. Add the oil, pan-fry the salmon on both sides until it's completely cooked inside and the sauce thickens."
+  },
+  "Pizza Express Margherita": {
+    "2": null,
+    "3": null,
+    "4": null,
+    "5": null,
+    "6": null,
+    "7": null,
+    "8": "8 Stretch the store-bought dough into a lightly oiled, non-stick baking tray (we use a round one, but any shape will do!)"
+  }
+}

@@ -67,7 +67,7 @@
         "Spoon sauce over each cutlet, top with mozzarella and bake 10 to 12 minutes until the cheese bubbles.",
         "Serve over spaghetti with the extra sauce."
       ],
-      "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "dried oregano"], "note": "Skip step 3 and spoon warmed jarred pasta sauce over the cutlets instead." }]
+      "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "dried oregano", "garlic"], "note": "Skip step 3 and spoon warmed jarred pasta sauce over the cutlets instead." }]
     },
     {
       "id": "penne-vodka", "name": "Penne alla Vodka", "group": "Pasta", "emoji": "🍝", "wiki": "Penne_alla_vodka", "minutes": 30, "serves": 4,
@@ -112,7 +112,7 @@
         "Make the pesto: blend the basil, pine nuts, parmesan, garlic and olive oil until smooth. Season with salt.",
         "Toss the pasta with the pesto, tomatoes, chicken and a splash of the pasta water."
       ],
-      "swaps": [{ "label": "Use jarred pesto", "sauce": "pesto", "measure": "1 jar (270 ml)", "replaces": ["basil", "pine nuts", "garlic"], "note": "Skip step 3 and toss the pasta with the jar of pesto." }]
+      "swaps": [{ "label": "Use jarred pesto", "sauce": "pesto", "measure": "1 jar (270 ml)", "replaces": ["basil", "pine nuts", "garlic", "olive oil"], "note": "Skip step 3 and toss the pasta with the jar of pesto." }]
     },
     {
       "id": "tuna-casserole", "name": "Tuna Noodle Casserole", "group": "Pasta", "emoji": "🐟", "wiki": "Tuna_casserole", "minutes": 40, "serves": 6,
@@ -146,7 +146,7 @@
         "Make the sauce: melt the rest of the butter, cook the onion 6 minutes, then the garlic and ginger 1 minute. Add the tomato sauce and the rest of the garam masala and simmer 10 minutes. Blend smooth if you like.",
         "Stir in the cream and chicken and simmer 8 minutes until cooked through. Serve over rice with cilantro."
       ],
-      "swaps": [{ "label": "Use jarred butter chicken sauce", "sauce": "butter chicken sauce", "measure": "1 jar (450 ml)", "replaces": ["onion", "garlic", "ginger", "tomato sauce", "heavy cream", "garam masala"], "note": "Skip step 4: pour the jar of butter chicken sauce over the browned chicken and simmer 10 minutes." }]
+      "swaps": [{ "label": "Use jarred butter chicken sauce", "sauce": "butter chicken sauce", "measure": "1 jar (450 ml)", "replaces": ["onion", "garlic", "ginger", "tomato sauce", "heavy cream"], "note": "Skip step 4: pour the jar of butter chicken sauce over the browned chicken and simmer 10 minutes." }]
     },
     {
       "id": "chicken-fajitas", "name": "Chicken Fajitas", "group": "Chicken", "emoji": "🌯", "wiki": "Fajita", "minutes": 30, "serves": 4,
@@ -221,7 +221,7 @@
         "Flip the chicken, pour the sauce around it and roast 20 minutes, basting once, until cooked through.",
         "Serve with rice and steamed broccoli, spooning the sauce over and topping with green onion."
       ],
-      "swaps": [{ "label": "Use bottled honey garlic sauce", "sauce": "honey garlic sauce", "measure": "1 bottle (350 ml)", "replaces": ["honey", "soy sauce", "rice vinegar"], "note": "Skip step 2 and pour the bottled sauce around the chicken in step 3." }]
+      "swaps": [{ "label": "Use bottled honey garlic sauce", "sauce": "honey garlic sauce", "measure": "1 bottle (350 ml)", "replaces": ["honey", "soy sauce", "garlic", "rice vinegar"], "note": "Skip step 2 and pour the bottled sauce around the chicken in step 3." }]
     },
     {
       "id": "chicken-caesar", "name": "Chicken Caesar Salad", "group": "Sides & salads", "emoji": "🥗", "wiki": "Caesar_salad", "minutes": 25, "serves": 4,
@@ -777,7 +777,7 @@
         "Spread half the sauce in a 9x13 dish. Fill each shell with a spoonful of the filling and set them in the dish.",
         "Spoon over the rest of the sauce, top with the remaining mozzarella, cover with foil and bake 25 minutes, then uncovered 10 more."
       ],
-      "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "dried basil"], "note": "Skip step 2 and use the jar of pasta sauce instead." }]
+      "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "dried basil", "garlic", "olive oil"], "note": "Skip step 2 and use the jar of pasta sauce instead." }]
     },
     {
       "id": "scrambled-eggs", "name": "Scrambled Eggs and Toast", "group": "Breakfast", "emoji": "🍳", "wiki": "Scrambled_eggs", "minutes": 10, "serves": 2,
@@ -1017,7 +1017,7 @@
         "Make the sauce: cook the garlic in 1 tbsp oil, add the crushed tomatoes and basil, and simmer 10 minutes.",
         "Layer sauce, eggplant, mozzarella and parmesan in a 9x13 dish, twice. Bake 25 minutes until bubbling."
       ],
-      "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "dried basil"], "note": "Skip step 3 and layer with the jar of pasta sauce instead." }]
+      "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "dried basil", "garlic"], "note": "Skip step 3 and layer with the jar of pasta sauce instead." }]
     },
     {
       "id": "black-bean-tacos", "photo": "Vegetables and Black Bean Tacos (7212559656).jpg", "search": "black bean tacos", "name": "Crispy Black Bean Tacos", "group": "Vegetarian", "emoji": "🌮", "wiki": "Taco", "minutes": 25, "serves": 4,

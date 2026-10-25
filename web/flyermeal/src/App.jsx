@@ -4,7 +4,7 @@ import { activeDeals } from '@f2r/lib/planner'
 import { followMatch, otherProvince, tidyMatch } from '@f2r/lib/priceMatch'
 import { bestDeal } from './lib/deals'
 import { recommend } from './lib/recommend'
-import { norm, prepare, sortRecipes } from './lib/match'
+import { norm, prepare, scoreRecipe, sortRecipes, withSwap } from './lib/match'
 import ListTab from './components/ListTab'
 import RecipesTab from './components/RecipesTab'
 import FiltersSheet from './components/FiltersSheet'
@@ -32,6 +32,7 @@ export default function App() {
   const [postal, setPostal] = useState(() => read('fm.postal', ''))
   const [list, setList] = useState(() => read('fm.list', [])) // [{ name, checked, dealId, meals: [recipe id] }]
   const [meals, setMeals] = useState(() => read('fm.meals', [])) // recipe ids you're shopping for
+  const [shortcuts, setShortcuts] = useState(() => read('fm.shortcuts', [])) // recipe ids made with the store-bought sauce
   const [openId, setOpenId] = useState(null) // recipe showing on the Recipes tab
   const [allDeals, setDeals] = useState([])
   // Same store filters as Flyer2Recipes: the store you price match at, and which flyers to use.
@@ -43,6 +44,7 @@ export default function App() {
 
   useEffect(() => write('fm.list', list), [list])
   useEffect(() => write('fm.meals', meals), [meals])
+  useEffect(() => write('fm.shortcuts', shortcuts), [shortcuts])
   useEffect(() => write('fm.postal', postal), [postal])
   useEffect(() => write('fm.filters', filters), [filters])
 
@@ -118,6 +120,20 @@ export default function App() {
     // Unsaving a meal keeps its groceries, just without the "for" note.
     if (!on) setList((cur) => cur.map((i) => (i.meals?.includes(id) ? { ...i, meals: i.meals.filter((m) => m !== id) } : i)))
   }, [])
+  // Taking a recipe's store-bought shortcut takes the ingredients it replaces off the list, unless
+  // they're there for another meal too (or already in the cart).
+  const takeShortcut = useCallback((recipe, on) => {
+    setShortcuts((cur) => (on ? [...new Set([...cur, recipe.id])] : cur.filter((id) => id !== recipe.id)))
+    if (!on) return
+    const gone = new Set((recipe.swaps?.[0]?.replaces || []).map(fold))
+    setList((cur) =>
+      cur.flatMap((i) => {
+        if (!gone.has(fold(i.name)) || !i.meals?.includes(recipe.id) || i.checked) return [i]
+        const meals = i.meals.filter((m) => m !== recipe.id)
+        return meals.length ? [{ ...i, meals }] : []
+      }),
+    )
+  }, [])
   const update = useCallback((name, patch) => setList((cur) => cur.map((i) => (i.name === name ? { ...i, ...patch } : i))), [])
   const remove = useCallback((name) => setList((cur) => cur.filter((i) => i.name !== name)), [])
   const clear = useCallback(() => (setList([]), setMeals([])), [])
@@ -142,7 +158,14 @@ export default function App() {
   const keys = useMemo(() => [...new Set(list.map((i) => norm(i.name)))].filter(Boolean), [list])
   // Every recipe, the ones you already have the most of first.
   const sorted = useMemo(() => (recipes ? sortRecipes(recipes, keys) : []), [recipes, keys])
-  const saved = useMemo(() => meals.map((id) => sorted.find((s) => s.recipe.id === id)).filter(Boolean), [meals, sorted])
+  const saved = useMemo(
+    () =>
+      meals
+        .map((id) => sorted.find((s) => s.recipe.id === id))
+        .filter(Boolean)
+        .map((s) => (shortcuts.includes(s.recipe.id) && s.recipe.swaps?.[0] ? { ...scoreRecipe(withSwap(s.recipe, s.recipe.swaps[0]), keys), recipe: s.recipe } : s)),
+    [meals, sorted, shortcuts, keys],
+  )
   const mealName = useCallback((id) => recipes?.find((r) => r.id === id)?.name, [recipes])
 
   return (
@@ -176,7 +199,7 @@ export default function App() {
             clear={clear}
           />
         ) : (
-          <RecipesTab sorted={sorted} groups={groups} loading={!recipes} list={list} keys={keys} deals={deals} add={add} meals={meals} saveMeal={saveMeal} openId={openId} setOpenId={setOpenId} />
+          <RecipesTab sorted={sorted} groups={groups} loading={!recipes} list={list} keys={keys} deals={deals} add={add} meals={meals} saveMeal={saveMeal} shortcuts={shortcuts} takeShortcut={takeShortcut} openId={openId} setOpenId={setOpenId} />
         )}
       </main>
 
