@@ -1099,7 +1099,7 @@
       "swaps": [{ "label": "Use jarred Alfredo sauce", "sauce": "alfredo sauce", "measure": "1 jar (410 ml)", "replaces": ["butter", "heavy cream", "parmesan"], "note": "Use the alfredo sauce in place of the butter, heavy cream and parmesan." }]
     },
     {
-      "id": "tuscan-chicken-pasta", "search": "chicken pasta cream", "name": "Creamy Tuscan Chicken Pasta", "group": "Pasta", "emoji": "🍝", "wiki": "Chicken_as_food", "minutes": 30, "serves": 4,
+      "id": "tuscan-chicken-pasta", "photo": "Tomato cream sauce on pasta and chicken.jpg", "search": "chicken pasta cream", "name": "Creamy Tuscan Chicken Pasta", "group": "Pasta", "emoji": "🍝", "wiki": "Chicken_as_food", "minutes": 30, "serves": 4,
       "ingredients": [
         { "name": "penne", "measure": "450 g (1 lb)" }, { "name": "chicken breasts", "measure": "2" }, { "name": "sun-dried tomatoes", "measure": "1/2 cup, sliced" },
         { "name": "baby spinach", "measure": "3 cups" }, { "name": "garlic", "measure": "3 cloves" }, { "name": "heavy cream", "measure": "1 cup" },
@@ -1114,7 +1114,7 @@
       ]
     },
     {
-      "id": "taco-pasta", "search": "taco pasta", "name": "One-Pot Taco Pasta", "group": "Pasta", "emoji": "🌮", "wiki": "Pasta", "minutes": 25, "serves": 4,
+      "id": "taco-pasta", "photo": "American Chop Suey on White Plate.jpg", "search": "taco pasta", "name": "One-Pot Taco Pasta", "group": "Pasta", "emoji": "🌮", "wiki": "Pasta", "minutes": 25, "serves": 4,
       "ingredients": [
         { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "onion", "measure": "1" }, { "name": "taco seasoning", "measure": "1 packet" },
         { "name": "salsa", "measure": "1 cup" }, { "name": "beef broth", "measure": "2 1/2 cups" }, { "name": "small pasta shells", "measure": "2 1/2 cups" },
@@ -1128,7 +1128,7 @@
       ]
     },
     {
-      "id": "cheeseburger-pasta", "search": "macaroni ground beef", "name": "Cheeseburger Macaroni", "group": "Pasta", "emoji": "🍔", "wiki": "Hamburger_Helper", "minutes": 25, "serves": 4,
+      "id": "cheeseburger-pasta", "photo": "8.28.12CheeseburgerMacByLuigiNovi2.jpg", "search": "macaroni ground beef", "name": "Cheeseburger Macaroni", "group": "Pasta", "emoji": "🍔", "wiki": "Hamburger_Helper", "minutes": 25, "serves": 4,
       "ingredients": [
         { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "onion", "measure": "1" }, { "name": "elbow macaroni", "measure": "2 cups" },
         { "name": "beef broth", "measure": "2 cups" }, { "name": "milk", "measure": "1 cup" }, { "name": "ketchup", "measure": "2 tbsp" },
@@ -1159,7 +1159,7 @@
       "swaps": [{ "label": "Use cream of mushroom soup", "sauce": "cream of mushroom soup", "measure": "2 cans (284 ml each)", "replaces": ["mushrooms", "butter", "flour"], "note": "Use the cream of mushroom soup in place of the mushrooms, butter and flour." }]
     },
     {
-      "id": "baked-spaghetti", "search": "baked spaghetti", "name": "Baked Spaghetti", "group": "Pasta", "emoji": "🍝", "wiki": "Spaghetti", "minutes": 50, "serves": 6,
+      "id": "baked-spaghetti", "photo": "Baked Spaghetti with mushrooms.JPG", "search": "baked spaghetti", "name": "Baked Spaghetti", "group": "Pasta", "emoji": "🍝", "wiki": "Spaghetti", "minutes": 50, "serves": 6,
       "ingredients": [
         { "name": "spaghetti", "measure": "450 g (1 lb)" }, { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "onion", "measure": "1" },
         { "name": "garlic", "measure": "3 cloves" }, { "name": "crushed tomatoes", "measure": "1 can (796 ml / 28 oz)" }, { "name": "dried oregano", "measure": "1 tsp" },
@@ -1174,7 +1174,7 @@
       "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "dried oregano"], "note": "Use the pasta sauce in place of the crushed tomatoes and dried oregano." }]
     },
     {
-      "id": "mushroom-pasta", "search": "mushroom pasta", "name": "Creamy Mushroom Pasta", "group": "Pasta", "emoji": "🍄", "wiki": "Edible_mushroom", "minutes": 25, "serves": 4,
+      "id": "mushroom-pasta", "photo": "Creamy Mushroom Pasta.jpg", "search": "mushroom pasta", "name": "Creamy Mushroom Pasta", "group": "Pasta", "emoji": "🍄", "wiki": "Edible_mushroom", "minutes": 25, "serves": 4,
       "ingredients": [
         { "name": "linguine", "measure": "450 g (1 lb)" }, { "name": "mushrooms", "measure": "450 g, sliced" }, { "name": "garlic", "measure": "3 cloves" },
         { "name": "butter", "measure": "2 tbsp" }, { "name": "heavy cream", "measure": "1 cup" }, { "name": "parmesan", "measure": "1/2 cup grated" },
@@ -1230,7 +1230,7 @@
       ]
     },
     {
-      "id": "lemon-ricotta-pasta", "search": "pasta ricotta", "name": "Lemon Ricotta Pasta with Peas", "group": "Pasta", "emoji": "🍋", "wiki": "Ricotta", "minutes": 20, "serves": 4,
+      "id": "lemon-ricotta-pasta", "photo": "Pasta mit Brokkoli und Ricotta (6985071365).jpg", "search": "pasta ricotta", "name": "Lemon Ricotta Pasta with Peas", "group": "Pasta", "emoji": "🍋", "wiki": "Ricotta", "minutes": 20, "serves": 4,
       "ingredients": [
         { "name": "spaghetti", "measure": "450 g (1 lb)" }, { "name": "ricotta", "measure": "1 cup" }, { "name": "lemon", "measure": "1" },
         { "name": "parmesan", "measure": "1/2 cup grated" }, { "name": "frozen peas", "measure": "1 1/2 cups" }, { "name": "basil", "measure": "a handful" },
@@ -1434,7 +1434,7 @@
       ]
     },
     {
-      "id": "lemon-pepper-wings", "search": "chicken wings", "name": "Lemon Pepper Chicken Wings", "group": "Chicken", "emoji": "🍋", "wiki": "Chicken_wing", "minutes": 50, "serves": 4,
+      "id": "lemon-pepper-wings", "photo": "Chicken Wings with Montreal Seasoning.jpg", "search": "chicken wings", "name": "Lemon Pepper Chicken Wings", "group": "Chicken", "emoji": "🍋", "wiki": "Chicken_wing", "minutes": 50, "serves": 4,
       "ingredients": [
         { "name": "chicken wings", "measure": "1.4 kg (3 lb), split" }, { "name": "baking powder", "measure": "1 tbsp" }, { "name": "lemon", "measure": "2" },
         { "name": "black pepper", "measure": "2 tsp coarse" }, { "name": "butter", "measure": "3 tbsp" }, { "name": "garlic powder", "measure": "1 tsp" },
@@ -1479,7 +1479,7 @@
       ]
     },
     {
-      "id": "swedish-meatballs", "search": "swedish meatballs", "name": "Swedish Meatballs", "group": "Beef", "emoji": "🍖", "wiki": "Köttbullar", "minutes": 40, "serves": 4,
+      "id": "swedish-meatballs", "photo": "Swedish meatballs with egg noodles.jpg", "search": "swedish meatballs", "name": "Swedish Meatballs", "group": "Beef", "emoji": "🍖", "wiki": "Köttbullar", "minutes": 40, "serves": 4,
       "ingredients": [
         { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "ground pork", "measure": "225 g (1/2 lb)" }, { "name": "breadcrumbs", "measure": "1/2 cup" },
         { "name": "milk", "measure": "1/4 cup" }, { "name": "egg", "measure": "1" }, { "name": "onion", "measure": "1 small, grated" },
@@ -1606,7 +1606,7 @@
       "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "dried oregano"], "note": "Use the pasta sauce in place of the crushed tomatoes and dried oregano." }]
     },
     {
-      "id": "steak-sandwiches", "search": "steak sandwich", "name": "Steak Sandwiches with Caramelized Onions", "group": "Beef", "emoji": "🥪", "wiki": "Steak_sandwich", "minutes": 35, "serves": 4,
+      "id": "steak-sandwiches", "photo": "Steak sandwich with onions and cheese on a toasted baguette - Massachusetts.jpg", "search": "steak sandwich", "name": "Steak Sandwiches with Caramelized Onions", "group": "Beef", "emoji": "🥪", "wiki": "Steak_sandwich", "minutes": 35, "serves": 4,
       "ingredients": [
         { "name": "sirloin steak", "measure": "680 g (1 1/2 lb)" }, { "name": "onions", "measure": "2" }, { "name": "butter", "measure": "2 tbsp" },
         { "name": "ciabatta buns", "measure": "4" }, { "name": "mayonnaise", "measure": "1/4 cup" }, { "name": "dijon mustard", "measure": "1 tbsp" },
@@ -1665,7 +1665,7 @@
       ]
     },
     {
-      "id": "pork-fried-rice", "search": "pork fried rice", "name": "Pork Fried Rice", "group": "Pork", "emoji": "🍚", "wiki": "Fried_rice", "minutes": 20, "serves": 4,
+      "id": "pork-fried-rice", "photo": "Roasted Pork Fried Rice at Wo Hop.jpg", "search": "pork fried rice", "name": "Pork Fried Rice", "group": "Pork", "emoji": "🍚", "wiki": "Fried_rice", "minutes": 20, "serves": 4,
       "ingredients": [
         { "name": "pork loin", "measure": "340 g (3/4 lb), diced" }, { "name": "cooked rice", "measure": "4 cups, cold" }, { "name": "eggs", "measure": "2" },
         { "name": "frozen peas and carrots", "measure": "1 cup" }, { "name": "green onions", "measure": "3" }, { "name": "soy sauce", "measure": "3 tbsp" },
@@ -1707,7 +1707,7 @@
       "swaps": [{ "label": "Use a bottled stir-fry sauce", "sauce": "stir fry sauce", "measure": "1/2 cup", "replaces": ["oyster sauce"], "note": "Use the stir fry sauce in place of the oyster sauce." }]
     },
     {
-      "id": "glazed-ham", "search": "glazed ham", "name": "Brown Sugar Glazed Ham", "group": "Pork", "emoji": "🍖", "wiki": "Ham", "minutes": 150, "serves": 10,
+      "id": "glazed-ham", "photo": "Honey-glazed ham on cutting board.jpg", "search": "glazed ham", "name": "Brown Sugar Glazed Ham", "group": "Pork", "emoji": "🍖", "wiki": "Ham", "minutes": 150, "serves": 10,
       "ingredients": [
         { "name": "fully cooked ham", "measure": "1 bone-in, about 3.6 kg (8 lb)" }, { "name": "brown sugar", "measure": "1 cup" }, { "name": "dijon mustard", "measure": "3 tbsp" },
         { "name": "honey", "measure": "1/4 cup" }, { "name": "orange juice", "measure": "1/4 cup" }, { "name": "cloves", "measure": "1 tsp ground" }
@@ -1736,7 +1736,7 @@
       "swaps": [{ "label": "Use a boxed stuffing mix", "sauce": "stuffing mix", "measure": "1 box (170 g)", "replaces": ["bread cubes", "dried sage", "chicken broth", "celery"], "note": "Use the stuffing mix in place of the bread cubes, dried sage, chicken broth and celery." }]
     },
     {
-      "id": "lemon-dill-cod", "search": "baked cod", "name": "Baked Lemon Dill Cod", "group": "Seafood", "emoji": "🐟", "wiki": "Cod_as_food", "minutes": 20, "serves": 4,
+      "id": "lemon-dill-cod", "photo": "Baked cod fillet.jpg", "search": "baked cod", "name": "Baked Lemon Dill Cod", "group": "Seafood", "emoji": "🐟", "wiki": "Cod_as_food", "minutes": 20, "serves": 4,
       "ingredients": [
         { "name": "cod fillets", "measure": "4 (about 680 g / 1 1/2 lb)" }, { "name": "butter", "measure": "3 tbsp" }, { "name": "lemon", "measure": "1" },
         { "name": "garlic", "measure": "2 cloves" }, { "name": "fresh dill", "measure": "2 tbsp chopped" }, { "name": "asparagus", "measure": "1 bunch" },
@@ -1750,7 +1750,7 @@
       ]
     },
     {
-      "id": "maple-salmon", "search": "glazed salmon", "name": "Maple Glazed Salmon", "group": "Seafood", "emoji": "🍁", "wiki": "Salmon_as_food", "minutes": 20, "serves": 4,
+      "id": "maple-salmon", "photo": "Honey Maple Glazed Salmon with sweet potato and corn hash Brussels sprouts and corn bread - The Landing, Marblehead (43872530271).jpg", "search": "glazed salmon", "name": "Maple Glazed Salmon", "group": "Seafood", "emoji": "🍁", "wiki": "Salmon_as_food", "minutes": 20, "serves": 4,
       "ingredients": [
         { "name": "salmon fillets", "measure": "4 (about 680 g / 1 1/2 lb)" }, { "name": "maple syrup", "measure": "1/4 cup" }, { "name": "soy sauce", "measure": "2 tbsp" },
         { "name": "dijon mustard", "measure": "1 tbsp" }, { "name": "garlic", "measure": "1 clove" }, { "name": "rice", "measure": "1 1/2 cups, to serve" },
@@ -1806,7 +1806,7 @@
       ]
     },
     {
-      "id": "shrimp-tacos", "search": "shrimp tacos", "name": "Shrimp Tacos with Lime Slaw", "group": "Seafood", "emoji": "🌮", "wiki": "Taco", "minutes": 25, "serves": 4,
+      "id": "shrimp-tacos", "photo": "Shrimp tacos at Casa Del Sol - 2021-08-24 - Sarah Stierch.jpg", "search": "shrimp tacos", "name": "Shrimp Tacos with Lime Slaw", "group": "Seafood", "emoji": "🌮", "wiki": "Taco", "minutes": 25, "serves": 4,
       "ingredients": [
         { "name": "shrimp", "measure": "450 g (1 lb), peeled" }, { "name": "chili powder", "measure": "2 tsp" }, { "name": "garlic powder", "measure": "1/2 tsp" },
         { "name": "vegetable oil", "measure": "1 tbsp" }, { "name": "coleslaw mix", "measure": "3 cups" }, { "name": "lime", "measure": "2" },
@@ -1835,7 +1835,7 @@
       ]
     },
     {
-      "id": "salmon-burgers", "search": "salmon burger", "name": "Salmon Burgers", "group": "Seafood", "emoji": "🍔", "wiki": "Salmon_burger", "minutes": 25, "serves": 4,
+      "id": "salmon-burgers", "photo": "Salmon burger.jpg", "search": "salmon burger", "name": "Salmon Burgers", "group": "Seafood", "emoji": "🍔", "wiki": "Salmon_burger", "minutes": 25, "serves": 4,
       "ingredients": [
         { "name": "salmon fillet", "measure": "450 g (1 lb), skin off" }, { "name": "panko", "measure": "1/2 cup" }, { "name": "egg", "measure": "1" },
         { "name": "dijon mustard", "measure": "1 tbsp" }, { "name": "lemon", "measure": "1" }, { "name": "green onions", "measure": "2" },
@@ -1893,7 +1893,7 @@
       ]
     },
     {
-      "id": "tofu-stir-fry", "search": "tofu stir fry", "name": "Crispy Tofu Stir-Fry", "group": "Vegetarian", "emoji": "🥢", "wiki": "Tofu", "minutes": 30, "serves": 4,
+      "id": "tofu-stir-fry", "photo": "Crispy Tofu - Stir Fry by CK 2025-04-06.jpg", "search": "tofu stir fry", "name": "Crispy Tofu Stir-Fry", "group": "Vegetarian", "emoji": "🥢", "wiki": "Tofu", "minutes": 30, "serves": 4,
       "ingredients": [
         { "name": "extra-firm tofu", "measure": "1 block (454 g)" }, { "name": "cornstarch", "measure": "2 tbsp" }, { "name": "vegetable oil", "measure": "3 tbsp" },
         { "name": "broccoli", "measure": "1 head" }, { "name": "red pepper", "measure": "1" }, { "name": "snow peas", "measure": "1 cup" },
@@ -1938,7 +1938,7 @@
       ]
     },
     {
-      "id": "vegetable-curry", "search": "vegetable curry", "name": "Coconut Vegetable Curry", "group": "Vegetarian", "emoji": "🍛", "wiki": "Curry", "minutes": 35, "serves": 4,
+      "id": "vegetable-curry", "photo": "Mixed vegetable curry 1.jpg", "search": "vegetable curry", "name": "Coconut Vegetable Curry", "group": "Vegetarian", "emoji": "🍛", "wiki": "Curry", "minutes": 35, "serves": 4,
       "ingredients": [
         { "name": "sweet potato", "measure": "1 large" }, { "name": "cauliflower", "measure": "1/2 head" }, { "name": "chickpeas", "measure": "1 can (540 ml / 19 oz), drained" },
         { "name": "baby spinach", "measure": "3 cups" }, { "name": "onion", "measure": "1" }, { "name": "garlic", "measure": "3 cloves" },
@@ -1954,7 +1954,7 @@
       "swaps": [{ "label": "Use a jarred curry sauce", "sauce": "curry sauce", "measure": "1 jar (400 ml)", "replaces": ["curry powder", "coconut milk", "diced tomatoes"], "note": "Use the curry sauce in place of the curry powder, coconut milk and diced tomatoes." }]
     },
     {
-      "id": "cauliflower-tacos", "search": "cauliflower tacos", "name": "Roasted Cauliflower Tacos", "group": "Vegetarian", "emoji": "🌮", "wiki": "Cauliflower", "minutes": 35, "serves": 4,
+      "id": "cauliflower-tacos", "photo": "Cajun Cauliflower Tacos - The Cow Shed 2026-06-15.jpg", "search": "cauliflower tacos", "name": "Roasted Cauliflower Tacos", "group": "Vegetarian", "emoji": "🌮", "wiki": "Cauliflower", "minutes": 35, "serves": 4,
       "ingredients": [
         { "name": "cauliflower", "measure": "1 head" }, { "name": "olive oil", "measure": "2 tbsp" }, { "name": "chili powder", "measure": "2 tsp" },
         { "name": "smoked paprika", "measure": "1 tsp" }, { "name": "cumin", "measure": "1 tsp" }, { "name": "corn tortillas", "measure": "8 small" },
@@ -2013,7 +2013,7 @@
       "swaps": [{ "label": "Use canned enchilada sauce", "sauce": "enchilada sauce", "measure": "1 can (540 ml / 19 oz)", "replaces": ["tomato sauce", "chili powder", "cumin"], "note": "Use the enchilada sauce in place of the tomato sauce, chili powder and cumin." }]
     },
     {
-      "id": "mushroom-stroganoff", "search": "mushroom stroganoff", "name": "Mushroom Stroganoff", "group": "Vegetarian", "emoji": "🍄", "wiki": "Beef_Stroganoff", "minutes": 30, "serves": 4,
+      "id": "mushroom-stroganoff", "photo": "Beef Stroganoff z boczniaka (Poznan).jpg", "search": "mushroom stroganoff", "name": "Mushroom Stroganoff", "group": "Vegetarian", "emoji": "🍄", "wiki": "Beef_Stroganoff", "minutes": 30, "serves": 4,
       "ingredients": [
         { "name": "mushrooms", "measure": "680 g (1 1/2 lb), sliced" }, { "name": "onion", "measure": "1" }, { "name": "garlic", "measure": "2 cloves" },
         { "name": "butter", "measure": "2 tbsp" }, { "name": "flour", "measure": "1 tbsp" }, { "name": "vegetable broth", "measure": "1 1/2 cups" },
@@ -2102,7 +2102,7 @@
       ]
     },
     {
-      "id": "beef-barley-soup", "search": "beef barley soup", "name": "Beef Barley Soup", "group": "Soups & stews", "emoji": "🥣", "wiki": "Barley_soup", "minutes": 90, "serves": 6,
+      "id": "beef-barley-soup", "photo": "Beef barley soup (15439896429).jpg", "search": "beef barley soup", "name": "Beef Barley Soup", "group": "Soups & stews", "emoji": "🥣", "wiki": "Barley_soup", "minutes": 90, "serves": 6,
       "ingredients": [
         { "name": "stewing beef", "measure": "680 g (1 1/2 lb), in small cubes" }, { "name": "onion", "measure": "1" }, { "name": "carrots", "measure": "3" },
         { "name": "celery", "measure": "2 stalks" }, { "name": "garlic", "measure": "2 cloves" }, { "name": "pearl barley", "measure": "3/4 cup" },
@@ -2131,7 +2131,7 @@
       ]
     },
     {
-      "id": "hamburger-soup", "search": "vegetable beef soup", "name": "Hamburger Soup", "group": "Soups & stews", "emoji": "🍲", "wiki": "Soup", "minutes": 45, "serves": 6,
+      "id": "hamburger-soup", "photo": "Vegetable beef soup - Arlington, MA.jpg", "search": "vegetable beef soup", "name": "Hamburger Soup", "group": "Soups & stews", "emoji": "🍲", "wiki": "Soup", "minutes": 45, "serves": 6,
       "ingredients": [
         { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "onion", "measure": "1" }, { "name": "carrots", "measure": "2" },
         { "name": "celery", "measure": "2 stalks" }, { "name": "potatoes", "measure": "2" }, { "name": "diced tomatoes", "measure": "1 can (796 ml / 28 oz)" },
@@ -2190,7 +2190,7 @@
       ]
     },
     {
-      "id": "potato-leek-soup", "search": "potato leek soup", "name": "Potato Leek Soup", "group": "Soups & stews", "emoji": "🥔", "wiki": "Leek_soup", "minutes": 45, "serves": 6,
+      "id": "potato-leek-soup", "photo": "Potato Leek Soup (4258747258).jpg", "search": "potato leek soup", "name": "Potato Leek Soup", "group": "Soups & stews", "emoji": "🥔", "wiki": "Leek_soup", "minutes": 45, "serves": 6,
       "ingredients": [
         { "name": "leeks", "measure": "3" }, { "name": "potatoes", "measure": "900 g (2 lb), yellow" }, { "name": "butter", "measure": "3 tbsp" },
         { "name": "garlic", "measure": "2 cloves" }, { "name": "chicken broth", "measure": "6 cups" }, { "name": "heavy cream", "measure": "1/2 cup" },
@@ -2220,7 +2220,7 @@
       "swaps": [{ "label": "Use a chili seasoning packet", "sauce": "chili seasoning", "measure": "1 packet", "replaces": ["chili powder", "cumin"], "note": "Use the chili seasoning in place of the chili powder and cumin." }]
     },
     {
-      "id": "breakfast-casserole", "search": "breakfast casserole", "name": "Sausage Breakfast Casserole", "group": "Breakfast", "emoji": "🍳", "wiki": "Strata", "minutes": 60, "serves": 8,
+      "id": "breakfast-casserole", "photo": "Finished sausage breakfast casserole.jpg", "search": "breakfast casserole", "name": "Sausage Breakfast Casserole", "group": "Breakfast", "emoji": "🍳", "wiki": "Strata", "minutes": 60, "serves": 8,
       "ingredients": [
         { "name": "breakfast sausage", "measure": "450 g (1 lb)" }, { "name": "bread", "measure": "6 slices, cubed" }, { "name": "eggs", "measure": "8" },
         { "name": "milk", "measure": "2 cups" }, { "name": "shredded cheddar", "measure": "2 cups" }, { "name": "dry mustard", "measure": "1 tsp" },
@@ -2345,7 +2345,7 @@
       ]
     },
     {
-      "id": "yogurt-parfaits", "search": "yogurt parfait", "name": "Berry Yogurt Parfaits", "group": "Breakfast", "emoji": "🍓", "wiki": "Parfait", "minutes": 10, "serves": 4,
+      "id": "yogurt-parfaits", "photo": "Yogurt parfait with granola and blueberries in shot glasses with silverware spoons (17098581522).jpg", "search": "yogurt parfait", "name": "Berry Yogurt Parfaits", "group": "Breakfast", "emoji": "🍓", "wiki": "Parfait", "minutes": 10, "serves": 4,
       "ingredients": [
         { "name": "greek yogurt", "measure": "3 cups vanilla" }, { "name": "mixed berries", "measure": "2 cups" }, { "name": "granola", "measure": "1 cup" },
         { "name": "honey", "measure": "2 tbsp" }
@@ -2372,7 +2372,7 @@
       ]
     },
     {
-      "id": "honey-roasted-carrots", "search": "roasted carrots", "name": "Honey Roasted Carrots", "group": "Sides & salads", "emoji": "🥕", "wiki": "Carrot", "minutes": 35, "serves": 4,
+      "id": "honey-roasted-carrots", "photo": "Simply Roasted Carrots.jpg", "search": "roasted carrots", "name": "Honey Roasted Carrots", "group": "Sides & salads", "emoji": "🥕", "wiki": "Carrot", "minutes": 35, "serves": 4,
       "ingredients": [
         { "name": "carrots", "measure": "680 g (1 1/2 lb)" }, { "name": "olive oil", "measure": "1 tbsp" }, { "name": "honey", "measure": "2 tbsp" },
         { "name": "butter", "measure": "1 tbsp" }, { "name": "dried thyme", "measure": "1/2 tsp" }, { "name": "salt", "measure": "to taste" }
@@ -2385,7 +2385,7 @@
       ]
     },
     {
-      "id": "green-beans-almondine", "search": "green beans almonds", "name": "Green Beans Almondine", "group": "Sides & salads", "emoji": "🫛", "wiki": "Green_bean", "minutes": 15, "serves": 4,
+      "id": "green-beans-almondine", "photo": "Green beans almondine.jpg", "search": "green beans almonds", "name": "Green Beans Almondine", "group": "Sides & salads", "emoji": "🫛", "wiki": "Green_bean", "minutes": 15, "serves": 4,
       "ingredients": [
         { "name": "green beans", "measure": "450 g (1 lb), trimmed" }, { "name": "butter", "measure": "2 tbsp" }, { "name": "sliced almonds", "measure": "1/3 cup" },
         { "name": "garlic", "measure": "1 clove" }, { "name": "lemon", "measure": "1/2" }, { "name": "salt", "measure": "to taste" }
@@ -2398,7 +2398,7 @@
       ]
     },
     {
-      "id": "roasted-brussels-sprouts", "search": "roasted brussels sprouts", "name": "Roasted Brussels Sprouts with Bacon", "group": "Sides & salads", "emoji": "🥬", "wiki": "Brussels_sprout", "minutes": 30, "serves": 4,
+      "id": "roasted-brussels-sprouts", "photo": "Roasted Brussels sprouts (49931073552).jpg", "search": "roasted brussels sprouts", "name": "Roasted Brussels Sprouts with Bacon", "group": "Sides & salads", "emoji": "🥬", "wiki": "Brussels_sprout", "minutes": 30, "serves": 4,
       "ingredients": [
         { "name": "brussels sprouts", "measure": "680 g (1 1/2 lb)" }, { "name": "bacon", "measure": "4 slices" }, { "name": "olive oil", "measure": "1 tbsp" },
         { "name": "maple syrup", "measure": "1 tbsp" }, { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
@@ -2411,7 +2411,7 @@
       ]
     },
     {
-      "id": "sweet-potato-fries", "search": "sweet potato fries", "name": "Baked Sweet Potato Fries", "group": "Sides & salads", "emoji": "🍠", "wiki": "Sweet_potato_fries", "minutes": 35, "serves": 4,
+      "id": "sweet-potato-fries", "photo": "Baked Sweet Potato Fries With Rosemary and Parmesan - 8420845814.jpg", "search": "sweet potato fries", "name": "Baked Sweet Potato Fries", "group": "Sides & salads", "emoji": "🍠", "wiki": "Sweet_potato_fries", "minutes": 35, "serves": 4,
       "ingredients": [
         { "name": "sweet potatoes", "measure": "2 large" }, { "name": "cornstarch", "measure": "1 tbsp" }, { "name": "vegetable oil", "measure": "2 tbsp" },
         { "name": "smoked paprika", "measure": "1 tsp" }, { "name": "salt", "measure": "to taste" }
@@ -2538,7 +2538,7 @@
       ]
     },
     {
-      "id": "rice-krispie-squares", "search": "rice krispie treats", "name": "Rice Krispie Squares", "group": "Desserts", "emoji": "🟨", "wiki": "Rice_Krispies_Treats", "minutes": 15, "serves": 16,
+      "id": "rice-krispie-squares", "photo": "RKTsquares.jpg", "search": "rice krispie treats", "name": "Rice Krispie Squares", "group": "Desserts", "emoji": "🟨", "wiki": "Rice_Krispies_Treats", "minutes": 15, "serves": 16,
       "ingredients": [
         { "name": "puffed rice cereal", "measure": "6 cups" }, { "name": "marshmallows", "measure": "1 bag (400 g)" }, { "name": "butter", "measure": "1/4 cup" },
         { "name": "vanilla", "measure": "1 tsp" }
@@ -2564,7 +2564,7 @@
       ]
     },
     {
-      "id": "oatmeal-raisin-cookies", "search": "oatmeal raisin cookies", "name": "Oatmeal Raisin Cookies", "group": "Desserts", "emoji": "🍪", "wiki": "Oatmeal_raisin_cookie", "minutes": 30, "serves": 24,
+      "id": "oatmeal-raisin-cookies", "photo": "Oatmeal raisin cookies 2.jpg", "search": "oatmeal raisin cookies", "name": "Oatmeal Raisin Cookies", "group": "Desserts", "emoji": "🍪", "wiki": "Oatmeal_raisin_cookie", "minutes": 30, "serves": 24,
       "ingredients": [
         { "name": "butter", "measure": "1/2 cup" }, { "name": "brown sugar", "measure": "3/4 cup" }, { "name": "egg", "measure": "1" },
         { "name": "vanilla", "measure": "1 tsp" }, { "name": "flour", "measure": "3/4 cup" }, { "name": "baking soda", "measure": "1/2 tsp" },
@@ -2606,7 +2606,7 @@
       ]
     },
     {
-      "id": "strawberry-shortcake", "search": "strawberry shortcake", "name": "Strawberry Shortcake", "group": "Desserts", "emoji": "🍓", "wiki": "Shortcake", "minutes": 40, "serves": 6,
+      "id": "strawberry-shortcake", "photo": "Strawberry Shortcake (6639268625).jpg", "search": "strawberry shortcake", "name": "Strawberry Shortcake", "group": "Desserts", "emoji": "🍓", "wiki": "Shortcake", "minutes": 40, "serves": 6,
       "ingredients": [
         { "name": "strawberries", "measure": "900 g (2 lb)" }, { "name": "sugar", "measure": "1/4 cup, plus 2 tbsp" }, { "name": "flour", "measure": "2 cups" },
         { "name": "baking powder", "measure": "1 tbsp" }, { "name": "butter", "measure": "1/2 cup cold" }, { "name": "milk", "measure": "3/4 cup" },
@@ -2620,7 +2620,7 @@
       ]
     },
     {
-      "id": "chocolate-pudding", "search": "chocolate pudding", "name": "Homemade Chocolate Pudding", "group": "Desserts", "emoji": "🍮", "wiki": "Chocolate_pudding", "minutes": 20, "serves": 4,
+      "id": "chocolate-pudding", "photo": "Chocolate pudding in glasses.jpg", "search": "chocolate pudding", "name": "Homemade Chocolate Pudding", "group": "Desserts", "emoji": "🍮", "wiki": "Chocolate_pudding", "minutes": 20, "serves": 4,
       "ingredients": [
         { "name": "milk", "measure": "2 1/2 cups" }, { "name": "sugar", "measure": "1/2 cup" }, { "name": "cocoa powder", "measure": "1/4 cup" },
         { "name": "cornstarch", "measure": "3 tbsp" }, { "name": "dark chocolate", "measure": "85 g (3 oz), chopped" }, { "name": "vanilla", "measure": "1 tsp" }
