@@ -1081,6 +1081,1598 @@
         "Add the rest of the oil, the garlic, peas and carrots for 2 minutes, then the rice. Stir-fry 4 minutes until hot and a little crisp.",
         "Stir in the soy sauce, sesame oil, shrimp, eggs and sliced green onions."
       ]
+    },
+    {
+      "id": "chicken-alfredo", "name": "Chicken Fettuccine Alfredo", "group": "Pasta", "emoji": "🍝", "wiki": "Fettuccine_Alfredo", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "fettuccine", "measure": "450 g (1 lb)" }, { "name": "chicken breasts", "measure": "2" }, { "name": "butter", "measure": "1/4 cup" },
+        { "name": "heavy cream", "measure": "1 1/2 cups" }, { "name": "parmesan", "measure": "1 cup grated" }, { "name": "garlic", "measure": "2 cloves" },
+        { "name": "parsley", "measure": "a handful" }, { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Boil the fettuccine in salted water until al dente. Save 1/2 cup of the water and drain.",
+        "Season the chicken and cook in 1 tbsp of the butter, 6 minutes a side, until cooked through. Rest, then slice.",
+        "Melt the rest of the butter in the same pan, cook the garlic for 30 seconds, then add the cream and simmer 3 minutes.",
+        "Take off the heat, stir in the parmesan until smooth, then toss in the pasta with a splash of the pasta water.",
+        "Top with the chicken, pepper and chopped parsley."
+      ],
+      "swaps": [{ "label": "Use jarred Alfredo sauce", "sauce": "alfredo sauce", "measure": "1 jar (410 ml)", "replaces": ["butter", "heavy cream", "parmesan"], "note": "Use the alfredo sauce in place of the butter, heavy cream and parmesan." }]
+    },
+    {
+      "id": "tuscan-chicken-pasta", "name": "Creamy Tuscan Chicken Pasta", "group": "Pasta", "emoji": "🍝", "wiki": "Chicken_as_food", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "penne", "measure": "450 g (1 lb)" }, { "name": "chicken breasts", "measure": "2" }, { "name": "sun-dried tomatoes", "measure": "1/2 cup, sliced" },
+        { "name": "baby spinach", "measure": "3 cups" }, { "name": "garlic", "measure": "3 cloves" }, { "name": "heavy cream", "measure": "1 cup" },
+        { "name": "parmesan", "measure": "1/2 cup grated" }, { "name": "italian seasoning", "measure": "1 tsp" }, { "name": "olive oil", "measure": "1 tbsp" },
+        { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Boil the penne in salted water until al dente, then drain.",
+        "Season the chicken with salt and the Italian seasoning and cook in the oil, 6 minutes a side. Rest, then slice.",
+        "In the same pan cook the garlic and sun-dried tomatoes for 1 minute. Pour in the cream and simmer 3 minutes.",
+        "Stir in the parmesan and spinach until the spinach wilts, then toss in the pasta and chicken."
+      ]
+    },
+    {
+      "id": "taco-pasta", "name": "One-Pot Taco Pasta", "group": "Pasta", "emoji": "🌮", "wiki": "Pasta", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "onion", "measure": "1" }, { "name": "taco seasoning", "measure": "1 packet" },
+        { "name": "salsa", "measure": "1 cup" }, { "name": "beef broth", "measure": "2 1/2 cups" }, { "name": "small pasta shells", "measure": "2 1/2 cups" },
+        { "name": "shredded cheese", "measure": "1 1/2 cups" }, { "name": "sour cream", "measure": "to serve" }, { "name": "green onions", "measure": "2" }
+      ],
+      "steps": [
+        "Brown the beef with the chopped onion in a large pot, breaking it up. Drain the fat.",
+        "Stir in the taco seasoning, salsa and broth and bring to a boil.",
+        "Add the pasta, cover and simmer 10 to 12 minutes, stirring now and then, until tender.",
+        "Stir in half the cheese, top with the rest and cover 2 minutes to melt. Serve with sour cream and green onion."
+      ]
+    },
+    {
+      "id": "cheeseburger-pasta", "name": "Cheeseburger Macaroni", "group": "Pasta", "emoji": "🍔", "wiki": "Hamburger_Helper", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "onion", "measure": "1" }, { "name": "elbow macaroni", "measure": "2 cups" },
+        { "name": "beef broth", "measure": "2 cups" }, { "name": "milk", "measure": "1 cup" }, { "name": "ketchup", "measure": "2 tbsp" },
+        { "name": "mustard", "measure": "1 tbsp" }, { "name": "cheddar", "measure": "2 cups shredded" }, { "name": "paprika", "measure": "1 tsp" },
+        { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Brown the beef with the chopped onion in a large pan. Drain the fat.",
+        "Stir in the paprika, ketchup and mustard, then the broth, milk and macaroni. Bring to a boil.",
+        "Cover and simmer 10 to 12 minutes, stirring often, until the pasta is tender.",
+        "Take off the heat and stir in the cheddar until melted. Season."
+      ]
+    },
+    {
+      "id": "chicken-tetrazzini", "name": "Chicken Tetrazzini", "group": "Pasta", "emoji": "🍝", "wiki": "Tetrazzini", "minutes": 45, "serves": 6,
+      "ingredients": [
+        { "name": "spaghetti", "measure": "340 g" }, { "name": "cooked chicken", "measure": "3 cups chopped" }, { "name": "mushrooms", "measure": "225 g, sliced" },
+        { "name": "onion", "measure": "1" }, { "name": "butter", "measure": "4 tbsp" }, { "name": "flour", "measure": "1/4 cup" },
+        { "name": "chicken stock", "measure": "2 cups" }, { "name": "milk", "measure": "1 cup" }, { "name": "parmesan", "measure": "3/4 cup grated" },
+        { "name": "frozen peas", "measure": "1 cup" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 375°F (190°C). Boil the spaghetti 2 minutes less than the package says and drain.",
+        "Melt the butter, cook the onion and mushrooms 6 minutes, then stir in the flour for 1 minute.",
+        "Slowly whisk in the stock and milk and simmer until thick. Stir in half the parmesan and season.",
+        "Mix in the spaghetti, chicken and peas, spread in a baking dish, top with the rest of the parmesan and bake 25 minutes."
+      ],
+      "swaps": [{ "label": "Use cream of mushroom soup", "sauce": "cream of mushroom soup", "measure": "2 cans (284 ml each)", "replaces": ["mushrooms", "butter", "flour"], "note": "Use the cream of mushroom soup in place of the mushrooms, butter and flour." }]
+    },
+    {
+      "id": "baked-spaghetti", "name": "Baked Spaghetti", "group": "Pasta", "emoji": "🍝", "wiki": "Spaghetti", "minutes": 50, "serves": 6,
+      "ingredients": [
+        { "name": "spaghetti", "measure": "450 g (1 lb)" }, { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "onion", "measure": "1" },
+        { "name": "garlic", "measure": "3 cloves" }, { "name": "crushed tomatoes", "measure": "1 can (796 ml / 28 oz)" }, { "name": "dried oregano", "measure": "1 tsp" },
+        { "name": "mozzarella", "measure": "2 cups shredded" }, { "name": "parmesan", "measure": "1/2 cup grated" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 375°F (190°C). Boil the spaghetti until just shy of al dente and drain.",
+        "Brown the beef with the onion and garlic. Add the tomatoes and oregano and simmer 10 minutes.",
+        "Toss the spaghetti with the sauce and spread in a 9x13 dish.",
+        "Top with the mozzarella and parmesan and bake 25 minutes until bubbling and golden."
+      ],
+      "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "dried oregano"], "note": "Use the pasta sauce in place of the crushed tomatoes and dried oregano." }]
+    },
+    {
+      "id": "mushroom-pasta", "name": "Creamy Mushroom Pasta", "group": "Pasta", "emoji": "🍄", "wiki": "Edible_mushroom", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "linguine", "measure": "450 g (1 lb)" }, { "name": "mushrooms", "measure": "450 g, sliced" }, { "name": "garlic", "measure": "3 cloves" },
+        { "name": "butter", "measure": "2 tbsp" }, { "name": "heavy cream", "measure": "1 cup" }, { "name": "parmesan", "measure": "1/2 cup grated" },
+        { "name": "thyme", "measure": "1 tsp dried" }, { "name": "parsley", "measure": "a handful" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Boil the linguine in salted water until al dente. Save 1 cup of the water and drain.",
+        "Brown the mushrooms in the butter over high heat for 8 minutes. Add the garlic and thyme for 1 minute.",
+        "Pour in the cream and simmer 3 minutes, then stir in the parmesan.",
+        "Toss with the pasta and splashes of pasta water until glossy. Finish with parsley and pepper."
+      ]
+    },
+    {
+      "id": "puttanesca", "name": "Spaghetti Puttanesca", "group": "Pasta", "emoji": "🍝", "wiki": "Puttanesca", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "spaghetti", "measure": "450 g (1 lb)" }, { "name": "crushed tomatoes", "measure": "1 can (796 ml)" }, { "name": "kalamata olives", "measure": "1/2 cup" },
+        { "name": "capers", "measure": "2 tbsp" }, { "name": "anchovy fillets", "measure": "4" }, { "name": "garlic", "measure": "3 cloves" },
+        { "name": "chili flakes", "measure": "1/2 tsp" }, { "name": "olive oil", "measure": "3 tbsp" }, { "name": "parsley", "measure": "a handful" }
+      ],
+      "steps": [
+        "Boil the spaghetti in salted water until al dente and drain.",
+        "Warm the oil with the garlic, anchovies and chili flakes, mashing the anchovies, for 2 minutes.",
+        "Add the tomatoes, olives and capers and simmer 10 minutes.",
+        "Toss with the spaghetti and parsley."
+      ]
+    },
+    {
+      "id": "sausage-tortellini", "name": "Tortellini with Sausage and Spinach", "group": "Pasta", "emoji": "🥟", "wiki": "Tortellini", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "cheese tortellini", "measure": "2 packages (350 g each)" }, { "name": "italian sausage", "measure": "450 g (1 lb), casings removed" }, { "name": "garlic", "measure": "2 cloves" },
+        { "name": "crushed tomatoes", "measure": "1 can (796 ml)" }, { "name": "heavy cream", "measure": "1/2 cup" }, { "name": "baby spinach", "measure": "3 cups" },
+        { "name": "parmesan", "measure": "1/2 cup grated" }
+      ],
+      "steps": [
+        "Boil the tortellini according to the package and drain.",
+        "Brown the sausage in a large pan, breaking it up. Add the garlic for 1 minute.",
+        "Stir in the tomatoes and cream and simmer 5 minutes.",
+        "Stir in the spinach until wilted, then the tortellini and parmesan."
+      ],
+      "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes"], "note": "Use the pasta sauce in place of the crushed tomatoes." }]
+    },
+    {
+      "id": "gnocchi-brown-butter", "name": "Gnocchi with Brown Butter and Sage", "group": "Pasta", "emoji": "🥔", "wiki": "Gnocchi", "minutes": 15, "serves": 4,
+      "ingredients": [
+        { "name": "gnocchi", "measure": "2 packages (500 g each)" }, { "name": "butter", "measure": "1/3 cup" }, { "name": "sage", "measure": "12 leaves" },
+        { "name": "parmesan", "measure": "1/2 cup grated" }, { "name": "lemon", "measure": "1" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Boil the gnocchi until they float, about 2 minutes. Drain.",
+        "Melt the butter in a large pan over medium heat until it foams and smells nutty, about 3 minutes. Add the sage for 30 seconds.",
+        "Add the gnocchi and fry 3 minutes until golden in spots.",
+        "Squeeze over a little lemon and toss with the parmesan and pepper."
+      ]
+    },
+    {
+      "id": "lemon-ricotta-pasta", "name": "Lemon Ricotta Pasta with Peas", "group": "Pasta", "emoji": "🍋", "wiki": "Ricotta", "minutes": 20, "serves": 4,
+      "ingredients": [
+        { "name": "spaghetti", "measure": "450 g (1 lb)" }, { "name": "ricotta", "measure": "1 cup" }, { "name": "lemon", "measure": "1" },
+        { "name": "parmesan", "measure": "1/2 cup grated" }, { "name": "frozen peas", "measure": "1 1/2 cups" }, { "name": "basil", "measure": "a handful" },
+        { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Boil the pasta in salted water. Add the peas for the last 2 minutes. Save 1 cup of the water and drain.",
+        "Mix the ricotta, parmesan, the zest and juice of the lemon, salt and lots of pepper.",
+        "Toss the pasta and peas with the ricotta mixture, loosening with pasta water until creamy.",
+        "Tear over the basil."
+      ]
+    },
+    {
+      "id": "chicken-cacciatore", "name": "Chicken Cacciatore", "group": "Chicken", "emoji": "🍗", "wiki": "Cacciatore", "minutes": 50, "serves": 4,
+      "ingredients": [
+        { "name": "chicken thighs", "measure": "8 bone-in" }, { "name": "onion", "measure": "1" }, { "name": "bell pepper", "measure": "2" },
+        { "name": "mushrooms", "measure": "225 g, sliced" }, { "name": "garlic", "measure": "3 cloves" }, { "name": "crushed tomatoes", "measure": "1 can (796 ml)" },
+        { "name": "dried oregano", "measure": "1 tsp" }, { "name": "olive oil", "measure": "2 tbsp" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Season the chicken and brown skin side down in the oil in a large pot, 6 minutes. Turn and brown 2 minutes. Set aside.",
+        "Cook the sliced onion, peppers and mushrooms in the same pot 8 minutes. Add the garlic for 1 minute.",
+        "Stir in the tomatoes and oregano, nestle in the chicken, cover and simmer 30 minutes until cooked through.",
+        "Serve with pasta, rice or crusty bread."
+      ],
+      "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "dried oregano"], "note": "Use the pasta sauce in place of the crushed tomatoes and dried oregano." }]
+    },
+    {
+      "id": "chicken-marsala", "name": "Chicken Marsala", "group": "Chicken", "emoji": "🍗", "wiki": "Chicken_marsala", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "chicken breasts", "measure": "2 large, halved into thin cutlets" }, { "name": "flour", "measure": "1/3 cup" }, { "name": "mushrooms", "measure": "225 g, sliced" },
+        { "name": "marsala wine", "measure": "3/4 cup" }, { "name": "chicken stock", "measure": "1/2 cup" }, { "name": "butter", "measure": "3 tbsp" },
+        { "name": "olive oil", "measure": "2 tbsp" }, { "name": "parsley", "measure": "a handful" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Season the cutlets and dredge in flour. Brown in the oil and 1 tbsp butter, 3 minutes a side. Set aside.",
+        "Cook the mushrooms in the same pan 5 minutes until browned.",
+        "Add the marsala and stock, scraping the pan, and simmer 5 minutes until reduced by half.",
+        "Stir in the rest of the butter, return the chicken and simmer 2 minutes. Top with parsley."
+      ]
+    },
+    {
+      "id": "chicken-piccata", "name": "Chicken Piccata", "group": "Chicken", "emoji": "🍋", "wiki": "Piccata", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "chicken breasts", "measure": "2 large, halved into thin cutlets" }, { "name": "flour", "measure": "1/3 cup" }, { "name": "lemon", "measure": "2" },
+        { "name": "capers", "measure": "2 tbsp" }, { "name": "chicken stock", "measure": "1/2 cup" }, { "name": "butter", "measure": "3 tbsp" },
+        { "name": "olive oil", "measure": "2 tbsp" }, { "name": "parsley", "measure": "a handful" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Season the cutlets and dredge in flour. Brown in the oil, 3 minutes a side. Set aside.",
+        "Add the stock, the juice of the lemons and the capers to the pan and simmer 3 minutes.",
+        "Swirl in the butter until glossy, return the chicken and spoon over the sauce.",
+        "Top with parsley and serve with pasta or mashed potatoes."
+      ]
+    },
+    {
+      "id": "buffalo-chicken-wraps", "name": "Buffalo Chicken Wraps", "group": "Chicken", "emoji": "🌯", "wiki": "Buffalo_wing", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "chicken breasts", "measure": "2" }, { "name": "hot sauce", "measure": "1/3 cup" }, { "name": "butter", "measure": "2 tbsp" },
+        { "name": "flour tortillas", "measure": "4 large" }, { "name": "romaine lettuce", "measure": "1 head" }, { "name": "tomatoes", "measure": "2" },
+        { "name": "ranch dressing", "measure": "1/4 cup" }, { "name": "shredded cheese", "measure": "1 cup" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Season the chicken and cook in a skillet, 6 minutes a side, until cooked through. Slice.",
+        "Melt the butter with the hot sauce and toss with the chicken.",
+        "Lay out the tortillas and fill with shredded lettuce, diced tomato, cheese, the chicken and ranch.",
+        "Roll up tightly and toast seam side down in a dry pan for 2 minutes a side."
+      ]
+    },
+    {
+      "id": "bbq-drumsticks", "name": "Baked BBQ Chicken Drumsticks", "group": "Chicken", "emoji": "🍗", "wiki": "Barbecue_chicken", "minutes": 50, "serves": 4,
+      "ingredients": [
+        { "name": "chicken drumsticks", "measure": "10" }, { "name": "bbq sauce", "measure": "1 cup" }, { "name": "paprika", "measure": "1 tbsp" },
+        { "name": "garlic powder", "measure": "1 tsp" }, { "name": "brown sugar", "measure": "1 tbsp" }, { "name": "vegetable oil", "measure": "1 tbsp" },
+        { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 425°F (220°C). Toss the drumsticks with the oil, paprika, garlic powder, sugar and 1 tsp salt.",
+        "Bake on a lined sheet pan for 30 minutes, turning once.",
+        "Brush with the BBQ sauce and bake 10 to 15 minutes more until sticky and cooked through."
+      ]
+    },
+    {
+      "id": "chicken-souvlaki", "name": "Chicken Souvlaki with Tzatziki", "group": "Chicken", "emoji": "🥙", "wiki": "Souvlaki", "minutes": 40, "serves": 4,
+      "ingredients": [
+        { "name": "chicken breasts", "measure": "3, in chunks" }, { "name": "lemon", "measure": "2" }, { "name": "olive oil", "measure": "1/4 cup" },
+        { "name": "garlic", "measure": "3 cloves" }, { "name": "dried oregano", "measure": "2 tsp" }, { "name": "plain yogurt", "measure": "1 cup" },
+        { "name": "cucumber", "measure": "1/2" }, { "name": "pita bread", "measure": "4" }, { "name": "tomatoes", "measure": "2" },
+        { "name": "red onion", "measure": "1/2" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Mix the chicken with the juice of 1 lemon, the oil, 2 grated garlic cloves, oregano and 1 tsp salt. Leave 20 minutes.",
+        "For the tzatziki, grate the cucumber, squeeze it dry and mix with the yogurt, the last garlic clove and a squeeze of lemon.",
+        "Thread the chicken onto skewers and grill or broil 10 to 12 minutes, turning, until cooked through.",
+        "Serve in warm pitas with tzatziki, tomato and onion."
+      ]
+    },
+    {
+      "id": "chicken-tikka-masala", "name": "Chicken Tikka Masala", "group": "Chicken", "emoji": "🍛", "wiki": "Chicken_tikka_masala", "minutes": 45, "serves": 4,
+      "ingredients": [
+        { "name": "chicken thighs", "measure": "700 g (1 1/2 lb), boneless, in chunks" }, { "name": "plain yogurt", "measure": "1/2 cup" }, { "name": "garam masala", "measure": "1 tbsp" },
+        { "name": "ground cumin", "measure": "1 tsp" }, { "name": "onion", "measure": "1" }, { "name": "garlic", "measure": "4 cloves" },
+        { "name": "ginger", "measure": "1 tbsp grated" }, { "name": "crushed tomatoes", "measure": "1 can (796 ml)" }, { "name": "heavy cream", "measure": "1/2 cup" },
+        { "name": "vegetable oil", "measure": "2 tbsp" }, { "name": "basmati rice", "measure": "1 1/2 cups, to serve" }, { "name": "cilantro", "measure": "to serve" },
+        { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Toss the chicken with the yogurt, half the garam masala, the cumin and 1 tsp salt. Leave 15 minutes.",
+        "Cook the rice. Broil the chicken on a sheet pan 10 minutes until charred at the edges.",
+        "Cook the onion in the oil 6 minutes, then the garlic, ginger and the rest of the garam masala for 1 minute. Add the tomatoes and simmer 10 minutes.",
+        "Stir in the cream and chicken and simmer 5 minutes. Serve over rice with cilantro."
+      ],
+      "swaps": [{ "label": "Use jarred tikka masala sauce", "sauce": "tikka masala sauce", "measure": "1 jar (450 ml)", "replaces": ["onion", "garlic", "ginger", "crushed tomatoes", "heavy cream"], "note": "Use the tikka masala sauce in place of the onion, garlic, ginger, crushed tomatoes and heavy cream." }]
+    },
+    {
+      "id": "chicken-enchiladas", "name": "Chicken Enchiladas", "group": "Chicken", "emoji": "🌯", "wiki": "Enchilada", "minutes": 45, "serves": 4,
+      "ingredients": [
+        { "name": "cooked chicken", "measure": "3 cups shredded" }, { "name": "enchilada sauce", "measure": "2 cans (283 ml each)" }, { "name": "flour tortillas", "measure": "8 small" },
+        { "name": "shredded cheese", "measure": "2 cups" }, { "name": "black beans", "measure": "1 can (540 ml), rinsed" }, { "name": "sour cream", "measure": "to serve" },
+        { "name": "green onions", "measure": "3" }
+      ],
+      "steps": [
+        "Heat the oven to 375°F (190°C). Spread a little of the sauce in a 9x13 dish.",
+        "Mix the chicken, beans, 1 cup of the cheese and 1/2 cup of the sauce.",
+        "Fill each tortilla, roll up and set seam side down in the dish.",
+        "Pour over the rest of the sauce, top with the cheese and bake 20 minutes. Serve with sour cream and green onion."
+      ]
+    },
+    {
+      "id": "chicken-tenders", "name": "Crispy Baked Chicken Tenders", "group": "Chicken", "emoji": "🍗", "wiki": "Chicken_fingers", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "chicken breasts", "measure": "3, cut into strips" }, { "name": "eggs", "measure": "2" }, { "name": "panko breadcrumbs", "measure": "2 cups" },
+        { "name": "parmesan", "measure": "1/2 cup grated" }, { "name": "paprika", "measure": "1 tsp" }, { "name": "garlic powder", "measure": "1 tsp" },
+        { "name": "flour", "measure": "1/2 cup" }, { "name": "vegetable oil", "measure": "for drizzling" }, { "name": "honey mustard", "measure": "to serve" },
+        { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 425°F (220°C) and line a sheet pan with parchment.",
+        "Season the strips. Dip in flour, then beaten egg, then the panko mixed with parmesan, paprika and garlic powder.",
+        "Lay on the pan, drizzle with oil and bake 18 to 20 minutes, turning once, until golden and cooked through.",
+        "Serve with honey mustard."
+      ]
+    },
+    {
+      "id": "chicken-jambalaya", "name": "Chicken and Sausage Jambalaya", "group": "Chicken", "emoji": "🍚", "wiki": "Jambalaya", "minutes": 45, "serves": 6,
+      "ingredients": [
+        { "name": "chicken thighs", "measure": "450 g (1 lb), boneless, in chunks" }, { "name": "smoked sausage", "measure": "340 g, sliced" }, { "name": "onion", "measure": "1" },
+        { "name": "bell pepper", "measure": "1" }, { "name": "celery", "measure": "2 stalks" }, { "name": "garlic", "measure": "3 cloves" },
+        { "name": "long-grain rice", "measure": "1 1/2 cups" }, { "name": "diced tomatoes", "measure": "1 can (796 ml)" }, { "name": "chicken stock", "measure": "2 1/2 cups" },
+        { "name": "cajun seasoning", "measure": "1 tbsp" }, { "name": "vegetable oil", "measure": "1 tbsp" }
+      ],
+      "steps": [
+        "Brown the sausage and chicken in the oil in a large pot. Set aside.",
+        "Cook the onion, pepper and celery 6 minutes, then the garlic and Cajun seasoning for 1 minute.",
+        "Stir in the rice, tomatoes, stock, chicken and sausage. Bring to a boil.",
+        "Cover and simmer on low for 20 to 25 minutes until the rice is tender. Rest 5 minutes and fluff."
+      ]
+    },
+    {
+      "id": "cashew-chicken", "name": "Cashew Chicken", "group": "Chicken", "emoji": "🥜", "wiki": "Cashew_chicken", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "chicken breasts", "measure": "2, in chunks" }, { "name": "cashews", "measure": "3/4 cup" }, { "name": "bell pepper", "measure": "1" },
+        { "name": "broccoli", "measure": "1 head, in florets" }, { "name": "garlic", "measure": "2 cloves" }, { "name": "soy sauce", "measure": "3 tbsp" },
+        { "name": "hoisin sauce", "measure": "2 tbsp" }, { "name": "cornstarch", "measure": "1 tbsp" }, { "name": "vegetable oil", "measure": "2 tbsp" },
+        { "name": "rice", "measure": "1 1/2 cups, to serve" }
+      ],
+      "steps": [
+        "Cook the rice. Toss the chicken with 1 tbsp soy sauce and the cornstarch.",
+        "Stir-fry the chicken in 1 tbsp oil over high heat for 5 minutes. Set aside.",
+        "Stir-fry the broccoli and pepper in the rest of the oil 4 minutes, adding the garlic for the last minute.",
+        "Return the chicken with the rest of the soy sauce, the hoisin and 1/4 cup water. Toss until glossy, add the cashews and serve over rice."
+      ]
+    },
+    {
+      "id": "chicken-cordon-bleu", "name": "Baked Chicken Cordon Bleu", "group": "Chicken", "emoji": "🧀", "wiki": "Cordon_bleu_(dish)", "minutes": 45, "serves": 4,
+      "ingredients": [
+        { "name": "chicken breasts", "measure": "4" }, { "name": "ham", "measure": "4 slices" }, { "name": "swiss cheese", "measure": "4 slices" },
+        { "name": "eggs", "measure": "2" }, { "name": "panko breadcrumbs", "measure": "1 1/2 cups" }, { "name": "flour", "measure": "1/2 cup" },
+        { "name": "butter", "measure": "2 tbsp, melted" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 400°F (200°C). Butterfly each breast and pound to an even thickness.",
+        "Lay a slice of ham and cheese on each, roll up and secure with toothpicks.",
+        "Season, dip in flour, then egg, then panko. Set in a baking dish and drizzle with the butter.",
+        "Bake 30 to 35 minutes until golden and cooked through. Remove the toothpicks before serving."
+      ]
+    },
+    {
+      "id": "chicken-satay", "name": "Chicken Satay with Peanut Sauce", "group": "Chicken", "emoji": "🥜", "wiki": "Satay", "minutes": 40, "serves": 4,
+      "ingredients": [
+        { "name": "chicken thighs", "measure": "700 g (1 1/2 lb), boneless, in strips" }, { "name": "soy sauce", "measure": "3 tbsp" }, { "name": "brown sugar", "measure": "1 tbsp" },
+        { "name": "curry powder", "measure": "1 tsp" }, { "name": "peanut butter", "measure": "1/2 cup" }, { "name": "coconut milk", "measure": "1 can (400 ml)" },
+        { "name": "lime", "measure": "1" }, { "name": "garlic", "measure": "2 cloves" }, { "name": "rice", "measure": "1 1/2 cups, to serve" },
+        { "name": "cucumber", "measure": "1" }
+      ],
+      "steps": [
+        "Mix the chicken with 2 tbsp soy sauce, the sugar, curry powder and 1 grated garlic clove. Leave 20 minutes.",
+        "For the sauce, simmer the peanut butter, half the coconut milk, the rest of the soy sauce, the other garlic clove and the juice of the lime for 3 minutes.",
+        "Thread the chicken onto skewers and grill or broil 8 to 10 minutes, turning, until charred and cooked.",
+        "Serve with rice, sliced cucumber and the peanut sauce."
+      ]
+    },
+    {
+      "id": "lemon-pepper-wings", "name": "Lemon Pepper Chicken Wings", "group": "Chicken", "emoji": "🍋", "wiki": "Chicken_wing", "minutes": 50, "serves": 4,
+      "ingredients": [
+        { "name": "chicken wings", "measure": "1.4 kg (3 lb), split" }, { "name": "baking powder", "measure": "1 tbsp" }, { "name": "lemon", "measure": "2" },
+        { "name": "black pepper", "measure": "2 tsp coarse" }, { "name": "butter", "measure": "3 tbsp" }, { "name": "garlic powder", "measure": "1 tsp" },
+        { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 425°F (220°C). Pat the wings dry and toss with the baking powder and 1 tsp salt.",
+        "Bake on a rack over a sheet pan for 45 minutes, turning once, until crisp.",
+        "Melt the butter with the zest and juice of the lemons, the pepper and garlic powder.",
+        "Toss the wings in the lemon pepper butter and serve."
+      ]
+    },
+    {
+      "id": "korean-beef-bowls", "name": "Korean Ground Beef Bowls", "group": "Beef", "emoji": "🍚", "wiki": "Bulgogi", "minutes": 20, "serves": 4,
+      "ingredients": [
+        { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "soy sauce", "measure": "1/4 cup" }, { "name": "brown sugar", "measure": "3 tbsp" },
+        { "name": "sesame oil", "measure": "1 tbsp" }, { "name": "garlic", "measure": "3 cloves" }, { "name": "ginger", "measure": "1 tbsp grated" },
+        { "name": "green onions", "measure": "3" }, { "name": "rice", "measure": "1 1/2 cups" }, { "name": "cucumber", "measure": "1" },
+        { "name": "sesame seeds", "measure": "1 tsp" }
+      ],
+      "steps": [
+        "Cook the rice.",
+        "Brown the beef in a large pan, breaking it up, then drain the fat.",
+        "Stir in the garlic and ginger for 1 minute, then the soy sauce, brown sugar and sesame oil. Simmer 2 minutes until glossy.",
+        "Serve over the rice with sliced cucumber, green onions and sesame seeds."
+      ],
+      "swaps": [{ "label": "Use bottled Korean BBQ sauce", "sauce": "korean bbq sauce", "measure": "1/2 cup", "replaces": ["soy sauce", "brown sugar", "sesame oil"], "note": "Use the korean bbq sauce in place of the soy sauce, brown sugar and sesame oil." }]
+    },
+    {
+      "id": "mongolian-beef", "name": "Mongolian Beef", "group": "Beef", "emoji": "🥩", "wiki": "Mongolian_beef", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "flank steak", "measure": "700 g (1 1/2 lb)" }, { "name": "cornstarch", "measure": "1/4 cup" }, { "name": "vegetable oil", "measure": "3 tbsp" },
+        { "name": "garlic", "measure": "3 cloves" }, { "name": "ginger", "measure": "1 tbsp grated" }, { "name": "soy sauce", "measure": "1/2 cup" },
+        { "name": "brown sugar", "measure": "1/2 cup" }, { "name": "water", "measure": "1/2 cup" }, { "name": "green onions", "measure": "4" },
+        { "name": "rice", "measure": "1 1/2 cups, to serve" }
+      ],
+      "steps": [
+        "Cook the rice. Slice the steak thinly across the grain and toss it in the cornstarch.",
+        "Fry the steak in the oil in batches over high heat, 2 minutes a batch, until browned. Set aside.",
+        "Cook the garlic and ginger in the same pan for 30 seconds, then add the soy sauce, sugar and water and simmer 3 minutes until it thickens.",
+        "Return the beef with the green onions cut in 5 cm lengths and toss for 1 minute. Serve over rice."
+      ]
+    },
+    {
+      "id": "swedish-meatballs", "name": "Swedish Meatballs", "group": "Beef", "emoji": "🍖", "wiki": "Köttbullar", "minutes": 40, "serves": 4,
+      "ingredients": [
+        { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "ground pork", "measure": "225 g (1/2 lb)" }, { "name": "breadcrumbs", "measure": "1/2 cup" },
+        { "name": "milk", "measure": "1/4 cup" }, { "name": "egg", "measure": "1" }, { "name": "onion", "measure": "1 small, grated" },
+        { "name": "allspice", "measure": "1/4 tsp" }, { "name": "butter", "measure": "3 tbsp" }, { "name": "flour", "measure": "3 tbsp" },
+        { "name": "beef broth", "measure": "2 cups" }, { "name": "sour cream", "measure": "1/2 cup" }, { "name": "egg noodles", "measure": "340 g (12 oz), to serve" },
+        { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Soak the breadcrumbs in the milk for 5 minutes, then mix in the beef, pork, egg, onion, allspice and 1 tsp salt. Roll into 30 small balls.",
+        "Brown the meatballs in 1 tbsp butter in batches, about 8 minutes, until cooked through. Set aside.",
+        "Melt the rest of the butter, whisk in the flour for 1 minute, then the broth. Simmer until thick, then stir in the sour cream.",
+        "Return the meatballs to the gravy and warm through. Serve over buttered egg noodles."
+      ],
+      "swaps": [{ "label": "Use a gravy mix", "sauce": "gravy mix", "measure": "1 packet", "replaces": ["butter", "flour", "beef broth"], "note": "Use the gravy mix in place of the butter, flour and beef broth." }]
+    },
+    {
+      "id": "salisbury-steak", "name": "Salisbury Steak with Mushroom Gravy", "group": "Beef", "emoji": "🍄", "wiki": "Salisbury_steak", "minutes": 35, "serves": 4,
+      "ingredients": [
+        { "name": "ground beef", "measure": "680 g (1 1/2 lb)" }, { "name": "breadcrumbs", "measure": "1/3 cup" }, { "name": "egg", "measure": "1" },
+        { "name": "worcestershire sauce", "measure": "1 tbsp" }, { "name": "onion", "measure": "1" }, { "name": "mushrooms", "measure": "225 g (8 oz), sliced" },
+        { "name": "butter", "measure": "2 tbsp" }, { "name": "flour", "measure": "2 tbsp" }, { "name": "beef broth", "measure": "2 cups" },
+        { "name": "mashed potatoes", "measure": "to serve" }, { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Mix the beef, breadcrumbs, egg, Worcestershire, salt and pepper and shape into 4 oval patties.",
+        "Brown the patties in a large pan, 4 minutes a side, then set aside.",
+        "Cook the sliced onion and mushrooms in the butter for 6 minutes. Stir in the flour, then the broth, and simmer until thick.",
+        "Return the patties to the gravy, cover and simmer 10 minutes. Serve with mashed potatoes."
+      ],
+      "swaps": [{ "label": "Use a gravy mix", "sauce": "gravy mix", "measure": "1 packet", "replaces": ["flour", "beef broth"], "note": "Use the gravy mix in place of the flour and beef broth." }]
+    },
+    {
+      "id": "philly-cheesesteak", "name": "Philly Cheesesteak Sandwiches", "group": "Beef", "emoji": "🥖", "wiki": "Cheesesteak", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "rib eye steak", "measure": "450 g (1 lb)" }, { "name": "onion", "measure": "1 large" }, { "name": "green pepper", "measure": "1" },
+        { "name": "mushrooms", "measure": "225 g (8 oz), optional" }, { "name": "provolone", "measure": "8 slices" }, { "name": "hoagie rolls", "measure": "4" },
+        { "name": "vegetable oil", "measure": "2 tbsp" }, { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Freeze the steak for 30 minutes so it slices easily, then shave it as thinly as you can.",
+        "Cook the sliced onion, pepper and mushrooms in 1 tbsp oil until soft, about 8 minutes. Set aside.",
+        "Sear the steak in the rest of the oil over high heat for 2 minutes, season, and mix with the vegetables.",
+        "Split into 4 piles, top each with 2 slices of provolone until melted, then scoop into the toasted rolls."
+      ]
+    },
+    {
+      "id": "beef-enchiladas", "name": "Ground Beef Enchiladas", "group": "Beef", "emoji": "🌯", "wiki": "Enchilada", "minutes": 45, "serves": 4,
+      "ingredients": [
+        { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "onion", "measure": "1" }, { "name": "black beans", "measure": "1 can (540 ml / 19 oz), drained" },
+        { "name": "taco seasoning", "measure": "1 packet" }, { "name": "tomato sauce", "measure": "2 cups" }, { "name": "chili powder", "measure": "1 tbsp" },
+        { "name": "cumin", "measure": "1 tsp" }, { "name": "flour tortillas", "measure": "8 small" }, { "name": "shredded cheese", "measure": "2 cups" },
+        { "name": "sour cream", "measure": "to serve" }
+      ],
+      "steps": [
+        "Heat the oven to 375°F (190°C). Simmer the tomato sauce, chili powder and cumin for 5 minutes to make the sauce.",
+        "Brown the beef with the onion, drain, then stir in the beans, taco seasoning and 1/2 cup of the sauce.",
+        "Roll the filling and half the cheese in the tortillas and lay them seam down in a baking dish.",
+        "Pour over the rest of the sauce, top with the remaining cheese and bake 20 minutes. Serve with sour cream."
+      ],
+      "swaps": [{ "label": "Use canned enchilada sauce", "sauce": "enchilada sauce", "measure": "1 can (540 ml / 19 oz)", "replaces": ["tomato sauce", "chili powder", "cumin"], "note": "Use the enchilada sauce in place of the tomato sauce, chili powder and cumin." }]
+    },
+    {
+      "id": "cabbage-roll-casserole", "name": "Cabbage Roll Casserole", "group": "Beef", "emoji": "🥬", "wiki": "Cabbage_roll", "minutes": 75, "serves": 6,
+      "ingredients": [
+        { "name": "ground beef", "measure": "680 g (1 1/2 lb)" }, { "name": "onion", "measure": "1" }, { "name": "garlic", "measure": "2 cloves" },
+        { "name": "cabbage", "measure": "1 small head, chopped" }, { "name": "rice", "measure": "3/4 cup uncooked" }, { "name": "tomato sauce", "measure": "1 can (680 ml / 23 oz)" },
+        { "name": "beef broth", "measure": "1 cup" }, { "name": "paprika", "measure": "1 tsp" }, { "name": "shredded mozzarella", "measure": "1 cup" },
+        { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 350°F (175°C). Brown the beef with the onion and garlic, drain and season.",
+        "Stir in the rice, tomato sauce, broth and paprika.",
+        "Layer half the cabbage in a large baking dish, then half the beef, then the rest of each.",
+        "Cover with foil and bake 60 minutes until the rice is tender. Top with the cheese and bake 5 more minutes uncovered."
+      ]
+    },
+    {
+      "id": "ginger-beef", "name": "Crispy Ginger Beef", "group": "Beef", "emoji": "🥢", "wiki": "Ginger_beef", "minutes": 35, "serves": 4,
+      "ingredients": [
+        { "name": "flank steak", "measure": "450 g (1 lb)" }, { "name": "cornstarch", "measure": "1/2 cup" }, { "name": "egg", "measure": "1" },
+        { "name": "vegetable oil", "measure": "for frying" }, { "name": "carrot", "measure": "1, in matchsticks" }, { "name": "red pepper", "measure": "1, in strips" },
+        { "name": "ginger", "measure": "2 tbsp, in matchsticks" }, { "name": "garlic", "measure": "3 cloves" }, { "name": "soy sauce", "measure": "1/4 cup" },
+        { "name": "rice vinegar", "measure": "3 tbsp" }, { "name": "brown sugar", "measure": "1/3 cup" }, { "name": "chili flakes", "measure": "1/2 tsp" },
+        { "name": "rice", "measure": "1 1/2 cups, to serve" }
+      ],
+      "steps": [
+        "Cook the rice. Slice the beef into thin strips, toss with the egg, then the cornstarch.",
+        "Fry in 2 cm of hot oil in batches until crisp, 3 minutes a batch. Drain on paper towel.",
+        "Pour off most of the oil and stir-fry the carrot, pepper, ginger and garlic for 2 minutes.",
+        "Add the soy sauce, vinegar, sugar and chili flakes and boil 1 minute until syrupy. Toss in the beef and serve over rice."
+      ],
+      "swaps": [{ "label": "Use bottled ginger sauce", "sauce": "ginger sauce", "measure": "3/4 cup", "replaces": ["soy sauce", "rice vinegar", "brown sugar", "chili flakes"], "note": "Use the ginger sauce in place of the soy sauce, rice vinegar, brown sugar and chili flakes." }]
+    },
+    {
+      "id": "beef-fajitas", "name": "Steak Fajitas", "group": "Beef", "emoji": "🌮", "wiki": "Fajita", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "flank steak", "measure": "680 g (1 1/2 lb)" }, { "name": "red pepper", "measure": "1" }, { "name": "green pepper", "measure": "1" },
+        { "name": "onion", "measure": "1" }, { "name": "lime", "measure": "1" }, { "name": "chili powder", "measure": "2 tsp" },
+        { "name": "cumin", "measure": "1 tsp" }, { "name": "garlic powder", "measure": "1 tsp" }, { "name": "vegetable oil", "measure": "2 tbsp" },
+        { "name": "flour tortillas", "measure": "8" }, { "name": "sour cream", "measure": "to serve" }, { "name": "salsa", "measure": "to serve" }
+      ],
+      "steps": [
+        "Rub the steak with the chili powder, cumin, garlic powder, 1 tsp salt and the juice of half the lime.",
+        "Sear in 1 tbsp oil over high heat, 4 minutes a side for medium. Rest 5 minutes, then slice thinly across the grain.",
+        "Cook the sliced peppers and onion in the rest of the oil over high heat until charred, about 6 minutes.",
+        "Serve the steak and vegetables in warm tortillas with sour cream, salsa and lime wedges."
+      ],
+      "swaps": [{ "label": "Use a fajita seasoning packet", "sauce": "fajita seasoning", "measure": "1 packet", "replaces": ["chili powder", "cumin", "garlic powder"], "note": "Use the fajita seasoning in place of the chili powder, cumin and garlic powder." }]
+    },
+    {
+      "id": "meatball-subs", "name": "Meatball Subs", "group": "Beef", "emoji": "🥖", "wiki": "Meatball_sandwich", "minutes": 40, "serves": 4,
+      "ingredients": [
+        { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "breadcrumbs", "measure": "1/2 cup" }, { "name": "egg", "measure": "1" },
+        { "name": "parmesan", "measure": "1/4 cup grated" }, { "name": "garlic", "measure": "3 cloves" }, { "name": "crushed tomatoes", "measure": "1 can (796 ml / 28 oz)" },
+        { "name": "dried oregano", "measure": "1 tsp" }, { "name": "olive oil", "measure": "1 tbsp" }, { "name": "sub rolls", "measure": "4" },
+        { "name": "shredded mozzarella", "measure": "1 1/2 cups" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Mix the beef, breadcrumbs, egg, parmesan, 1 grated garlic clove and 1 tsp salt. Roll into 16 balls.",
+        "Brown the meatballs in the oil for 6 minutes, turning.",
+        "Add the rest of the garlic for 30 seconds, then the tomatoes and oregano. Cover and simmer 15 minutes.",
+        "Spoon 4 meatballs and sauce into each roll, top with mozzarella and broil 2 minutes until melted."
+      ],
+      "swaps": [{ "label": "Use jarred pasta sauce", "sauce": "pasta sauce", "measure": "1 jar (650 ml)", "replaces": ["crushed tomatoes", "dried oregano"], "note": "Use the pasta sauce in place of the crushed tomatoes and dried oregano." }]
+    },
+    {
+      "id": "steak-sandwiches", "name": "Steak Sandwiches with Caramelized Onions", "group": "Beef", "emoji": "🥪", "wiki": "Steak_sandwich", "minutes": 35, "serves": 4,
+      "ingredients": [
+        { "name": "sirloin steak", "measure": "680 g (1 1/2 lb)" }, { "name": "onions", "measure": "2" }, { "name": "butter", "measure": "2 tbsp" },
+        { "name": "ciabatta buns", "measure": "4" }, { "name": "mayonnaise", "measure": "1/4 cup" }, { "name": "dijon mustard", "measure": "1 tbsp" },
+        { "name": "arugula", "measure": "2 cups" }, { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Cook the sliced onions in the butter over medium-low heat, stirring, for 20 minutes until golden.",
+        "Season the steak and sear it in a hot pan, 4 minutes a side for medium. Rest 5 minutes, then slice thinly.",
+        "Mix the mayonnaise and mustard and spread it on the toasted buns.",
+        "Fill with arugula, steak and onions."
+      ]
+    },
+    {
+      "id": "pork-souvlaki", "name": "Pork Souvlaki Pitas", "group": "Pork", "emoji": "🥙", "wiki": "Souvlaki", "minutes": 40, "serves": 4,
+      "ingredients": [
+        { "name": "pork loin", "measure": "680 g (1 1/2 lb), in cubes" }, { "name": "olive oil", "measure": "1/4 cup" }, { "name": "lemon", "measure": "1" },
+        { "name": "garlic", "measure": "3 cloves" }, { "name": "dried oregano", "measure": "2 tsp" }, { "name": "pitas", "measure": "4" },
+        { "name": "greek yogurt", "measure": "1 cup" }, { "name": "cucumber", "measure": "1/2" }, { "name": "tomatoes", "measure": "2" },
+        { "name": "red onion", "measure": "1/2" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Toss the pork with the oil, lemon juice, 2 grated garlic cloves, the oregano and 1 tsp salt. Leave 20 minutes or overnight.",
+        "For the tzatziki, mix the yogurt with the grated, squeezed cucumber, the last garlic clove and a pinch of salt.",
+        "Thread onto skewers and grill or broil 10 to 12 minutes, turning, until cooked through.",
+        "Serve in warm pitas with tzatziki, tomato and sliced red onion."
+      ],
+      "swaps": [{ "label": "Use store-bought tzatziki", "sauce": "tzatziki", "measure": "1 cup", "replaces": ["greek yogurt", "cucumber"], "note": "Use the tzatziki in place of the greek yogurt and cucumber." }]
+    },
+    {
+      "id": "honey-garlic-pork-chops", "name": "Honey Garlic Pork Chops", "group": "Pork", "emoji": "🍯", "wiki": "Pork_chop", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "pork chops", "measure": "4 boneless (about 680 g / 1 1/2 lb)" }, { "name": "honey", "measure": "1/4 cup" }, { "name": "soy sauce", "measure": "3 tbsp" },
+        { "name": "garlic", "measure": "4 cloves" }, { "name": "butter", "measure": "1 tbsp" }, { "name": "vegetable oil", "measure": "1 tbsp" },
+        { "name": "green beans", "measure": "450 g (1 lb), to serve" }, { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Season the chops and sear in the oil over medium-high heat, 4 to 5 minutes a side, until 145°F (63°C) inside. Set aside.",
+        "Melt the butter in the same pan and cook the garlic for 30 seconds.",
+        "Add the honey and soy sauce and simmer 2 minutes until sticky. Return the chops and turn to coat.",
+        "Serve with steamed green beans."
+      ],
+      "swaps": [{ "label": "Use bottled honey garlic sauce", "sauce": "honey garlic sauce", "measure": "1/2 cup", "replaces": ["honey", "soy sauce"], "note": "Use the honey garlic sauce in place of the honey and soy sauce." }]
+    },
+    {
+      "id": "pork-schnitzel", "name": "Pork Schnitzel", "group": "Pork", "emoji": "🍋", "wiki": "Schnitzel", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "pork loin cutlets", "measure": "4 (about 450 g / 1 lb)" }, { "name": "flour", "measure": "1/2 cup" }, { "name": "eggs", "measure": "2" },
+        { "name": "breadcrumbs", "measure": "1 1/2 cups" }, { "name": "vegetable oil", "measure": "for frying" }, { "name": "lemon", "measure": "1" },
+        { "name": "potatoes", "measure": "900 g (2 lb), to serve" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Pound the cutlets to 5 mm thick between plastic wrap and season with salt.",
+        "Coat each in flour, then beaten egg, then breadcrumbs.",
+        "Fry in 1 cm of hot oil, 2 to 3 minutes a side, until golden. Drain on paper towel.",
+        "Serve with lemon wedges and boiled potatoes."
+      ]
+    },
+    {
+      "id": "pork-fried-rice", "name": "Pork Fried Rice", "group": "Pork", "emoji": "🍚", "wiki": "Fried_rice", "minutes": 20, "serves": 4,
+      "ingredients": [
+        { "name": "pork loin", "measure": "340 g (3/4 lb), diced" }, { "name": "cooked rice", "measure": "4 cups, cold" }, { "name": "eggs", "measure": "2" },
+        { "name": "frozen peas and carrots", "measure": "1 cup" }, { "name": "green onions", "measure": "3" }, { "name": "soy sauce", "measure": "3 tbsp" },
+        { "name": "sesame oil", "measure": "1 tsp" }, { "name": "vegetable oil", "measure": "2 tbsp" }, { "name": "garlic", "measure": "2 cloves" }
+      ],
+      "steps": [
+        "Stir-fry the pork in 1 tbsp oil over high heat until browned, 4 minutes. Set aside.",
+        "Scramble the eggs in the pan, then set aside with the pork.",
+        "Add the rest of the oil, the garlic and the peas and carrots for 2 minutes, then the rice. Fry 3 minutes, pressing it flat.",
+        "Stir in the soy sauce, sesame oil, pork, egg and green onions."
+      ]
+    },
+    {
+      "id": "peameal-sandwiches", "name": "Peameal Bacon Sandwiches", "group": "Pork", "emoji": "🥓", "wiki": "Peameal_bacon", "minutes": 20, "serves": 4,
+      "ingredients": [
+        { "name": "peameal bacon", "measure": "450 g (1 lb), sliced 5 mm thick" }, { "name": "kaiser buns", "measure": "4" }, { "name": "honey mustard", "measure": "1/4 cup" },
+        { "name": "lettuce", "measure": "4 leaves" }, { "name": "tomato", "measure": "1" }
+      ],
+      "steps": [
+        "Fry the peameal bacon slices in a lightly oiled pan, 2 to 3 minutes a side, until golden at the edges.",
+        "Toast the buns cut side down in the same pan.",
+        "Spread the buns with honey mustard.",
+        "Pile on the bacon with lettuce and sliced tomato."
+      ]
+    },
+    {
+      "id": "pork-broccoli-stir-fry", "name": "Pork and Broccoli Stir-Fry", "group": "Pork", "emoji": "🥦", "wiki": "Stir_frying", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "pork tenderloin", "measure": "450 g (1 lb)" }, { "name": "broccoli", "measure": "1 large head" }, { "name": "garlic", "measure": "3 cloves" },
+        { "name": "ginger", "measure": "1 tbsp grated" }, { "name": "oyster sauce", "measure": "3 tbsp" }, { "name": "soy sauce", "measure": "2 tbsp" },
+        { "name": "cornstarch", "measure": "1 tbsp" }, { "name": "vegetable oil", "measure": "2 tbsp" }, { "name": "rice", "measure": "1 1/2 cups, to serve" }
+      ],
+      "steps": [
+        "Cook the rice. Slice the pork thinly and toss with 1 tbsp soy sauce and the cornstarch.",
+        "Stir-fry the pork in 1 tbsp oil over high heat until browned, 3 minutes. Set aside.",
+        "Stir-fry the broccoli in the rest of the oil with 3 tbsp water for 3 minutes, then the garlic and ginger for 30 seconds.",
+        "Return the pork with the oyster sauce, the rest of the soy sauce and 1/4 cup water and toss until glossy. Serve over rice."
+      ],
+      "swaps": [{ "label": "Use a bottled stir-fry sauce", "sauce": "stir fry sauce", "measure": "1/2 cup", "replaces": ["oyster sauce"], "note": "Use the stir fry sauce in place of the oyster sauce." }]
+    },
+    {
+      "id": "glazed-ham", "name": "Brown Sugar Glazed Ham", "group": "Pork", "emoji": "🍖", "wiki": "Ham", "minutes": 150, "serves": 10,
+      "ingredients": [
+        { "name": "fully cooked ham", "measure": "1 bone-in, about 3.6 kg (8 lb)" }, { "name": "brown sugar", "measure": "1 cup" }, { "name": "dijon mustard", "measure": "3 tbsp" },
+        { "name": "honey", "measure": "1/4 cup" }, { "name": "orange juice", "measure": "1/4 cup" }, { "name": "cloves", "measure": "1 tsp ground" }
+      ],
+      "steps": [
+        "Heat the oven to 325°F (160°C). Score the ham in a diamond pattern and set it cut side down in a roasting pan with 1 cup water.",
+        "Cover with foil and bake 15 minutes a pound, about 2 hours, until 120°F (50°C) inside.",
+        "Simmer the sugar, mustard, honey, orange juice and cloves for 3 minutes.",
+        "Brush half the glaze over, raise the oven to 400°F (200°C) and bake 20 minutes uncovered, brushing with the rest halfway."
+      ]
+    },
+    {
+      "id": "stuffed-pork-loin", "name": "Apple Stuffed Pork Loin", "group": "Pork", "emoji": "🍎", "wiki": "Pork_loin", "minutes": 90, "serves": 6,
+      "ingredients": [
+        { "name": "pork loin roast", "measure": "1.4 kg (3 lb), boneless" }, { "name": "apples", "measure": "2" }, { "name": "onion", "measure": "1" },
+        { "name": "celery", "measure": "2 stalks" }, { "name": "butter", "measure": "2 tbsp" }, { "name": "bread cubes", "measure": "2 cups" },
+        { "name": "chicken broth", "measure": "1/2 cup" }, { "name": "dried sage", "measure": "1 tsp" }, { "name": "salt", "measure": "to taste" },
+        { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 375°F (190°C). Cook the diced apple, onion and celery in the butter for 6 minutes. Stir in the bread, sage and broth.",
+        "Butterfly the pork so it opens like a book, season it, spread over the stuffing and roll it up. Tie with string every 5 cm.",
+        "Roast 60 to 75 minutes until 145°F (63°C) in the centre.",
+        "Rest 10 minutes, then slice."
+      ],
+      "swaps": [{ "label": "Use a boxed stuffing mix", "sauce": "stuffing mix", "measure": "1 box (170 g)", "replaces": ["bread cubes", "dried sage", "chicken broth", "celery"], "note": "Use the stuffing mix in place of the bread cubes, dried sage, chicken broth and celery." }]
+    },
+    {
+      "id": "lemon-dill-cod", "name": "Baked Lemon Dill Cod", "group": "Seafood", "emoji": "🐟", "wiki": "Cod_as_food", "minutes": 20, "serves": 4,
+      "ingredients": [
+        { "name": "cod fillets", "measure": "4 (about 680 g / 1 1/2 lb)" }, { "name": "butter", "measure": "3 tbsp" }, { "name": "lemon", "measure": "1" },
+        { "name": "garlic", "measure": "2 cloves" }, { "name": "fresh dill", "measure": "2 tbsp chopped" }, { "name": "asparagus", "measure": "1 bunch" },
+        { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 400°F (200°C). Lay the cod and asparagus on a lined sheet pan and season.",
+        "Melt the butter with the garlic, lemon zest, half the lemon juice and the dill.",
+        "Spoon the butter over the fish and asparagus.",
+        "Bake 12 to 15 minutes until the fish flakes. Squeeze over the rest of the lemon."
+      ]
+    },
+    {
+      "id": "maple-salmon", "name": "Maple Glazed Salmon", "group": "Seafood", "emoji": "🍁", "wiki": "Salmon_as_food", "minutes": 20, "serves": 4,
+      "ingredients": [
+        { "name": "salmon fillets", "measure": "4 (about 680 g / 1 1/2 lb)" }, { "name": "maple syrup", "measure": "1/4 cup" }, { "name": "soy sauce", "measure": "2 tbsp" },
+        { "name": "dijon mustard", "measure": "1 tbsp" }, { "name": "garlic", "measure": "1 clove" }, { "name": "rice", "measure": "1 1/2 cups, to serve" },
+        { "name": "broccoli", "measure": "1 head, to serve" }
+      ],
+      "steps": [
+        "Heat the oven to 400°F (200°C) and cook the rice.",
+        "Whisk the maple syrup, soy sauce, mustard and grated garlic.",
+        "Lay the salmon on a lined pan, spoon over half the glaze and bake 12 to 15 minutes, brushing with the rest halfway.",
+        "Serve with the rice and steamed broccoli."
+      ]
+    },
+    {
+      "id": "crab-cakes", "name": "Crab Cakes", "group": "Seafood", "emoji": "🦀", "wiki": "Crab_cake", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "crab meat", "measure": "450 g (1 lb), picked over" }, { "name": "mayonnaise", "measure": "1/3 cup" }, { "name": "egg", "measure": "1" },
+        { "name": "dijon mustard", "measure": "1 tbsp" }, { "name": "old bay seasoning", "measure": "1 tsp" }, { "name": "crackers", "measure": "1/2 cup crushed" },
+        { "name": "green onions", "measure": "2" }, { "name": "butter", "measure": "2 tbsp" }, { "name": "lemon", "measure": "1" }
+      ],
+      "steps": [
+        "Gently mix the crab, mayonnaise, egg, mustard, Old Bay, crackers and sliced green onions without breaking up the crab.",
+        "Shape into 8 cakes and chill 15 minutes so they hold together.",
+        "Fry in the butter over medium heat, 3 to 4 minutes a side, until golden.",
+        "Serve with lemon wedges."
+      ]
+    },
+    {
+      "id": "coconut-shrimp", "name": "Baked Coconut Shrimp", "group": "Seafood", "emoji": "🥥", "wiki": "Coconut_shrimp", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "shrimp", "measure": "450 g (1 lb) large, peeled" }, { "name": "flour", "measure": "1/2 cup" }, { "name": "eggs", "measure": "2" },
+        { "name": "shredded coconut", "measure": "1 cup sweetened" }, { "name": "panko", "measure": "1/2 cup" }, { "name": "sweet chili sauce", "measure": "to serve" },
+        { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 425°F (220°C) and grease a sheet pan.",
+        "Season the flour. Beat the eggs. Mix the coconut and panko.",
+        "Coat each shrimp in flour, then egg, then the coconut mix, and lay them on the pan.",
+        "Bake 10 to 12 minutes, turning once, until golden. Serve with sweet chili sauce."
+      ]
+    },
+    {
+      "id": "tuna-melts", "name": "Tuna Melts", "group": "Seafood", "emoji": "🥪", "wiki": "Tuna_melt", "minutes": 15, "serves": 4,
+      "ingredients": [
+        { "name": "canned tuna", "measure": "2 cans (170 g each), drained" }, { "name": "mayonnaise", "measure": "1/3 cup" }, { "name": "celery", "measure": "1 stalk" },
+        { "name": "red onion", "measure": "2 tbsp minced" }, { "name": "lemon", "measure": "1/2" }, { "name": "bread", "measure": "8 slices" },
+        { "name": "cheddar", "measure": "8 slices" }, { "name": "butter", "measure": "2 tbsp" }
+      ],
+      "steps": [
+        "Mix the tuna, mayonnaise, diced celery, onion and a squeeze of lemon.",
+        "Butter the bread on one side.",
+        "Build sandwiches buttered side out with a slice of cheese, the tuna and another slice of cheese.",
+        "Cook in a pan over medium-low heat, 3 to 4 minutes a side, until golden and melted."
+      ]
+    },
+    {
+      "id": "shrimp-tacos", "name": "Shrimp Tacos with Lime Slaw", "group": "Seafood", "emoji": "🌮", "wiki": "Taco", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "shrimp", "measure": "450 g (1 lb), peeled" }, { "name": "chili powder", "measure": "2 tsp" }, { "name": "garlic powder", "measure": "1/2 tsp" },
+        { "name": "vegetable oil", "measure": "1 tbsp" }, { "name": "coleslaw mix", "measure": "3 cups" }, { "name": "lime", "measure": "2" },
+        { "name": "mayonnaise", "measure": "1/4 cup" }, { "name": "corn tortillas", "measure": "8 small" }, { "name": "avocado", "measure": "1" },
+        { "name": "cilantro", "measure": "a handful" }
+      ],
+      "steps": [
+        "Toss the coleslaw with the mayonnaise, the juice of 1 lime and a pinch of salt.",
+        "Toss the shrimp with the chili powder, garlic powder and a pinch of salt.",
+        "Sear the shrimp in the oil over high heat, 1 to 2 minutes a side, until pink.",
+        "Fill warm tortillas with slaw, shrimp, avocado and cilantro, with lime wedges."
+      ]
+    },
+    {
+      "id": "fish-cakes", "name": "Salmon Potato Fish Cakes", "group": "Seafood", "emoji": "🐟", "wiki": "Fishcake", "minutes": 40, "serves": 4,
+      "ingredients": [
+        { "name": "canned salmon", "measure": "2 cans (213 g each), drained" }, { "name": "potatoes", "measure": "450 g (1 lb)" }, { "name": "green onions", "measure": "3" },
+        { "name": "egg", "measure": "1" }, { "name": "dijon mustard", "measure": "1 tsp" }, { "name": "breadcrumbs", "measure": "1 cup" },
+        { "name": "vegetable oil", "measure": "3 tbsp" }, { "name": "lemon", "measure": "1" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Boil the peeled potatoes until tender, drain and mash.",
+        "Mix in the salmon, sliced green onions, egg, mustard and some salt. Shape into 8 cakes.",
+        "Coat in breadcrumbs and chill 10 minutes.",
+        "Fry in the oil over medium heat, 4 minutes a side, until crisp. Serve with lemon."
+      ]
+    },
+    {
+      "id": "salmon-burgers", "name": "Salmon Burgers", "group": "Seafood", "emoji": "🍔", "wiki": "Salmon_burger", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "salmon fillet", "measure": "450 g (1 lb), skin off" }, { "name": "panko", "measure": "1/2 cup" }, { "name": "egg", "measure": "1" },
+        { "name": "dijon mustard", "measure": "1 tbsp" }, { "name": "lemon", "measure": "1" }, { "name": "green onions", "measure": "2" },
+        { "name": "burger buns", "measure": "4" }, { "name": "tartar sauce", "measure": "1/4 cup" }, { "name": "lettuce", "measure": "4 leaves" }
+      ],
+      "steps": [
+        "Chop a quarter of the salmon very finely and the rest into small pieces.",
+        "Mix with the panko, egg, mustard, lemon zest, sliced green onions and a pinch of salt. Shape into 4 patties.",
+        "Fry in a little oil over medium heat, 4 minutes a side.",
+        "Serve in toasted buns with tartar sauce and lettuce."
+      ]
+    },
+    {
+      "id": "cajun-shrimp-rice", "name": "Cajun Shrimp and Rice Skillet", "group": "Seafood", "emoji": "🦐", "wiki": "Cajun_cuisine", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "shrimp", "measure": "450 g (1 lb), peeled" }, { "name": "smoked sausage", "measure": "225 g (1/2 lb), sliced" }, { "name": "onion", "measure": "1" },
+        { "name": "green pepper", "measure": "1" }, { "name": "celery", "measure": "2 stalks" }, { "name": "garlic", "measure": "2 cloves" },
+        { "name": "rice", "measure": "1 cup" }, { "name": "chicken broth", "measure": "2 cups" }, { "name": "diced tomatoes", "measure": "1 can (398 ml / 14 oz)" },
+        { "name": "cajun seasoning", "measure": "1 tbsp" }
+      ],
+      "steps": [
+        "Brown the sausage in a deep pan for 3 minutes.",
+        "Add the onion, pepper and celery and cook 5 minutes, then the garlic and Cajun seasoning for 30 seconds.",
+        "Stir in the rice, broth and tomatoes. Cover and simmer 18 minutes.",
+        "Tuck in the shrimp, cover and cook 5 more minutes until pink."
+      ]
+    },
+    {
+      "id": "poke-bowls", "name": "Salmon Poke Bowls", "group": "Seafood", "emoji": "🍣", "wiki": "Poke_(dish)", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "sushi-grade salmon", "measure": "450 g (1 lb)" }, { "name": "soy sauce", "measure": "3 tbsp" }, { "name": "sesame oil", "measure": "1 tbsp" },
+        { "name": "rice vinegar", "measure": "1 tbsp" }, { "name": "sushi rice", "measure": "1 1/2 cups" }, { "name": "cucumber", "measure": "1" },
+        { "name": "avocado", "measure": "1" }, { "name": "edamame", "measure": "1 cup shelled" }, { "name": "green onions", "measure": "2" },
+        { "name": "sesame seeds", "measure": "1 tsp" }
+      ],
+      "steps": [
+        "Cook the rice and season it with the vinegar while warm.",
+        "Cube the salmon and toss with the soy sauce, sesame oil and green onions.",
+        "Cook the edamame for 3 minutes and cool.",
+        "Build bowls with rice, salmon, cucumber, avocado and edamame, and top with sesame seeds."
+      ]
+    },
+    {
+      "id": "steamed-mussels", "name": "Mussels in White Wine and Garlic", "group": "Seafood", "emoji": "🦪", "wiki": "Mussel", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "mussels", "measure": "1.8 kg (4 lb), cleaned" }, { "name": "butter", "measure": "3 tbsp" }, { "name": "shallots", "measure": "2" },
+        { "name": "garlic", "measure": "4 cloves" }, { "name": "white wine", "measure": "1 cup" }, { "name": "parsley", "measure": "a handful" },
+        { "name": "baguette", "measure": "1, to serve" }
+      ],
+      "steps": [
+        "Rinse the mussels and throw away any that are cracked or stay open when tapped.",
+        "Melt the butter in a large pot and cook the shallots and garlic for 2 minutes.",
+        "Add the wine, bring to a boil, add the mussels, cover and steam 5 to 6 minutes, shaking the pot, until they open.",
+        "Throw away any that stay shut. Scatter with parsley and serve with bread for the broth."
+      ]
+    },
+    {
+      "id": "tofu-stir-fry", "name": "Crispy Tofu Stir-Fry", "group": "Vegetarian", "emoji": "🥢", "wiki": "Tofu", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "extra-firm tofu", "measure": "1 block (454 g)" }, { "name": "cornstarch", "measure": "2 tbsp" }, { "name": "vegetable oil", "measure": "3 tbsp" },
+        { "name": "broccoli", "measure": "1 head" }, { "name": "red pepper", "measure": "1" }, { "name": "snow peas", "measure": "1 cup" },
+        { "name": "garlic", "measure": "2 cloves" }, { "name": "soy sauce", "measure": "3 tbsp" }, { "name": "maple syrup", "measure": "1 tbsp" },
+        { "name": "rice vinegar", "measure": "1 tbsp" }, { "name": "rice", "measure": "1 1/2 cups, to serve" }
+      ],
+      "steps": [
+        "Cook the rice. Press the tofu dry, cut it in cubes and toss with the cornstarch.",
+        "Fry the tofu in 2 tbsp oil until crisp on all sides, 8 minutes. Set aside.",
+        "Stir-fry the vegetables in the rest of the oil for 4 minutes, then the garlic for 30 seconds.",
+        "Add the soy sauce, maple syrup and vinegar, return the tofu and toss. Serve over rice."
+      ],
+      "swaps": [{ "label": "Use a bottled stir-fry sauce", "sauce": "stir fry sauce", "measure": "1/2 cup", "replaces": ["soy sauce", "maple syrup", "rice vinegar"], "note": "Use the stir fry sauce in place of the soy sauce, maple syrup and rice vinegar." }]
+    },
+    {
+      "id": "black-bean-burgers", "name": "Black Bean Burgers", "group": "Vegetarian", "emoji": "🍔", "wiki": "Veggie_burger", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "black beans", "measure": "1 can (540 ml / 19 oz), drained" }, { "name": "breadcrumbs", "measure": "1/2 cup" }, { "name": "egg", "measure": "1" },
+        { "name": "onion", "measure": "1/2" }, { "name": "garlic", "measure": "1 clove" }, { "name": "cumin", "measure": "1 tsp" },
+        { "name": "chili powder", "measure": "1 tsp" }, { "name": "burger buns", "measure": "4" }, { "name": "cheddar", "measure": "4 slices" },
+        { "name": "avocado", "measure": "1" }
+      ],
+      "steps": [
+        "Pat the beans dry and mash them roughly, leaving some whole.",
+        "Mix in the breadcrumbs, egg, grated onion, garlic, cumin, chili powder and a pinch of salt. Shape into 4 patties.",
+        "Fry in a little oil over medium heat, 5 minutes a side, adding the cheese for the last minute.",
+        "Serve in toasted buns with sliced avocado."
+      ]
+    },
+    {
+      "id": "mushroom-risotto", "name": "Mushroom Risotto", "group": "Vegetarian", "emoji": "🍄", "wiki": "Risotto", "minutes": 40, "serves": 4,
+      "ingredients": [
+        { "name": "arborio rice", "measure": "1 1/2 cups" }, { "name": "mushrooms", "measure": "450 g (1 lb), sliced" }, { "name": "vegetable broth", "measure": "6 cups, hot" },
+        { "name": "onion", "measure": "1" }, { "name": "garlic", "measure": "2 cloves" }, { "name": "white wine", "measure": "1/2 cup" },
+        { "name": "butter", "measure": "3 tbsp" }, { "name": "parmesan", "measure": "3/4 cup grated" }, { "name": "olive oil", "measure": "1 tbsp" }
+      ],
+      "steps": [
+        "Brown the mushrooms in the oil and 1 tbsp butter, 6 minutes. Set aside.",
+        "Cook the onion in 1 tbsp butter for 4 minutes, then the garlic and rice for 1 minute. Add the wine and stir until absorbed.",
+        "Add the broth a ladle at a time, stirring, waiting until each is absorbed, for about 20 minutes until creamy.",
+        "Stir in the mushrooms, the rest of the butter and the parmesan."
+      ]
+    },
+    {
+      "id": "vegetable-curry", "name": "Coconut Vegetable Curry", "group": "Vegetarian", "emoji": "🍛", "wiki": "Curry", "minutes": 35, "serves": 4,
+      "ingredients": [
+        { "name": "sweet potato", "measure": "1 large" }, { "name": "cauliflower", "measure": "1/2 head" }, { "name": "chickpeas", "measure": "1 can (540 ml / 19 oz), drained" },
+        { "name": "baby spinach", "measure": "3 cups" }, { "name": "onion", "measure": "1" }, { "name": "garlic", "measure": "3 cloves" },
+        { "name": "ginger", "measure": "1 tbsp grated" }, { "name": "curry powder", "measure": "2 tbsp" }, { "name": "coconut milk", "measure": "1 can (400 ml)" },
+        { "name": "diced tomatoes", "measure": "1 can (398 ml / 14 oz)" }, { "name": "rice", "measure": "1 1/2 cups, to serve" }
+      ],
+      "steps": [
+        "Cook the rice. Cook the onion in a little oil for 5 minutes, then the garlic, ginger and curry powder for 1 minute.",
+        "Add the cubed sweet potato, cauliflower florets, tomatoes and coconut milk. Simmer 20 minutes until tender.",
+        "Stir in the chickpeas and spinach until the spinach wilts.",
+        "Season and serve over rice."
+      ],
+      "swaps": [{ "label": "Use a jarred curry sauce", "sauce": "curry sauce", "measure": "1 jar (400 ml)", "replaces": ["curry powder", "coconut milk", "diced tomatoes"], "note": "Use the curry sauce in place of the curry powder, coconut milk and diced tomatoes." }]
+    },
+    {
+      "id": "cauliflower-tacos", "name": "Roasted Cauliflower Tacos", "group": "Vegetarian", "emoji": "🌮", "wiki": "Cauliflower", "minutes": 35, "serves": 4,
+      "ingredients": [
+        { "name": "cauliflower", "measure": "1 head" }, { "name": "olive oil", "measure": "2 tbsp" }, { "name": "chili powder", "measure": "2 tsp" },
+        { "name": "smoked paprika", "measure": "1 tsp" }, { "name": "cumin", "measure": "1 tsp" }, { "name": "corn tortillas", "measure": "8 small" },
+        { "name": "coleslaw mix", "measure": "2 cups" }, { "name": "sour cream", "measure": "1/2 cup" }, { "name": "lime", "measure": "1" },
+        { "name": "cilantro", "measure": "a handful" }
+      ],
+      "steps": [
+        "Heat the oven to 425°F (220°C). Toss small cauliflower florets with the oil, spices and 1 tsp salt.",
+        "Roast 25 minutes, turning once, until browned at the edges.",
+        "Mix the sour cream with the juice of half the lime.",
+        "Fill the tortillas with slaw, cauliflower, lime crema and cilantro."
+      ]
+    },
+    {
+      "id": "sweet-potato-chili", "name": "Sweet Potato Black Bean Chili", "group": "Vegetarian", "emoji": "🌶️", "wiki": "Chili_con_carne", "minutes": 45, "serves": 6,
+      "ingredients": [
+        { "name": "sweet potatoes", "measure": "2" }, { "name": "black beans", "measure": "2 cans (540 ml / 19 oz each), drained" }, { "name": "onion", "measure": "1" },
+        { "name": "red pepper", "measure": "1" }, { "name": "garlic", "measure": "3 cloves" }, { "name": "chili powder", "measure": "2 tbsp" },
+        { "name": "cumin", "measure": "2 tsp" }, { "name": "diced tomatoes", "measure": "1 can (796 ml / 28 oz)" }, { "name": "vegetable broth", "measure": "2 cups" },
+        { "name": "lime", "measure": "1" }
+      ],
+      "steps": [
+        "Cook the onion and pepper in a little oil for 5 minutes, then the garlic and spices for 1 minute.",
+        "Add the peeled, cubed sweet potatoes, tomatoes and broth. Simmer 20 minutes.",
+        "Add the beans and simmer 10 more minutes until thick.",
+        "Season and finish with the lime juice."
+      ]
+    },
+    {
+      "id": "veggie-pizza", "name": "Homemade Veggie Pizza", "group": "Vegetarian", "emoji": "🍕", "wiki": "Pizza", "minutes": 35, "serves": 4,
+      "ingredients": [
+        { "name": "pizza dough", "measure": "450 g (1 lb)" }, { "name": "pizza sauce", "measure": "1/2 cup" }, { "name": "shredded mozzarella", "measure": "2 cups" },
+        { "name": "mushrooms", "measure": "1 cup sliced" }, { "name": "green pepper", "measure": "1" }, { "name": "red onion", "measure": "1/2" },
+        { "name": "black olives", "measure": "1/4 cup" }, { "name": "dried oregano", "measure": "1/2 tsp" }
+      ],
+      "steps": [
+        "Heat the oven to 475°F (245°C) with a sheet pan inside.",
+        "Stretch the dough into a large round on floured parchment.",
+        "Spread the sauce, then the cheese, then the vegetables and oregano.",
+        "Slide onto the hot pan and bake 12 to 15 minutes until browned and bubbling."
+      ]
+    },
+    {
+      "id": "bean-cheese-enchiladas", "name": "Bean and Cheese Enchiladas", "group": "Vegetarian", "emoji": "🫘", "wiki": "Enchilada", "minutes": 40, "serves": 4,
+      "ingredients": [
+        { "name": "refried beans", "measure": "1 can (398 ml / 14 oz)" }, { "name": "black beans", "measure": "1 can (540 ml / 19 oz), drained" }, { "name": "corn", "measure": "1 cup" },
+        { "name": "shredded cheese", "measure": "2 cups" }, { "name": "flour tortillas", "measure": "8 small" }, { "name": "tomato sauce", "measure": "2 cups" },
+        { "name": "chili powder", "measure": "1 tbsp" }, { "name": "cumin", "measure": "1 tsp" }, { "name": "green onions", "measure": "2" }
+      ],
+      "steps": [
+        "Heat the oven to 375°F (190°C). Simmer the tomato sauce, chili powder and cumin for 5 minutes.",
+        "Mix the refried beans, black beans, corn and 1 cup of the cheese.",
+        "Roll the filling in the tortillas and lay them seam down in a baking dish.",
+        "Pour over the sauce, top with the rest of the cheese and bake 20 minutes. Scatter with green onions."
+      ],
+      "swaps": [{ "label": "Use canned enchilada sauce", "sauce": "enchilada sauce", "measure": "1 can (540 ml / 19 oz)", "replaces": ["tomato sauce", "chili powder", "cumin"], "note": "Use the enchilada sauce in place of the tomato sauce, chili powder and cumin." }]
+    },
+    {
+      "id": "mushroom-stroganoff", "name": "Mushroom Stroganoff", "group": "Vegetarian", "emoji": "🍄", "wiki": "Beef_Stroganoff", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "mushrooms", "measure": "680 g (1 1/2 lb), sliced" }, { "name": "onion", "measure": "1" }, { "name": "garlic", "measure": "2 cloves" },
+        { "name": "butter", "measure": "2 tbsp" }, { "name": "flour", "measure": "1 tbsp" }, { "name": "vegetable broth", "measure": "1 1/2 cups" },
+        { "name": "sour cream", "measure": "3/4 cup" }, { "name": "dijon mustard", "measure": "1 tsp" }, { "name": "egg noodles", "measure": "340 g (12 oz)" },
+        { "name": "parsley", "measure": "a handful" }
+      ],
+      "steps": [
+        "Boil the noodles until tender and drain.",
+        "Brown the mushrooms in the butter over high heat, 8 minutes, then add the onion for 4 minutes and the garlic for 1.",
+        "Stir in the flour, then the broth, and simmer 5 minutes until thick.",
+        "Off the heat, stir in the sour cream and mustard. Serve over the noodles with parsley."
+      ]
+    },
+    {
+      "id": "zucchini-fritters", "name": "Zucchini Fritters", "group": "Vegetarian", "emoji": "🥒", "wiki": "Fritter", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "zucchini", "measure": "2 medium" }, { "name": "egg", "measure": "1" }, { "name": "flour", "measure": "1/2 cup" },
+        { "name": "feta", "measure": "1/2 cup crumbled" }, { "name": "green onions", "measure": "2" }, { "name": "garlic", "measure": "1 clove" },
+        { "name": "olive oil", "measure": "3 tbsp" }, { "name": "greek yogurt", "measure": "to serve" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Grate the zucchini, toss with 1 tsp salt and leave 10 minutes. Squeeze out as much water as you can.",
+        "Mix with the egg, flour, feta, sliced green onions and grated garlic.",
+        "Fry spoonfuls in the oil, flattened, 3 minutes a side until golden.",
+        "Serve with yogurt."
+      ]
+    },
+    {
+      "id": "pasta-e-fagioli", "name": "Pasta e Fagioli", "group": "Soups & stews", "emoji": "🥣", "wiki": "Pasta_e_fagioli", "minutes": 40, "serves": 6,
+      "ingredients": [
+        { "name": "ground beef", "measure": "450 g (1 lb), optional" }, { "name": "onion", "measure": "1" }, { "name": "carrots", "measure": "2" },
+        { "name": "celery", "measure": "2 stalks" }, { "name": "garlic", "measure": "3 cloves" }, { "name": "diced tomatoes", "measure": "1 can (796 ml / 28 oz)" },
+        { "name": "white kidney beans", "measure": "1 can (540 ml / 19 oz), drained" }, { "name": "chicken broth", "measure": "6 cups" }, { "name": "ditalini", "measure": "1 cup" },
+        { "name": "italian seasoning", "measure": "2 tsp" }, { "name": "parmesan", "measure": "to serve" }
+      ],
+      "steps": [
+        "Brown the beef in a large pot and drain, if using.",
+        "Add the diced onion, carrots and celery and cook 6 minutes, then the garlic and Italian seasoning for 1 minute.",
+        "Add the tomatoes, beans and broth and simmer 15 minutes.",
+        "Add the pasta and simmer 10 minutes until tender. Serve with parmesan."
+      ]
+    },
+    {
+      "id": "lentil-soup", "name": "Hearty Lentil Soup", "group": "Soups & stews", "emoji": "🥣", "wiki": "Lentil_soup", "minutes": 45, "serves": 6,
+      "ingredients": [
+        { "name": "green lentils", "measure": "1 1/2 cups, rinsed" }, { "name": "onion", "measure": "1" }, { "name": "carrots", "measure": "2" },
+        { "name": "celery", "measure": "2 stalks" }, { "name": "garlic", "measure": "3 cloves" }, { "name": "cumin", "measure": "1 tsp" },
+        { "name": "diced tomatoes", "measure": "1 can (398 ml / 14 oz)" }, { "name": "vegetable broth", "measure": "8 cups" }, { "name": "baby spinach", "measure": "2 cups" },
+        { "name": "lemon", "measure": "1" }, { "name": "olive oil", "measure": "2 tbsp" }
+      ],
+      "steps": [
+        "Cook the diced onion, carrots and celery in the oil for 6 minutes, then the garlic and cumin for 1 minute.",
+        "Add the lentils, tomatoes and broth. Simmer 30 minutes until the lentils are soft.",
+        "Stir in the spinach until wilted.",
+        "Season and finish with the lemon juice."
+      ]
+    },
+    {
+      "id": "butternut-squash-soup", "name": "Butternut Squash Soup", "group": "Soups & stews", "emoji": "🎃", "wiki": "Squash_soup", "minutes": 50, "serves": 6,
+      "ingredients": [
+        { "name": "butternut squash", "measure": "1 large (about 1.4 kg / 3 lb)" }, { "name": "onion", "measure": "1" }, { "name": "apple", "measure": "1" },
+        { "name": "garlic", "measure": "2 cloves" }, { "name": "chicken broth", "measure": "4 cups" }, { "name": "butter", "measure": "2 tbsp" },
+        { "name": "nutmeg", "measure": "1/4 tsp" }, { "name": "heavy cream", "measure": "1/2 cup" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Peel, seed and cube the squash. Peel and chop the apple.",
+        "Cook the onion in the butter for 5 minutes, then the garlic for 1 minute.",
+        "Add the squash, apple, broth and nutmeg and simmer 25 minutes until very soft.",
+        "Blend until smooth, stir in the cream and season."
+      ]
+    },
+    {
+      "id": "chicken-tortilla-soup", "name": "Chicken Tortilla Soup", "group": "Soups & stews", "emoji": "🌶️", "wiki": "Tortilla_soup", "minutes": 40, "serves": 6,
+      "ingredients": [
+        { "name": "chicken breasts", "measure": "2 (about 450 g / 1 lb)" }, { "name": "onion", "measure": "1" }, { "name": "garlic", "measure": "3 cloves" },
+        { "name": "jalapeño", "measure": "1" }, { "name": "chili powder", "measure": "1 tbsp" }, { "name": "cumin", "measure": "1 tsp" },
+        { "name": "diced tomatoes", "measure": "1 can (796 ml / 28 oz)" }, { "name": "black beans", "measure": "1 can (540 ml / 19 oz), drained" }, { "name": "corn", "measure": "1 cup" },
+        { "name": "chicken broth", "measure": "6 cups" }, { "name": "tortilla chips", "measure": "to serve" }, { "name": "avocado", "measure": "1" },
+        { "name": "lime", "measure": "1" }
+      ],
+      "steps": [
+        "Cook the onion and jalapeño in a little oil for 5 minutes, then the garlic and spices for 1 minute.",
+        "Add the tomatoes and broth, then the whole chicken breasts. Simmer 20 minutes until cooked.",
+        "Lift out the chicken, shred it and return it with the beans and corn. Simmer 5 minutes.",
+        "Serve with crushed tortilla chips, avocado and lime."
+      ]
+    },
+    {
+      "id": "beef-barley-soup", "name": "Beef Barley Soup", "group": "Soups & stews", "emoji": "🥣", "wiki": "Barley_soup", "minutes": 90, "serves": 6,
+      "ingredients": [
+        { "name": "stewing beef", "measure": "680 g (1 1/2 lb), in small cubes" }, { "name": "onion", "measure": "1" }, { "name": "carrots", "measure": "3" },
+        { "name": "celery", "measure": "2 stalks" }, { "name": "garlic", "measure": "2 cloves" }, { "name": "pearl barley", "measure": "3/4 cup" },
+        { "name": "beef broth", "measure": "8 cups" }, { "name": "tomato paste", "measure": "2 tbsp" }, { "name": "dried thyme", "measure": "1 tsp" },
+        { "name": "bay leaf", "measure": "1" }
+      ],
+      "steps": [
+        "Brown the beef in a little oil in batches, then set aside.",
+        "Cook the diced onion, carrots and celery for 6 minutes, then the garlic and tomato paste for 1 minute.",
+        "Return the beef with the broth, thyme and bay leaf. Simmer covered 45 minutes.",
+        "Add the barley and simmer 30 more minutes until tender. Remove the bay leaf."
+      ]
+    },
+    {
+      "id": "cream-of-mushroom-soup", "name": "Cream of Mushroom Soup", "group": "Soups & stews", "emoji": "🍄", "wiki": "Cream_of_mushroom_soup", "minutes": 35, "serves": 4,
+      "ingredients": [
+        { "name": "mushrooms", "measure": "680 g (1 1/2 lb), sliced" }, { "name": "onion", "measure": "1" }, { "name": "garlic", "measure": "2 cloves" },
+        { "name": "butter", "measure": "3 tbsp" }, { "name": "flour", "measure": "3 tbsp" }, { "name": "chicken broth", "measure": "4 cups" },
+        { "name": "dried thyme", "measure": "1/2 tsp" }, { "name": "heavy cream", "measure": "1/2 cup" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Cook the mushrooms and onion in the butter over medium-high heat, 10 minutes, until browned.",
+        "Add the garlic and thyme for 1 minute, then stir in the flour.",
+        "Whisk in the broth and simmer 15 minutes.",
+        "Blend half the soup and stir it back in. Add the cream and season."
+      ]
+    },
+    {
+      "id": "hamburger-soup", "name": "Hamburger Soup", "group": "Soups & stews", "emoji": "🍲", "wiki": "Soup", "minutes": 45, "serves": 6,
+      "ingredients": [
+        { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "onion", "measure": "1" }, { "name": "carrots", "measure": "2" },
+        { "name": "celery", "measure": "2 stalks" }, { "name": "potatoes", "measure": "2" }, { "name": "diced tomatoes", "measure": "1 can (796 ml / 28 oz)" },
+        { "name": "beef broth", "measure": "6 cups" }, { "name": "frozen green beans", "measure": "1 cup" }, { "name": "worcestershire sauce", "measure": "1 tbsp" },
+        { "name": "dried thyme", "measure": "1 tsp" }
+      ],
+      "steps": [
+        "Brown the beef with the onion in a large pot and drain.",
+        "Add the diced carrots, celery and potatoes, the tomatoes, broth, Worcestershire and thyme.",
+        "Simmer 25 minutes until the potatoes are tender.",
+        "Add the green beans for 5 minutes and season."
+      ]
+    },
+    {
+      "id": "seafood-chowder", "name": "Maritime Seafood Chowder", "group": "Soups & stews", "emoji": "🦞", "wiki": "Chowder", "minutes": 40, "serves": 6,
+      "ingredients": [
+        { "name": "haddock", "measure": "450 g (1 lb), in chunks" }, { "name": "shrimp", "measure": "225 g (1/2 lb), peeled" }, { "name": "scallops", "measure": "225 g (1/2 lb)" },
+        { "name": "bacon", "measure": "4 slices" }, { "name": "onion", "measure": "1" }, { "name": "celery", "measure": "2 stalks" },
+        { "name": "potatoes", "measure": "3" }, { "name": "fish stock", "measure": "3 cups" }, { "name": "milk", "measure": "2 cups" },
+        { "name": "heavy cream", "measure": "1 cup" }, { "name": "butter", "measure": "2 tbsp" }, { "name": "flour", "measure": "2 tbsp" }
+      ],
+      "steps": [
+        "Cook the chopped bacon until crisp, then the onion and celery in the fat for 5 minutes.",
+        "Stir in the butter and flour, then the stock and diced potatoes. Simmer 15 minutes until tender.",
+        "Add the milk and cream and bring just to a simmer.",
+        "Add the haddock, shrimp and scallops and cook gently 5 minutes until just done."
+      ]
+    },
+    {
+      "id": "italian-wedding-soup", "name": "Italian Wedding Soup", "group": "Soups & stews", "emoji": "🥣", "wiki": "Wedding_soup", "minutes": 40, "serves": 6,
+      "ingredients": [
+        { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "breadcrumbs", "measure": "1/3 cup" }, { "name": "egg", "measure": "1" },
+        { "name": "parmesan", "measure": "1/2 cup grated" }, { "name": "onion", "measure": "1" }, { "name": "carrots", "measure": "2" },
+        { "name": "chicken broth", "measure": "8 cups" }, { "name": "acini di pepe", "measure": "3/4 cup" }, { "name": "baby spinach", "measure": "4 cups" }
+      ],
+      "steps": [
+        "Mix the beef, breadcrumbs, egg, half the parmesan and a pinch of salt. Roll into small 2 cm balls.",
+        "Cook the onion and carrots in a little oil for 5 minutes, then add the broth and bring to a boil.",
+        "Drop in the meatballs and pasta and simmer 10 minutes.",
+        "Stir in the spinach and serve with the rest of the parmesan."
+      ]
+    },
+    {
+      "id": "chicken-dumplings", "name": "Chicken and Dumplings", "group": "Soups & stews", "emoji": "🍲", "wiki": "Chicken_and_dumplings", "minutes": 60, "serves": 6,
+      "ingredients": [
+        { "name": "chicken thighs", "measure": "680 g (1 1/2 lb), boneless" }, { "name": "onion", "measure": "1" }, { "name": "carrots", "measure": "2" },
+        { "name": "celery", "measure": "2 stalks" }, { "name": "butter", "measure": "3 tbsp" }, { "name": "flour", "measure": "1/4 cup, plus 2 cups for the dumplings" },
+        { "name": "chicken broth", "measure": "6 cups" }, { "name": "baking powder", "measure": "1 tbsp" }, { "name": "milk", "measure": "1 cup" },
+        { "name": "dried thyme", "measure": "1 tsp" }
+      ],
+      "steps": [
+        "Cook the onion, carrots and celery in the butter for 6 minutes. Stir in 1/4 cup flour, then the broth and thyme.",
+        "Add the chicken and simmer 20 minutes. Lift it out, shred it and return it.",
+        "Mix 2 cups flour, the baking powder and 1 tsp salt, then stir in the milk to a soft dough.",
+        "Drop spoonfuls onto the simmering stew, cover and cook 15 minutes without lifting the lid."
+      ]
+    },
+    {
+      "id": "potato-leek-soup", "name": "Potato Leek Soup", "group": "Soups & stews", "emoji": "🥔", "wiki": "Leek_soup", "minutes": 45, "serves": 6,
+      "ingredients": [
+        { "name": "leeks", "measure": "3" }, { "name": "potatoes", "measure": "900 g (2 lb), yellow" }, { "name": "butter", "measure": "3 tbsp" },
+        { "name": "garlic", "measure": "2 cloves" }, { "name": "chicken broth", "measure": "6 cups" }, { "name": "heavy cream", "measure": "1/2 cup" },
+        { "name": "chives", "measure": "to serve" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Slice the white and pale green parts of the leeks and rinse well.",
+        "Cook the leeks in the butter for 8 minutes until soft, then the garlic for 1 minute.",
+        "Add the peeled, cubed potatoes and broth and simmer 20 minutes until soft.",
+        "Blend until smooth, stir in the cream and season. Top with chives."
+      ]
+    },
+    {
+      "id": "turkey-chili", "name": "Turkey Chili", "group": "Soups & stews", "emoji": "🌶️", "wiki": "Chili_con_carne", "minutes": 45, "serves": 6,
+      "ingredients": [
+        { "name": "ground turkey", "measure": "680 g (1 1/2 lb)" }, { "name": "onion", "measure": "1" }, { "name": "red pepper", "measure": "1" },
+        { "name": "garlic", "measure": "3 cloves" }, { "name": "chili powder", "measure": "2 tbsp" }, { "name": "cumin", "measure": "2 tsp" },
+        { "name": "crushed tomatoes", "measure": "1 can (796 ml / 28 oz)" }, { "name": "red kidney beans", "measure": "1 can (540 ml / 19 oz), drained" }, { "name": "chicken broth", "measure": "1 cup" },
+        { "name": "shredded cheese", "measure": "to serve" }
+      ],
+      "steps": [
+        "Brown the turkey in a little oil in a large pot.",
+        "Add the onion and pepper for 5 minutes, then the garlic and spices for 1 minute.",
+        "Add the tomatoes, beans and broth and simmer 25 minutes.",
+        "Season and serve with cheese."
+      ],
+      "swaps": [{ "label": "Use a chili seasoning packet", "sauce": "chili seasoning", "measure": "1 packet", "replaces": ["chili powder", "cumin"], "note": "Use the chili seasoning in place of the chili powder and cumin." }]
+    },
+    {
+      "id": "breakfast-casserole", "name": "Sausage Breakfast Casserole", "group": "Breakfast", "emoji": "🍳", "wiki": "Strata", "minutes": 60, "serves": 8,
+      "ingredients": [
+        { "name": "breakfast sausage", "measure": "450 g (1 lb)" }, { "name": "bread", "measure": "6 slices, cubed" }, { "name": "eggs", "measure": "8" },
+        { "name": "milk", "measure": "2 cups" }, { "name": "shredded cheddar", "measure": "2 cups" }, { "name": "dry mustard", "measure": "1 tsp" },
+        { "name": "green onions", "measure": "3" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Brown the sausage, breaking it up, and drain.",
+        "Spread the bread in a greased 9x13 dish and top with the sausage and cheese.",
+        "Whisk the eggs, milk, mustard and 1/2 tsp salt and pour over. Chill at least 1 hour or overnight.",
+        "Bake at 350°F (175°C) for 45 minutes until set. Top with green onions."
+      ]
+    },
+    {
+      "id": "western-omelette", "name": "Western Omelette", "group": "Breakfast", "emoji": "🍳", "wiki": "Denver_omelette", "minutes": 15, "serves": 2,
+      "ingredients": [
+        { "name": "eggs", "measure": "4" }, { "name": "ham", "measure": "1/2 cup diced" }, { "name": "green pepper", "measure": "1/4 cup diced" },
+        { "name": "onion", "measure": "1/4 cup diced" }, { "name": "shredded cheddar", "measure": "1/2 cup" }, { "name": "butter", "measure": "1 tbsp" },
+        { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Cook the ham, pepper and onion in half the butter for 4 minutes. Set aside.",
+        "Beat the eggs with a pinch of salt.",
+        "Melt the rest of the butter in the pan, pour in the eggs and cook, pulling the edges in, until nearly set.",
+        "Add the filling and cheese to one half, fold over and cook 1 more minute."
+      ]
+    },
+    {
+      "id": "huevos-rancheros", "name": "Huevos Rancheros", "group": "Breakfast", "emoji": "🌶️", "wiki": "Huevos_rancheros", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "eggs", "measure": "8" }, { "name": "corn tortillas", "measure": "8 small" }, { "name": "refried beans", "measure": "1 can (398 ml / 14 oz)" },
+        { "name": "salsa", "measure": "1 1/2 cups" }, { "name": "crumbled feta", "measure": "1/2 cup" }, { "name": "avocado", "measure": "1" },
+        { "name": "cilantro", "measure": "a handful" }, { "name": "vegetable oil", "measure": "2 tbsp" }
+      ],
+      "steps": [
+        "Warm the refried beans and the salsa in separate small pots.",
+        "Crisp the tortillas in the oil, 1 minute a side.",
+        "Fry the eggs to your liking.",
+        "Spread beans on the tortillas, top with eggs, salsa, cheese, avocado and cilantro."
+      ]
+    },
+    {
+      "id": "egg-muffin-cups", "name": "Egg Muffin Cups", "group": "Breakfast", "emoji": "🧁", "wiki": "Frittata", "minutes": 30, "serves": 6,
+      "ingredients": [
+        { "name": "eggs", "measure": "10" }, { "name": "milk", "measure": "1/4 cup" }, { "name": "baby spinach", "measure": "1 cup chopped" },
+        { "name": "red pepper", "measure": "1/2, diced" }, { "name": "ham", "measure": "1/2 cup diced" }, { "name": "shredded cheddar", "measure": "1 cup" },
+        { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 350°F (175°C) and grease a 12-cup muffin tin.",
+        "Whisk the eggs, milk and 1/2 tsp salt.",
+        "Divide the spinach, pepper, ham and cheese between the cups and pour the egg over.",
+        "Bake 20 to 22 minutes until set. They keep 4 days in the fridge."
+      ]
+    },
+    {
+      "id": "french-toast-bake", "name": "Overnight French Toast Bake", "group": "Breakfast", "emoji": "🍞", "wiki": "French_toast", "minutes": 60, "serves": 8,
+      "ingredients": [
+        { "name": "french bread", "measure": "1 loaf (450 g), cubed" }, { "name": "eggs", "measure": "8" }, { "name": "milk", "measure": "2 cups" },
+        { "name": "heavy cream", "measure": "1/2 cup" }, { "name": "maple syrup", "measure": "1/3 cup, plus more to serve" }, { "name": "cinnamon", "measure": "2 tsp" },
+        { "name": "vanilla", "measure": "1 tsp" }, { "name": "brown sugar", "measure": "1/4 cup" }, { "name": "butter", "measure": "3 tbsp" }
+      ],
+      "steps": [
+        "Spread the bread in a greased 9x13 dish.",
+        "Whisk the eggs, milk, cream, syrup, 1 1/2 tsp cinnamon and vanilla and pour over. Cover and chill overnight.",
+        "Mix the brown sugar, melted butter and the rest of the cinnamon and scatter over.",
+        "Bake at 350°F (175°C) for 45 minutes until puffed and golden. Serve with syrup."
+      ]
+    },
+    {
+      "id": "homemade-granola", "name": "Homemade Maple Granola", "group": "Breakfast", "emoji": "🥣", "wiki": "Granola", "minutes": 40, "serves": 8,
+      "ingredients": [
+        { "name": "rolled oats", "measure": "3 cups" }, { "name": "almonds", "measure": "1 cup chopped" }, { "name": "pumpkin seeds", "measure": "1/2 cup" },
+        { "name": "maple syrup", "measure": "1/2 cup" }, { "name": "vegetable oil", "measure": "1/3 cup" }, { "name": "cinnamon", "measure": "1 tsp" },
+        { "name": "dried cranberries", "measure": "1 cup" }, { "name": "salt", "measure": "1/2 tsp" }
+      ],
+      "steps": [
+        "Heat the oven to 325°F (160°C).",
+        "Mix the oats, almonds, seeds, cinnamon and salt, then stir in the syrup and oil.",
+        "Spread on a lined sheet pan and bake 25 to 30 minutes, stirring halfway, until golden.",
+        "Cool on the pan so it clumps, then stir in the cranberries."
+      ]
+    },
+    {
+      "id": "crepes", "name": "Crepes", "group": "Breakfast", "emoji": "🥞", "wiki": "Crêpe", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "flour", "measure": "1 cup" }, { "name": "eggs", "measure": "2" }, { "name": "milk", "measure": "1 1/4 cups" },
+        { "name": "butter", "measure": "3 tbsp melted" }, { "name": "sugar", "measure": "1 tbsp" }, { "name": "salt", "measure": "a pinch" },
+        { "name": "strawberries", "measure": "to serve" }, { "name": "nutella", "measure": "to serve" }
+      ],
+      "steps": [
+        "Blend the flour, eggs, milk, 2 tbsp butter, sugar and salt until smooth. Rest 15 minutes.",
+        "Heat a nonstick pan over medium and brush with butter.",
+        "Pour in 1/4 cup batter and swirl it thin. Cook 1 minute, flip and cook 30 seconds.",
+        "Fill with Nutella and strawberries, or anything you like."
+      ]
+    },
+    {
+      "id": "avocado-toast", "name": "Avocado Toast with Eggs", "group": "Breakfast", "emoji": "🥑", "wiki": "Avocado_toast", "minutes": 10, "serves": 2,
+      "ingredients": [
+        { "name": "bread", "measure": "4 slices sourdough" }, { "name": "avocados", "measure": "2" }, { "name": "eggs", "measure": "4" },
+        { "name": "lemon", "measure": "1/2" }, { "name": "chili flakes", "measure": "a pinch" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Toast the bread.",
+        "Mash the avocados with the lemon juice and a pinch of salt.",
+        "Fry or poach the eggs.",
+        "Spread the avocado on the toast, top with the eggs and chili flakes."
+      ]
+    },
+    {
+      "id": "sausage-hash", "name": "Sausage and Potato Hash", "group": "Breakfast", "emoji": "🥔", "wiki": "Hash_(food)", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "breakfast sausage", "measure": "450 g (1 lb)" }, { "name": "potatoes", "measure": "680 g (1 1/2 lb)" }, { "name": "onion", "measure": "1" },
+        { "name": "green pepper", "measure": "1" }, { "name": "eggs", "measure": "4" }, { "name": "vegetable oil", "measure": "2 tbsp" },
+        { "name": "paprika", "measure": "1 tsp" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Dice the potatoes and microwave them 5 minutes to par-cook.",
+        "Brown the sausage in a large skillet, breaking it up. Set aside.",
+        "Fry the potatoes in the oil until crisp, 10 minutes, then the onion and pepper for 5 minutes. Stir in the sausage and paprika.",
+        "Make 4 wells, crack in the eggs, cover and cook 4 minutes until set."
+      ]
+    },
+    {
+      "id": "yogurt-parfaits", "name": "Berry Yogurt Parfaits", "group": "Breakfast", "emoji": "🍓", "wiki": "Parfait", "minutes": 10, "serves": 4,
+      "ingredients": [
+        { "name": "greek yogurt", "measure": "3 cups vanilla" }, { "name": "mixed berries", "measure": "2 cups" }, { "name": "granola", "measure": "1 cup" },
+        { "name": "honey", "measure": "2 tbsp" }
+      ],
+      "steps": [
+        "Spoon a layer of yogurt into 4 glasses.",
+        "Add berries, then granola.",
+        "Repeat the layers.",
+        "Drizzle with honey."
+      ]
+    },
+    {
+      "id": "cucumber-tomato-salad", "name": "Cucumber Tomato Salad", "group": "Sides & salads", "emoji": "🥗", "wiki": "Salad", "minutes": 10, "serves": 4,
+      "ingredients": [
+        { "name": "english cucumber", "measure": "1" }, { "name": "cherry tomatoes", "measure": "2 cups" }, { "name": "red onion", "measure": "1/4" },
+        { "name": "olive oil", "measure": "3 tbsp" }, { "name": "red wine vinegar", "measure": "1 tbsp" }, { "name": "dried oregano", "measure": "1/2 tsp" },
+        { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Halve the cucumber lengthwise and slice it.",
+        "Halve the tomatoes and thinly slice the onion.",
+        "Whisk the oil, vinegar, oregano and a pinch of salt.",
+        "Toss everything together just before serving."
+      ]
+    },
+    {
+      "id": "honey-roasted-carrots", "name": "Honey Roasted Carrots", "group": "Sides & salads", "emoji": "🥕", "wiki": "Carrot", "minutes": 35, "serves": 4,
+      "ingredients": [
+        { "name": "carrots", "measure": "680 g (1 1/2 lb)" }, { "name": "olive oil", "measure": "1 tbsp" }, { "name": "honey", "measure": "2 tbsp" },
+        { "name": "butter", "measure": "1 tbsp" }, { "name": "dried thyme", "measure": "1/2 tsp" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 425°F (220°C).",
+        "Cut the carrots into sticks and toss with the oil, thyme and salt.",
+        "Roast 20 minutes.",
+        "Melt the honey with the butter, toss with the carrots and roast 5 more minutes."
+      ]
+    },
+    {
+      "id": "green-beans-almondine", "name": "Green Beans Almondine", "group": "Sides & salads", "emoji": "🫛", "wiki": "Green_bean", "minutes": 15, "serves": 4,
+      "ingredients": [
+        { "name": "green beans", "measure": "450 g (1 lb), trimmed" }, { "name": "butter", "measure": "2 tbsp" }, { "name": "sliced almonds", "measure": "1/3 cup" },
+        { "name": "garlic", "measure": "1 clove" }, { "name": "lemon", "measure": "1/2" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Boil the beans in salted water for 4 minutes, then drain.",
+        "Toast the almonds in the butter until golden, 2 minutes.",
+        "Add the garlic for 30 seconds, then the beans, and toss.",
+        "Finish with the lemon juice and salt."
+      ]
+    },
+    {
+      "id": "roasted-brussels-sprouts", "name": "Roasted Brussels Sprouts with Bacon", "group": "Sides & salads", "emoji": "🥬", "wiki": "Brussels_sprout", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "brussels sprouts", "measure": "680 g (1 1/2 lb)" }, { "name": "bacon", "measure": "4 slices" }, { "name": "olive oil", "measure": "1 tbsp" },
+        { "name": "maple syrup", "measure": "1 tbsp" }, { "name": "salt", "measure": "to taste" }, { "name": "pepper", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 425°F (220°C).",
+        "Halve the sprouts and toss with the oil, chopped bacon, salt and pepper.",
+        "Roast 20 to 25 minutes, turning once, until browned and crisp.",
+        "Drizzle with the maple syrup."
+      ]
+    },
+    {
+      "id": "sweet-potato-fries", "name": "Baked Sweet Potato Fries", "group": "Sides & salads", "emoji": "🍠", "wiki": "Sweet_potato_fries", "minutes": 35, "serves": 4,
+      "ingredients": [
+        { "name": "sweet potatoes", "measure": "2 large" }, { "name": "cornstarch", "measure": "1 tbsp" }, { "name": "vegetable oil", "measure": "2 tbsp" },
+        { "name": "smoked paprika", "measure": "1 tsp" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Heat the oven to 425°F (220°C).",
+        "Cut the sweet potatoes into 1 cm sticks and toss with the cornstarch, then the oil, paprika and salt.",
+        "Spread in one layer on 2 lined pans, not touching.",
+        "Bake 25 minutes, turning once, until crisp at the edges."
+      ]
+    },
+    {
+      "id": "taco-salad", "name": "Taco Salad", "group": "Sides & salads", "emoji": "🥗", "wiki": "Taco_salad", "minutes": 25, "serves": 4,
+      "ingredients": [
+        { "name": "ground beef", "measure": "450 g (1 lb)" }, { "name": "taco seasoning", "measure": "1 packet" }, { "name": "romaine", "measure": "1 head" },
+        { "name": "cherry tomatoes", "measure": "1 cup" }, { "name": "black beans", "measure": "1 can (540 ml / 19 oz), drained" }, { "name": "corn", "measure": "1 cup" },
+        { "name": "shredded cheese", "measure": "1 cup" }, { "name": "tortilla chips", "measure": "2 cups" }, { "name": "salsa", "measure": "1/2 cup" },
+        { "name": "sour cream", "measure": "1/2 cup" }
+      ],
+      "steps": [
+        "Brown the beef, drain, then stir in the taco seasoning and 1/2 cup water and simmer 3 minutes.",
+        "Chop the romaine and halve the tomatoes.",
+        "Mix the salsa and sour cream for the dressing.",
+        "Layer the lettuce, beef, beans, corn, tomatoes, cheese and chips, and pour over the dressing."
+      ]
+    },
+    {
+      "id": "cobb-salad", "name": "Cobb Salad", "group": "Sides & salads", "emoji": "🥗", "wiki": "Cobb_salad", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "chicken breasts", "measure": "2 (about 450 g / 1 lb)" }, { "name": "bacon", "measure": "6 slices" }, { "name": "eggs", "measure": "4" },
+        { "name": "romaine", "measure": "1 head" }, { "name": "avocado", "measure": "1" }, { "name": "cherry tomatoes", "measure": "1 cup" },
+        { "name": "blue cheese", "measure": "1/2 cup crumbled" }, { "name": "red wine vinegar", "measure": "2 tbsp" }, { "name": "olive oil", "measure": "1/3 cup" },
+        { "name": "dijon mustard", "measure": "1 tsp" }
+      ],
+      "steps": [
+        "Season and cook the chicken, 6 minutes a side, then slice. Cook the bacon until crisp and crumble it.",
+        "Boil the eggs 10 minutes, cool and quarter.",
+        "Whisk the vinegar, oil, mustard and a pinch of salt.",
+        "Arrange the chopped romaine with rows of chicken, bacon, egg, avocado, tomatoes and blue cheese. Dress at the table."
+      ]
+    },
+    {
+      "id": "spinach-strawberry-salad", "name": "Spinach Strawberry Salad", "group": "Sides & salads", "emoji": "🍓", "wiki": "Spinach_salad", "minutes": 15, "serves": 4,
+      "ingredients": [
+        { "name": "baby spinach", "measure": "6 cups" }, { "name": "strawberries", "measure": "2 cups sliced" }, { "name": "goat cheese", "measure": "1/2 cup crumbled" },
+        { "name": "pecans", "measure": "1/2 cup" }, { "name": "red onion", "measure": "1/4" }, { "name": "balsamic vinegar", "measure": "2 tbsp" },
+        { "name": "olive oil", "measure": "1/4 cup" }, { "name": "honey", "measure": "1 tsp" }
+      ],
+      "steps": [
+        "Toast the pecans in a dry pan for 3 minutes.",
+        "Thinly slice the onion.",
+        "Whisk the vinegar, oil, honey and a pinch of salt.",
+        "Toss the spinach, strawberries, onion and dressing, and top with goat cheese and pecans."
+      ]
+    },
+    {
+      "id": "spanish-rice", "name": "Spanish Rice", "group": "Sides & salads", "emoji": "🍚", "wiki": "Mexican_rice", "minutes": 30, "serves": 4,
+      "ingredients": [
+        { "name": "long-grain rice", "measure": "1 1/2 cups" }, { "name": "vegetable oil", "measure": "2 tbsp" }, { "name": "onion", "measure": "1/2" },
+        { "name": "garlic", "measure": "2 cloves" }, { "name": "tomato sauce", "measure": "1 cup" }, { "name": "chicken broth", "measure": "2 cups" },
+        { "name": "cumin", "measure": "1/2 tsp" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Fry the rice in the oil over medium heat, stirring, until golden, 5 minutes.",
+        "Add the onion and garlic for 2 minutes.",
+        "Stir in the tomato sauce, broth, cumin and 1 tsp salt and bring to a boil.",
+        "Cover and simmer on low 20 minutes. Rest 5 minutes and fluff."
+      ]
+    },
+    {
+      "id": "caprese-salad", "name": "Caprese Salad", "group": "Sides & salads", "emoji": "🍅", "wiki": "Caprese_salad", "minutes": 10, "serves": 4,
+      "ingredients": [
+        { "name": "tomatoes", "measure": "4 large ripe" }, { "name": "fresh mozzarella", "measure": "1 ball (225 g)" }, { "name": "basil", "measure": "a handful" },
+        { "name": "olive oil", "measure": "3 tbsp" }, { "name": "balsamic glaze", "measure": "1 tbsp" }, { "name": "salt", "measure": "to taste" }
+      ],
+      "steps": [
+        "Slice the tomatoes and mozzarella about 1 cm thick.",
+        "Alternate them on a platter with basil leaves.",
+        "Drizzle with the oil and balsamic glaze.",
+        "Season with flaky salt and pepper."
+      ]
+    },
+    {
+      "id": "apple-crisp", "name": "Apple Crisp", "group": "Desserts", "emoji": "🍎", "wiki": "Crumble", "minutes": 60, "serves": 8,
+      "ingredients": [
+        { "name": "apples", "measure": "6 (about 1.4 kg / 3 lb)" }, { "name": "sugar", "measure": "1/4 cup" }, { "name": "cinnamon", "measure": "1 1/2 tsp" },
+        { "name": "lemon", "measure": "1/2" }, { "name": "rolled oats", "measure": "1 cup" }, { "name": "flour", "measure": "3/4 cup" },
+        { "name": "brown sugar", "measure": "3/4 cup" }, { "name": "butter", "measure": "1/2 cup cold" }
+      ],
+      "steps": [
+        "Heat the oven to 350°F (175°C).",
+        "Toss the peeled, sliced apples with the sugar, 1 tsp cinnamon and lemon juice and spread in a 9x13 dish.",
+        "Rub the oats, flour, brown sugar, the rest of the cinnamon and the butter together into clumps. Scatter over.",
+        "Bake 45 minutes until golden and bubbling."
+      ]
+    },
+    {
+      "id": "fudgy-brownies", "name": "Fudgy Brownies", "group": "Desserts", "emoji": "🍫", "wiki": "Chocolate_brownie", "minutes": 40, "serves": 16,
+      "ingredients": [
+        { "name": "butter", "measure": "1/2 cup" }, { "name": "sugar", "measure": "1 cup" }, { "name": "eggs", "measure": "2" },
+        { "name": "vanilla", "measure": "1 tsp" }, { "name": "cocoa powder", "measure": "1/3 cup" }, { "name": "flour", "measure": "1/2 cup" },
+        { "name": "chocolate chips", "measure": "1/2 cup" }, { "name": "salt", "measure": "1/4 tsp" }
+      ],
+      "steps": [
+        "Heat the oven to 350°F (175°C) and line an 8x8 pan with parchment.",
+        "Melt the butter and stir in the sugar, eggs and vanilla.",
+        "Stir in the cocoa, flour and salt, then the chocolate chips.",
+        "Bake 22 to 25 minutes until just set in the middle. Cool before cutting."
+      ]
+    },
+    {
+      "id": "chocolate-cake", "name": "One-Bowl Chocolate Cake", "group": "Desserts", "emoji": "🎂", "wiki": "Chocolate_cake", "minutes": 60, "serves": 12,
+      "ingredients": [
+        { "name": "flour", "measure": "1 3/4 cups" }, { "name": "sugar", "measure": "2 cups" }, { "name": "cocoa powder", "measure": "3/4 cup" },
+        { "name": "baking soda", "measure": "1 1/2 tsp" }, { "name": "baking powder", "measure": "1 1/2 tsp" }, { "name": "eggs", "measure": "2" },
+        { "name": "milk", "measure": "1 cup" }, { "name": "vegetable oil", "measure": "1/2 cup" }, { "name": "vanilla", "measure": "2 tsp" },
+        { "name": "hot coffee", "measure": "1 cup" }, { "name": "chocolate frosting", "measure": "1 tub or homemade" }
+      ],
+      "steps": [
+        "Heat the oven to 350°F (175°C) and grease two 9-inch pans.",
+        "Whisk the flour, sugar, cocoa, baking soda, baking powder and 1 tsp salt.",
+        "Beat in the eggs, milk, oil and vanilla, then stir in the hot coffee. The batter is thin.",
+        "Bake 30 to 35 minutes. Cool fully, then frost."
+      ]
+    },
+    {
+      "id": "rice-krispie-squares", "name": "Rice Krispie Squares", "group": "Desserts", "emoji": "🟨", "wiki": "Rice_Krispies_Treats", "minutes": 15, "serves": 16,
+      "ingredients": [
+        { "name": "puffed rice cereal", "measure": "6 cups" }, { "name": "marshmallows", "measure": "1 bag (400 g)" }, { "name": "butter", "measure": "1/4 cup" },
+        { "name": "vanilla", "measure": "1 tsp" }
+      ],
+      "steps": [
+        "Butter a 9x13 pan.",
+        "Melt the butter in a large pot over low heat, then add the marshmallows and stir until melted.",
+        "Off the heat, stir in the vanilla, then the cereal until coated.",
+        "Press into the pan with buttered hands. Cool and cut."
+      ]
+    },
+    {
+      "id": "lemon-bars", "name": "Lemon Bars", "group": "Desserts", "emoji": "🍋", "wiki": "Lemon_bar", "minutes": 60, "serves": 16,
+      "ingredients": [
+        { "name": "butter", "measure": "1/2 cup" }, { "name": "flour", "measure": "1 cup, plus 2 tbsp" }, { "name": "icing sugar", "measure": "1/4 cup, plus more to dust" },
+        { "name": "eggs", "measure": "2" }, { "name": "sugar", "measure": "1 cup" }, { "name": "lemons", "measure": "2" }
+      ],
+      "steps": [
+        "Heat the oven to 350°F (175°C). Mix the softened butter, 1 cup flour and 1/4 cup icing sugar and press into an 8x8 pan.",
+        "Bake the base 18 minutes until pale gold.",
+        "Whisk the eggs, sugar, 2 tbsp flour and the zest and juice of the lemons. Pour over the hot base.",
+        "Bake 20 minutes until set. Cool, dust with icing sugar and cut."
+      ]
+    },
+    {
+      "id": "oatmeal-raisin-cookies", "name": "Oatmeal Raisin Cookies", "group": "Desserts", "emoji": "🍪", "wiki": "Oatmeal_raisin_cookie", "minutes": 30, "serves": 24,
+      "ingredients": [
+        { "name": "butter", "measure": "1/2 cup" }, { "name": "brown sugar", "measure": "3/4 cup" }, { "name": "egg", "measure": "1" },
+        { "name": "vanilla", "measure": "1 tsp" }, { "name": "flour", "measure": "3/4 cup" }, { "name": "baking soda", "measure": "1/2 tsp" },
+        { "name": "cinnamon", "measure": "1 tsp" }, { "name": "rolled oats", "measure": "1 1/2 cups" }, { "name": "raisins", "measure": "3/4 cup" }
+      ],
+      "steps": [
+        "Heat the oven to 350°F (175°C).",
+        "Beat the softened butter and sugar, then the egg and vanilla.",
+        "Stir in the flour, baking soda, cinnamon and a pinch of salt, then the oats and raisins.",
+        "Drop spoonfuls onto lined pans and bake 10 to 12 minutes until golden at the edges."
+      ]
+    },
+    {
+      "id": "sugar-cookies", "name": "Soft Sugar Cookies", "group": "Desserts", "emoji": "🍪", "wiki": "Sugar_cookie", "minutes": 30, "serves": 24,
+      "ingredients": [
+        { "name": "butter", "measure": "1 cup" }, { "name": "sugar", "measure": "1 1/2 cups" }, { "name": "egg", "measure": "1" },
+        { "name": "vanilla", "measure": "1 tsp" }, { "name": "flour", "measure": "2 3/4 cups" }, { "name": "baking powder", "measure": "1 tsp" },
+        { "name": "baking soda", "measure": "1 tsp" }
+      ],
+      "steps": [
+        "Heat the oven to 375°F (190°C).",
+        "Beat the softened butter and sugar until fluffy, then the egg and vanilla.",
+        "Stir in the flour, baking powder, baking soda and a pinch of salt.",
+        "Roll into balls, roll them in sugar and bake 8 to 10 minutes until just set."
+      ]
+    },
+    {
+      "id": "pumpkin-bread", "name": "Pumpkin Bread", "group": "Desserts", "emoji": "🎃", "wiki": "Pumpkin_bread", "minutes": 75, "serves": 10,
+      "ingredients": [
+        { "name": "pumpkin purée", "measure": "1 can (398 ml / 14 oz)" }, { "name": "eggs", "measure": "2" }, { "name": "sugar", "measure": "1 1/4 cups" },
+        { "name": "vegetable oil", "measure": "1/2 cup" }, { "name": "flour", "measure": "1 3/4 cups" }, { "name": "baking soda", "measure": "1 tsp" },
+        { "name": "pumpkin pie spice", "measure": "2 tsp" }, { "name": "salt", "measure": "1/2 tsp" }
+      ],
+      "steps": [
+        "Heat the oven to 350°F (175°C) and grease a loaf pan.",
+        "Whisk the pumpkin, eggs, sugar and oil.",
+        "Stir in the flour, baking soda, spice and salt until just combined.",
+        "Bake 60 to 65 minutes until a skewer comes out clean."
+      ]
+    },
+    {
+      "id": "strawberry-shortcake", "name": "Strawberry Shortcake", "group": "Desserts", "emoji": "🍓", "wiki": "Shortcake", "minutes": 40, "serves": 6,
+      "ingredients": [
+        { "name": "strawberries", "measure": "900 g (2 lb)" }, { "name": "sugar", "measure": "1/4 cup, plus 2 tbsp" }, { "name": "flour", "measure": "2 cups" },
+        { "name": "baking powder", "measure": "1 tbsp" }, { "name": "butter", "measure": "1/2 cup cold" }, { "name": "milk", "measure": "3/4 cup" },
+        { "name": "whipping cream", "measure": "1 cup" }
+      ],
+      "steps": [
+        "Slice the strawberries and toss with 1/4 cup sugar. Leave 20 minutes.",
+        "Heat the oven to 425°F (220°C). Mix the flour, baking powder, 2 tbsp sugar and a pinch of salt. Rub in the butter, then stir in the milk.",
+        "Pat out 2 cm thick, cut 6 biscuits and bake 12 to 15 minutes until golden.",
+        "Whip the cream. Split the biscuits and fill with strawberries and cream."
+      ]
+    },
+    {
+      "id": "chocolate-pudding", "name": "Homemade Chocolate Pudding", "group": "Desserts", "emoji": "🍮", "wiki": "Chocolate_pudding", "minutes": 20, "serves": 4,
+      "ingredients": [
+        { "name": "milk", "measure": "2 1/2 cups" }, { "name": "sugar", "measure": "1/2 cup" }, { "name": "cocoa powder", "measure": "1/4 cup" },
+        { "name": "cornstarch", "measure": "3 tbsp" }, { "name": "dark chocolate", "measure": "85 g (3 oz), chopped" }, { "name": "vanilla", "measure": "1 tsp" }
+      ],
+      "steps": [
+        "Whisk the sugar, cocoa, cornstarch and a pinch of salt in a pot, then slowly whisk in the milk.",
+        "Bring to a simmer over medium heat, whisking, and cook 2 minutes until thick.",
+        "Off the heat, stir in the chocolate and vanilla until smooth.",
+        "Pour into 4 cups, cover the surface and chill 2 hours."
+      ]
+    },
+    {
+      "id": "peach-cobbler", "name": "Peach Cobbler", "group": "Desserts", "emoji": "🍑", "wiki": "Cobbler_(food)", "minutes": 60, "serves": 8,
+      "ingredients": [
+        { "name": "peaches", "measure": "6, or 2 cans (796 ml) drained" }, { "name": "sugar", "measure": "1 cup, divided" }, { "name": "cinnamon", "measure": "1 tsp" },
+        { "name": "butter", "measure": "1/2 cup" }, { "name": "flour", "measure": "1 cup" }, { "name": "baking powder", "measure": "2 tsp" },
+        { "name": "milk", "measure": "1 cup" }
+      ],
+      "steps": [
+        "Heat the oven to 350°F (175°C). Melt the butter in a 9x13 dish in the oven.",
+        "Toss the sliced peaches with 1/4 cup sugar and the cinnamon.",
+        "Whisk the flour, 3/4 cup sugar, baking powder and milk, and pour over the butter without stirring. Spoon the peaches on top.",
+        "Bake 45 minutes until golden."
+      ]
+    },
+    {
+      "id": "vanilla-cupcakes", "name": "Vanilla Cupcakes", "group": "Desserts", "emoji": "🧁", "wiki": "Cupcake", "minutes": 45, "serves": 12,
+      "ingredients": [
+        { "name": "flour", "measure": "1 1/2 cups" }, { "name": "sugar", "measure": "1 cup" }, { "name": "baking powder", "measure": "1 1/2 tsp" },
+        { "name": "butter", "measure": "1/2 cup softened" }, { "name": "eggs", "measure": "2" }, { "name": "milk", "measure": "1/2 cup" },
+        { "name": "vanilla", "measure": "2 tsp" }, { "name": "icing sugar", "measure": "2 cups" }
+      ],
+      "steps": [
+        "Heat the oven to 350°F (175°C) and line a 12-cup muffin tin.",
+        "Beat the butter and sugar, then the eggs, vanilla, flour, baking powder and milk until smooth.",
+        "Fill the cups two-thirds full and bake 18 to 20 minutes. Cool.",
+        "Beat the icing sugar with 1/4 cup soft butter and 2 tbsp milk, and frost."
+      ]
+    },
+    {
+      "id": "snickerdoodles", "name": "Snickerdoodles", "group": "Desserts", "emoji": "🍪", "wiki": "Snickerdoodle", "minutes": 30, "serves": 24,
+      "ingredients": [
+        { "name": "butter", "measure": "1 cup" }, { "name": "sugar", "measure": "1 1/2 cups, plus 3 tbsp" }, { "name": "eggs", "measure": "2" },
+        { "name": "flour", "measure": "2 3/4 cups" }, { "name": "cream of tartar", "measure": "2 tsp" }, { "name": "baking soda", "measure": "1 tsp" },
+        { "name": "cinnamon", "measure": "1 tbsp" }
+      ],
+      "steps": [
+        "Heat the oven to 375°F (190°C).",
+        "Beat the softened butter and 1 1/2 cups sugar, then the eggs. Stir in the flour, cream of tartar, baking soda and a pinch of salt.",
+        "Roll into balls and roll them in the cinnamon mixed with 3 tbsp sugar.",
+        "Bake 9 to 10 minutes until set at the edges but soft in the middle."
+      ]
     }
   ]
 }

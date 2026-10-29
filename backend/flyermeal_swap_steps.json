@@ -175,5 +175,74 @@
     "6": null,
     "7": null,
     "8": "8 Stretch the store-bought dough into a lightly oiled, non-stick baking tray (we use a round one, but any shape will do!)"
+  },
+  "Chicken Fettuccine Alfredo": {
+    "3": "Warm the jar of Alfredo sauce in the same pan.",
+    "4": "Toss in the pasta with a splash of the pasta water."
+  },
+  "Chicken Tetrazzini": {
+    "2": "Cook the onion in a splash of oil for 5 minutes.",
+    "3": "Stir in the soup, stock and milk and bring to a simmer. Stir in half the parmesan and season."
+  },
+  "Baked Spaghetti": {
+    "2": "Brown the beef with the onion and garlic. Pour in the jar of pasta sauce and heat through."
+  },
+  "Tortellini with Sausage and Spinach": {
+    "3": "Stir in the jar of pasta sauce and the cream and simmer 5 minutes."
+  },
+  "Chicken Cacciatore": {
+    "3": "Pour in the jar of pasta sauce, nestle in the chicken, cover and simmer 30 minutes until cooked through."
+  },
+  "Chicken Tikka Masala": {
+    "3": "Pour the jar of tikka masala sauce into a pan and bring it to a simmer.",
+    "4": "Stir in the chicken and simmer 5 minutes. Serve over rice with cilantro."
+  },
+  "Korean Ground Beef Bowls": {
+    "3": "Stir in the garlic and ginger for 1 minute, then the Korean BBQ sauce. Simmer 2 minutes until glossy."
+  },
+  "Swedish Meatballs": {
+    "3": "Make the gravy mix as the packet says, then stir in the sour cream."
+  },
+  "Salisbury Steak with Mushroom Gravy": {
+    "3": "Cook the sliced onion and mushrooms in the butter for 6 minutes. Stir in the gravy mix and water as the packet says and simmer until thick."
+  },
+  "Ground Beef Enchiladas": {
+    "1": "Heat the oven to 375°F (190°C).",
+    "2": "Brown the beef with the onion, drain, then stir in the beans, taco seasoning and 1/2 cup of the enchilada sauce."
+  },
+  "Crispy Ginger Beef": {
+    "4": "Add the ginger sauce and boil 1 minute until syrupy. Toss in the beef and serve over rice."
+  },
+  "Steak Fajitas": {
+    "1": "Rub the steak with the fajita seasoning and the juice of half the lime."
+  },
+  "Meatball Subs": {
+    "3": "Pour in the jar of pasta sauce, cover and simmer 15 minutes."
+  },
+  "Pork Souvlaki Pitas": {
+    "2": null
+  },
+  "Honey Garlic Pork Chops": {
+    "3": "Add the honey garlic sauce and simmer 2 minutes until sticky. Return the chops and turn to coat."
+  },
+  "Pork and Broccoli Stir-Fry": {
+    "4": "Return the pork with the stir-fry sauce and toss until glossy. Serve over rice."
+  },
+  "Apple Stuffed Pork Loin": {
+    "1": "Heat the oven to 375°F (190°C). Make the stuffing mix as the box says, then stir in the diced apple and onion cooked in the butter for 6 minutes."
+  },
+  "Crispy Tofu Stir-Fry": {
+    "4": "Add the stir-fry sauce, return the tofu and toss. Serve over rice."
+  },
+  "Coconut Vegetable Curry": {
+    "1": "Cook the rice. Cook the onion in a little oil for 5 minutes, then the garlic and ginger for 1 minute.",
+    "2": "Add the cubed sweet potato, cauliflower florets, the curry sauce and 1 cup water. Simmer 20 minutes until tender."
+  },
+  "Bean and Cheese Enchiladas": {
+    "1": "Heat the oven to 375°F (190°C).",
+    "4": "Pour over the enchilada sauce, top with the rest of the cheese and bake 20 minutes. Scatter with green onions."
+  },
+  "Turkey Chili": {
+    "2": "Add the onion and pepper for 5 minutes, then the garlic and chili seasoning for 1 minute."
   }
 }

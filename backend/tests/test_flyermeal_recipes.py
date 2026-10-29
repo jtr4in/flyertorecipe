@@ -31,6 +31,7 @@ def test_build_keeps_named_dishes_and_classics_first(tmp_path, monkeypatch):
     monkeypatch.setattr(fm, "COMMON", common)
     monkeypatch.setattr(fm, "CLASSICS", classics)
     monkeypatch.setattr(fm, "SWAPS", tmp_path / "none.json")
+    monkeypatch.setattr(fm, "SWAP_STEPS", tmp_path / "none.json")
     catalogue = [
         {"id": "mealdb:1", "name": "Lasagne", "area": "Italian", "image": "https://x/l.jpg", "youtube": "", "source": "", "ingredients": [], "steps": []},
         {"id": "mealdb:2", "name": "Algerian Bouzgene Berber Bread", "area": "", "image": "", "youtube": "", "source": "", "ingredients": [], "steps": []},
