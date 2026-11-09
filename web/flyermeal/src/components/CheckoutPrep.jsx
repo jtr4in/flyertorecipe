@@ -1,12 +1,15 @@
+import { useState } from 'react'
 import FlyerClip from '@f2r/components/FlyerClip'
 import Sheet from '@f2r/components/Sheet'
 import { flippUrl, money } from '@f2r/lib/stores'
 import { estimate } from '../lib/estimate'
+import TillMode from './TillMode'
 
-// Price matching at the till is quickest from one place: Flipp's own shopping list. This walks
-// through each matched ad once, before you go, so each gets clipped there; at the till you stay in
-// Flipp instead of switching apps per item.
+// Price matching at the till is quickest from one place. "Show ads at the till" steps through every
+// matched ad right here, so nothing needs opening first. Clipping each ad into Flipp's own shopping
+// list stays as the other way, for cashiers who want to see Flipp.
 export const toClip = (lines, postal) => lines.filter((l) => !l.checked && l.deal && flippUrl(l.deal, postal))
+const byStore = (a, b) => a.deal.merchant.localeCompare(b.deal.merchant) || a.name.localeCompare(b.name)
 export const isClipped = (l) => !!l.deal && l.clipped === l.deal.dealId
 
 /** The cart at flyer prices: every item still to get that has an ad. */
@@ -22,7 +25,9 @@ export function cartEstimate(lines, pounds = {}) {
 }
 
 export default function CheckoutPrep({ open, onClose, lines, postal, pounds = {}, update }) {
-  const rows = toClip(lines, postal).sort((a, b) => a.deal.merchant.localeCompare(b.deal.merchant) || a.name.localeCompare(b.name))
+  const [till, setTill] = useState(false)
+  const ads = lines.filter((l) => !l.checked && l.deal).sort(byStore)
+  const rows = toClip(lines, postal).sort(byStore)
   const done = rows.filter(isClipped).length
   const next = rows.find((l) => !isClipped(l))
   const cost = (l) => estimate(l.deal, pounds[l.name])
@@ -41,8 +46,17 @@ export default function CheckoutPrep({ open, onClose, lines, postal, pounds = {}
           </p>
         </div>
       )}
+      {ads.length > 0 && (
+        <>
+          <button onClick={() => setTill(true)} className="w-full rounded-2xl bg-green-700 py-3 font-semibold text-white">
+            Show ads at the till ({ads.length})
+          </button>
+          <p className="mt-1.5 text-center text-xs text-stone-500">One ad per screen with the store, price and dates. Tap Next for the next one.</p>
+          <p className="mt-5 text-sm font-semibold text-stone-700">Or clip them into Flipp</p>
+        </>
+      )}
       <p className="text-sm text-stone-600">
-        Open each ad and tap <b>Clip</b> in Flipp. At the till, open Flipp's <b>Shopping List</b> and every ad is there, no switching apps.
+        For a cashier who wants to see Flipp: tap <b>Clip</b> on each ad there, then show Flipp's <b>Shopping List</b> at the till.
       </p>
       <div className="mt-3 flex items-center gap-3">
         <div className="h-2 flex-1 overflow-hidden rounded-full bg-stone-100">
@@ -76,7 +90,7 @@ export default function CheckoutPrep({ open, onClose, lines, postal, pounds = {}
                 </div>
                 <a
                   href={flippUrl(l.deal, postal)}
-                  target="_blank"
+                  target="flipp"
                   rel="noreferrer"
                   onClick={() => update(l.name, { clipped: l.deal.dealId })}
                   className={`shrink-0 rounded-xl px-3 py-2 text-sm font-semibold ${clipped ? 'text-sky-700' : 'bg-sky-500 text-white'}`}
@@ -88,6 +102,7 @@ export default function CheckoutPrep({ open, onClose, lines, postal, pounds = {}
           )
         })}
       </ul>
+      {till && <TillMode lines={ads} postal={postal} onClose={() => setTill(false)} />}
       {!rows.length && <p className="mt-4 text-sm text-stone-500">Nothing on your list has a flyer ad yet.</p>}
     </Sheet>
   )
