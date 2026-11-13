@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import FlyerClip from '@f2r/components/FlyerClip'
-import { flippUrl } from '@f2r/lib/stores'
+import { flippTarget, flippUrl } from '@f2r/lib/stores'
 
 const fmtDate = (d) =>
   d ? new Date(d.length === 10 ? `${d}T12:00:00` : d).toLocaleDateString('en-CA', { weekday: 'short', month: 'short', day: 'numeric' }) : null
@@ -62,7 +62,7 @@ export default function TillMode({ lines, postal, onClose }) {
           </p>
         )}
         {flipp && (
-          <a href={flipp} target="flipp" rel="noreferrer" className="mt-3 text-sm font-semibold text-sky-700">
+          <a href={flipp} target={flippTarget(flipp, 'flipp')} rel="noreferrer" className="mt-3 text-sm font-semibold text-sky-700">
             Show in Flipp ↗
           </a>
         )}

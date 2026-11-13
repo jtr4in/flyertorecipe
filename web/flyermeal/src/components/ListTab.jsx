@@ -3,7 +3,7 @@ import FlyerClip from '@f2r/components/FlyerClip'
 import FlyerProof from '@f2r/components/FlyerProof'
 import { fsa } from '@f2r/lib/data'
 import { findDeals, suggestNeeds } from '@f2r/lib/needs'
-import { dealName, flippUrl, money, shortDay } from '@f2r/lib/stores'
+import { dealName, flippTarget, flippUrl, money, shortDay } from '@f2r/lib/stores'
 import { recommend } from '../lib/recommend'
 import { SECTIONS, bySection } from '../lib/sections'
 import CheckoutPrep, { cartEstimate, isClipped, toClip } from './CheckoutPrep'
@@ -300,7 +300,7 @@ function ListLine({ line, postal, section, forMeals, deals, open, onOpen, onZoom
       {open && (
         <div className="space-y-2 border-t border-stone-100 bg-stone-50 px-3 pt-2 pb-3">
           {d && flippUrl(d, postal) && (
-            <a href={flippUrl(d, postal)} target="_blank" rel="noreferrer" className="block rounded-2xl bg-sky-500 py-2.5 text-center text-sm font-semibold text-white">
+            <a href={flippUrl(d, postal)} target={flippTarget(flippUrl(d, postal))} rel="noreferrer" className="block rounded-2xl bg-sky-500 py-2.5 text-center text-sm font-semibold text-white">
               Show in Flipp for price matching ↗
             </a>
           )}

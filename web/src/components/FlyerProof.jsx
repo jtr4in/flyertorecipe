@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import FlyerClip from './FlyerClip'
-import { dealName, flippUrl, flyerUrl, money } from '../lib/stores'
+import { dealName, flippTarget, flippUrl, flyerUrl, money } from '../lib/stores'
 
 // Date-only strings parse as UTC midnight, which shows as the previous day in Canada.
 const fmtDate = (d) =>
@@ -68,7 +68,7 @@ export default function FlyerProof({ deal: current, postal, onClose, action, cho
           <div className="mt-5 flex w-full flex-col gap-2">
             {/* Cashiers price match from Flipp, so that's the main way out; the store's own flyer only when Flipp can't show it. */}
             {flipp ? (
-              <a href={flipp} target="_blank" rel="noreferrer" className="rounded-2xl bg-sky-500 py-3 font-semibold text-white">
+              <a href={flipp} target={flippTarget(flipp)} rel="noreferrer" className="rounded-2xl bg-sky-500 py-3 font-semibold text-white">
                 Show in Flipp for price matching ↗
               </a>
             ) : (

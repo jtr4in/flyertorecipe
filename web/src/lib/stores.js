@@ -60,14 +60,25 @@ const FLYER_PAGES = {
  * Toronto, and a regional flyer like FreshCo's shows as expired. On Android these open the Flipp
  * app when it's installed; elsewhere flipp.com, which shows the same ad.
  */
-export function flippUrl(deal, postal) {
+export function flippUrl(deal, postal, ua = typeof navigator === 'undefined' ? '' : navigator.userAgent) {
   const code = (postal || '').replace(/\s+/g, '').toUpperCase()
   const where = /^[A-Z]\d[A-Z]\d[A-Z]\d$/.test(code) ? `?postal_code=${code}` : ''
   const item = /^f(\d+)$/.exec(deal?.dealId || '')
-  if (item) return `https://flipp.com/en-ca/item/${item[1]}${where}`
-  if (deal?.flyerId) return `https://flipp.com/en-ca/weekly_ad/${deal.flyerId}${where}`
-  return null
+  const web = item ? `https://flipp.com/en-ca/item/${item[1]}${where}` : deal?.flyerId ? `https://flipp.com/en-ca/weekly_ad/${deal.flyerId}${where}` : null
+  // Cashiers want the ad in the Flipp app, not its website. On Android, open the app on that ad the
+  // way Flipp's own share links do (its com.wishabi.flipp:// scheme with a flipp.com/action
+  // deep_link_value); without the app installed, Chrome falls back to the web page.
+  if (web && item && deal.flyerId && /Android/i.test(ua)) {
+    const action = new URLSearchParams({ type: 'flyer_view', flyer_id: deal.flyerId, command: 'zoom', flyer_item_id: item[1] })
+    if (where) action.set('postal_code', code)
+    const app = new URLSearchParams({ af_deeplink: 'true', deep_link_value: `https://flipp.com/action?${action}` })
+    return `intent://?${app}#Intent;scheme=com.wishabi.flipp;package=com.wishabi.flipp;S.browser_fallback_url=${encodeURIComponent(web)};end`
+  }
+  return web
 }
+
+/** Link attributes for a Flipp link: an app link opens in place, a web page in a new tab. */
+export const flippTarget = (url, name = '_blank') => (url?.startsWith('intent:') ? undefined : name)
 
 export function flyerUrl(merchant) {
   const m = (merchant || '').toLowerCase()

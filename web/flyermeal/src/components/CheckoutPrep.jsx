@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import FlyerClip from '@f2r/components/FlyerClip'
 import Sheet from '@f2r/components/Sheet'
-import { flippUrl, money } from '@f2r/lib/stores'
+import { flippTarget, flippUrl, money } from '@f2r/lib/stores'
 import { estimate } from '../lib/estimate'
 import TillMode from './TillMode'
 
@@ -90,7 +90,7 @@ export default function CheckoutPrep({ open, onClose, lines, postal, pounds = {}
                 </div>
                 <a
                   href={flippUrl(l.deal, postal)}
-                  target="flipp"
+                  target={flippTarget(flippUrl(l.deal, postal), 'flipp')}
                   rel="noreferrer"
                   onClick={() => update(l.name, { clipped: l.deal.dealId })}
                   className={`shrink-0 rounded-xl px-3 py-2 text-sm font-semibold ${clipped ? 'text-sky-700' : 'bg-sky-500 text-white'}`}
