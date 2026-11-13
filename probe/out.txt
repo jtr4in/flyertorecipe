@@ -1,0 +1,227 @@
+== https://flipp.com/.well-known/apple-app-site-association
+<html
+    hide-focus-outline
+    build='build/83c8ec92'
+    gaAcc='UA-69682825-1'
+    distAcc='UA-90337470-1'
+    sAccDNS=''
+    sAcc=''
+    test='44'
+>
+    <head>
+        <title>Flipp</title>
+            <meta http-equiv='Content-Security-Policy' content='default-src &#x27;none&#x27;; connect-src &#x27;self&#x27; *.flippback.com *.flippenterprise.net *.flipp.com *.wishabi.ca *.wishabi.com *.facebook.net sentry.io *.appsflyer.com *.appsflyersdk.com *.launchdarkly.com *.braze.com *.onelink.me *.doubleclick.net pagead2.googlesyndication.com www.googleapis.com www.googleadservices.com *.google-analytics.com accounts.google.com *.google.com google.com *.google.ca google.ca *.google.us google.us *.google.it graph.facebook.com www.facebook.com analytics.google.com cdn-cookieyes.com *.cookieyes.com *.criteo.com *.adadapted.com browser-intake-datadoghq.com *.datadoghq-browser-agent.com *.googletagmanager.com; script-src &#x27;self&#x27; &#x27;unsafe-eval&#x27; &#x27;unsafe-inline&#x27; *; style-src &#x27;self&#x27; *.fontawesome.com &#x27;unsafe-inline&#x27; *.cloudfront.net *.googletagmanager.com fonts.googleapis.com; font-src *; media-src *; form-action &#x27;self&#x27; www.facebook.com; frame-src *; img-src *' />
+        <meta
+            name='description'
+            content='View the latest flyers and coupons from your favourite local stores. Find deals, make a shopping list, and save on your weekly shopping!'
+        />
+        <meta
+            name='google-site-verification'
+            content='OanNBHOiX7vwllKU-S5WyP7PK9f-tfz4GaY7LQI64KA'
+        />
+        <meta charset='utf-8' />
+        <base href='/' />
+
+        <meta name='og:title' content='Flipp' />
+        <meta
+            name='og:description'
+            content='Flipp is the essential site for your weekly shopping.'
+        />
+        <meta
+            name='og:image'
+            content='https://flipp.com/build/83c8ec92/images/app-logo.png'
+        />
+        <meta name='og:url' content='https://flipp.com' />
+        <meta name='fb:app_id' content='576005129150479' />
+
+        <meta
+            name='viewport'
+            content='initial-scale=1,minimum-scale=1,maximum-scale=1, user-scalable=no,width=device-width'
+        />
+        <meta name='mobile-web-app-capable' content='yes' />
+        <meta name='apple-mobile-web-app-capable' content='yes' />
+        <meta name='msapplication-tap-highlight' content='no' />
+
+        <link
+            rel='apple-touch-icon'
+            sizes='180x180'
+            href='/build/83c8ec92/favicons/apple-touch-icon-180x180.png'
+        />
+        <link
+            rel='icon'
+            type='image/png'
+            href='/build/83c8ec92/favicons/android-chrome-192x192.png'
+            sizes='192x192'
+        />
+        <link
+            rel='icon'
+            type='image/x-icon'
+            href='/build/83c8ec92/favicons/favicon.ico'
+        />
+        <link
+            rel='mask-icon'
+            href='/build/83c8ec92/favicons/safari-pinned-tab.svg'
+            color='#43C4F4'
+        />
+
+        <meta name='theme-color' content='#43C4F4' />
+        <meta
+            name='default_ga_account'
+            content='UA-69682825-1'
+        />
+        <meta name='env' content='production' />
+        <meta name='avro_beacons' content='https://p.flipp.com/beacons' />
+        <meta name='dist_ga_account' content='UA-90337470-1' />
+        <meta name='tagman_server' content='https://b.wishabi.com' />
+        <meta name='default_gtag_account' content='GTM-KFQ3VGR' />
+        <meta name='dist_gtag_account' content='GTM-M8MZFNB' />
+        <meta name='gtag_conversion_id' content='AW-788745722' />
+        <meta
+            name='gtag_flyer_open_conversion_label'
+            content='MkiyCMvTiokBEPqbjfgC'
+        />
+        <meta
+            name='gtag_puev_conversion_label'
+            content='cn9TCLLQ9IgBEPqbjfgC'
+        />
+        <meta
+            name='gtag_ev_conversion_label'
+            content='sYWMCNqOg4kBEPqbjfgC'
+        />
+ 
+== https://flipp.com/apple-app-site-association
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "F4L59Q2V96.com.wishabi.Flipp-iOS",
+        "paths": [
+          "/action"
+        ]
+      }
+    ]
+  }
+}
+HTTP 200 application/octet-stream
+
+== https://flipp.com/.well-known/assetlinks.json
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.wishabi.flipp",
+    "sha256_cert_fingerprints":
+    ["FE:61:4A:D9:44:6F:2C:F9:B0:73:EB:43:3C:03:76:15:30:FF:EA:04:F9:DE:A8:13:24:40:4C:FE:0F:96:FB:9F",
+    	"66:EB:D1:B4:2F:E7:90:33:8F:C1:52:5B:15:BF:B1:60:27:A9:96:DC:AC:47:10:A0:78:9E:28:CD:9B:EC:99:1F"]
+  }
+}]
+
+HTTP 200 application/json
+
+== https://www.flipp.com/.well-known/apple-app-site-association
+<html
+    hide-focus-outline
+    build='build/83c8ec92'
+    gaAcc='UA-69682825-1'
+    distAcc='UA-90337470-1'
+    sAccDNS=''
+    sAcc=''
+    test='44'
+>
+    <head>
+        <title>Flipp</title>
+            <meta http-equiv='Content-Security-Policy' content='default-src &#x27;none&#x27;; connect-src &#x27;self&#x27; *.flippback.com *.flippenterprise.net *.flipp.com *.wishabi.ca *.wishabi.com *.facebook.net sentry.io *.appsflyer.com *.appsflyersdk.com *.launchdarkly.com *.braze.com *.onelink.me *.doubleclick.net pagead2.googlesyndication.com www.googleapis.com www.googleadservices.com *.google-analytics.com accounts.google.com *.google.com google.com *.google.ca google.ca *.google.us google.us *.google.it graph.facebook.com www.facebook.com analytics.google.com cdn-cookieyes.com *.cookieyes.com *.criteo.com *.adadapted.com browser-intake-datadoghq.com *.datadoghq-browser-agent.com *.googletagmanager.com; script-src &#x27;self&#x27; &#x27;unsafe-eval&#x27; &#x27;unsafe-inline&#x27; *; style-src &#x27;self&#x27; *.fontawesome.com &#x27;unsafe-inline&#x27; *.cloudfront.net *.googletagmanager.com fonts.googleapis.com; font-src *; media-src *; form-action &#x27;self&#x27; www.facebook.com; frame-src *; img-src *' />
+        <meta
+            name='description'
+            content='View the latest flyers and coupons from your favourite local stores. Find deals, make a shopping list, and save on your weekly shopping!'
+        />
+        <meta
+            name='google-site-verification'
+            content='OanNBHOiX7vwllKU-S5WyP7PK9f-tfz4GaY7LQI64KA'
+        />
+        <meta charset='utf-8' />
+        <base href='/' />
+
+        <meta name='og:title' content='Flipp' />
+        <meta
+            name='og:description'
+            content='Flipp is the essential site for your weekly shopping.'
+        />
+        <meta
+            name='og:image'
+            content='https://flipp.com/build/83c8ec92/images/app-logo.png'
+        />
+        <meta name='og:url' content='https://flipp.com' />
+        <meta name='fb:app_id' content='576005129150479' />
+
+        <meta
+            name='viewport'
+            content='initial-scale=1,minimum-scale=1,maximum-scale=1, user-scalable=no,width=device-width'
+        />
+        <meta name='mobile-web-app-capable' content='yes' />
+        <meta name='apple-mobile-web-app-capable' content='yes' />
+        <meta name='msapplication-tap-highlight' content='no' />
+
+        <link
+            rel='apple-touch-icon'
+            sizes='180x180'
+            href='/build/83c8ec92/favicons/apple-touch-icon-180x180.png'
+        />
+        <link
+            rel='icon'
+            type='image/png'
+            href='/build/83c8ec92/favicons/android-chrome-192x192.png'
+            sizes='192x192'
+        />
+        <link
+            rel='icon'
+            type='image/x-icon'
+            href='/build/83c8ec92/favicons/favicon.ico'
+        />
+        <link
+            rel='mask-icon'
+            href='/build/83c8ec92/favicons/safari-pinned-tab.svg'
+            color='#43C4F4'
+        />
+
+        <meta name='theme-color' content='#43C4F4' />
+        <meta
+            name='default_ga_account'
+            content='UA-69682825-1'
+        />
+        <meta name='env' content='production' />
+        <meta name='avro_beacons' content='https://p.flipp.com/beacons' />
+        <meta name='dist_ga_account' content='UA-90337470-1' />
+        <meta name='tagman_server' content='https://b.wishabi.com' />
+        <meta name='default_gtag_account' content='GTM-KFQ3VGR' />
+        <meta name='dist_gtag_account' content='GTM-M8MZFNB' />
+        <meta name='gtag_conversion_id' content='AW-788745722' />
+        <meta
+            name='gtag_flyer_open_conversion_label'
+            content='MkiyCMvTiokBEPqbjfgC'
+        />
+        <meta
+            name='gtag_puev_conversion_label'
+            content='cn9TCLLQ9IgBEPqbjfgC'
+        />
+        <meta
+            name='gtag_ev_conversion_label'
+            content='sYWMCNqOg4kBEPqbjfgC'
+        />
+ 
+== https://share.flipp.com/.well-known/apple-app-site-association
+
+HTTP 404 text/html; charset=UTF-8
+
+== https://flipp.app.link/.well-known/apple-app-site-association
+
+HTTP 404 
+
+== https://flipp.page.link/.well-known/apple-app-site-association
+{"applinks":{"apps":[],"details":[{"appID":"F4L59Q2V96.com.wishabi.Flipp-iOS","paths":["NOT /_/*","/*"]}]}}
+HTTP 200 application/json; charset=utf-8
+
+== item page meta
+id 1052628260
+41244 probe/item.html
