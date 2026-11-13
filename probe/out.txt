@@ -1,0 +1,22 @@
+src='/build/83c8ec92/static/schema.js
+src='/build/83c8ec92/static/happy-analytics.js
+src='/build/83c8ec92/static/landing.js
+href='https://securepubads.g.doubleclick.net/tag/js/gpt.js
+src='https://securepubads.g.doubleclick.net/tag/js/gpt.js
+src='https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js
+src='/build/83c8ec92/libs~other-fruit.js
+src='/build/83c8ec92/other-fruit.js
+src='/build/83c8ec92/static/warnings.js
+src='/build/83c8ec92/static/wpadgu-clicks.js
+== https://flipp.com/build/83c8ec92/libs~other-fruit.js 278214
+== https://flipp.com/build/83c8ec92/other-fruit.js 3958864
+     * NOTE: There is currently no need for deeplinking support for this SDK.
+     * Method that can be triggered when a deeplink or standard URL is recieved
+     * @param {string} url - The full deeplink or full standard URL.
+== https://flipp.com/build/83c8ec92/static/happy-analytics.js 460
+== https://flipp.com/build/83c8ec92/static/landing.js 2225
+== https://flipp.com/build/83c8ec92/static/schema.js 273
+== https://flipp.com/build/83c8ec92/static/warnings.js 2625
+== https://flipp.com/build/83c8ec92/static/wpadgu-clicks.js 151
+== https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js 87412
+== https://securepubads.g.doubleclick.net/tag/js/gpt.js 138605
