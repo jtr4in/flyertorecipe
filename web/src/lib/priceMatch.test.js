@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { followMatch, matchableDeals, matchSources, otherProvince, tidyMatch } from './priceMatch'
+import { followMatch, matchableDeals, matchSources, membersOnly, onlineOnly, otherProvince, tidyMatch } from './priceMatch'
 
 const deals = ['FreshCo', 'No Frills', 'Walmart', 'Metro', 'Farm Boy', 'Food Basics'].map((merchant) => ({ merchant, name: 'x' }))
 const stores = (ds) => ds.map((d) => d.merchant)
@@ -43,5 +43,23 @@ describe('Quebec flyers', () => {
     expect(otherProvince(deals[0], 'K4A1A1')).toBe(true)
     expect(otherProvince(deals[0], 'J8Y 1A1')).toBe(false)
     expect(otherProvince(deals[2], 'K4A1A1')).toBe(false)
+  })
+})
+
+describe('member and online prices', () => {
+  const real = [
+    { merchant: 'No Frills', priceLabel: '$7.50 (member price)', saleStory: 'Members Save $2.50' },
+    { merchant: 'Maxi', priceLabel: '$3.00', saleStory: 'Les membres économisent 1$' },
+    { merchant: 'Metro', priceLabel: '$2.99', saleStory: 'vendredi gratuit exclusif aux membres valeur de 1,99$' },
+    { merchant: 'Costco', priceLabel: '$18.99', saleStory: 'Online Price' },
+  ]
+  it('spots member and online-only ads', () => {
+    expect(real.slice(0, 3).every(membersOnly)).toBe(true)
+    expect(onlineOnly(real[3])).toBe(true)
+  })
+  it('keeps points offers, which are at the shelf price', () => {
+    const pts = { merchant: 'No Frills', priceLabel: '$3.49', saleStory: 'Get PC Optimum 500 pts That\'s 50¢ value' }
+    expect(membersOnly(pts) || onlineOnly(pts)).toBe(false)
+    expect(matchableDeals([...real, pts, { merchant: 'Walmart', priceLabel: '$4.97' }], 'FreshCo')).toHaveLength(2)
   })
 })

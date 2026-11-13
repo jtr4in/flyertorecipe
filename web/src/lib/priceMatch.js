@@ -52,8 +52,18 @@ export function matchSources(store, extras = []) {
 // separate Quebec flyers that Flipp also shows near Ottawa).
 export function matchableDeals(deals, store, extras = []) {
   const ok = matchSources(store, extras)
-  return ok ? deals.filter((d) => ok.includes(d.merchant) && d.province !== 'QC') : deals
+  return ok ? deals.filter((d) => ok.includes(d.merchant) && d.province !== 'QC' && !membersOnly(d) && !onlineOnly(d)) : deals
 }
+
+// A loyalty-member price ("Members save $2", PC Optimum member prices, Metro's "prix membre") is
+// only for that chain's members, so another store won't match it. Points offers ("Get 1,000 PC
+// Optimum pts") are fine: the shelf price is the flyer price and the points are extra.
+const MEMBER = /\(member price\)|\bmembers?\s+(save|price|only|exclusive)|prix membre|membres? (économisent|seulement)|exclusifs? aux membres/i
+export const membersOnly = (d) => MEMBER.test(`${d.priceLabel || ''} ${d.priceText || ''} ${d.saleStory || ''}`)
+
+// Online prices (Costco's "Online Price", web exclusives) aren't in the store or its flyer.
+const ONLINE = /\bonline\b|en ligne|web exclusive|exclusivité web/i
+export const onlineOnly = (d) => ONLINE.test(`${d.priceText || ''} ${d.saleStory || ''}`)
 
 /** Ontario postal codes start with K, L, M, N or P. */
 export const inOntario = (postal) => /^[KLMNP]/i.test((postal || '').trim())

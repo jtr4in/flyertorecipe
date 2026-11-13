@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { fsa, loadDeals } from '@f2r/lib/data'
 import { describesOther } from '@f2r/lib/needs'
 import { activeDeals } from '@f2r/lib/planner'
-import { followMatch, otherProvince, tidyMatch } from '@f2r/lib/priceMatch'
+import { followMatch, membersOnly, onlineOnly, otherProvince, tidyMatch } from '@f2r/lib/priceMatch'
 import { bestDeal } from './lib/deals'
 import { poundsFor } from './lib/estimate'
 import { recommend } from './lib/recommend'
@@ -82,7 +82,15 @@ export default function App() {
   // Near Ottawa, Flipp also sends Gatineau's Quebec flyers; Ontario stores won't price match them,
   // so they're left out unless asked for.
   const quebec = useMemo(() => allDeals.filter((d) => otherProvince(d, postal)).length, [allDeals, postal])
-  const local = useMemo(() => ((filters.quebec && !filters.matchAt) || !quebec ? allDeals : allDeals.filter((d) => !otherProvince(d, postal))), [allDeals, postal, quebec, filters.quebec, filters.matchAt])
+  // Online-only prices aren't in the store, and a store won't price match another chain's member
+  // price, so neither is suggested then.
+  const local = useMemo(
+    () =>
+      allDeals.filter(
+        (d) => !onlineOnly(d) && !(filters.matchAt && membersOnly(d)) && !(otherProvince(d, postal) && !(filters.quebec && !filters.matchAt)),
+      ),
+    [allDeals, postal, filters.quebec, filters.matchAt],
+  )
   // Everything (list matches, suggestions, the flyer wall, recipe prices) uses only these flyers.
   const deals = useMemo(() => (filters.stores.length ? local.filter((d) => filters.stores.includes(d.merchant)) : local), [local, filters.stores])
   // Match the everyday suggestions against this week's ads while the page is idle, so adding the
